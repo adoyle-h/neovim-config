@@ -1,0 +1,7 @@
+.DS_Store
+plugged
+autoload
+temp
+.netrwhist
+colors/*
+!**/*/.gitkeep
