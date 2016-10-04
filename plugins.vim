@@ -11,6 +11,7 @@
 
 
 "" ========
+Plug 'matze/vim-move'
 Plug 'MattesGroeger/vim-bookmarks'  " 书签管理器
 Plug 'kassio/neoterm'  " vim 内启动 shell
 Plug 'adoyle-h/vim-emacscommandline'  " emacs 快捷键
@@ -29,8 +30,6 @@ Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 "Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder
 Plug 'shougo/unite.vim' "  search and display information from arbitrary sources like files, buffers, recently used files or registers.
 Plug 'scrooloose/syntastic' " syntax checking for vim
-Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'adoyle-h/syntastic-local-eslint.vim', {'branch': 'adoyle'} " 使用项目自身的 eslint 进行语法检查
 "Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
@@ -100,6 +99,7 @@ Plug 'junegunn/limelight.vim', { 'on': 'Limelight', 'for': 'markdown' } " 高亮
 Plug 'sotte/presenting.vim', { 'for': 'markdown' } " markdown 幻灯片
 
 "" languages
+" Plug 'sheerun/vim-polyglot'
 Plug 'Chiel92/vim-autoformat'
 
 Plug 'mattn/emmet-vim', {'for': ['html', 'xml', 'xhtml']}
@@ -111,6 +111,8 @@ Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
 Plug 'moll/vim-node', {'for': ['javascript', 'javascript.jsx']}
 Plug 'ternjs/tern_for_vim', {'for': ['javascript', 'javascript.jsx']}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
+Plug 'mtscout6/syntastic-local-eslint.vim', {'for': ['javascript', 'javascript.jsx']}
+" Plug 'adoyle-h/syntastic-local-eslint.vim', {'for': ['javascript', 'javascript.jsx'], 'branch': 'adoyle'} " 使用项目自身的 eslint 进行语法检查
 
 Plug 'elixir-lang/vim-elixir', {'for': ['.ex', '.exs', '.eex']}
 

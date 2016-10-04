@@ -145,7 +145,7 @@ set synmaxcol=300 " Syntax coloring lines that are too long just slows down the 
 set updatetime=5000  " 每 5000 毫秒保存一次 swap
 set updatecount=100   " 每 100 字符保存一次 swap
 
-"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 "" insert mode - line
 "let &t_SI .= "\<Esc>[5 q"

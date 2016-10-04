@@ -18,7 +18,6 @@ nnoremap <leader>p "0p
 xnoremap <leader>p "0p
 
 inoremap jk <Esc>
-inoremap ii <Esc>
 
 nnoremap K i<Enter><Esc>
 
@@ -200,8 +199,10 @@ endfunction
 
 
 " vim-easy-align
-nmap <leader>a <Plug>(EasyAlign)
-xmap <leader>a <Plug>(EasyAlign)
+" nmap <leader>a <Plug>(EasyAlign)
+" xmap <leader>a <Plug>(EasyAlign)
+nmap <leader>a <Plug>(LiveEasyAlign)
+xmap <leader>a <Plug>(LiveEasyAlign)
 
 " vim-fuzzysearch
 nmap <leader>/ :FuzzySearch<CR>
