@@ -1,6 +1,7 @@
 " set a map leader for more key combos
 let mapleader = ';'
 
+tnoremap kj <C-\><C-n>
 
 " 废弃 F1 这个键，防止调出系统帮助。可以使用 :help 来调出 vim 帮助
 noremap <F1> <Esc>
@@ -144,6 +145,7 @@ nnoremap <leader>sa ggVG
 " toggle scrolloff
 noremap <leader>so :let &scrolloff=999-&scrolloff<CR>
 noremap <leader>N :call NumberToggle()<cr>
+noremap <leader>L :ToggleLineNumber<cr>
 " toggle paste mode
 noremap <leader>P :set paste!<cr>
 
@@ -199,8 +201,8 @@ endfunction
 
 
 " vim-easy-align
-" nmap <leader>a <Plug>(EasyAlign)
-" xmap <leader>a <Plug>(EasyAlign)
+nmap <leader>A <Plug>(EasyAlign)
+xmap <leader>A <Plug>(EasyAlign)
 nmap <leader>a <Plug>(LiveEasyAlign)
 xmap <leader>a <Plug>(LiveEasyAlign)
 
@@ -309,3 +311,7 @@ function! BookmarkUnmapKeys()
 endfunction
 autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+
+" vim-gitgutter
+nnoremap <leader>gk :GitGutterPrevHunk<CR>
+nnoremap <leader>gj :GitGutterNextHunk<CR>

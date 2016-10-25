@@ -11,7 +11,8 @@
 
 
 "" ========
-Plug 'matze/vim-move'
+Plug 'uguu-org/vim-matrix-screensaver'
+Plug 'matze/vim-move' " 移动选定段落 <A-k> <A-j>
 Plug 'MattesGroeger/vim-bookmarks'  " 书签管理器
 Plug 'kassio/neoterm'  " vim 内启动 shell
 Plug 'adoyle-h/vim-emacscommandline'  " emacs 快捷键
@@ -26,7 +27,6 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle
 Plug 'jistr/vim-nerdtree-tabs', {'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-"Plug 'godlygeek/tabular' " alt vim-easy-align
 "Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder
 Plug 'shougo/unite.vim' "  search and display information from arbitrary sources like files, buffers, recently used files or registers.
 Plug 'scrooloose/syntastic' " syntax checking for vim
@@ -43,11 +43,12 @@ Plug 'ggVGc/vim-fuzzysearch', {'on': 'FuzzySearch'}
 Plug 'dyng/ctrlsf.vim', {'on': ['<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', 'CtrlSF']} " 项目内内容搜索
 Plug 'thinca/vim-visualstar'  " visual 模型下查找增强
 Plug 'scrooloose/nerdcommenter'  " 注释
-" Plug 'tomtom/tcomment_vim'  " alt nerdcommenter
 Plug 'yggdroot/indentline'  " alt vim-indent-guides
-Plug 'tpope/vim-ragtag' " like closetag
-Plug 'alvan/vim-closetag', {'for': ['javascript.jsx', 'html', 'xml', 'xhtml']}
-Plug 'Valloric/MatchTagAlways', {'for': ['javascript.jsx', 'html', 'xml', 'xhtml']}
+Plug 'tpope/vim-ragtag' " like closetag. endings for html, xml, etc. - ehances surround.
+Plug 'alvan/vim-closetag'
+" , {'for': ['javascript.jsx', 'html', 'xml', 'xhtml']}
+Plug 'Valloric/MatchTagAlways'
+" , {'for': ['javascript.jsx', 'html', 'xml', 'xhtml']}
 Plug 'vim-scripts/matchit.zip' " extended % matching
 
 Plug 'airblade/vim-gitgutter' " git 状态侧边栏
@@ -57,26 +58,24 @@ Plug 'henrik/vim-indexed-search'  " 显示搜索查找到第几个
 Plug 'szw/vim-maximizer'  " window 缩放
 
 "" utilities
-"Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc' | Plug 'xolox/vim-session' " improve :mksession
 "Plug 'sickill/vim-pasta' " context-aware pasting
 Plug 'tpope/vim-sleuth' " 根据上下文自动调整 shiftwidth expandtab
-"Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
-
-"Plug 'tpope/vim-endwise' " automatically add end in ruby
-"Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
+Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chrisbra/Recover.vim'   " 崩溃后打开 swap 文件 diff
 Plug 'wesQ3/vim-windowswap'  " window 窗口交换
 
 "" snippets
-Plug 'SirVer/ultisnips', { 'on': [] }
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets' " vim-snippets depends on ultisnips
 Plug 'justinj/vim-react-snippets'
 Plug 'ahmedelgabri/vim-ava-snippets'
 Plug 'rdnetto/YCM-Generator', { 'on': 'YcmGenerateConfig', 'branch': 'stable'}
 "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
 
+" ycmd
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer'}
 augroup load_snips
   autocmd!
@@ -85,6 +84,7 @@ augroup load_snips
           \| autocmd! load_snips
 augroup END
 
+Plug 'tpope/vim-abolish'  " fix typo
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeToggle'}  " 格式化表格
 Plug 'bronson/vim-trailing-whitespace' " 去空格
@@ -94,6 +94,7 @@ Plug 'rhlobo/vim-super-retab' " tab space 转换
 
 "" writing
 
+Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' } " 禅意协作模式
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight', 'for': 'markdown' } " 高亮当前代码块
 Plug 'sotte/presenting.vim', { 'for': 'markdown' } " markdown 幻灯片

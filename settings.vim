@@ -145,7 +145,10 @@ set synmaxcol=300 " Syntax coloring lines that are too long just slows down the 
 set updatetime=5000  " 每 5000 毫秒保存一次 swap
 set updatecount=100   " 每 100 字符保存一次 swap
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set sessionoptions=buffers,curdir,resize,tabpages,winpos,winsize
+
+" NVIM_TUI_ENABLE_TRUE_COLOR is ignored. #4690
+set notermguicolors
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 "" insert mode - line
 "let &t_SI .= "\<Esc>[5 q"
@@ -153,4 +156,11 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 "let &t_SR .= "\<Esc>[4 q"
 ""common - block
 "let &t_EI .= "\<Esc>[3 q"
-
+"" http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
+" let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+" let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+" let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" " For tmux running in iTerm2 on OS X:
+" let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+" let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+" let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"

@@ -15,5 +15,3 @@ source $NVIM_HOME/keys.vim
 for file in split(glob('$NVIM_HOME/ftdetect/*.vim'), '\n')
   execute 'source' file
 endfor
-"source $NVIM_HOME/ftdetect.vim
-

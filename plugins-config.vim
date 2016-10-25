@@ -205,20 +205,23 @@ let g:tagbar_sort = 0
 
 " UltiSnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<C-n>"
-"let g:UltiSnipsJumpBackwardTrigger="<C-p>"
-let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
-let g:UltiSnipsSnippetsDir = '$XDG_CONFIG_HOME/nvim/UltiSnips'
+let g:UltiSnipsExpandTrigger='<tab>'
+"let g:UltiSnipsJumpForwardTrigger='<C-n>'
+"let g:UltiSnipsJumpBackwardTrigger='<C-p>'
+let g:UltiSnipsListSnippets = '<C-tab>'
+let g:UltiSnipsSnippetsDir = $NVIM_HOME.'/UltiSnips'
 
-" YouCompleteMe
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_confirm_extra_conf=0
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+" YouCompleteMe/ycmd
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_show_diagnostics_ui = 0  " diagnostics for C-family languages
+let g:ycm_server_keep_logfiles = 1  " 持久化 ycmd 服务端日志
+let g:ycm_server_log_level = 'info'
+let g:ycm_confirm_extra_conf=1
+let g:ycm_global_ycm_extra_conf=''
 let g:ycm_complete_in_comments=1 " 补全功能在注释中同样有效
-let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+let g:ycm_complete_in_strings = 1   " 在字符串输入中也能补全
+let g:ycm_use_ultisnips_completer = 1 " 开启 UltiSnips 补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 1   " 注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_tags_files = 1  " 开启 YCM 基于标签引擎
 let g:ycm_seed_identifiers_with_syntax=1 " 开启语法关键字补全
 let g:ycm_goto_buffer_command = 'horizontal-split'
@@ -317,3 +320,13 @@ let g:easy_align_delimiters = {
 
 " vim-bookmarks
 let g:bookmark_no_default_key_mappings = 1
+
+" vim-session
+let g:session_directory=$NVIM_HOME.'/temp/session'
+let g:session_lock_directory=$NVIM_HOME.'/temp/session_lock'
+let g:session_autosave='yes'
+let g:session_autoload='no'
+
+" neoterm
+let g:neoterm_position = 'horizontal'
+let g:neoterm_automap_keys = '<leader>tt'
