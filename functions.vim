@@ -8,7 +8,7 @@ command! Q :q!
 command! Qa :qa!
 command! Format :Autoformat
 command! LimelightOff Limelight!
-
+command! JSONfy :%s/\v^( +)([^" ]+)(\ +)?:/\1"\2"\3:/g | echo 'JSONfy done'
 
 function! NumberToggle()
   if(&relativenumber == 1)
