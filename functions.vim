@@ -3,7 +3,8 @@ command! Reload :source ~/.config/nvim/init.vim
 command! Path :echo expand('%:p')
 command! ClearSearch :let @/ = ""
 command! CursorColHL :set cursorcolumn!
-command! TrailingSpaces FixWhitespace
+command! TrailingSpaces RemoveTrailingSpaces
+command! ClearCRLF :%s///g
 command! Q :q!
 command! Qa :qa!
 command! Format :Autoformat
@@ -11,6 +12,14 @@ command! LimelightOff Limelight!
 command! JSONfy :%s/\v^( +)([^" ]+)(\ +)?:/\1"\2"\3:/g | echo 'JSONfy done'
 command! SnippetsList :echo GetAllSnippets()
 command! ToggleLineNumber :set relativenumber! number!
+command! ProfileStart :call ProfileStart()
+command! ProfileEnd :profile pause
+
+function! ProfileStart()
+  profile start profile.log
+  profile func *
+  profile file *
+endfunc
 
 function! NumberToggle()
   if(&relativenumber == 1)

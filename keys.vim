@@ -1,8 +1,6 @@
 " set a map leader for more key combos
 let mapleader = ';'
 
-tnoremap kj <C-\><C-n>
-
 " 废弃 F1 这个键，防止调出系统帮助。可以使用 :help 来调出 vim 帮助
 noremap <F1> <Esc>
 noremap <silent><F2> :NERDTreeTabsToggle<CR>
@@ -15,39 +13,47 @@ noremap <leader>nt :NERDTreeTabsToggle<CR>
 noremap <leader>nm :NERDTreeMirrorToggle<CR>
 noremap <leader>nf :NERDTreeTabsFind<CR>
 
+" 复制选中区到系统剪切板中
+vnoremap <leader>y "+y
+" y$ -> Y Make Y behave like other capitals
+nnoremap Y y$
+
 nnoremap <leader>p "0p
 xnoremap <leader>p "0p
 
+" Exit from input mode
 inoremap jk <Esc>
+" Exit from terminal mode
+tnoremap kj <C-\><C-n>
 
-nnoremap K i<Enter><Esc>
-
-" 缩进当前行所在段落
-nnoremap <Tab> za
-" 按当前行的缩进，缩进所有同 level 的段落
-nnoremap <M-Tab> :call IndentToLevel()<CR>
+" ------------ M- Keymaps ------------
+nnoremap <M-g> :echo expand('%:p')<CR>
+nnoremap <M-v> ^v$
 
 " 调整缩进后自动选中，方便再次操作
 vnoremap < <gv
 vnoremap > >gv
 nnoremap > >>
 nnoremap < <<
-nnoremap <S-tab> <<
+" nnoremap <S-tab> <<
 inoremap <S-Tab> <C-d>
+" 缩进当前行所在段落
+nnoremap <Tab> za
+" 按当前行的缩进，缩进所有同 level 的段落
+nnoremap <M-Tab> :call IndentToLevel()<CR>
 " 因为 YCM 的影响，insert mode 下 tab 键被占用
 " 不能重定义 tab，因为 tab 和 <C-I> 绑定在一起的
 "nnoremap <tab> >>
-
-" 复制选中区到系统剪切板中
-vnoremap <leader>y "+y
-" y$ -> Y Make Y behave like other capitals
-nnoremap Y y$
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
 " window 相关
-noremap <C-W>N :vnew<cr>
+noremap <C-W>N :vnew<CR>
+nmap <C-W>h <C-W>h
+nmap <C-W>j <C-W>j
+nmap <C-W>k <C-W>k
+nmap <C-W>l <C-W>l
 nmap <C-W>H <C-W>5<<C-W>
 nmap <C-W>J <C-W>5+<C-W>
 nmap <C-W>K <C-W>5-<C-W>
@@ -66,24 +72,24 @@ nmap <C-W>o <C-W>w<C-W>
 nmap <C-W>O <C-W>W<C-W>
 " vim-maximizer
 noremap <C-W>z :MaximizerToggle!<CR>
-" vim-windowswap
-let g:windowswap_map_keys = 0 "prevent default bindings
-nnoremap <C-W>w :call WindowSwap#EasyWindowSwap()<CR>
+" " vim-windowswap
+" let g:windowswap_map_keys = 0 "prevent default bindings
+" nnoremap <C-W>w :call WindowSwap#EasyWindowSwap()<CR>
 
 "" tab 相关
 let g:lasttab = 1
 noremap <leader>tl :execute "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-noremap <leader>tx :tabclose<cr>
-noremap <leader>tj :tabnext<cr>
-noremap <leader>tk :tabprev<cr>
-noremap <leader>tn :tabnew<cr>
-noremap <C-t>x :tabclose<cr>
-noremap <C-t>j :tabnext<cr>
+noremap <leader>tx :tabclose<CR>
+noremap <leader>tj :tabnext<CR>
+noremap <leader>tk :tabprev<CR>
+noremap <leader>tn :tabnew<CR>
+noremap <C-t>x :tabclose<CR>
+noremap <C-t>j :tabnext<CR>
 noremap <C-t>k gT
 noremap <C-t>n :tabnew<CR>
-noremap <C-t>h :tabmove -<cr>
-noremap <C-t>l :tabmove +<cr>
+noremap <C-t>h :tabmove -<CR>
+noremap <C-t>l :tabmove +<CR>
 inoremap <C-t>n <Esc>:tabnew<CR>
 
 " normal模式下切换到确切的tab
@@ -96,7 +102,7 @@ noremap <C-t>6 6gt
 noremap <C-t>7 7gt
 noremap <C-t>8 8gt
 noremap <C-t>9 9gt
-noremap <C-t>0 :tablast<cr>
+noremap <C-t>0 :tablast<CR>
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
@@ -106,16 +112,16 @@ noremap <leader>6 6gt
 noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+noremap <leader>0 :tablast<CR>
 
 
 " buffer 相关
-noremap <leader>bj :bn<cr>
-noremap <leader>bk :bp<cr>
-noremap <leader>bd :bd<cr>
+noremap <leader>bj :bn<CR>
+noremap <leader>bk :bp<CR>
+noremap <leader>bd :bd<CR>
 
 " clear highlighted search
-noremap <leader>h :set hlsearch! hlsearch?<cr>
+noremap <leader>h :set hlsearch! hlsearch?<CR>
 
 " normal 模式下加空格
 nnoremap <space> i<space><esc>
@@ -123,45 +129,42 @@ nnoremap ]<space> a<space><esc>
 nnoremap [<space> i<space><esc>
 
 " 加新行
-nnoremap <C-k> O<Esc>j
-nnoremap <C-j> o<Esc>k
+nnoremap <silent><C-k> :put! =''<CR>j
+nnoremap <silent><C-j> :put =''<CR>k
+" split line
+nnoremap K i<Enter><Esc>
 
 " shortcut to save
-nnoremap <leader>w :w<cr>
-nnoremap <leader>q :close<cr>
-nnoremap <leader>e :e<cr>
-"nnoremap <leader>r :Reload<cr>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :close<CR>
+nnoremap <leader>e :e<CR>
 
 " disable Ex mode
 noremap Q <NOP>
 
 
 " activate spell-checking alternatives
-noremap <leader>S :set invspell<cr>
+noremap <leader>S :set invspell<CR>
 " toggle invisible characters
-noremap <leader>l :set list!<cr>
+noremap <leader>l :set list!<CR>
 " select all
 nnoremap <leader>sa ggVG
 " toggle scrolloff
 noremap <leader>so :let &scrolloff=999-&scrolloff<CR>
-noremap <leader>N :call NumberToggle()<cr>
-noremap <leader>L :ToggleLineNumber<cr>
+noremap <leader>N :call NumberToggle()<CR>
+noremap <leader>L :ToggleLineNumber<CR>
 " toggle paste mode
-noremap <leader>P :set paste!<cr>
+noremap <leader>P :set paste!<CR>
 
-
-" Textmate style indentation
-vmap <leader>[ <gv
-vmap <leader>] >gv
-nmap <leader>[ <<
-nmap <leader>] >>
 
 " enable . command in visual mode
-vnoremap . :normal .<cr>
+vnoremap . :normal .<CR>
 
 " scroll the viewport faster
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
+
+" ------------------------ Pugins Keymap ----------------------------
 
 " Unite
 noremap <silent><leader>uf :call Unite_open("file")<CR>
@@ -169,8 +172,8 @@ noremap <silent><leader>uf :call Unite_open("file")<CR>
 noremap <silent><leader>uF :call Unite_open("file_rec/neovim")<CR>
 noremap <silent><leader>ud :call Unite_open("directory")<CR>
 " noremap <silent><leader>ub :call Unite_open("buffer_tab")<CR>
-noremap <silent><leader>ub :call Unite_open("buffer")<cr>
-noremap <silent><leader>uc :call Unite_open("command")<cr>
+noremap <silent><leader>ub :call Unite_open("buffer")<CR>
+noremap <silent><leader>uc :call Unite_open("command")<CR>
 noremap <silent><leader>ut :call Unite_open("tab")<CR>
 noremap <silent><leader>ur :call Unite_open("register")<CR>
 noremap <silent><leader>um :call Unite_open("bookmark")<CR>
@@ -254,8 +257,8 @@ noremap <leader>tm :TableModeToggle<CR>
 noremap <leader>tc :echomsg TableModeChange()<CR>
 
 " emacs editline
-inoremap <silent> <C-a> <Esc>0a
-inoremap <silent> <C-e> <Esc>$a
+inoremap <silent> <C-a> <Esc>I
+inoremap <silent> <C-e> <Esc>A
 inoremap <silent> <C-b> <Esc>ha
 inoremap <silent> <C-f> <Esc>la
 inoremap <silent> <M-b> <Esc>bi
@@ -276,11 +279,6 @@ autocmd User Node
   \   nmap <buffer> <C-W><C-f> <Plug>NodeVSplitGotoFile |
   \ endif
 
-" vim-interestingwords
-nnoremap <leader>in :call WordNavigation('forward')<cr>
-nnoremap <leader>iN :call WordNavigation('backward')<cr>
-nnoremap <leader>ip :call WordNavigation('backward')<cr>
-
 " vim-bookmarks
 let g:bookmark_no_default_key_mappings = 1
 function! BookmarkMapKeys()
@@ -293,8 +291,8 @@ function! BookmarkMapKeys()
     nmap ml :BookmarkShowAll<CR>
     nmap mx :BookmarkClear<CR>
     nmap mX :BookmarkClearAll<CR>
-    nmap mK :BookmarkMoveUp
-    nmap mJ :BookmarkMoveDown
+    nmap mK :BookmarkMoveUp<CR>
+    nmap mJ :BookmarkMoveDown<CR>
 endfunction
 function! BookmarkUnmapKeys()
     unmap mm
@@ -315,3 +313,14 @@ autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 " vim-gitgutter
 nnoremap <leader>gk :GitGutterPrevHunk<CR>
 nnoremap <leader>gj :GitGutterNextHunk<CR>
+
+" vim-interestingwords
+nnoremap <leader>ij :call WordNavigation('forward')<CR>
+nnoremap <leader>ik :call WordNavigation('backward')<CR>
+
+" increment-activator
+nmap <leader>ii <Plug>(increment-activator-increment)<leader>i
+nmap <leader>id <Plug>(increment-activator-decrement)<leader>i
+
+" choose-win
+nmap - <Plug>(choosewin)

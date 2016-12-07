@@ -1,0 +1,28 @@
+snippet function* "Generator function"
+function* ${1:name}(${2}) {
+	yield ${3};
+}
+endsnippet
+
+snippet => "Arrow function" i
+(${1}) => {
+	${2}
+}
+endsnippet
+
+snippet class "ES6 Class"
+class ${1:name} {
+	constructor(${2:arg}) {
+		${3:// init}
+	}
+	${4}
+}
+endsnippet
+
+snippet import "Import"
+import ${1:foo} from '${2:bar}'
+endsnippet
+
+snippet export "Export"
+export ${1:default} ${2:bar}
+endsnippet

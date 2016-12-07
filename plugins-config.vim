@@ -21,6 +21,9 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:NERDSpaceDelims = 1
 let g:NERDRemoveExtraSpaces = 1
 let g:NERDCommentWholeLinesInVMode = 1
+let g:NERDCustomDelimiters = {
+    \ 'plantuml': { 'left': "'", 'right': '' }
+\ }
 
 " indentline
 let g:indentLine_color_term = 237
@@ -279,6 +282,7 @@ let g:clever_f_show_prompt = 1
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#source('file_rec/neovim', 'ignore_pattern', 'node_modules/\|bower_components/')
+autocmd FileType unite setlocal number relativenumber
 
 if executable('ag')
     " Use ag (the silver searcher) https://github.com/ggreer/the_silver_searcher
@@ -330,3 +334,47 @@ let g:session_autoload='no'
 " neoterm
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = '<leader>tt'
+
+" increment-activator
+let g:increment_activator_no_default_key_mappings = 1
+let g:increment_activator_filetype_candidates = {
+  \ '_': [
+  \   ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+  \   ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+  \   ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'],
+  \   ['none', 'debug', 'info', 'warn', 'error'],
+  \   ['NONE', 'DEBUG', 'INFO', 'WARN', 'ERROR'],
+  \ ],
+  \ }
+
+" vim-markdown-toc
+let g:vmt_style = 'unordered'
+
+" choose-win
+let g:choosewin_label_padding = 5
+let g:choosewin_color_label = {
+  \ 'cterm': [246, 0]
+  \ }
+let g:choosewin_color_label_current = {
+  \ 'cterm': [220, 0]
+  \ }
+let g:choosewin_blink_on_land = 0
+" let g:choosewin_tabline_replace    = 0 " don't replace tabline
+let g:choosewin_label = 'qweasdzxc'
+let g:choosewin_tablabel = '1234567890'
+let g:choosewin_keymap = {
+  \ '0':     '<NOP>',
+  \ '[':     'tab_prev',
+  \ ']':     'tab_next',
+  \ '$':     '<NOP>',
+  \ 'x':     '<NOP>',
+  \ ';':     '<NOP>',
+  \ '-':     'previous',
+  \ 's':     'swap',
+  \ 'S':     'swap_stay',
+  \ "\<CR>": 'win_land',
+  \ 'h':     'tab_first',
+  \ 'k':     'tab_prev',
+  \ 'j':     'tab_next',
+  \ 'l':     'tab_last',
+  \ }
