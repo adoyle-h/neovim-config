@@ -15,11 +15,16 @@ noremap <leader>nf :NERDTreeTabsFind<CR>
 
 " 复制选中区到系统剪切板中
 vnoremap <leader>y "+y
-" y$ -> Y Make Y behave like other capitals
+" y$ -> Y Make Y behave like other capitals: D, C etc...
 nnoremap Y y$
 
 nnoremap <leader>p "0p
 xnoremap <leader>p "0p
+" 从系统剪切板中粘贴
+nnoremap <leader>P "*p
+xnoremap <leader>P "*p
+" toggle paste mode
+noremap <M-p> :set paste!<CR>
 
 " Exit from input mode
 inoremap jk <Esc>
@@ -153,8 +158,6 @@ nnoremap <leader>sa ggVG
 noremap <leader>so :let &scrolloff=999-&scrolloff<CR>
 noremap <leader>N :call NumberToggle()<CR>
 noremap <leader>L :ToggleLineNumber<CR>
-" toggle paste mode
-noremap <leader>P :set paste!<CR>
 
 
 " enable . command in visual mode

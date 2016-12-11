@@ -30,7 +30,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTa
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 "Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder
 Plug 'shougo/unite.vim' "  search and display information from arbitrary sources like files, buffers, recently used files or registers.
-"Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'  " 括号颜色配对。暂不开启，会影响到其他语法着色
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 "Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
@@ -56,7 +56,7 @@ Plug 'tpope/vim-fugitive' " git 命令 in vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'henrik/vim-indexed-search'  " 显示搜索查找到第几个
 Plug 'szw/vim-maximizer'  " window 缩放
-Plug 't9md/vim-choosewin'
+Plug 't9md/vim-choosewin' " window/tab 切换
 
 "" utilities
 Plug 'xolox/vim-misc' | Plug 'xolox/vim-session' " improve :mksession

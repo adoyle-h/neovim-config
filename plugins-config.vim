@@ -137,7 +137,7 @@ let g:gitgutter_sign_modified_removed = '⋍'
 " rainbow
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
-\   'ctermfgs': ['82', '27', '2', '3', '166', '4', '5', '6'],
+\   'ctermfgs': ['205', '119', '33', '48', '229', '202', '166', '4', '13', '105'],
 \   'operators': '_,_',
 \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \   'separately': {
@@ -351,16 +351,31 @@ let g:increment_activator_filetype_candidates = {
 let g:vmt_style = 'unordered'
 
 " choose-win
+" tmux-like overlay
+let g:choosewin_overlay_enable = 1
+let g:choosewin_statusline_replace = !g:choosewin_overlay_enable
+let g:choosewin_tabline_replace    = 0 " don't replace tabline
+let g:choosewin_overlay_shade = 0
+let g:choosewin_blink_on_land      = 0 " don't blink at land
+let g:choosewin_color_overlay = {
+      \ 'cterm': [33, 33]
+      \ }
+let g:choosewin_color_overlay_current = {
+      \ 'cterm': [196, 196]
+      \ }
+
 let g:choosewin_label_padding = 5
+let g:choosewin_color_bg = 238
+let g:choosewin_color_other = {
+  \ 'cterm': [g:choosewin_color_bg, 0]
+  \ }
 let g:choosewin_color_label = {
-  \ 'cterm': [246, 0]
+  \ 'cterm': [g:choosewin_color_bg, 33]
   \ }
 let g:choosewin_color_label_current = {
-  \ 'cterm': [220, 0]
+  \ 'cterm': [g:choosewin_color_bg, 196]
   \ }
-let g:choosewin_blink_on_land = 0
-" let g:choosewin_tabline_replace    = 0 " don't replace tabline
-let g:choosewin_label = 'qweasdzxc'
+let g:choosewin_label = 'QWEASDZXC'
 let g:choosewin_tablabel = '1234567890'
 let g:choosewin_keymap = {
   \ '0':     '<NOP>',
