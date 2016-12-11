@@ -1,34 +1,58 @@
-# ADoyle-Style Neovim Config
+# ADoyle-Style Neovim Configuration
 
-学习交流用，仅供参考
+学习交流用，仅供参考。
 
-## 版本
+Share for learning and reference.
+
+## 版本 (Version)
 
 ```
-NVIM v0.1.5-803-g006f9c0
-Build type: Dev
+NVIM v0.2.0-97-gacbce46
+Build type: RelWithDebInfo
 
 Optional features included (+) or not (-): +acl   +iconv    +jemalloc +tui
 ```
 
-## 配置
+## 依赖 (Dependencies)
 
-### linux 环境变量
+1. Set environment variable in shell
 
-`export NVIM_HOME=~/.config/nvim`
+    `export NVIM_HOME=~/.config/nvim`
 
-### 颜色配置
+2. Download my color theme
 
-`git clone --single-branch --depth 1 -b adoyle https://github.com/adoyle-h/vim-colors-solarized`
+    `git clone --single-branch --depth 1 -b adoyle https://github.com/adoyle-h/vim-colors-solarized`
 
-`ln -s <vim-colors-solarized>/colors/solarized.vim colors/solarized.vim`
+    `ln -s <vim-colors-solarized>/colors/solarized.vim colors/solarized.vim`
+
+3. Install vim plug manager (vim-plug)
+
+    https://github.com/junegunn/vim-plug
 
 
-### 安装插件系统
+## 目录结构 (Files Structure)
 
-https://github.com/junegunn/vim-plug
-
-
-## 入口文件
-
-`init.vim`
+```
+.
+├── README.md
+├── UltiSnips/         // snippets
+│   └── all.snippets   // snippets for all files
+├── abbreviations.vim
+├── autocmds.vim
+├── autoload/          // vim-plug
+├── color.vim          // color setting
+├── colors/            // color themes
+├── filetype.vim
+├── functions.vim      // commands and functions
+├── init.vim           // <= neovim configuration entry point
+├── keys.vim           // keyboard maps
+├── plugged/           // plugins
+├── plugins-config.vim // plugin config
+├── plugins.vim        // plugin list (vim-plug)
+├── settings.vim       // neovim/vim settings
+├── spell/             // spell check
+└── temp/              // temporary files
+    ├── session        // xolox/vim-session plugin
+    ├── session_lock   // xolox/vim-session plugin
+    └── undodir        // mbbill/undotree plugin
+```
