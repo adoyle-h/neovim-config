@@ -1,26 +1,25 @@
 " set a map leader for more key combos
 let mapleader = ';'
 
+" ------------------------ F1~F9 Keymap ----------------------------
 " 废弃 F1 这个键，防止调出系统帮助。可以使用 :help 来调出 vim 帮助
 noremap <F1> <Esc>
 noremap <silent><F2> :NERDTreeTabsToggle<CR>
 noremap <silent><F3> :Tagbar<CR>
 noremap <silent><F5> :UndotreeToggle<CR>
+" ------------------------------------------------------------------
 
 noremap <leader>C :ClearSearch<CR>
 
-noremap <leader>nt :NERDTreeTabsToggle<CR>
-noremap <leader>nm :NERDTreeMirrorToggle<CR>
-noremap <leader>nf :NERDTreeTabsFind<CR>
-
-" 复制选中区到系统剪切板中
+" copy selected into system clipboard
 vnoremap <leader>y "+y
 " y$ -> Y Make Y behave like other capitals: D, C etc...
 nnoremap Y y$
 
+" paste from vim clipboard
 nnoremap <leader>p "0p
 xnoremap <leader>p "0p
-" 从系统剪切板中粘贴
+" paste from system clipboard
 nnoremap <leader>P "*p
 xnoremap <leader>P "*p
 " toggle paste mode
@@ -31,9 +30,50 @@ inoremap jk <Esc>
 " Exit from terminal mode
 tnoremap kj <C-\><C-n>
 
-" ------------ M- Keymaps ------------
-nnoremap <M-g> :echo expand('%:p')<CR>
-nnoremap <M-v> ^v$
+" clear highlighted search
+noremap <leader>h :set hlsearch! hlsearch?<CR>
+
+" add spaces in normal mode
+nnoremap <space> i<space><esc>
+nnoremap ]<space> a<space><esc>
+nnoremap [<space> i<space><esc>
+
+" add blank before/after current line
+nnoremap <silent><C-k> :put! =''<CR>j
+nnoremap <silent><C-j> :put =''<CR>k
+" split line
+nnoremap K i<Enter><Esc>
+
+" shortcut to save
+nnoremap <leader>w :w<CR>
+" shortcut to quit
+nnoremap <leader>q :close<CR>
+" shortcut to refresh
+nnoremap <leader>e :e<CR>
+
+" disable Ex mode
+noremap Q <NOP>
+
+" toggle invisible characters
+noremap <leader>l :set list!<CR>
+" select all
+nnoremap <leader>sa ggVG
+" toggle scrolloff
+noremap <leader>so :let &scrolloff=999-&scrolloff<CR>
+noremap <leader>N :call NumberToggle()<CR>
+noremap <leader>L :ToggleLineNumber<CR>
+
+" enable . command in visual mode
+vnoremap . :normal .<CR>
+
+" jumps
+nnoremap go <C-o>
+nnoremap gi <C-i>
+nnoremap g. g;
+
+" scroll the viewport faster
+nnoremap <C-e> 5<C-e>
+nnoremap <C-y> 5<C-y>
 
 " 调整缩进后自动选中，方便再次操作
 vnoremap < <gv
@@ -53,7 +93,14 @@ nnoremap <M-Tab> :call IndentToLevel()<CR>
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
-" window 相关
+
+" ------------------------- M- Keymap ------------------------------
+nnoremap <M-g> :echo expand('%:p')<CR>
+nnoremap <M-v> ^v$
+" activate spell-checking alternatives
+noremap <M-s> :set invspell<CR>
+
+" ----------------------- Window Keymap ----------------------------
 noremap <C-W>N :vnew<CR>
 nmap <C-W>h <C-W>h
 nmap <C-W>j <C-W>j
@@ -81,7 +128,7 @@ noremap <C-W>z :MaximizerToggle!<CR>
 " let g:windowswap_map_keys = 0 "prevent default bindings
 " nnoremap <C-W>w :call WindowSwap#EasyWindowSwap()<CR>
 
-"" tab 相关
+" -------------------------- Tab Keymap ----------------------------
 let g:lasttab = 1
 noremap <leader>tl :execute "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
@@ -119,55 +166,17 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
 
-
-" buffer 相关
+" ------------------------ Buffer Keymap ---------------------------
 noremap <leader>bj :bn<CR>
 noremap <leader>bk :bp<CR>
 noremap <leader>bd :bd<CR>
 
-" clear highlighted search
-noremap <leader>h :set hlsearch! hlsearch?<CR>
+" ------------------------ Pugins Keymap ---------------------------
 
-" normal 模式下加空格
-nnoremap <space> i<space><esc>
-nnoremap ]<space> a<space><esc>
-nnoremap [<space> i<space><esc>
-
-" 加新行
-nnoremap <silent><C-k> :put! =''<CR>j
-nnoremap <silent><C-j> :put =''<CR>k
-" split line
-nnoremap K i<Enter><Esc>
-
-" shortcut to save
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :close<CR>
-nnoremap <leader>e :e<CR>
-
-" disable Ex mode
-noremap Q <NOP>
-
-
-" activate spell-checking alternatives
-noremap <leader>S :set invspell<CR>
-" toggle invisible characters
-noremap <leader>l :set list!<CR>
-" select all
-nnoremap <leader>sa ggVG
-" toggle scrolloff
-noremap <leader>so :let &scrolloff=999-&scrolloff<CR>
-noremap <leader>N :call NumberToggle()<CR>
-noremap <leader>L :ToggleLineNumber<CR>
-
-
-" enable . command in visual mode
-vnoremap . :normal .<CR>
-
-" scroll the viewport faster
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
-
-" ------------------------ Pugins Keymap ----------------------------
+" NERDTreeTabsToggle
+noremap <leader>nt :NERDTreeTabsToggle<CR>
+noremap <leader>nm :NERDTreeMirrorToggle<CR>
+noremap <leader>nf :NERDTreeTabsFind<CR>
 
 " Unite
 noremap <silent><leader>uf :call Unite_open("file")<CR>
