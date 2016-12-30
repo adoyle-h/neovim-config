@@ -201,6 +201,10 @@ function! TableModeChange()
 endfunc
 autocmd BufNew,BufRead * let b:table_mode_mode = 'GFM'
 autocmd BufNew,BufRead * call TableModeChange()
+let g:table_mode_motion_up_map = '[{'
+let g:table_mode_motion_down_map = ']}'
+let g:table_mode_motion_left_map = '[['
+let g:table_mode_motion_right_map = ']]'
 
 " tagbar
 let g:tagbar_show_linenumbers = -1
