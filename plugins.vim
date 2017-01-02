@@ -108,6 +108,7 @@ Plug 'moll/vim-node', {'for': ['javascript', 'javascript.jsx']}
 " Plug 'ternjs/tern_for_vim', {'for': ['javascript', 'javascript.jsx']}  " 太卡了
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
 Plug 'scrooloose/syntastic' " syntax checking for vim
+Plug 'koron/nyancat-vim'
 Plug 'adoyle-h/syntastic-local-eslint.vim', {'for': ['javascript', 'javascript.jsx'], 'branch': 'adoyle'} " 使用项目自身的 eslint 进行语法检查
 
 Plug 'elixir-lang/vim-elixir', {'for': ['.ex', '.exs', '.eex']}
