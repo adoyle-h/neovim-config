@@ -128,7 +128,7 @@ set spellfile=$XDG_CONFIG_HOME/nvim/spell/en.utf-8.add
 
 set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
-
+set inccommand=split " neovim feature: live preview
 
 " error bells
 set noerrorbells
