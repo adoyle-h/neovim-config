@@ -434,3 +434,15 @@ let g:ac_smooth_scroll_fb_sleep_time_msec = 1
 " vim-trailing-whitespace
 highlight ExtraWhitespace ctermbg=1
 let g:extra_whitespace_ignored_filetypes = []
+
+" fatih/vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+" let g:go_bin_path = expand("~/.gotools")
+" let g:go_bin_path = "/home/fatih/.mypath"      "or give absolute path
+let g:go_get_update = 0
+" let g:go_term_mode = "split"

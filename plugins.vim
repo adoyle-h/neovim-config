@@ -124,5 +124,7 @@ Plug 'rust-lang/rust.vim', {'for': ['.rust']}
 Plug 'tokozedg/vim-sman', {'for': ['.yaml']}
 Plug 'aklt/plantuml-syntax'
 
+Plug 'fatih/vim-go'
+
 " devicons should be put at last!!
 Plug 'ryanoasis/vim-devicons'
