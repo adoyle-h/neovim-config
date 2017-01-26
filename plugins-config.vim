@@ -250,6 +250,16 @@ let g:ycm_filetype_specific_completion_to_disable = {
 \ 'unite': 1,
 \}
 
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#auto_complete_start_length = 2
+let g:deoplete#auto_complete_delay = 80
+let g:deoplete#auto_refresh_delay = 50
+
 " vim-interestingwords
 let g:interestingWordsTermColors = ['154', '99', '121', '212', '39', '166', '123', '214', '34', '222', '111', '33']
 let g:interestingWordsRandomiseColors = 0
@@ -356,7 +366,7 @@ let g:vmt_style = 'unordered'
 
 " choose-win
 " tmux-like overlay
-let g:choosewin_overlay_enable = 1
+let g:choosewin_overlay_enable = 0
 let g:choosewin_statusline_replace = !g:choosewin_overlay_enable
 let g:choosewin_tabline_replace    = 0 " don't replace tabline
 let g:choosewin_overlay_shade = 0
@@ -369,7 +379,7 @@ let g:choosewin_color_overlay_current = {
       \ }
 
 let g:choosewin_label_padding = 5
-let g:choosewin_color_bg = 238
+let g:choosewin_color_bg = 234
 let g:choosewin_color_other = {
   \ 'cterm': [g:choosewin_color_bg, 0]
   \ }
@@ -397,3 +407,30 @@ let g:choosewin_keymap = {
   \ 'j':     'tab_next',
   \ 'l':     'tab_last',
   \ }
+
+" ale
+let g:ale_linters = {
+  \ 'javascript': ['eslint'],
+  \ }
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '>>'
+" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+" let g:ale_echo_msg_error_str = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 1
+let g:ale_warn_about_trailing_whitespace = 1
+" nmap <silent> <leader><C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
+highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
+highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
+
+" accelerated-smooth-scroll
+let g:ac_smooth_scroll_du_sleep_time_msec = 2
+let g:ac_smooth_scroll_fb_sleep_time_msec = 1
+
+" vim-trailing-whitespace
+highlight ExtraWhitespace ctermbg=1
+let g:extra_whitespace_ignored_filetypes = []

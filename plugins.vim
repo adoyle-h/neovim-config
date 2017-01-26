@@ -3,7 +3,6 @@
 "Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
 
 
-"Plug 'Shougo/deoplete.nvim'
 "Plug 'tpope/vim-vinegar'
 "Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
 "Plug 'tomtom/tlib_vim' " utility functions for vim
@@ -77,7 +76,8 @@ Plug 'rdnetto/YCM-Generator', { 'on': 'YcmGenerateConfig', 'branch': 'stable'}
 "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
 
 " ycmd
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer'}
+" Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer'} " CPU 燃烧器
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " 自动补全
 
 Plug 'tpope/vim-abolish'  " fix typo
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
@@ -88,15 +88,15 @@ Plug 'rhlobo/vim-super-retab' " tab space 转换
 
 "" writing
 
-Plug 'file:///Users/adoyle/Workspace/vim/vim-markdown-toc/', {'for': 'markdown', 'branch': 'adoyle'}
+Plug 'adoyle-h/vim-MarkdownTOC', {'for': 'markdown', 'branch': 'adoyle'} " Table of Content generator
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' } " 禅意协作模式
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight', 'for': 'markdown' } " 高亮当前代码块
 Plug 'sotte/presenting.vim', { 'for': 'markdown' } " markdown 幻灯片
 
 "" languages
 " Plug 'sheerun/vim-polyglot'
-Plug 'Chiel92/vim-autoformat'  " RemoveTrailingSpaces 也可以去空格
-" Plug 'bronson/vim-trailing-whitespace' " 去空格
+Plug 'Chiel92/vim-autoformat'  " 整理格式。并且自带的 RemoveTrailingSpaces 也可以去空格
+Plug 'adoyle-h/vim-trailing-whitespace', {'branch': 'adoyle'} " 高亮空格
 
 Plug 'mattn/emmet-vim', {'for': ['html', 'xml', 'xhtml']}
 Plug 'elzr/vim-json', {'for': ['javascript', 'json']}
@@ -107,9 +107,12 @@ Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
 Plug 'moll/vim-node', {'for': ['javascript', 'javascript.jsx']}
 " Plug 'ternjs/tern_for_vim', {'for': ['javascript', 'javascript.jsx']}  " 太卡了
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
-Plug 'scrooloose/syntastic' " syntax checking for vim
+" Plug 'scrooloose/syntastic' " syntax checking for vim
+" Plug 'adoyle-h/syntastic-local-eslint.vim', {'for': ['javascript', 'javascript.jsx'], 'branch': 'adoyle'} " 使用项目自身的 eslint 进行语法检查
+Plug 'w0rp/ale' " Asynchronous Syntax Lint Engine
 Plug 'koron/nyancat-vim'
-Plug 'adoyle-h/syntastic-local-eslint.vim', {'for': ['javascript', 'javascript.jsx'], 'branch': 'adoyle'} " 使用项目自身的 eslint 进行语法检查
+" Plug 'sjbach/lusty'
+" Plug 'adoyle-h/accelerated-smooth-scroll', {'branch': 'adoyle'} " 顺滑滚动
 
 Plug 'elixir-lang/vim-elixir', {'for': ['.ex', '.exs', '.eex']}
 

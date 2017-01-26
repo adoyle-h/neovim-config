@@ -34,7 +34,7 @@ tnoremap kj <C-\><C-n>
 noremap <leader>h :set hlsearch! hlsearch?<CR>
 
 " add spaces in normal mode
-nnoremap <space> i<space><esc>
+nnoremap <space> a<space><esc>
 nnoremap ]<space> a<space><esc>
 nnoremap [<space> i<space><esc>
 
@@ -62,6 +62,7 @@ nnoremap <leader>sa ggVG
 noremap <leader>so :let &scrolloff=999-&scrolloff<CR>
 noremap <leader>N :call NumberToggle()<CR>
 noremap <leader>L :ToggleLineNumber<CR>
+noremap <leader>I :IndentLinesToggle<CR>
 
 " enable . command in visual mode
 vnoremap . :normal .<CR>
@@ -110,6 +111,10 @@ nmap <C-W>H <C-W>5<<C-W>
 nmap <C-W>J <C-W>5+<C-W>
 nmap <C-W>K <C-W>5-<C-W>
 nmap <C-W>L <C-W>5><C-W>
+nmap <C-W>< <C-W><<C-W>
+nmap <C-W>+ <C-W>+<C-W>
+nmap <C-W>- <C-W>-<C-W>
+nmap <C-W>> <C-W>><C-W>
 nnoremap <C-W><C-L> <C-W>L
 nnoremap <C-W><C-H> <C-W>H
 nnoremap <C-W><C-J> <C-W>J
@@ -327,6 +332,8 @@ nnoremap <leader>gk :GitGutterPrevHunk<CR>
 nnoremap <leader>gj :GitGutterNextHunk<CR>
 
 " vim-interestingwords
+nnoremap <silent> <leader>k :call InterestingWords('n')<CR>
+nnoremap <silent> <leader>K :call UncolorAllWords()<CR>
 nnoremap <leader>ij :call WordNavigation('forward')<CR>
 nnoremap <leader>ik :call WordNavigation('backward')<CR>
 
@@ -336,3 +343,13 @@ nmap <leader>id <Plug>(increment-activator-decrement)<leader>i
 
 " choose-win
 nmap - <Plug>(choosewin)
+
+" accelerated-smooth-scroll
+" nnoremap <silent> <C-d>
+"     \ :<C-u>call ac_smooth_scroll#scroll('j', 2, g:ac_smooth_scroll_du_sleep_time_msec, 10)<CR>
+" nnoremap <silent> <C-u>
+"     \ :<C-u>call ac_smooth_scroll#scroll('k', 2, g:ac_smooth_scroll_du_sleep_time_msec, 10)<CR>
+" nnoremap <silent> <C-f>
+"     \ :<C-u>call ac_smooth_scroll#scroll('j', 4, g:ac_smooth_scroll_fb_sleep_time_msec, 10)<CR>
+" nnoremap <silent> <C-b>
+"     \ :<C-u>call ac_smooth_scroll#scroll('k', 4, g:ac_smooth_scroll_fb_sleep_time_msec, 10)<CR>
