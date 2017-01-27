@@ -50,6 +50,7 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>q :close<CR>
 " shortcut to refresh
 nnoremap <leader>e :e<CR>
+nnoremap <leader>ee :e<CR>
 
 " disable Ex mode
 noremap Q <NOP>
@@ -343,6 +344,10 @@ nmap <leader>id <Plug>(increment-activator-decrement)<leader>i
 
 " choose-win
 nmap - <Plug>(choosewin)
+
+" ale
+nmap <silent> <leader>ej <Plug>(ale_next_wrap)
+nmap <silent> <leader>ek <Plug>(ale_previous_wrap)
 
 " accelerated-smooth-scroll
 " nnoremap <silent> <C-d>
