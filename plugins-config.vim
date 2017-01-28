@@ -411,6 +411,7 @@ let g:choosewin_keymap = {
 " ale
 let g:ale_linters = {
   \ 'javascript': ['eslint'],
+  \ 'markdown': ['mdl'],
   \ }
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
