@@ -50,7 +50,6 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>q :close<CR>
 " shortcut to refresh
 nnoremap <leader>e :e<CR>
-nnoremap <leader>ee :e<CR>
 
 " disable Ex mode
 noremap Q <NOP>
@@ -141,6 +140,8 @@ au TabLeave * let g:lasttab = tabpagenr()
 noremap <leader>tx :tabclose<CR>
 noremap <leader>tj :tabnext<CR>
 noremap <leader>tk :tabprev<CR>
+noremap [t :tabprev<CR>
+noremap ]t :tabnext<CR>
 noremap <leader>tn :tabnew<CR>
 noremap <C-t>x :tabclose<CR>
 noremap <C-t>j :tabnext<CR>
@@ -329,14 +330,20 @@ autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 
 " vim-gitgutter
-nnoremap <leader>gk :GitGutterPrevHunk<CR>
-nnoremap <leader>gj :GitGutterNextHunk<CR>
+nmap <leader>gk <Plug>GitGutterPrevHunk
+nmap <leader>gj <Plug>GitGutterNextHunk
+nmap [g <Plug>GitGutterPrevHunk
+nmap ]g <Plug>GitGutterNextHunk
 
 " vim-interestingwords
+" nmap <silent> <leader>k <Plug>InterestingWords " not work
 nnoremap <silent> <leader>k :call InterestingWords('n')<CR>
-nnoremap <silent> <leader>K :call UncolorAllWords()<CR>
-nnoremap <leader>ij :call WordNavigation('forward')<CR>
-nnoremap <leader>ik :call WordNavigation('backward')<CR>
+vmap <silent> <leader>k <Plug>InterestingWords
+nmap <silent> <leader>K <Plug>InterestingWordsClear
+nmap <leader>ij <Plug>InterestingWordsForeward
+nmap <leader>ik <Plug>InterestingWordsBackward
+nmap [k <Plug>InterestingWordsBackward
+nmap ]k <Plug>InterestingWordsForeward
 
 " increment-activator
 nmap <leader>ii <Plug>(increment-activator-increment)<leader>i
@@ -346,8 +353,8 @@ nmap <leader>id <Plug>(increment-activator-decrement)<leader>i
 nmap - <Plug>(choosewin)
 
 " ale
-nmap <silent> <leader>ej <Plug>(ale_next_wrap)
-nmap <silent> <leader>ek <Plug>(ale_previous_wrap)
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
 
 " accelerated-smooth-scroll
 " nnoremap <silent> <C-d>
