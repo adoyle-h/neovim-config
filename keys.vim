@@ -302,7 +302,7 @@ autocmd User Node
 let g:bookmark_no_default_key_mappings = 1
 function! BookmarkMapKeys()
     nmap mm :BookmarkToggle<CR>
-    nmap mi :BookmarkAnnotate<CR>
+    nmap ma :BookmarkAnnotate<CR>
     nmap mn :BookmarkNext<CR>
     nmap mp :BookmarkPrev<CR>
     nmap mj :BookmarkNext<CR>
@@ -315,7 +315,7 @@ function! BookmarkMapKeys()
 endfunction
 function! BookmarkUnmapKeys()
     unmap mm
-    unmap mi
+    unmap ma
     unmap mn
     unmap mp
     unmap mj

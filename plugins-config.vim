@@ -337,7 +337,25 @@ let g:easy_align_delimiters = {
 \ }
 
 " vim-bookmarks
-let g:bookmark_no_default_key_mappings = 1
+let g:bookmark_sign = '▶'
+let g:bookmark_annotation_sign = '▶'
+let g:bookmark_highlight_lines = 1
+let g:bookmark_location_list = 1
+highlight BookmarkSign ctermbg=234 ctermfg=27
+highlight BookmarkLine cterm=underline ctermbg=NONE ctermfg=NONE
+highlight BookmarkAnnotationSign ctermbg=234 ctermfg=35
+highlight BookmarkAnnotationLine cterm=underline ctermbg=NONE ctermfg=NONE
+
+call unite#custom#profile('source/vim_bookmarks', 'context', {
+    \   'winheight': 20,
+    \   'direction': 'dynamicbottom',
+    \   'start_insert': 0,
+    \   'prompt': '> ',
+    \   'prompt-focus': 1,
+    \   'prompt-visible': 1,
+    \   'keep_focus': 1,
+    \   'no_quit': 1,
+    \ })
 
 " vim-session
 let g:session_directory=$NVIM_HOME.'/temp/session'
