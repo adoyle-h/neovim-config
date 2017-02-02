@@ -7,7 +7,7 @@ Share for learning and reference.
 ## 版本 (Version)
 
 ```
-NVIM v0.2.0-97-gacbce46
+NVIM 0.1.7
 Build type: RelWithDebInfo
 
 Optional features included (+) or not (-): +acl   +iconv    +jemalloc +tui
@@ -56,3 +56,19 @@ Optional features included (+) or not (-): +acl   +iconv    +jemalloc +tui
     ├── session_lock   // xolox/vim-session plugin
     └── undodir        // mbbill/undotree plugin
 ```
+
+## 建议，Bug，做贡献 (Suggestion, Bug Reporting, Contributing)
+
+Any comments and suggestions are always welcome. Please open an [issue][] to contact with me.
+
+## 版权声明 (Copyright and License)
+
+Copyright (c) 2016-2017 ADoyle. The project is licensed under the **BSD 3-clause License**.
+
+See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
+
+
+<!-- links -->
+
+[issue]: https://github.com/adoyle-h/neovim-config/issues
+[LICENSE]: ./LICENSE
