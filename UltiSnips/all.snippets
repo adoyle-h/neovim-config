@@ -1,3 +1,10 @@
+snippet shabang "Add bash shabang" b
+#!/usr/bin/env ${1:bash}
+# shellcheck disable=${2:SC1090}
+
+${0}
+endsnippet
+
 snippet uml "PlantUML"
 @startuml
 ${0}
