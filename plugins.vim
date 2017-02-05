@@ -33,7 +33,7 @@ Plug 'shougo/unite.vim' "  search and display information from arbitrary sources
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 "Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
-Plug 'danro/rename.vim'
+Plug 'adoyle-h/vim-eunuch', {'branch': 'adoyle'}
 
 Plug 'ap/vim-css-color'  " 显示颜色
 Plug 'vim-airline/vim-airline'
