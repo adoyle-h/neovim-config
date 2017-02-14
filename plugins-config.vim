@@ -29,6 +29,8 @@ let g:NERDCustomDelimiters = {
 let g:indentLine_color_term = 237
 " let g:indentLine_char = '┆'
 let g:indentLine_char = ''
+" indentLine will overwrite your "concealcursor" and "conceallevel" with default value. So I disable it.
+let g:indentLine_setConceal = 0
 
 " syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -272,6 +274,18 @@ endif
 
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
+" let g:javascript_conceal_function        = "⨕"
+" let g:javascript_conceal_null            = "𝓝"
+" let g:javascript_conceal_this            = "𝓣"
+" let g:javascript_conceal_return          = "⏎"
+" let g:javascript_conceal_undefined       = "𝕦"
+" let g:javascript_conceal_NaN             = "ℕ"
+" let g:javascript_conceal_prototype       = "𝓟"
+" let g:javascript_conceal_static          = "𝕤"
+" let g:javascript_conceal_super           = "𝓢"
+" let g:javascript_conceal_arrow_function  = "➢"
+" let g:javascript_conceal_noarg_arrow_function = "➤"
+" let g:javascript_conceal_underscore_arrow_function = "⇢"
 
 " tern-for-vim
 " 鼠标停留在方法内时显示参数提示

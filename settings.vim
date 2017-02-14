@@ -124,6 +124,9 @@ set spelllang=en,cjk
 set spell
 set spellfile=$XDG_CONFIG_HOME/nvim/spell/en.utf-8.add
 
+set conceallevel=2
+set concealcursor=""
+
 " Searching
 
 set ignorecase " case insensitive searching
