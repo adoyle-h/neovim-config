@@ -461,6 +461,8 @@ let g:ale_warn_about_trailing_whitespace = 1
 " nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
 highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
+highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
+highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=11
 
 " accelerated-smooth-scroll
 let g:ac_smooth_scroll_du_sleep_time_msec = 2
