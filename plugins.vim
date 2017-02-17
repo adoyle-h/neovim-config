@@ -115,14 +115,15 @@ Plug 'koron/nyancat-vim'
 " Plug 'sjbach/lusty'
 " Plug 'adoyle-h/accelerated-smooth-scroll', {'branch': 'adoyle'} " 顺滑滚动
 
-Plug 'elixir-lang/vim-elixir', {'for': ['.ex', '.exs', '.eex']}
+Plug 'elixir-lang/vim-elixir', {'for': ['elixir']}
+Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
 
-Plug 'stephpy/vim-yaml', {'for': ['.yaml']}
+Plug 'stephpy/vim-yaml', {'for': ['yaml']}
 "Plug 'chase/vim-ansible-yaml'
 Plug 'honza/dockerfile.vim', {'for': ['Dockerfile']}
-Plug 'mustache/vim-mustache-handlebars', {'for': ['.handlebars']}
-Plug 'rust-lang/rust.vim', {'for': ['.rust']}
-Plug 'tokozedg/vim-sman', {'for': ['.yaml']}
+Plug 'mustache/vim-mustache-handlebars', {'for': ['handlebars']}
+Plug 'rust-lang/rust.vim', {'for': ['rust']}
+Plug 'tokozedg/vim-sman'
 Plug 'aklt/plantuml-syntax'
 
 Plug 'fatih/vim-go'
