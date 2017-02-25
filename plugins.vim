@@ -118,7 +118,6 @@ Plug 'koron/nyancat-vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim', {'for': ['elixir']}
 
-Plug 'stephpy/vim-yaml', {'for': ['yaml']}
 "Plug 'chase/vim-ansible-yaml'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'mustache/vim-mustache-handlebars', {'for': ['handlebars']}
