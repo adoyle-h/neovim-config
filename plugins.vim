@@ -124,6 +124,7 @@ Plug 'mustache/vim-mustache-handlebars', {'for': ['handlebars']}
 Plug 'rust-lang/rust.vim', {'for': ['rust']}
 Plug 'tokozedg/vim-sman'
 Plug 'aklt/plantuml-syntax'
+Plug 'nikvdp/ejs-syntax'
 
 Plug 'fatih/vim-go'
 
