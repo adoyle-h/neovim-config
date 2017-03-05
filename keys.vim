@@ -365,3 +365,13 @@ nmap <silent> ]e <Plug>(ale_next_wrap)
 "     \ :<C-u>call ac_smooth_scroll#scroll('j', 4, g:ac_smooth_scroll_fb_sleep_time_msec, 10)<CR>
 " nnoremap <silent> <C-b>
 "     \ :<C-u>call ac_smooth_scroll#scroll('k', 4, g:ac_smooth_scroll_fb_sleep_time_msec, 10)<CR>
+
+" CamelCaseMotion
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+" sunmap w
+" sunmap b
+" sunmap e
+" sunmap ge

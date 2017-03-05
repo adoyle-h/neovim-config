@@ -23,6 +23,7 @@ Plug 'guns/xterm-color-table.vim', {'on': ['XtermColorTable', 'SXtermColorTable'
 Plug 'majutsushi/tagbar', {'on': 'Tagbar'}  " 侧边栏索引
 Plug 'terryma/vim-multiple-cursors'  " g:multi_cursor_start_key 不能绑定到 <CR> 或者 <C-m> 键，会出问题
 Plug 'easymotion/vim-easymotion'  " 光标跳转
+Plug 'bkad/CamelCaseMotion' " either CamelCase ('anIdentifier') or underscore_notation ('an_identifier')
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'jistr/vim-nerdtree-tabs', {'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
