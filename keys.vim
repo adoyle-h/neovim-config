@@ -48,6 +48,7 @@ nnoremap K i<Enter><Esc>
 nnoremap <leader>w :w<CR>
 " shortcut to quit
 nnoremap <leader>q :close<CR>
+nnoremap <leader>Q :tabclose<CR>
 " shortcut to refresh
 nnoremap <leader>e :e<CR>
 
