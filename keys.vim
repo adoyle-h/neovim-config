@@ -1,4 +1,8 @@
-" set a map leader for more key combos
+" ------------------------------------------------------------------
+" |                  All keymaps showing here                      |
+" ------------------------------------------------------------------
+
+" set a map <leader> for more key combos
 let mapleader = ';'
 
 " ------------------------ F1~F9 Keymap ----------------------------
@@ -376,3 +380,14 @@ map <silent> ge <Plug>CamelCaseMotion_ge
 " sunmap b
 " sunmap e
 " sunmap ge
+
+" vim-abolish
+" :h cr for more descriptions
+" MixedCase (crm)
+" camelCase (crc)
+" snake_case (crs or cr_)
+" SNAKE_UPPERCASE (cru)
+" dash-case (cr-)
+" kebab-case (crk)
+" dot.case (cr.)
+" space case (cr<space>)
