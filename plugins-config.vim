@@ -170,8 +170,6 @@ highlight MatchTag ctermfg=15 ctermbg=4
 
 " easymotion
 let g:EasyMotion_smartcase = 1
-" 重复上一次操作, 类似repeat插件, 很强大
-map <leader><leader>. <Plug>(easymotion-repeat)
 
 " vim-closetag
 let g:closetag_filenames = "*.html,*.xml,*.xhtml"
@@ -303,8 +301,8 @@ let g:ctrlsf_ignore_dir = ['bower_components', 'npm_modules']
 let g:visualstar_no_default_key_mappings = 0
 
 " clever-f.vim
+let g:clever_f_not_overwrites_standard_mappings = 1
 let g:clever_f_show_prompt = 1
-"let g:clever_f_not_overwrites_standard_mappings = 1
 
 " unite
 let g:unite_source_history_yank_enable = 1

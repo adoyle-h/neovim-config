@@ -391,3 +391,23 @@ map <silent> ge <Plug>CamelCaseMotion_ge
 " kebab-case (crk)
 " dot.case (cr.)
 " space case (cr<space>)
+
+
+" clever-f.vim
+nmap <M-f> <Plug>(clever-f-f)
+xmap <M-f> <Plug>(clever-f-f)
+omap <M-f> <Plug>(clever-f-f)
+nmap F <Plug>(clever-f-F)
+xmap F <Plug>(clever-f-F)
+omap F <Plug>(clever-f-F)
+nmap t <Plug>(clever-f-t)
+xmap t <Plug>(clever-f-t)
+omap t <Plug>(clever-f-t)
+nmap T <Plug>(clever-f-T)
+xmap T <Plug>(clever-f-T)
+omap T <Plug>(clever-f-T)
+
+" easymotion
+map f <Plug>(easymotion-prefix)
+" 重复上一次操作, 类似repeat插件, 很强大
+map f. <Plug>(easymotion-repeat)
