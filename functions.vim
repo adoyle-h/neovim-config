@@ -14,6 +14,7 @@ command! SnippetsList :echo GetAllSnippets()
 command! ToggleLineNumber :set relativenumber! number!
 command! ProfileStart :call ProfileStart()
 command! ProfileEnd :profile pause
+command! FixLineBreak :call FixLineBreak()
 
 function! ProfileStart()
   profile start profile.log
@@ -58,4 +59,10 @@ function! GetAllSnippets()
     echo "[".key."]\t\t@".l:count."\t(".info.description.")\t".info.location
   endfor
   return l:count
+endfunction
+
+function! FixLineBreak()
+  e ++ff=dos
+  set ff=unix
+  w
 endfunction
