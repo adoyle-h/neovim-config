@@ -34,7 +34,7 @@ Plug 'shougo/unite.vim' "  search and display information from arbitrary sources
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 "Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
-Plug 'adoyle-h/vim-eunuch', {'branch': 'adoyle'}
+Plug 'adoyle-h/vim-eunuch', {'branch': 'adoyle'}  " UNIX 命令封装。 :h eunuch
 
 Plug 'ap/vim-css-color'  " 显示颜色
 Plug 'vim-airline/vim-airline'
@@ -81,7 +81,7 @@ Plug 'rdnetto/YCM-Generator', { 'on': 'YcmGenerateConfig', 'branch': 'stable'}
 " Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer'} " CPU 燃烧器
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " 自动补全
 
-Plug 'tpope/vim-abolish'  " fix typo
+Plug 'tpope/vim-abolish'  " fix typo and Coercion https://github.com/tpope/vim-abolish#coercion
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeToggle'}  " 格式化表格
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'} " 撤销树
@@ -105,7 +105,7 @@ Plug 'elzr/vim-json', {'for': ['javascript', 'json']}
 Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 "Plug 'tpope/vim-markdown'
 
-Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
+Plug 'pangloss/vim-javascript' " 不要使用 for 选项，否则会导致语法高亮不会在初次加载时生效
 Plug 'moll/vim-node', {'for': ['javascript', 'javascript.jsx']}
 " Plug 'ternjs/tern_for_vim', {'for': ['javascript', 'javascript.jsx']}  " 太卡了
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
