@@ -411,3 +411,7 @@ omap T <Plug>(clever-f-T)
 map f <Plug>(easymotion-prefix)
 " 重复上一次操作, 类似repeat插件, 很强大
 map f. <Plug>(easymotion-repeat)
+
+" open-browser.vim
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)

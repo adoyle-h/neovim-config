@@ -13,6 +13,9 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 let g:netrw_liststyle=3
 let g:netrw_winsize=30
 
+" disable netrw's gx mapping. I use open-browser.vim
+let g:netrw_nogx = 1
+
 
 "set fillchars=vert:\ ,stl:\ ,stlnc:\  " 在被分割的窗口间显示空白，便于阅读
 

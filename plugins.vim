@@ -8,6 +8,7 @@
 "Plug 'tomtom/tlib_vim' " utility functions for vim
 "Plug 'xolox/vim-misc'
 
+Plug 'lifepillar/vim-cheat40'
 
 "" ========
 Plug 'uguu-org/vim-matrix-screensaver', {'on': 'Matrix'}
@@ -58,6 +59,8 @@ Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . c
 Plug 'henrik/vim-indexed-search'  " 显示搜索查找到第几个
 Plug 'szw/vim-maximizer'  " window 缩放
 Plug 't9md/vim-choosewin' " window/tab 切换
+Plug 'tyru/capture.vim'  " :Capture <命令> 将结果输出到新的 buffer 中
+Plug 'tyru/open-browser.vim', {'on': ['<Plug>openbrowser-smart-search']}
 
 "" utilities
 Plug 'xolox/vim-misc' | Plug 'xolox/vim-session' " improve :mksession
