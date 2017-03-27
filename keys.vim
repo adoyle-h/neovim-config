@@ -339,6 +339,10 @@ nmap <leader>gk <Plug>GitGutterPrevHunk
 nmap <leader>gj <Plug>GitGutterNextHunk
 nmap [g <Plug>GitGutterPrevHunk
 nmap ]g <Plug>GitGutterNextHunk
+nmap <leader>gp <Plug>GitGutterPreviewHunk
+nmap <leader>gu <Plug>GitGutterUndoHunk
+nmap <leader>ga <Plug>GitGutterStageHunk
+nmap <leader>gl <Plug>GitGutterLineHighlightsToggle
 
 " vim-interestingwords
 " nmap <silent> <leader>k <Plug>InterestingWords " not work

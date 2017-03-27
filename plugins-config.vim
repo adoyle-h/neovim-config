@@ -136,6 +136,14 @@ let g:airline_section_z = airline#section#create(['ts=%{&tabstop}|sw=%{&shiftwid
 let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_modified_removed = '⋍'
 
+au CursorMoved * if exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active() |
+\   if empty(gitgutter#hunk#current_hunk()) |
+\     pclose |
+\   else |
+\     call gitgutter#preview_hunk() |
+\   endif |
+\ endif
+
 " rainbow
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
