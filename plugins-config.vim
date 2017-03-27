@@ -135,8 +135,11 @@ let g:airline_section_z = airline#section#create(['ts=%{&tabstop}|sw=%{&shiftwid
 " gitgutter
 let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_modified_removed = '⋍'
+let g:gitgutter_preview_active = 0
+let g:gitgutter_last_line_number = 0
 
-au CursorMoved * if exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active() |
+au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active() && line('.') != g:gitgutter_last_line_number |
+\   let g:gitgutter_last_line_number = line('.') |
 \   if empty(gitgutter#hunk#current_hunk()) |
 \     pclose |
 \   else |

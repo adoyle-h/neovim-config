@@ -343,6 +343,21 @@ nmap <leader>gp <Plug>GitGutterPreviewHunk
 nmap <leader>gu <Plug>GitGutterUndoHunk
 nmap <leader>ga <Plug>GitGutterStageHunk
 nmap <leader>gl <Plug>GitGutterLineHighlightsToggle
+nmap <leader>gt :call ToggleGitGutterPreview()<CR>
+nmap <leader>gc :pclose<CR>
+
+function! ToggleGitGutterPreview()
+  let g:gitgutter_preview_active = !g:gitgutter_preview_active
+  if (g:gitgutter_preview_active)
+    if (!empty(gitgutter#hunk#current_hunk()))
+      call gitgutter#preview_hunk()
+    endif
+    echo 'GitGutter AutoPreview: on'
+  else
+    pclose
+    echo 'GitGutter AutoPreview: off'
+  endif
+endfunction
 
 " vim-interestingwords
 " nmap <silent> <leader>k <Plug>InterestingWords " not work
