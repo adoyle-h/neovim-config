@@ -492,3 +492,6 @@ let g:go_highlight_build_constraints = 1
 " let g:go_bin_path = "/home/fatih/.mypath"      "or give absolute path
 let g:go_get_update = 0
 " let g:go_term_mode = "split"
+
+" neoformat
+let g:neoformat_enabled_javascript = ['prettier', 'prettydiff', 'prettiereslint']
