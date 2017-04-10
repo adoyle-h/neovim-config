@@ -15,6 +15,7 @@ command! ToggleLineNumber :set relativenumber! number!
 command! ProfileStart :call ProfileStart()
 command! ProfileEnd :profile pause
 command! FixLineBreak :call FixLineBreak()
+command! PlainTextModeToggle :call PlainTextModeToggle()
 
 function! ProfileStart()
   profile start profile.log
@@ -28,6 +29,21 @@ function! NumberToggle()
   else
     set relativenumber
   endif
+endfunc
+
+let g:plain_text_mode = 0
+function! PlainTextModeToggle()
+  if (g:plain_text_mode == 0)
+    ALEDisable
+    IndentLinesDisable
+    set cc=""
+    let g:plain_text_mode = 1
+  else
+    ALEEnable
+    IndentLinesEnable
+    set cc=80,100
+    let g:plain_text_mode = 0
+  end
 endfunc
 
 function! IndentLevel(lnum)
