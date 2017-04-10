@@ -31,11 +31,17 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTa
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 "Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder
 Plug 'shougo/unite.vim' "  search and display information from arbitrary sources like files, buffers, recently used files or registers.
+
+"" brackets and tags matching
 " Plug 'luochen1990/rainbow'  " 括号颜色配对。暂不开启，会影响到其他语法着色
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 "Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
 Plug 'adoyle-h/vim-eunuch', {'branch': 'adoyle'}  " UNIX 命令封装。 :h eunuch
+Plug 'tpope/vim-ragtag' " like closetag. endings for html, xml, etc. - enhance vim-surround
+Plug 'alvan/vim-closetag'
+" Plug 'Valloric/MatchTagAlways'  " 太慢，暂时关闭
+Plug 'vim-scripts/matchit.zip' " extended % matching
 
 Plug 'ap/vim-css-color'  " 显示颜色
 Plug 'vim-airline/vim-airline'
@@ -46,12 +52,6 @@ Plug 'dyng/ctrlsf.vim', {'on': ['<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', '
 Plug 'thinca/vim-visualstar'  " visual 模型下查找增强
 Plug 'scrooloose/nerdcommenter'  " 注释
 Plug 'yggdroot/indentline'  " alt vim-indent-guides
-Plug 'tpope/vim-ragtag' " like closetag. endings for html, xml, etc. - ehances surround.
-Plug 'alvan/vim-closetag'
-" , {'for': ['javascript.jsx', 'html', 'xml', 'xhtml']}
-" Plug 'Valloric/MatchTagAlways'  " 太慢，暂时关闭
-" , {'for': ['javascript.jsx', 'html', 'xml', 'xhtml']}
-Plug 'vim-scripts/matchit.zip' " extended % matching
 
 Plug 'airblade/vim-gitgutter' " git 状态侧边栏
 Plug 'tpope/vim-fugitive' " git 命令 in vim

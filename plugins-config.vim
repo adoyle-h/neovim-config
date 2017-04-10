@@ -183,7 +183,7 @@ highlight MatchTag ctermfg=15 ctermbg=4
 let g:EasyMotion_smartcase = 1
 
 " vim-closetag
-let g:closetag_filenames = "*.html,*.xml,*.xhtml"
+let g:closetag_filenames = "*.html,*.xml,*.xhtml,*.htm,*.jsx"
 
 " vim-maximizer
 let g:maximizer_set_default_mapping = 0
