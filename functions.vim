@@ -31,18 +31,17 @@ function! NumberToggle()
   endif
 endfunc
 
-let g:plain_text_mode = 0
 function! PlainTextModeToggle()
-  if (g:plain_text_mode == 0)
+  if (get(b:, 'plain_text_mode', 0) == 0)
     ALEDisable
     IndentLinesDisable
     set cc=""
-    let g:plain_text_mode = 1
+    let b:plain_text_mode = 1
   else
     ALEEnable
     IndentLinesEnable
     set cc=80,100
-    let g:plain_text_mode = 0
+    let b:plain_text_mode = 0
   end
 endfunc
 
