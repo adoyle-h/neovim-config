@@ -306,7 +306,7 @@ let g:tern_map_prefix = ';'
 
 " ctrlsf
 let g:ctrlsf_auto_close = 0
-let g:ctrlsf_ignore_dir = ['bower_components', 'npm_modules']
+let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules']
 
 " vim-visualstar
 let g:visualstar_no_default_key_mappings = 0
