@@ -56,6 +56,7 @@ Plug 'yggdroot/indentline'  " alt vim-indent-guides
 
 Plug 'airblade/vim-gitgutter' " git 状态侧边栏
 Plug 'tpope/vim-fugitive' " git 命令 in vim
+Plug 'gregsexton/gitv' " git log in vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'szw/vim-maximizer'  " window 缩放
 Plug 't9md/vim-choosewin' " window/tab 切换

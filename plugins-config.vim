@@ -501,3 +501,15 @@ let g:netrw_nogx = 1 " disable netrw's gx mapping.
 
 " henrik/vim-indexed-search
 let g:indexed_search_shortmess = 0
+
+" gregsexton/gitv
+let g:Gitv_OpenPreviewOnLaunch = 0
+" let g:Gitv_PreviewOptions = '--stat'
+let g:Gitv_CustomMappings = {
+\  'let': '|',
+\  'stat': 's',
+\  'vstat': 's',
+\  'head': 'H',
+\  'delete': 'dd',
+\  'vdelete': 'dd',
+\}
