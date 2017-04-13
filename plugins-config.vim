@@ -498,3 +498,6 @@ let g:neoformat_enabled_javascript = ['prettier', 'prettydiff', 'prettiereslint'
 
 " open-browser.vim
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
+
+" henrik/vim-indexed-search
+let g:indexed_search_shortmess = 0

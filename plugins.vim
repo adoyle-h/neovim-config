@@ -47,6 +47,7 @@ Plug 'ap/vim-css-color'  " 显示颜色
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ggVGc/vim-fuzzysearch', {'on': 'FuzzySearch'}
+Plug 'henrik/vim-indexed-search'  " 显示搜索查找到第几个
 "Plug 'rking/ag.vim'
 Plug 'dyng/ctrlsf.vim', {'on': ['<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', 'CtrlSF']} " 项目内内容搜索
 Plug 'thinca/vim-visualstar'  " visual 模型下查找增强
@@ -56,7 +57,6 @@ Plug 'yggdroot/indentline'  " alt vim-indent-guides
 Plug 'airblade/vim-gitgutter' " git 状态侧边栏
 Plug 'tpope/vim-fugitive' " git 命令 in vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
-Plug 'henrik/vim-indexed-search'  " 显示搜索查找到第几个
 Plug 'szw/vim-maximizer'  " window 缩放
 Plug 't9md/vim-choosewin' " window/tab 切换
 Plug 'tyru/capture.vim'  " :Capture <命令> 将结果输出到新的 buffer 中
