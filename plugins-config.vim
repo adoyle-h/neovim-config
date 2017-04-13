@@ -28,7 +28,7 @@ let g:NERDCustomDelimiters = {
 " indentline
 let g:indentLine_color_term = 237
 " let g:indentLine_char = '┆'
-let g:indentLine_char = ''
+let g:indentLine_char = ''  " special character symbol in my font
 " indentLine will overwrite your "concealcursor" and "conceallevel" with default value. So I disable it.
 let g:indentLine_setConceal = 0
 
