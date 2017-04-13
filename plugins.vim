@@ -110,7 +110,7 @@ Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 
 Plug 'pangloss/vim-javascript' " 不要使用 for 选项，否则会导致语法高亮不会在初次加载时生效
 Plug 'moll/vim-node', {'for': ['javascript', 'javascript.jsx']}
-" Plug 'ternjs/tern_for_vim', {'for': ['javascript', 'javascript.jsx']}  " 太卡了
+Plug 'ternjs/tern_for_vim', {'for': ['javascript', 'javascript.jsx'], 'do': 'npm install'}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
 Plug 'sbdchd/neoformat'
 " Plug 'scrooloose/syntastic' " syntax checking for vim

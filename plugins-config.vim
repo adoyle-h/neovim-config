@@ -301,7 +301,7 @@ let g:javascript_plugin_jsdoc = 1
 let g:tern_show_argument_hints = 'on_hold'
 " 补全时显示函数类型定义
 let g:tern_show_signature_in_pum = 1
-let g:tern_map_keys = 1
+let g:tern_map_keys = 0
 let g:tern_map_prefix = ';'
 
 " ctrlsf
