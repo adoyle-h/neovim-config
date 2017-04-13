@@ -60,7 +60,7 @@ Plug 'henrik/vim-indexed-search'  " 显示搜索查找到第几个
 Plug 'szw/vim-maximizer'  " window 缩放
 Plug 't9md/vim-choosewin' " window/tab 切换
 Plug 'tyru/capture.vim'  " :Capture <命令> 将结果输出到新的 buffer 中
-Plug 'tyru/open-browser.vim', {'on': ['<Plug>openbrowser-smart-search']}
+Plug 'tyru/open-browser.vim', {'on': ['<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)']}
 
 "" utilities
 Plug 'xolox/vim-misc' | Plug 'xolox/vim-session' " improve :mksession

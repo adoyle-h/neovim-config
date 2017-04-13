@@ -434,6 +434,8 @@ map f. <Plug>(easymotion-repeat)
 " open-browser.vim
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+nmap gX <Plug>(openbrowser-open)
+vmap gX <Plug>(openbrowser-open)
 
 " tern-for-vim
 let tern_prefix = exists('g:tern_map_prefix') ? g:tern_map_prefix : "<LocalLeader>"

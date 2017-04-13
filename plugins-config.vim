@@ -495,3 +495,6 @@ let g:go_get_update = 0
 
 " neoformat
 let g:neoformat_enabled_javascript = ['prettier', 'prettydiff', 'prettiereslint']
+
+" open-browser.vim
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
