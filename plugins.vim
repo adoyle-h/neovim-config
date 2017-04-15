@@ -62,6 +62,7 @@ Plug 'szw/vim-maximizer'  " window 缩放
 Plug 't9md/vim-choosewin' " window/tab 切换
 Plug 'tyru/capture.vim'  " :Capture <命令> 将结果输出到新的 buffer 中
 Plug 'tyru/open-browser.vim', {'on': ['<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)']}
+Plug 'jpalardy/vim-slime', {'on': ['<Plug>SlimeRegionSend', '<Plug>SlimeParagraphSend', '<Plug>SlimeConfig']}  " 将 vim 里的内容发送到 tmux 的任意 pane 里
 
 "" utilities
 Plug 'xolox/vim-misc' | Plug 'xolox/vim-session' " improve :mksession

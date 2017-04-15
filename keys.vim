@@ -448,3 +448,7 @@ execute 'nnoremap '.tern_prefix.'ts' ':TernDefSplit<CR>'
 " execute 'nnoremap '.tern_prefix.'ttd' ':TernDefTab<CR>'
 execute 'nnoremap '.tern_prefix.'tr' ':TernRefs<CR>'
 execute 'nnoremap '.tern_prefix.'tR' ':TernRename<CR>'
+
+" vim-slime
+xmap <leader>ss <Plug>SlimeRegionSend
+nmap <leader>ss <Plug>SlimeParagraphSend
