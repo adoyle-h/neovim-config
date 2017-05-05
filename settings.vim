@@ -153,9 +153,8 @@ set updatecount=100   " 每 100 字符保存一次 swap
 
 set sessionoptions=buffers,curdir,resize,tabpages,winpos,winsize
 
-" NVIM_TUI_ENABLE_TRUE_COLOR is ignored. #4690
 set notermguicolors
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 "" insert mode - line
 "let &t_SI .= "\<Esc>[5 q"
 ""replace mode - underline
