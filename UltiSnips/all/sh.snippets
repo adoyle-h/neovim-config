@@ -3,6 +3,24 @@ snippet bash "Add bash shabang" b
 # shellcheck disable=${1:SC1090}
 set -o errexit
 set -o nounset
+set -o pipefail
+[[ -n "${TRACE+x}" ]] && set -o xtrace
 
 ${0}
+endsnippet
+
+snippet bash-opts "Add bash shell options for script" b
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${TRACE+x}" ]] && set -o xtrace
+endsnippet
+
+snippet sh-vars "Magic shell variables" b
+_SCRIPT_DIR="$(cd "$(dirname "\$0")" && pwd)"
+_SCRIPT_PATH="${_DIR}/$(basename "\$0")"
+_BASENAME="$(basename "${_FILE}" .sh)"
+_ROOT_PATH="$(cd "$(dirname "${_DIR}")" && pwd)" # <-- change "${_DIR}" as it depends on your app
+
+arg1="\${1:-}"
 endsnippet
