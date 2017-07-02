@@ -15,7 +15,7 @@ command! ToggleLineNumber :set relativenumber! number!
 command! ProfileStart :call ProfileStart()
 command! ProfileEnd :profile pause
 command! FixLineBreak :call FixLineBreak()
-command! PlainTextModeToggle :call PlainTextModeToggle()
+command! TogglePlainTextMode :call PlainTextModeToggle()
 command! CD :lcd %:p:h
 
 function! ProfileStart()
