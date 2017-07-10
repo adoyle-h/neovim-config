@@ -399,6 +399,9 @@ let g:increment_activator_filetype_candidates = {
   \   ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'],
   \   ['none', 'debug', 'info', 'warn', 'error'],
   \   ['NONE', 'DEBUG', 'INFO', 'WARN', 'ERROR'],
+  \   ['Todo', 'Done'],
+  \   ['TODO', 'DONE'],
+  \   ['todo', 'done'],
   \ ],
   \ }
 
