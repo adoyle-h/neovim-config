@@ -8,6 +8,7 @@
 "Plug 'tomtom/tlib_vim' " utility functions for vim
 "Plug 'xolox/vim-misc'
 
+Plug 'johngrib/vim-game-snake', {'on': 'VimGameSnake'}
 Plug 'lifepillar/vim-cheat40'
 
 "" ========
