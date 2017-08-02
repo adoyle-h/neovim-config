@@ -136,5 +136,10 @@ Plug 'nikvdp/ejs-syntax'
 
 Plug 'fatih/vim-go'
 
+" Typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
+Plug 'HerringtonDarkholme/yats.vim'
+
 " devicons should be put at last!!
 Plug 'ryanoasis/vim-devicons'
