@@ -99,6 +99,12 @@ nnoremap <M-Tab> :call IndentToLevel()<CR>
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
+" difftool
+if &diff
+  map ,1 :diffget LOCAL<CR>
+  map ,2 :diffget REMOTE<CR>
+  map ,0 :diffget BASE<CR>
+endif
 
 " ------------------------- M- Keymap ------------------------------
 nnoremap <M-g> :echo expand('%:p')<CR>
