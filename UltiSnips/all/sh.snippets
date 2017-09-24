@@ -2,9 +2,29 @@ snippet bash "Add bash shabang" b
 #!/usr/bin/env bash
 # shellcheck disable=${1:SC1090,SC2155}
 set -o errexit
+set -o errtrace
 set -o nounset
 set -o pipefail
 [[ -n "${TRACE+x}" ]] && set -o xtrace
 
 ${0}
+
+usage() {
+cat <<EOF
+Usage: $0 [Options] <required> [optional]
+
+Options:
+    -h --help               Show help
+
+Parameters:
+    <required>
+    <optional>
+EOF
+}
+
+main() {
+  usage
+}
+
+main "\$@"
 endsnippet

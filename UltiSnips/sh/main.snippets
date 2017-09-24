@@ -6,9 +6,10 @@ set -o pipefail
 endsnippet
 
 snippet sh-vars "Magic shell variables" b
-readonly _SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
-readonly _SCRIPT_PATH="${_DIR}/$(basename "\$0")"
-readonly _SCRIPT_BASENAME="$(basename "${_SCRIPT_PATH}" .sh)"
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+readonly SCRIPT_BASENAME="$(basename "\$0")"
+readonly SCRIPT_PATH="${SCRIPT_DIR}/$SCRIPT_BASENAME"
 
-readonly arg1="\${1:-}"
+readonly ARGS="$@"
+readonly ARG1="\${1:-}"
 endsnippet
