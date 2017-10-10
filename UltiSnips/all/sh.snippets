@@ -5,13 +5,13 @@ set -o errexit
 set -o errtrace
 set -o nounset
 set -o pipefail
-[[ -n "${TRACE+x}" ]] && set -o xtrace
+[[ -n "${XTRACE+x}" ]] && set -o xtrace
 
 ${0}
 
 usage() {
 cat <<EOF
-Usage: $0 [Options] <required> [optional]
+Usage: \$0 [Options] <required> [optional]
 
 Options:
     -h --help               Show help
