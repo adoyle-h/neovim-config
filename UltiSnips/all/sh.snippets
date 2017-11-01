@@ -5,7 +5,8 @@ set -o errexit
 set -o errtrace
 set -o nounset
 set -o pipefail
-[[ -n "${XTRACE+x}" ]] && set -o xtrace
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
 ${0}
 

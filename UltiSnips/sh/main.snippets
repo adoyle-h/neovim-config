@@ -2,7 +2,8 @@ snippet bash-opts "Add bash shell options for script" b
 set -o errexit
 set -o nounset
 set -o pipefail
-[[ -n "${TRACE+x}" ]] && set -o xtrace
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 endsnippet
 
 snippet sh-vars "Magic shell variables" b
