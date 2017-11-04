@@ -402,6 +402,8 @@ let g:increment_activator_filetype_candidates = {
   \   ['Todo', 'Done'],
   \   ['TODO', 'DONE'],
   \   ['todo', 'done'],
+  \   ['low', 'normal', 'high'],
+  \   ['LOW', 'NORMAL', 'HIGH'],
   \ ],
   \ }
 
