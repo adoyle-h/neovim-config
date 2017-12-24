@@ -133,6 +133,7 @@ Plug 'rust-lang/rust.vim', {'for': ['rust']}
 Plug 'tokozedg/vim-sman'
 Plug 'aklt/plantuml-syntax'
 Plug 'nikvdp/ejs-syntax'
+Plug 'chr4/nginx.vim'
 
 Plug 'fatih/vim-go'
 

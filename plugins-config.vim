@@ -462,6 +462,7 @@ let g:ale_linters = {
   \ }
 let g:ale_fixers = {
   \ 'javascript': ['eslint'],
+  \ 'css': ['csslint', 'prettier', 'stylelint'],
   \ }
 let g:ale_linter_aliases = {
   \ 'jsx': 'css',
