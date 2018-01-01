@@ -63,7 +63,7 @@ Any comments and suggestions are always welcome. Please open an [issue][] to con
 
 ## 版权声明 (Copyright and License)
 
-Copyright (c) 2016-2017 ADoyle. The project is licensed under the **BSD 3-clause License**.
+Copyright (c) 2016-2018 ADoyle. The project is licensed under the **BSD 3-clause License**.
 
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
