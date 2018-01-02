@@ -4,16 +4,28 @@
 
 Share for learning and reference.
 
+## TOC
+
+<!-- MarkdownTOC GFM -->
+
+- [版本 (Version)](#版本-version)
+- [安装 (Installation)](#安装-installation)
+- [目录结构 (Files Structure)](#目录结构-files-structure)
+- [建议，Bug，做贡献 (Suggestion, Bug Reporting, Contributing)](#建议bug做贡献-suggestion-bug-reporting-contributing)
+- [版权声明 (Copyright and License)](#版权声明-copyright-and-license)
+
+<!-- /MarkdownTOC -->
+
 ## 版本 (Version)
 
 ```
-NVIM 0.1.7
-Build type: RelWithDebInfo
+NVIM v0.2.0
+Build type: Release
 
 Optional features included (+) or not (-): +acl   +iconv    +jemalloc +tui
 ```
 
-## 依赖 (Dependencies)
+## 安装 (Installation)
 
 1. Set environment variable in shell
 
@@ -25,9 +37,9 @@ Optional features included (+) or not (-): +acl   +iconv    +jemalloc +tui
 
     `ln -s <vim-colors-solarized>/colors/solarized.vim colors/solarized.vim`
 
-3. Install vim plug manager (vim-plug)
+3. Install vim plug manager (vim-plug) and create "autoload" directory.
 
-    https://github.com/junegunn/vim-plug
+    https://github.com/junegunn/vim-plug#installation
 
 
 ## 目录结构 (Files Structure)
