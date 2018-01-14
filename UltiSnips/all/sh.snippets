@@ -1,5 +1,17 @@
 snippet bash "Add bash shabang" b
 #!/usr/bin/env bash
+#
+# Filename:
+# Description:
+# Author: ADoyle <adoyle.h@gmail.com>
+# LICENSE: Apache License, Version 2.0
+# First Created: 2017-07-26T07:13:55Z
+# Last Modified: 2017-07-26T17:32:16Z
+# Version: 0.1.0
+# Bash Version: 4.x
+# Source:
+# Project:
+
 # shellcheck disable=${1:SC1090,SC2155}
 set -o errexit
 set -o errtrace
@@ -8,7 +20,10 @@ set -o pipefail
 [[ -n "${XTRACE:+x}" ]] && set -o xtrace
 [[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
 
-${0}
+
+#######################################################################
+#                           initialization                            #
+#######################################################################
 
 usage() {
 cat <<EOF
@@ -23,8 +38,54 @@ Parameters:
 EOF
 }
 
+
+declare -A dispatch_cmd_opts
+declare -a dispatch_cmd_args
+
+opt_parse() {
+  while [ $# -gt 0 ];do
+    case \$1 in
+      -i)
+        dispatch_cmd_opts[input]=\$2
+        shift
+        ;;
+      --input)
+        dispatch_cmd_opts[input]=\$2
+        shift
+        ;;
+      -h)
+        dispatch_cmd_opts[help]=true
+        ;;
+      --help)
+        dispatch_cmd_opts[help]=true
+        ;;
+      *)
+        dispatch_cmd_args+=(\$1)
+        ;;
+    esac
+    shift
+  done
+
+  # declare -p dispatch_cmd_opts
+}
+
+#######################################################################
+#                           private methods                           #
+#######################################################################
+
+
+#######################################################################
+#                           public methods                            #
+#######################################################################
+
 main() {
-  usage
+  opt_parse "$@"
+  local arg0=${dispatch_cmd_args[0]:-}
+
+  if [[ ${dispatch_cmd_opts[help]:-} == true ]] || [[ -z "$arg0" ]]; then
+    usage
+    exit 0
+  fi
 }
 
 main "\$@"
