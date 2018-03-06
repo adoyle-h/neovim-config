@@ -60,7 +60,7 @@ opt_parse() {
         dispatch_cmd_opts[help]=true
         ;;
       *)
-        dispatch_cmd_args+=(\$1)
+        dispatch_cmd_args+=("\$1")
         ;;
     esac
     shift
