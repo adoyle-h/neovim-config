@@ -80,11 +80,11 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets' " vim-snippets depends on ultisnips
 Plug 'justinj/vim-react-snippets'
 Plug 'ahmedelgabri/vim-ava-snippets'
-Plug 'rdnetto/YCM-Generator', { 'on': 'YcmGenerateConfig', 'branch': 'stable'}
 "Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
 
 " ycmd
-" Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer'} " CPU 燃烧器
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " 自动补全
 
 Plug 'tpope/vim-abolish'  " fix typo and Coercion https://github.com/tpope/vim-abolish#coercion
@@ -134,7 +134,7 @@ Plug 'tokozedg/vim-sman'
 Plug 'aklt/plantuml-syntax'
 Plug 'nikvdp/ejs-syntax'
 Plug 'chr4/nginx.vim'
-
+Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
 
 " Typescript
