@@ -1,4 +1,25 @@
-snippet bash "Add bash shabang" b
+snippet shabang "Only add shabang" b
+#!/usr/bin/env ${1:bash}
+# shellcheck disable=${2:SC1090}
+
+${0}
+endsnippet
+
+snippet bash "Add bash shabang and set variables" b
+#!/usr/bin/env ${1:bash}
+# shellcheck disable=${2:SC1090}
+
+set -o errexit
+set -o nounset
+set -o pipefail
+[[ -n "${XTRACE:+x}" ]] && set -o xtrace
+[[ -n "${VERBOSE:+x}" ]] && set -o verbose
+[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
+[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
+endsnippet
+
+
+snippet bash_program "Add bash program template" b
 #!/usr/bin/env bash
 #
 # Filename:
@@ -79,7 +100,7 @@ opt_parse() {
 #                           public methods                            #
 #######################################################################
 
-main() {
+${2:main}() {
   opt_parse "$@"
   local arg0=${dispatch_cmd_args[0]:-}
 
@@ -89,5 +110,5 @@ main() {
   fi
 }
 
-main "\$@"
+$2 "\$@"
 endsnippet

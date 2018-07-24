@@ -1,14 +1,4 @@
-snippet bash-opts "Add bash shell options for script" b
-set -o errexit
-set -o nounset
-set -o pipefail
-[[ -n "${XTRACE:+x}" ]] && set -o xtrace
-[[ -n "${VERBOSE:+x}" ]] && set -o verbose
-[[ -n "${DEBUG:-}" ]] && IS_DEBUG=true || IS_DEBUG=false
-[[ $- =~ [x] ]] && PS4='+[${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]:+${FUNCNAME[0]}}()]: '
-endsnippet
-
-snippet sh-vars "Magic shell variables" b
+snippet sh-vars "Add magic shell variables" b
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
 readonly SCRIPT_BASENAME="$(basename "\$0")"
 readonly SCRIPT_PATH="${SCRIPT_DIR}/$SCRIPT_BASENAME"
