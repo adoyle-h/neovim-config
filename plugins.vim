@@ -136,6 +136,7 @@ Plug 'nikvdp/ejs-syntax'
 Plug 'chr4/nginx.vim'
 Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
