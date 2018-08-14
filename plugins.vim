@@ -137,6 +137,7 @@ Plug 'chr4/nginx.vim'
 Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'sirosen/vim-rockstar'
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
