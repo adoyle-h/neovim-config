@@ -64,7 +64,7 @@ set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)
 set cmdheight=2  " 命令行行高
 
 " 鼠标
-set mouse-=a
+set mouse=nvc
 set mousemodel=popup
 
 " 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
