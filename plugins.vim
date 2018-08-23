@@ -1,8 +1,3 @@
-"Plug 'benekastah/neomake'
-"Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
-"Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
-
-
 "Plug 'tpope/vim-vinegar'
 "Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
 "Plug 'tomtom/tlib_vim' " utility functions for vim
@@ -19,7 +14,6 @@ Plug 'kassio/neoterm', {'on': ['T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTe
 Plug 'adoyle-h/vim-emacscommandline'  " emacs 快捷键
 Plug 'vasconcelloslf/vim-interestingwords'  " 高亮单词
 "Plug 'kopischke/unite-spell-suggest'
-" Plug 'vim-scripts/VisIncr'  " Produce increasing/decreasing columns of numbers, dates, or daynames
 Plug 'nishigori/increment-activator'
 Plug 'guns/xterm-color-table.vim', {'on': ['XtermColorTable', 'SXtermColorTable', 'VXtermColorTable', 'TXtermColorTable', 'EXtermColorTable', 'OXtermColorTable']} " 终端颜色表
 Plug 'majutsushi/tagbar', {'on': 'Tagbar'}  " 侧边栏索引
@@ -112,7 +106,7 @@ Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 "Plug 'tpope/vim-markdown'
 
 Plug 'pangloss/vim-javascript' " 不要使用 for 选项，否则会导致语法高亮不会在初次加载时生效
-Plug 'moll/vim-node', {'for': ['javascript', 'javascript.jsx']}
+Plug 'moll/vim-node', {'for': ['javascript']}
 " Plug 'ternjs/tern_for_vim', {'for': ['javascript', 'javascript.jsx'], 'do': 'npm install'}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
 Plug 'sbdchd/neoformat'

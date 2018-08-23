@@ -263,13 +263,13 @@ let g:ycm_filetype_specific_completion_to_disable = {
 
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#auto_complete_start_length = 1
-let g:deoplete#auto_complete_delay = 80
-let g:deoplete#auto_refresh_delay = 50
+call deoplete#custom#option({
+    \ 'camel_case': v:true,
+    \ 'auto_complete_delay': 80,
+    \ 'auto_refresh_delay': 50,
+    \ 'skip_chars': ['(', ')', '[', ']', '{', '}'],
+    \ 'min_pattern_length': 1,
+    \ })
 
 " vim-interestingwords
 let g:interestingWordsTermColors = ['154', '99', '121', '212', '39', '166', '123', '214', '34', '222', '111', '33']
@@ -296,6 +296,9 @@ let g:javascript_plugin_jsdoc = 1
 " let g:javascript_conceal_noarg_arrow_function = "➤"
 " let g:javascript_conceal_underscore_arrow_function = "⇢"
 
+" mxw/vim-jsx
+let g:jsx_ext_required = 1
+
 " tern-for-vim
 " 鼠标停留在方法内时显示参数提示
 let g:tern_show_argument_hints = 'on_hold'
@@ -307,6 +310,7 @@ let g:tern_map_prefix = ';'
 " ctrlsf
 let g:ctrlsf_auto_close = 0
 let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules']
+let g:ctrlsf_context = '-C 3'
 
 " vim-visualstar
 let g:visualstar_no_default_key_mappings = 0
