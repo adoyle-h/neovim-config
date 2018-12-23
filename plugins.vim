@@ -130,12 +130,15 @@ Plug 'nikvdp/ejs-syntax'
 Plug 'chr4/nginx.vim'
 Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'sirosen/vim-rockstar'
+Plug 'jvirtanen/vim-hcl'
+Plug 'hashivim/vim-terraform'
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
+" Plug 'Quramy/tsuquyomi'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 Plug 'HerringtonDarkholme/yats.vim'
 
 " devicons should be put at last!!
