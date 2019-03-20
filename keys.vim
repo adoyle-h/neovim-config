@@ -196,6 +196,9 @@ noremap <leader>nt :NERDTreeTabsToggle<CR>
 noremap <leader>nm :NERDTreeMirrorToggle<CR>
 noremap <leader>nf :NERDTreeTabsFind<CR>
 
+" defx.nvim
+noremap <leader>m :Defx -toggle<CR>
+
 " Unite
 noremap <silent><leader>uf :call Unite_open("file")<CR>
 "noremap <silent><leader>uF :call Unite_open("file_rec")<CR>

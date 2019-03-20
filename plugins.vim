@@ -4,9 +4,22 @@
 "Plug 'xolox/vim-misc'
 
 Plug 'johngrib/vim-game-snake', {'on': 'VimGameSnake'}
+" :Cheat40
 Plug 'lifepillar/vim-cheat40'
 
 "" ========
+
+"" File Tree
+""" Nerdtree
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'jistr/vim-nerdtree-tabs', {'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
+
+""" Defx
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-git'
+Plug 'kristijanhusak/defx-icons'
+
 Plug 'uguu-org/vim-matrix-screensaver', {'on': 'Matrix'}
 Plug 'matze/vim-move' " 移动选定段落 <A-k> <A-j>
 Plug 'MattesGroeger/vim-bookmarks'  " 书签管理器
@@ -20,9 +33,6 @@ Plug 'majutsushi/tagbar', {'on': 'Tagbar'}  " 侧边栏索引
 Plug 'terryma/vim-multiple-cursors'  " g:multi_cursor_start_key 不能绑定到 <CR> 或者 <C-m> 键，会出问题
 Plug 'easymotion/vim-easymotion'  " 光标跳转
 Plug 'bkad/CamelCaseMotion' " either CamelCase ('anIdentifier') or underscore_notation ('an_identifier')
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'jistr/vim-nerdtree-tabs', {'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 "Plug 'ctrlpvim/ctrlp.vim' " Fuzzy file, buffer, mru, tag, etc finder
 Plug 'shougo/unite.vim' "  search and display information from arbitrary sources like files, buffers, recently used files or registers.
