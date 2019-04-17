@@ -19,11 +19,27 @@ let g:NERDTreeIndicatorMapCustom = {
 \ "Unknown"   : "?"
 \ }
 
+" autocmd FileType nerdtree call s:nerdtree_my_settings()
+" function! s:nerdtree_my_settings() abort
+"     call NERDTreeAddKeyMap({
+"         \ 'key': '<Space>',
+"         \ 'callback': 'NERDTreeMapActivateNode',
+"         \ 'quickhelpText': 'Toggle open/close of current directory',
+"         \ 'scope': 'DirNode' })
+
+"     unmap <buffer> <Space>
+
+"     function! NERDTreeCDHandler(dirnode)
+"         call a:dirnode.toggleOpen()
+"     endfunction
+" endfunction
+
 " NERDComment
 let g:NERDSpaceDelims = 1
 let g:NERDRemoveExtraSpaces = 1
 let g:NERDCommentWholeLinesInVMode = 1
 let g:NERDCustomDelimiters = {
+    \ 'javascript.jsx': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
     \ 'plantuml': { 'left': "'", 'right': '' }
 \ }
 

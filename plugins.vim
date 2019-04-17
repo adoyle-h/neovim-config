@@ -22,7 +22,6 @@ Plug 'kristijanhusak/defx-icons'
 
 Plug 'uguu-org/vim-matrix-screensaver', {'on': 'Matrix'}
 Plug 'matze/vim-move' " 移动选定段落 <A-k> <A-j>
-Plug 'MattesGroeger/vim-bookmarks'  " 书签管理器
 Plug 'kassio/neoterm', {'on': ['T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus', 'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle']}  " vim 内启动 shell
 Plug 'adoyle-h/vim-emacscommandline'  " emacs 快捷键
 Plug 'vasconcelloslf/vim-interestingwords'  " 高亮单词
@@ -153,3 +152,4 @@ Plug 'HerringtonDarkholme/yats.vim'
 
 " devicons should be put at last!!
 Plug 'ryanoasis/vim-devicons'
+

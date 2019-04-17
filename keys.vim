@@ -313,35 +313,35 @@ autocmd User Node
   \ endif
 
 " vim-bookmarks
-let g:bookmark_no_default_key_mappings = 1
-function! BookmarkMapKeys()
-    nmap mm :BookmarkToggle<CR>
-    nmap ma :BookmarkAnnotate<CR>
-    nmap mn :BookmarkNext<CR>
-    nmap mp :BookmarkPrev<CR>
-    nmap mj :BookmarkNext<CR>
-    nmap mk :BookmarkPrev<CR>
-    nmap ml :BookmarkShowAll<CR>
-    nmap mx :BookmarkClear<CR>
-    nmap mX :BookmarkClearAll<CR>
-    nmap mK :BookmarkMoveUp<CR>
-    nmap mJ :BookmarkMoveDown<CR>
-endfunction
-function! BookmarkUnmapKeys()
-    unmap mm
-    unmap ma
-    unmap mn
-    unmap mp
-    unmap mj
-    unmap mk
-    unmap ml
-    unmap mx
-    unmap mX
-    unmap mK
-    unmap mJ
-endfunction
-autocmd BufEnter * :call BookmarkMapKeys()
-autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+" let g:bookmark_no_default_key_mappings = 1
+" function! BookmarkMapKeys()
+"     nmap mm :BookmarkToggle<CR>
+"     nmap ma :BookmarkAnnotate<CR>
+"     nmap mn :BookmarkNext<CR>
+"     nmap mp :BookmarkPrev<CR>
+"     nmap mj :BookmarkNext<CR>
+"     nmap mk :BookmarkPrev<CR>
+"     nmap ml :BookmarkShowAll<CR>
+"     nmap mx :BookmarkClear<CR>
+"     nmap mX :BookmarkClearAll<CR>
+"     nmap mK :BookmarkMoveUp<CR>
+"     nmap mJ :BookmarkMoveDown<CR>
+" endfunction
+" function! BookmarkUnmapKeys()
+"     unmap mm
+"     unmap ma
+"     unmap mn
+"     unmap mp
+"     unmap mj
+"     unmap mk
+"     unmap ml
+"     unmap mx
+"     unmap mX
+"     unmap mK
+"     unmap mJ
+" endfunction
+" autocmd BufEnter * :call BookmarkMapKeys()
+" autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 
 " vim-gitgutter
 nmap <leader>gk <Plug>GitGutterPrevHunk
