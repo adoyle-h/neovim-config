@@ -5,6 +5,19 @@ snippet shabang "Only add shabang" b
 ${0}
 endsnippet
 
+snippet shellcheck-init-disables "Default shellcheck disables options" b
+# shellcheck disable=${1:SC1090}${0}
+endsnippet
+
+snippet sh-vars "Add magic shell variables" b
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+readonly SCRIPT_BASENAME="$(basename "\$0")"
+readonly SCRIPT_PATH="${SCRIPT_DIR}/$SCRIPT_BASENAME"
+
+readonly ARGS="$@"
+readonly ARG1="\${1:-}"
+endsnippet
+
 snippet bash "Add bash shabang and set variables" b
 #!/usr/bin/env ${1:bash}
 # shellcheck disable=${2:SC1090}
