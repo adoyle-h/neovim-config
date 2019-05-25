@@ -206,9 +206,6 @@ let g:closetag_filenames = "*.html,*.xml,*.xhtml,*.htm,*.jsx"
 " vim-maximizer
 let g:maximizer_set_default_mapping = 0
 
-" editorconfig
-let g:EditorConfig_core_mode = 'external_command'
-
 " vim-table-mode
 function! TableModeChange()
   if (b:table_mode_mode == 'Normal')
