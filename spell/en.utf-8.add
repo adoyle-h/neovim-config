@@ -90,3 +90,10 @@ WHATWG
 Serverless
 workflow
 Tampermonkey
+regex
+regexp
+stdout
+stderr
+Lobash
+plugins
+dotfiles
