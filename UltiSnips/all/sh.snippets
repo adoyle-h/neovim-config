@@ -1,15 +1,19 @@
-snippet shabang "Only add shabang" b
+snippet shabang "[shell] Add shabang" b
 #!/usr/bin/env ${1:bash}
 # shellcheck disable=${2:SC1090}
 
 ${0}
 endsnippet
 
-snippet shellcheck-init-disables "Default shellcheck disables options" b
+snippet shellcheck-disable "Default shellcheck disables options" b
 # shellcheck disable=${1:SC1090}${0}
 endsnippet
 
-snippet sh-vars "Add magic shell variables" b
+snippet script_dir "[shell] Add SCRIPT_DIR variable" b
+readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+endsnippet
+
+snippet sh-vars "[shell] Add magic shell variables" b
 readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
 readonly SCRIPT_BASENAME="$(basename "\$0")"
 readonly SCRIPT_PATH="${SCRIPT_DIR}/$SCRIPT_BASENAME"
