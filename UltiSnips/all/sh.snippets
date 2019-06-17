@@ -26,6 +26,28 @@ readonly ARGS="$@"
 readonly ARG1="\${1:-}"
 endsnippet
 
+snippet xtrace "Add xtrace snippets" b
+if [[ -n "${XTRACE:+x}" ]]; then
+  case ${XTRACE:-2} in
+    1 )
+      PS4='+[${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
+      ;;
+    2 )
+      PS4='+[$(basename ${BASH_SOURCE[0]}):${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
+      ;;
+    3 )
+      PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
+      ;;
+    * )
+      echo "Invalid PS4_LEVEL: \$1" >&2
+      return 3
+      ;;
+  esac
+
+  set -o xtrace
+fi
+endsnippet
+
 snippet bash "Add bash shabang and set variables" b
 #!/usr/bin/env ${1:bash}
 # shellcheck disable=${2:SC1090}
