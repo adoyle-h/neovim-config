@@ -1,26 +1,24 @@
 # ADoyle-Style Neovim Configuration
 
-学习交流用，仅供参考。
-
-Click [./README.en.md](./README.en.md) to read English documents.
+Share for learning and reference.
 
 ## TOC
 
 <!-- MarkdownTOC GFM -->
 
-- [版本](#版本)
-- [安装](#安装)
-- [目录结构](#目录结构)
-- [建议，Bug，做贡献](#建议bug做贡献)
-- [版权声明](#版权声明)
+- [Version](#version)
+- [Installation](#installation)
+- [Files Structure](#files-structure)
+- [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
+- [Copyright and License](#copyright-and-license)
 
 <!-- /MarkdownTOC -->
 
-## 版本
+## Version
 
-NVIM v0.2 及以上版本。
+NVIM v0.2 and higher.
 
-## 安装
+## Installation
 
 ```sh
 git clone https://github.com/adoyle-h/neovim-config.git
@@ -31,9 +29,9 @@ cd neovim-config
 echo 'export NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim' >> ~/.bashrc
 ```
 
-执行 `nvim` 打开 neovim 然后执行 `:PlugInstall` 安装 vim 插件.
+And then enter `nvim` to open neovim and `:PlugInstall` to install vim plugins.
 
-## 目录结构
+## Files Structure
 
 ```
 .
@@ -60,11 +58,11 @@ echo 'export NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim' >> ~/.bashrc
     └── undodir        // mbbill/undotree plugin
 ```
 
-## 建议，Bug，做贡献
+## Suggestion, Bug Reporting, Contributing
 
 Any comments and suggestions are always welcome. Please open an [issue][] to contact with me.
 
-## 版权声明
+## Copyright and License
 
 Copyright (c) 2016-2019 ADoyle. The project is licensed under the **BSD 3-clause License**.
 
