@@ -3,5 +3,4 @@ plugged
 autoload
 temp
 .netrwhist
-colors/*
 !**/*/.gitkeep
