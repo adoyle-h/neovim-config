@@ -1,3 +1,11 @@
+if empty($NVIM_HOME)
+  if empty($XDG_CONFIG_HOME)
+    $NVIM_HOME=$XDG_CONFIG_HOME/nvim
+  else
+    $NVIM_HOME=$HOME/.config/nvim
+  endif
+endif
+
 source $NVIM_HOME/abbreviations.vim
 source $NVIM_HOME/color.vim
 source $NVIM_HOME/functions.vim

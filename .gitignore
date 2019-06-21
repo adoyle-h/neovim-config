@@ -1,6 +1,6 @@
 .DS_Store
-plugged
-autoload
-temp
 .netrwhist
+plugged/*
+autoload/*
+temp/*
 !**/*/.gitkeep

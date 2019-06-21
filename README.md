@@ -19,7 +19,7 @@ Share for learning and reference.
 ## 版本 (Version)
 
 ```
-NVIM v0.2.0
+NVIM v0.3.4
 Build type: Release
 
 Optional features included (+) or not (-): +acl   +iconv    +jemalloc +tui
@@ -27,20 +27,15 @@ Optional features included (+) or not (-): +acl   +iconv    +jemalloc +tui
 
 ## 安装 (Installation)
 
-1. Set environment variable in shell
+Invoke `./install`.
 
-    `export NVIM_HOME=~/.config/nvim`
+And export `NVIM_HOME` in your `.bashrc` file.
 
-2. Download my color theme
+    ```sh
+    echo 'export NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim' >> ~/.bashrc
+    ```
 
-    `git clone --single-branch --depth 1 -b adoyle https://github.com/adoyle-h/vim-colors-solarized`
-
-    `ln -s <vim-colors-solarized>/colors/solarized.vim colors/solarized.vim`
-
-3. Install vim plug manager (vim-plug) and create "autoload" directory.
-
-    https://github.com/junegunn/vim-plug#installation
-
+Enter `neovim` and `:PlugInstall` to install vim plugins.
 
 ## 目录结构 (Files Structure)
 
