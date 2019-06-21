@@ -99,3 +99,4 @@ plugins
 dotfiles
 Timestamp
 sed
+POSIX
