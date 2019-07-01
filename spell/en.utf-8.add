@@ -100,3 +100,6 @@ dotfiles
 Timestamp
 sed
 POSIX
+MacOS
+Zsh
+builtin
