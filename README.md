@@ -9,6 +9,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 <!-- MarkdownTOC GFM -->
 
 - [版本](#版本)
+- [依赖](#依赖)
 - [安装](#安装)
 - [目录结构](#目录结构)
 - [建议，Bug，做贡献](#建议bug做贡献)
@@ -18,7 +19,11 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 版本
 
-NVIM v0.2 及以上版本。
+NVIM v0.3 及以上版本。
+
+## 依赖
+
+- Vim 包管理器: https://github.com/junegunn/vim-plug
 
 ## 安装
 

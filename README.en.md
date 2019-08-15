@@ -7,6 +7,7 @@ Share for learning and reference.
 <!-- MarkdownTOC GFM -->
 
 - [Version](#version)
+- [Dependency](#dependency)
 - [Installation](#installation)
 - [Files Structure](#files-structure)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
@@ -16,7 +17,11 @@ Share for learning and reference.
 
 ## Version
 
-NVIM v0.2 and higher.
+NVIM v0.3 and higher.
+
+## Dependency
+
+- Vim Package Manager: https://github.com/junegunn/vim-plug
 
 ## Installation
 

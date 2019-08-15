@@ -8,9 +8,8 @@ let mapleader = ';'
 " ------------------------ F1~F9 Keymap ----------------------------
 " 废弃 F1 这个键，防止调出系统帮助。可以使用 :help 来调出 vim 帮助
 noremap <F1> <Esc>
-noremap <silent><F2> :NERDTreeTabsToggle<CR>
-noremap <silent><F3> :Tagbar<CR>
-noremap <silent><F5> :UndotreeToggle<CR>
+noremap <silent><F2> :Tagbar<CR>
+noremap <silent><F3> :UndotreeToggle<CR>
 " ------------------------------------------------------------------
 
 noremap <leader>C :ClearSearch<CR>
@@ -139,7 +138,7 @@ noremap <C-W>! <C-W>T
 nmap <C-W>o <C-W>w<C-W>
 nmap <C-W>O <C-W>W<C-W>
 " vim-maximizer
-noremap <C-W>z :MaximizerToggle!<CR>
+noremap <silent> <C-W>z :MaximizerToggle!<CR>
 " " vim-windowswap
 " let g:windowswap_map_keys = 0 "prevent default bindings
 " nnoremap <C-W>w :call WindowSwap#EasyWindowSwap()<CR>
@@ -192,12 +191,12 @@ noremap <leader>0 :tablast<CR>
 " ------------------------ Pugins Keymap ---------------------------
 
 " NERDTreeTabsToggle
-noremap <leader>nt :NERDTreeTabsToggle<CR>
-noremap <leader>nm :NERDTreeMirrorToggle<CR>
-noremap <leader>nf :NERDTreeTabsFind<CR>
+noremap <silent> <leader>nt :NERDTreeTabsToggle<CR>
+noremap <silent> <leader>nm :NERDTreeMirrorToggle<CR>
+noremap <silent> <leader>nf :NERDTreeTabsFind<CR>
 
 " defx.nvim
-noremap <leader>m :Defx -toggle<CR>
+noremap <silent> <leader>m :Defx -toggle<CR>
 
 " Unite
 noremap <silent><leader>uf :call Unite_open("file")<CR>
@@ -248,32 +247,6 @@ nmap <leader>/ :FuzzySearch<CR>
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordPath
 
-" clever-f
-"nnoremap f <Plug>(clever-f-f)
-"xnoremap f <Plug>(clever-f-f)
-"onoremap f <Plug>(clever-f-f)
-"nnoremap F <Plug>(clever-f-F)
-"xnoremap F <Plug>(clever-f-F)
-"onoremap F <Plug>(clever-f-F)
-"nnoremap t <Plug>(clever-f-t)
-"xnoremap t <Plug>(clever-f-t)
-"onoremap t <Plug>(clever-f-t)
-"nnoremap T <Plug>(clever-f-T)
-"xnoremap T <Plug>(clever-f-T)
-"onoremap T <Plug>(clever-f-T)
-"nnoremap f :call clever_f#find_with('f')<Cr>
-"xnoremap f :call clever_f#find_with('f')<Cr>
-"onoremap f :call clever_f#find_with('f')<Cr>
-"nnoremap F :call clever_f#find_with('F')<Cr>
-"xnoremap F :call clever_f#find_with('F')<Cr>
-"onoremap F :call clever_f#find_with('F')<Cr>
-"nnoremap t :call clever_f#find_with('t')<Cr>
-"xnoremap t :call clever_f#find_with('t')<Cr>
-"onoremap t :call clever_f#find_with('t')<Cr>
-"nnoremap T :call clever_f#find_with('T')<Cr>
-"xnoremap T :call clever_f#find_with('T')<Cr>
-"onoremap T :call clever_f#find_with('T')<Cr>
-
 " vim-visualstar, 不能使用 xnoremap !
 silent! xmap <C-n> <Plug>(visualstar-*)
 silent! xmap <C-p> <Plug>(visualstar-#)
@@ -312,37 +285,6 @@ autocmd User Node
   \   nmap <buffer> <C-W><C-f> <Plug>NodeVSplitGotoFile |
   \ endif
 
-" vim-bookmarks
-" let g:bookmark_no_default_key_mappings = 1
-" function! BookmarkMapKeys()
-"     nmap mm :BookmarkToggle<CR>
-"     nmap ma :BookmarkAnnotate<CR>
-"     nmap mn :BookmarkNext<CR>
-"     nmap mp :BookmarkPrev<CR>
-"     nmap mj :BookmarkNext<CR>
-"     nmap mk :BookmarkPrev<CR>
-"     nmap ml :BookmarkShowAll<CR>
-"     nmap mx :BookmarkClear<CR>
-"     nmap mX :BookmarkClearAll<CR>
-"     nmap mK :BookmarkMoveUp<CR>
-"     nmap mJ :BookmarkMoveDown<CR>
-" endfunction
-" function! BookmarkUnmapKeys()
-"     unmap mm
-"     unmap ma
-"     unmap mn
-"     unmap mp
-"     unmap mj
-"     unmap mk
-"     unmap ml
-"     unmap mx
-"     unmap mX
-"     unmap mK
-"     unmap mJ
-" endfunction
-" autocmd BufEnter * :call BookmarkMapKeys()
-" autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
-
 " vim-gitgutter
 nmap <leader>gk <Plug>GitGutterPrevHunk
 nmap <leader>gj <Plug>GitGutterNextHunk
@@ -373,8 +315,6 @@ endfunction
 nnoremap <silent> <leader>k :call InterestingWords('n')<CR>
 vmap <silent> <leader>k <Plug>InterestingWords
 nmap <silent> <leader>K <Plug>InterestingWordsClear
-nmap <leader>ij <Plug>InterestingWordsForeward
-nmap <leader>ik <Plug>InterestingWordsBackward
 nmap [k <Plug>InterestingWordsBackward
 nmap ]k <Plug>InterestingWordsForeward
 
@@ -465,3 +405,6 @@ execute 'nnoremap '.tern_prefix.'tR' ':TernRename<CR>'
 " vim-slime
 xmap <leader>ss <Plug>SlimeRegionSend
 nmap <leader>ss <Plug>SlimeParagraphSend
+
+" vim-which-key
+nnoremap <silent> <leader><leader> :WhichKey ';'<CR>

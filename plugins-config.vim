@@ -6,6 +6,30 @@ let NERDTreeShowBookmarks=1
 let g:NERDTreeMapChangeRoot='L'
 let g:NERDTreeMapUpdir='H'
 
+" vim-nerdtree-syntax-highlight
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeExtensionHighlightColor = {
+  \ 'yaml': '8FAA54',
+  \ 'vim': '61A275',
+  \ 'js': '619D00',
+  \ 'json': 'CBB26F',
+  \ 'sh': '7D876D',
+  \ 'bash': '7D876D',
+  \ 'md': '525A63',
+  \ 'markd': '525A63',
+  \ 'markdown': '525A63',
+  \ 'log': 'A8F927',
+  \ 'go': '1CADD5',
+\}
+let g:NERDTreeExactMatchHighlightColor = {
+  \ 'Dockerfile': '3EA0EB',
+  \ 'Makefile': '955220',
+  \ '.git': 'B19D54',
+  \ '.gitignore': '877840',
+\}
+
 " NERDTree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
 \ "Modified"  : "✹",
@@ -16,6 +40,7 @@ let g:NERDTreeIndicatorMapCustom = {
 \ "Deleted"   : "✖",
 \ "Dirty"     : "*",
 \ "Clean"     : "✔︎",
+\ 'Ignored'   : '☒',
 \ "Unknown"   : "?"
 \ }
 
@@ -45,8 +70,7 @@ let g:NERDCustomDelimiters = {
 
 " indentline
 let g:indentLine_color_term = 237
-" let g:indentLine_char = '┆'
-let g:indentLine_char = ''  " special character symbol in my font
+let g:indentLine_char = ''  " special character symbol in my font
 " indentLine will overwrite your "concealcursor" and "conceallevel" with default value. So I disable it.
 let g:indentLine_setConceal = 0
 
@@ -72,14 +96,10 @@ highlight SyntasticWarningSign ctermfg=235 ctermbg=220 cterm=bold
 highlight SyntasticStyleErrorSign ctermfg=235 ctermbg=196 cterm=bold
 highlight SyntasticStyleWarningSign ctermfg=235 ctermbg=220 cterm=bold
 
-" vim-multiple-cursors
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_key='<M-n>'
-let g:multi_cursor_start_word_key='g<M-n>'
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<C-c>'
+" vim-visual-multi
+let g:VM_maps = {}
+let g:VM_maps['Find Under'] = '<M-n>' " replace C-n
+let g:VM_maps['Find Subword Under'] = '<M-n>' " replace visual C-n
 
 " vim-markdown
 let g:vim_markdown_frontmatter = 1
@@ -128,7 +148,19 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " vim-airline
 let g:airline_theme = 'bubblegum'
+let g:airline_powerline_fonts = 1
+
+"" vim-airline extensions
 let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#branch#enabled = 0
+
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#flags = 'f'
+
+let g:airline#extensions#whitespace#skip_indent_check_ft = {
+  \'go': ['mixed-indent-file', 'indent'],
+\}
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tabs_label = 'Tab'
 let g:airline#extensions#tabline#show_splits = 0
@@ -145,10 +177,19 @@ let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = '|'
 let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
-let g:airline_powerline_fonts = 1
+
+" Or Use ['all'] to enable for all filetypes.
+let g:airline#extensions#wordcount#filetypes = [
+    \'asciidoc', 'help', 'mail', 'markdown', 'org', 'rst', 'tex', 'text',
+\]
+
+"" vim-airline symbols
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+
+let g:airline_symbols.paste = 'Ƥ'
+let g:airline_symbols.spell = 'Ȿ'
 let g:airline_symbols.branch = ''
 " let g:airline_left_sep = ''
 " let g:airline_left_alt_sep = ''
@@ -157,7 +198,18 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.crypt = '🔒'
 " let g:airline_left_sep = '▶︎'
 " let g:airline_right_sep = '◀'
-let g:airline_section_z = airline#section#create(['ts=%{&tabstop}|sw=%{&shiftwidth}|fdl=%{&foldlevel}', ' %4l/%LL+%-3c'])
+
+function! AirlineInit()
+  " :h airline-predefined-parts
+  " let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'keymap', 'spell', 'capslock', 'xkblayout', 'iminsert'])
+  let g:airline_section_b = airline#section#create(['%l/%L|%c'])
+  " let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
+  " let g:airline_section_y = airline#section#create_right([])
+  let g:airline_section_z = airline#section#create([
+    \'ts=%{&tabstop}|sw=%{&shiftwidth}|fdl=%{&foldlevel}',
+  \])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 
 " gitgutter
 let g:gitgutter_map_keys = 0
@@ -174,25 +226,13 @@ au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_
 \   endif |
 \ endif
 
-" rainbow
-let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+" luochen1990/rainbow
+let g:rainbow_active = 1 " 0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
-\   'ctermfgs': ['205', '119', '33', '48', '229', '202', '166', '4', '13', '105'],
-\   'operators': '_,_',
-\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-\   'separately': {
-\       '*': {},
-\       'tex': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-\       },
-\       'vim': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-\       },
-\       'html': {
-\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-\       },
-\       'css': 0,
-\   }
+  \ 'ctermfgs': ['24', '119', '33', '48', '229', '202', '166', '4', '13', '105'],
+	\	'separately': {
+	\		'nerdtree': 0,
+	\	}
 \}
 
 " MatchTagAlways
@@ -242,8 +282,36 @@ let g:table_mode_motion_left_map = '[['
 let g:table_mode_motion_right_map = ']]'
 
 " tagbar
-let g:tagbar_show_linenumbers = -1
-let g:tagbar_sort = 0
+let g:tagbar_autofocus = 1
+let g:tagbar_case_insensitive = 1
+let g:tagbar_sort = 1
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 
 " UltiSnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -253,50 +321,22 @@ let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsListSnippets = '<C-tab>'
 let g:UltiSnipsSnippetsDir = $NVIM_HOME.'/UltiSnips'
 
-" YouCompleteMe/ycmd
-let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_show_diagnostics_ui = 0  " diagnostics for C-family languages
-let g:ycm_server_keep_logfiles = 1  " 持久化 ycmd 服务端日志
-let g:ycm_server_log_level = 'info'
-let g:ycm_confirm_extra_conf=1
-let g:ycm_global_ycm_extra_conf=''
-let g:ycm_complete_in_comments=1 " 补全功能在注释中同样有效
-let g:ycm_complete_in_strings = 1   " 在字符串输入中也能补全
-let g:ycm_use_ultisnips_completer = 1 " 开启 UltiSnips 补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 1   " 注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_tags_files = 1  " 开启 YCM 基于标签引擎
-let g:ycm_seed_identifiers_with_syntax=1 " 开启语法关键字补全
-let g:ycm_goto_buffer_command = 'horizontal-split'
-let g:ycm_key_invoke_completion = '<leader><tab>'  " 函数补全快捷键
-let g:ycm_key_list_select_completion = ['<Down>', '<C-j>']
-let g:ycm_key_list_previous_completion = ['<Up>', '<C-k>']
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_filetype_blacklist = {
-\ 'tagbar' : 1,
-\ 'gitcommit' : 1,
-\ 'ctrlsf': 1,
-\ 'unite': 1,
-\}
-let g:ycm_filetype_specific_completion_to_disable = {
-\ 'tagbar' : 1,
-\ 'gitcommit' : 1,
-\ 'ctrlsf': 1,
-\ 'unite': 1,
-\}
-
 " deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option({
-    \ 'camel_case': v:true,
-    \ 'auto_complete_delay': 80,
-    \ 'auto_refresh_delay': 50,
-    \ 'skip_chars': ['(', ')', '[', ']', '{', '}'],
-    \ 'min_pattern_length': 1,
-    \ })
+" let g:deoplete#enable_at_startup = 1
+" call deoplete#custom#option({
+"     \ 'camel_case': v:true,
+"     \ 'auto_complete_delay': 80,
+"     \ 'auto_refresh_delay': 50,
+"     \ 'skip_chars': ['(', ')', '[', ']', '{', '}'],
+"     \ 'min_pattern_length': 1,
+"     \ })
 
 " vim-interestingwords
-let g:interestingWordsTermColors = ['154', '99', '121', '212', '39', '166', '123', '214', '34', '222', '111', '33']
+let g:interestingWordsTermColors = [
+  \'33', '4', '101', '197', '78', '228', '154', '99', '121', '212', '38',
+  \'166', '123', '214', '34', '222', '116', '207',
+  \'242',
+\]
 let g:interestingWordsRandomiseColors = 0
 
 " undotree
@@ -518,9 +558,8 @@ highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=11
 let g:ac_smooth_scroll_du_sleep_time_msec = 2
 let g:ac_smooth_scroll_fb_sleep_time_msec = 1
 
-" vim-trailing-whitespace
-highlight ExtraWhitespace ctermbg=1
-let g:extra_whitespace_ignored_filetypes = []
+" vim-scripts/ShowTrailingWhitespace
+highlight ShowTrailingWhitespace ctermbg=1 guibg=1
 
 " fatih/vim-go
 let g:go_highlight_functions = 1
@@ -565,99 +604,109 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": ":."}
 let g:typescript_indent_disable = 1
 
 " defx.nvim
+let g:defx_git#indicators = {
+  \ 'Modified'  : '✹',
+  \ 'Staged'    : '✚',
+  \ 'Untracked' : '✭',
+  \ 'Renamed'   : '➜',
+  \ 'Unmerged'  : '═',
+  \ 'Ignored'   : '☒',
+  \ 'Deleted'   : '✖',
+  \ 'Unknown'   : '?'
+  \ }
+
+call defx#custom#column('filename', {
+  \ 'min_width': 20,
+  \ 'max_width': 40,
+  \ 'root_marker_highlight': 'Constant',
+  \ })
+
+call defx#custom#column('mark', {
+  \ 'readonly_icon': '✗',
+  \ 'selected_icon': '✓',
+  \ })
+
+call defx#custom#option('_', {
+  \ 'columns': 'git:mark:indent:icons:filename:type',
+  \ 'split': 'vertical',
+  \ 'winwidth': 30,
+  \ 'direction': 'topleft',
+  \ })
+
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
-    " Define mappings
-    nnoremap <silent><buffer><expr> <CR>
-                \ defx#do_action('open')
-    nnoremap <silent><buffer><expr> c
-                \ defx#do_action('copy')
-    nnoremap <silent><buffer><expr> m
-                \ defx#do_action('move')
-    nnoremap <silent><buffer><expr> p
-                \ defx#do_action('paste')
-    nnoremap <silent><buffer><expr> l
-                \ defx#do_action('drop')
-    nnoremap <silent><buffer><expr> v
-                \ defx#do_action('open', 'vsplit')
-    nnoremap <silent><buffer><expr> s
-                \ defx#do_action('open', 'pedit')
-    nnoremap <silent><buffer><expr> t
-                \ defx#is_directory() &&
-                \ defx#do_action('open', 'pedit')
-    nnoremap <silent><buffer><expr> o
-                \ defx#is_directory() ?
-                \ defx#do_action('open_or_close_tree') :
-                \ defx#do_action('drop')
-    nnoremap <silent><buffer><expr> K
-                \ defx#do_action('new_directory')
-    nnoremap <silent><buffer><expr> N
-                \ defx#do_action('new_file')
-    nnoremap <silent><buffer><expr> M
-                \ defx#do_action('new_multiple_files')
-    nnoremap <silent><buffer><expr> C
-                \ defx#do_action('toggle_columns',
-                \                'mark:filename:type:size')
-    nnoremap <silent><buffer><expr> S
-                \ defx#do_action('toggle_sort', 'time')
-    nnoremap <silent><buffer><expr> d
-                \ defx#do_action('remove')
-    nnoremap <silent><buffer><expr> r
-                \ defx#do_action('rename')
-    nnoremap <silent><buffer><expr> !
-                \ defx#do_action('execute_command')
-    nnoremap <silent><buffer><expr> x
-                \ defx#do_action('execute_system')
-    nnoremap <silent><buffer><expr> yy
-                \ defx#do_action('yank_path')
-    nnoremap <silent><buffer><expr> .
-                \ defx#do_action('toggle_ignored_files')
-    nnoremap <silent><buffer><expr> ;
-                \ defx#do_action('repeat')
-    nnoremap <silent><buffer><expr> h
-                \ defx#do_action('cd', ['..'])
-    nnoremap <silent><buffer><expr> ~
-                \ defx#do_action('cd')
-    nnoremap <silent><buffer><expr> q
-                \ defx#do_action('quit')
-    nnoremap <silent><buffer><expr> <Space>
-                \ defx#do_action('toggle_select') . 'j'
-    nnoremap <silent><buffer><expr> *
-                \ defx#do_action('toggle_select_all')
-    nnoremap <silent><buffer><expr> j
-                \ line('.') == line('$') ? 'gg' : 'j'
-    nnoremap <silent><buffer><expr> k
-                \ line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><expr> <C-l>
-                \ defx#do_action('redraw')
-    nnoremap <silent><buffer><expr> <C-g>
-                \ defx#do_action('print')
-    nnoremap <silent><buffer><expr> cd
-                \ defx#do_action('change_vim_cwd')
+  IndentLinesDisable
 
-    let g:defx_git#indicators = {
-        \ 'Modified'  : '✹',
-        \ 'Staged'    : '✚',
-        \ 'Untracked' : '✭',
-        \ 'Renamed'   : '➜',
-        \ 'Unmerged'  : '═',
-        \ 'Ignored'   : '☒',
-        \ 'Deleted'   : '✖',
-        \ 'Unknown'   : '?'
-        \ }
-
-	call defx#custom#column('filename', {
-	      \ 'directory_icon': '▸',
-	      \ 'opened_icon': '▾',
-	      \ 'root_icon': ' ',
-	      \ 'min_width': 20,
-	      \ 'max_width': 60,
-	      \ })
-
-	call defx#custom#option('_', {
-	      \ 'columns': 'git:mark:filename:type',
-          \ 'split': 'vertical',
-          \ 'winwidth': 30,
-          \ 'direction': 'topleft',
-	      \ })
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR>
+    \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> c
+    \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+    \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+    \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> L
+    \ defx#do_action('drop')
+  nnoremap <silent><buffer><expr> H
+    \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+    \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> v
+    \ defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> s
+    \ defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> t
+    \ defx#is_directory() &&
+    \ defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> o
+    \ defx#is_directory() ?
+    \ defx#do_action('open_or_close_tree') :
+    \ defx#do_action('drop')
+  nnoremap <silent><buffer><expr> K
+    \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+    \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M
+    \ defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> C
+    \ defx#do_action('toggle_columns', 'mark:indent:icons:filename:type:size')
+  nnoremap <silent><buffer><expr> S
+    \ defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr> d
+    \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r
+    \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> !
+    \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x
+    \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy
+    \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> .
+    \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ;
+    \ defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> q
+    \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space>
+    \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+    \ defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j
+    \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+    \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l>
+    \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+    \ defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd
+    \ defx#do_action('change_vim_cwd')
 endfunction
+
+" Vista
+" let g:vista_default_executive = 'coc'
+let g:vista_ctags_cmd = {
+    \ 'go': 'gotags -sort -silent',
+    \ }

@@ -2,7 +2,8 @@
 
 "set clipboard+=unnamed " 共享剪贴板
 
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容
+" 默认的状态栏显示的内容。vim-airline 会覆盖这个配置，当禁用 airline 时此行生效。
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 
 " Set the default listing style:
 " = 0: thin listing (one file per line)
@@ -16,17 +17,15 @@ let g:netrw_winsize=30
 " disable netrw's gx mapping. I use open-browser.vim
 let g:netrw_nogx = 1
 
-
-"set fillchars=vert:\ ,stl:\ ,stlnc:\  " 在被分割的窗口间显示空白，便于阅读
+" 窗口边框
+set fillchars=vert:⎮
 
 "set wrap "turn on line wrapping
-set textwidth=0
+set textwidth=0 " 不换行
 "set wrapmargin=0 " wrap lines when coming within n characters from side
 "set linebreak " set soft wrapping
 
 set diffopt+=vertical
-
-">>>>>>>>
 
 set nocompatible
 syntax on " turn on that syntax highlighting. Default is on in neovim.
@@ -149,23 +148,8 @@ set synmaxcol=300 " Syntax coloring lines that are too long just slows down the 
 
 " swap 文件配置
 set updatetime=5000  " 每 5000 毫秒保存一次 swap
-set updatecount=100   " 每 100 字符保存一次 swap
+set updatecount=100  " 每 100 字符保存一次 swap
 
 set sessionoptions=buffers,curdir,resize,tabpages,winpos,winsize
 
 set notermguicolors
-
-"" insert mode - line
-"let &t_SI .= "\<Esc>[5 q"
-""replace mode - underline
-"let &t_SR .= "\<Esc>[4 q"
-""common - block
-"let &t_EI .= "\<Esc>[3 q"
-"" http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
-" let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-" let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-" let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-" " For tmux running in iTerm2 on OS X:
-" let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-" let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-" let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
