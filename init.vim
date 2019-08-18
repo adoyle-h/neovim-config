@@ -18,6 +18,7 @@ source $NVIM_HOME/plugins.vim
 call plug#end()
 source $NVIM_HOME/plugins-config.vim
 
+source $NVIM_HOME/highlights.vim
 source $NVIM_HOME/keys.vim
 
 for file in split(glob('$NVIM_HOME/ftdetect/*.vim'), '\n')

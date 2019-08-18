@@ -27,7 +27,7 @@ set textwidth=0 " 不换行
 
 set diffopt+=vertical
 
-set nocompatible
+set nocompatible " not compatible Vi. Default "nocompatible" in nvim.
 syntax on " turn on that syntax highlighting. Default is on in neovim.
 
 " command                       detection   plugin      indent ~
@@ -96,7 +96,7 @@ set langmenu=zh_CN.UTF-8
 set showcmd " 显示当前正在输入的命令
 set completeopt=menu,preview  "补全
 set nolist " 不显示制表符
-set listchars=tab:——,eol:¬,trail:·,extends:⥤,precedes:⥢,nbsp:+  " 高亮空格、Tab、换行符等
+set listchars=tab:——,eol:¬,trail:·,extends:⇢,precedes:⇠,nbsp:+  " 高亮空格、Tab、换行符等
 set showbreak=↪
 set iskeyword -=.
 

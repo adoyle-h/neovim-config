@@ -1,8 +1,5 @@
 "" NERDTree
 let NERDTreeShowBookmarks=1
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if (argc() == 0) && !exists("s:std_in") | NERDTreeToggle | endif
 let g:NERDTreeMapChangeRoot='L'
 let g:NERDTreeMapUpdir='H'
 
@@ -12,20 +9,24 @@ let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeExtensionHighlightColor = {
   \ 'yaml': '8FAA54',
+  \ 'yml': '8FAA54',
   \ 'vim': '61A275',
-  \ 'js': '619D00',
+  \ 'js': 'F0DF64',
   \ 'json': 'CBB26F',
-  \ 'sh': '7D876D',
-  \ 'bash': '7D876D',
-  \ 'md': '525A63',
-  \ 'markd': '525A63',
-  \ 'markdown': '525A63',
-  \ 'log': 'A8F927',
+  \ 'sh': '8CDE5A',
+  \ 'bash': '8CDE5A',
+  \ 'md': '7D876D',
+  \ 'markd': '7D876D',
+  \ 'markdown': '7D876D',
+  \ 'log': '619D00',
   \ 'go': '1CADD5',
+  \ 'svg': 'A8F927',
+  \ 'toml': '955220',
 \}
+
 let g:NERDTreeExactMatchHighlightColor = {
   \ 'Dockerfile': '3EA0EB',
-  \ 'Makefile': '955220',
+  \ 'Makefile': '447721',
   \ '.git': 'B19D54',
   \ '.gitignore': '877840',
 \}
@@ -73,28 +74,6 @@ let g:indentLine_color_term = 237
 let g:indentLine_char = ''  " special character symbol in my font
 " indentLine will overwrite your "concealcursor" and "conceallevel" with default value. So I disable it.
 let g:indentLine_setConceal = 0
-
-" syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_error_symbol = ">>"
-let g:syntastic_warning_symbol = ">"
-let g:syntastic_style_error_symbol = "🚫"
-let g:syntastic_style_warning_symbol = "⚡️"
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_stl_format = '%E{First@%feL %e❌}%W{  %w⚠️}'
-
-highlight SyntasticError ctermfg=235 ctermbg=196 cterm=underline
-highlight SyntasticWarning ctermfg=235 ctermbg=220 cterm=underline
-highlight SyntasticStyleError ctermfg=235 ctermbg=196 cterm=underline
-highlight SyntasticStyleWarning ctermfg=235 ctermbg=220 cterm=underline
-
-highlight SyntasticErrorSign ctermfg=235 ctermbg=196 cterm=bold
-highlight SyntasticWarningSign ctermfg=235 ctermbg=220 cterm=bold
-highlight SyntasticStyleErrorSign ctermfg=235 ctermbg=196 cterm=bold
-highlight SyntasticStyleWarningSign ctermfg=235 ctermbg=220 cterm=bold
 
 " vim-visual-multi
 let g:VM_maps = {}
@@ -180,7 +159,7 @@ let g:airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|undotree|vimfile
 
 " Or Use ['all'] to enable for all filetypes.
 let g:airline#extensions#wordcount#filetypes = [
-    \'asciidoc', 'help', 'mail', 'markdown', 'org', 'rst', 'tex', 'text',
+  \'asciidoc', 'help', 'mail', 'markdown', 'org', 'rst', 'tex', 'text',
 \]
 
 "" vim-airline symbols
@@ -191,13 +170,7 @@ endif
 let g:airline_symbols.paste = 'Ƥ'
 let g:airline_symbols.spell = 'Ȿ'
 let g:airline_symbols.branch = ''
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
 let g:airline_symbols.crypt = '🔒'
-" let g:airline_left_sep = '▶︎'
-" let g:airline_right_sep = '◀'
 
 function! AirlineInit()
   " :h airline-predefined-parts
@@ -210,6 +183,56 @@ function! AirlineInit()
   \])
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
+
+" let g:airline_mode_map = {
+"   \ 's': 'SELECT',
+"   \ 'V': 'V-LINE',
+"   \ 'ni': '(INSERT)',
+"   \ 'ic': 'INSERT COMPL',
+"   \ 'R': 'REPLACE',
+"   \ '^S': 'S-BLOCK',
+"   \ 'no': 'OP PENDING',
+"   \ '^V': 'V-BLOCK',
+"   \ 'multi': 'MULTI',
+"   \ '__': '------',
+"   \ 'Rv': 'V REPLACE',
+"   \ 'c': 'COMMAND',
+"   \ 'ix': 'INSERT COMPL',
+"   \ 'i': 'INSERT',
+"   \ 'n': 'NORMAL',
+"   \ 'S ': 'S-LINE',
+"   \ 't': 'TERMINAL',
+"   \ 'v': 'VISUAL',
+" \}
+let g:airline_mode_map = {
+  \ 'n': 'N',
+  \ 'i': 'I',
+  \ 'c': 'C',
+  \ 'R': 'R',
+  \ 's': 'S',
+  \ 't': 'T',
+  \ 'v': 'V',
+  \ 'V': 'V-LINE',
+  \ '^V': 'V-BLOCK',
+  \ 'multi': 'M',
+  \ 'S ': 'S-LINE',
+  \ '^S': 'S-BLOCK',
+  \ 'ni': '(INSERT)',
+  \ 'ic': 'INSERT COMPL',
+  \ 'no': 'OP PENDING',
+  \ 'Rv': 'V REPLACE',
+  \ 'ix': 'INSERT COMPL',
+  \ '__': '------',
+\}
+
+function! PatchInactiveStatusLine(...)
+  call setwinvar(a:2.winnr, 'airline_section_a', '')
+  call setwinvar(a:2.winnr, 'airline_section_b', '')
+  call setwinvar(a:2.winnr, 'airline_section_x', '')
+  call setwinvar(a:2.winnr, 'airline_section_y', '')
+  call setwinvar(a:2.winnr, 'airline_section_z', '')
+endfunction
+call airline#add_inactive_statusline_func('PatchInactiveStatusLine')
 
 " gitgutter
 let g:gitgutter_map_keys = 0
@@ -230,9 +253,9 @@ au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_
 let g:rainbow_active = 1 " 0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
   \ 'ctermfgs': ['24', '119', '33', '48', '229', '202', '166', '4', '13', '105'],
-	\	'separately': {
-	\		'nerdtree': 0,
-	\	}
+  \ 'separately': {
+  \   'nerdtree': 0,
+  \ }
 \}
 
 " MatchTagAlways
@@ -244,7 +267,6 @@ let g:mta_filetypes = {
 \}
 let g:mta_use_matchparen_group = 0
 let g:mta_set_default_matchtag_color = 0
-highlight MatchTag ctermfg=15 ctermbg=4
 
 " easymotion
 let g:EasyMotion_smartcase = 1
@@ -286,32 +308,32 @@ let g:tagbar_autofocus = 1
 let g:tagbar_case_insensitive = 1
 let g:tagbar_sort = 1
 let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+\ 'ctagstype' : 'go',
+\ 'kinds'     : [
+  \ 'p:package',
+  \ 'i:imports:1',
+  \ 'c:constants',
+  \ 'v:variables',
+  \ 't:types',
+  \ 'n:interfaces',
+  \ 'w:fields',
+  \ 'e:embedded',
+  \ 'm:methods',
+  \ 'r:constructor',
+  \ 'f:functions'
+\ ],
+\ 'sro' : '.',
+\ 'kind2scope' : {
+  \ 't' : 'ctype',
+  \ 'n' : 'ntype'
+\ },
+\ 'scope2kind' : {
+  \ 'ctype' : 't',
+  \ 'ntype' : 'n'
+\ },
+\ 'ctagsbin'  : 'gotags',
+\ 'ctagsargs' : '-sort -silent'
+\}
 
 " UltiSnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -333,16 +355,16 @@ let g:UltiSnipsSnippetsDir = $NVIM_HOME.'/UltiSnips'
 
 " vim-interestingwords
 let g:interestingWordsTermColors = [
-  \'33', '4', '101', '197', '78', '228', '154', '99', '121', '212', '38',
-  \'166', '123', '214', '34', '222', '116', '207',
-  \'242',
+  \ '33', '4', '101', '197', '78', '228', '154', '99', '121', '212', '38',
+  \ '166', '123', '214', '34', '222', '116', '207',
+  \ '242',
 \]
 let g:interestingWordsRandomiseColors = 0
 
 " undotree
 if has("persistent_undo")
-    set undodir=$NVIM_HOME/temp/undodir/
-    set undofile
+  set undodir=$NVIM_HOME/temp/undodir/
+  set undofile
 endif
 
 " vim-javascript
@@ -373,7 +395,7 @@ let g:tern_map_prefix = ';'
 
 " ctrlsf
 let g:ctrlsf_auto_close = 0
-let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules']
+let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules', 'vendor']
 let g:ctrlsf_context = '-C 3'
 
 " vim-visualstar
@@ -386,67 +408,63 @@ let g:clever_f_show_prompt = 1
 " unite
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#custom#source('file_rec/neovim', 'ignore_pattern', 'node_modules/\|bower_components/')
+call unite#custom#source('file_rec/neovim', 'ignore_pattern', 'node_modules/\|bower_components/\|vendor/')
 autocmd FileType unite setlocal number relativenumber
 
 if executable('ag')
-    " Use ag (the silver searcher) https://github.com/ggreer/the_silver_searcher
-    let g:unite_source_rec_async_command = ['ag', '--smart-case', '--nocolor', '--follow', '--vimgrep', '--hidden', '--nogroup', '-g', '']
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts =
+  " Use ag (the silver searcher) https://github.com/ggreer/the_silver_searcher
+  let g:unite_source_rec_async_command = ['ag', '--smart-case', '--nocolor', '--follow', '--vimgrep', '--hidden', '--nogroup', '-g', '']
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts =
     \ '--smart-case --nocolor --follow --vimgrep --hidden --nogroup -g ""' .
     \ '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr''' .
-    \ '--ignore ''node_modules'' --ignore ''bower_components''' .
+    \ '--ignore ''node_modules'' --ignore ''bower_components'' --ignore ''vendor'''.
     \ ''
-    let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_recursive_opt = ''
 endif
 
 " easy-align
 let g:easy_align_delimiters = {
 \ '>': { 'pattern': '>>\|=>\|>' },
 \ '/': {
-\     'pattern':         '//\+\|/\*\|\*/',
-\     'delimiter_align': 'l',
-\     'ignore_groups':   ['!Comment'] },
+  \ 'pattern':         '//\+\|/\*\|\*/',
+  \ 'delimiter_align': 'l',
+  \ 'ignore_groups':   ['!Comment'] },
 \ ']': {
-\     'pattern':       '[[\]]',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\     'stick_to_left': 0
-\   },
+  \ 'pattern':       '[[\]]',
+  \ 'left_margin':   0,
+  \ 'right_margin':  0,
+  \ 'stick_to_left': 0
+\ },
 \ ')': {
-\     'pattern':       '[()]',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\     'stick_to_left': 0
-\   },
+  \ 'pattern':       '[()]',
+  \ 'left_margin':   0,
+  \ 'right_margin':  0,
+  \ 'stick_to_left': 0
+\ },
 \ 'd': {
-\     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-\     'left_margin':  0,
-\     'right_margin': 0
-\   }
+  \ 'pattern':      ' \(\S\+\s*[;=]\)\@=',
+  \ 'left_margin':  0,
+  \ 'right_margin': 0
 \ }
+\}
 
 " vim-bookmarks
 let g:bookmark_sign = '▶'
 let g:bookmark_annotation_sign = '▶'
 let g:bookmark_highlight_lines = 1
 let g:bookmark_location_list = 1
-highlight BookmarkSign ctermbg=234 ctermfg=27
-highlight BookmarkLine cterm=underline ctermbg=NONE ctermfg=NONE
-highlight BookmarkAnnotationSign ctermbg=234 ctermfg=35
-highlight BookmarkAnnotationLine cterm=underline ctermbg=NONE ctermfg=NONE
 
 call unite#custom#profile('source/vim_bookmarks', 'context', {
-    \   'winheight': 20,
-    \   'direction': 'dynamicbottom',
-    \   'start_insert': 0,
-    \   'prompt': '> ',
-    \   'prompt-focus': 1,
-    \   'prompt-visible': 1,
-    \   'keep_focus': 1,
-    \   'no_quit': 1,
-    \ })
+  \ 'winheight': 20,
+  \ 'direction': 'dynamicbottom',
+  \ 'start_insert': 0,
+  \ 'prompt': '> ',
+  \ 'prompt-focus': 1,
+  \ 'prompt-visible': 1,
+  \ 'keep_focus': 1,
+  \ 'no_quit': 1,
+\ })
 
 " vim-session
 let g:session_directory=$NVIM_HOME.'/temp/session'
@@ -473,7 +491,7 @@ let g:increment_activator_filetype_candidates = {
   \   ['low', 'normal', 'high'],
   \   ['LOW', 'NORMAL', 'HIGH'],
   \ ],
-  \ }
+\}
 
 " vim-markdown-toc
 let g:vmt_style = 'unordered'
@@ -482,27 +500,26 @@ let g:vmt_style = 'unordered'
 " tmux-like overlay
 let g:choosewin_overlay_enable = 0
 let g:choosewin_statusline_replace = !g:choosewin_overlay_enable
-let g:choosewin_tabline_replace    = 0 " don't replace tabline
+let g:choosewin_tabline_replace = 0 " don't replace tabline
 let g:choosewin_overlay_shade = 0
-let g:choosewin_blink_on_land      = 0 " don't blink at land
+let g:choosewin_blink_on_land = 0 " don't blink at land
 let g:choosewin_color_overlay = {
-      \ 'cterm': [33, 33]
-      \ }
+  \ 'cterm': [33, 33]
+\}
 let g:choosewin_color_overlay_current = {
-      \ 'cterm': [196, 196]
-      \ }
-
+  \ 'cterm': [196, 196]
+\}
 let g:choosewin_label_padding = 5
 let g:choosewin_color_bg = 234
 let g:choosewin_color_other = {
   \ 'cterm': [g:choosewin_color_bg, 0]
-  \ }
+\}
 let g:choosewin_color_label = {
   \ 'cterm': [g:choosewin_color_bg, 33]
-  \ }
+\}
 let g:choosewin_color_label_current = {
   \ 'cterm': [g:choosewin_color_bg, 196]
-  \ }
+\}
 let g:choosewin_label = 'QWEASDZXC'
 let g:choosewin_tablabel = '1234567890'
 let g:choosewin_keymap = {
@@ -520,21 +537,21 @@ let g:choosewin_keymap = {
   \ 'k':     'tab_prev',
   \ 'j':     'tab_next',
   \ 'l':     'tab_last',
-  \ }
+\}
 
-" ale
+" ALE
 let g:ale_linters = {
   \ 'javascript': ['eslint'],
   \ 'markdown': ['mdl'],
   \ 'jsx': ['stylelint', 'eslint'],
-  \ }
+\}
 let g:ale_fixers = {
   \ 'javascript': ['eslint'],
   \ 'css': ['stylelint'],
-  \ }
+\}
 let g:ale_linter_aliases = {
   \ 'jsx': 'css',
-  \ }
+\}
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
 let g:ale_statusline_format = ['E•%d', 'W•%d', '⬥ ok']
@@ -547,19 +564,6 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 1
 let g:ale_warn_about_trailing_whitespace = 1
-" nmap <silent> <leader><C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <leader><C-j> <Plug>(ale_next_wrap)
-highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
-highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
-highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
-highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=11
-
-" accelerated-smooth-scroll
-let g:ac_smooth_scroll_du_sleep_time_msec = 2
-let g:ac_smooth_scroll_fb_sleep_time_msec = 1
-
-" vim-scripts/ShowTrailingWhitespace
-highlight ShowTrailingWhitespace ctermbg=1 guibg=1
 
 " fatih/vim-go
 let g:go_highlight_functions = 1
@@ -580,7 +584,8 @@ let g:neoformat_enabled_javascript = ['prettier', 'prettydiff', 'prettiereslint'
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 
 " henrik/vim-indexed-search
-let g:indexed_search_shortmess = 0
+let g:indexed_search_shortmess = 1
+let g:indexed_search_numbered_only = 1
 
 " gregsexton/gitv
 let g:Gitv_OpenPreviewOnLaunch = 0
@@ -593,12 +598,6 @@ let g:Gitv_CustomMappings = {
 \  'delete': 'dd',
 \  'vdelete': 'dd',
 \}
-
-" vim-slime
-let g:slime_no_mappings = 1
-let g:slime_target = 'tmux'
-let g:slime_paste_file = tempname()
-let g:slime_default_config = {"socket_name": "default", "target_pane": ":."}
 
 " leafgarland/typescript-vim
 let g:typescript_indent_disable = 1
@@ -710,3 +709,8 @@ endfunction
 let g:vista_ctags_cmd = {
     \ 'go': 'gotags -sort -silent',
     \ }
+
+" chrisbra/Colorizer
+let g:colorizer_auto_color = 1
+let g:colorizer_auto_filetype='css,html,vim,markdown,js,jsx'
+" let g:colorizer_skip_comments = 1
