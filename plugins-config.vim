@@ -8,11 +8,13 @@ let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeExtensionHighlightColor = {
-  \ 'yaml': '8FAA54',
-  \ 'yml': '8FAA54',
+  \ 'yaml': '1AB2AC',
+  \ 'yml': '1AB2AC',
   \ 'vim': '61A275',
   \ 'js': 'F0DF64',
+  \ 'jsx': 'F0DF64',
   \ 'json': 'CBB26F',
+  \ 'ts': '2F7488',
   \ 'sh': '8CDE5A',
   \ 'bash': '8CDE5A',
   \ 'md': '7D876D',
@@ -22,6 +24,15 @@ let g:NERDTreeExtensionHighlightColor = {
   \ 'go': '1CADD5',
   \ 'svg': 'A8F927',
   \ 'toml': '955220',
+  \ 'py': '3873A3',
+  \ 'htm': 'E14D30',
+  \ 'html': 'E14D30',
+  \ 'rs': 'DDA586',
+  \ 'rb': '6F1619',
+  \ 'ex': '6D4B7D',
+  \ 'exs': '6D4B7D',
+  \ 'j2': 'B21A1F',
+  \ 'pdf': 'FC2122',
 \}
 
 let g:NERDTreeExactMatchHighlightColor = {

@@ -1,3 +1,6 @@
+"" Other
+Plug 'neomutt/neomutt.vim'
+
 "" Funny
 Plug 'johngrib/vim-game-snake', {'on': 'VimGameSnake'}
 Plug 'koron/nyancat-vim', {'on': ['Nyancat', 'Nyancat2']}
