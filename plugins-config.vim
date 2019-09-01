@@ -366,7 +366,7 @@ let g:UltiSnipsSnippetsDir = $NVIM_HOME.'/UltiSnips'
 
 " vim-interestingwords
 let g:interestingWordsTermColors = [
-  \ '33', '4', '101', '197', '78', '228', '154', '99', '121', '212', '38',
+  \ '33', '4', '210', '197', '78', '228', '154', '99', '121', '212', '38',
   \ '166', '123', '214', '34', '222', '116', '207',
   \ '242',
 \]
@@ -506,6 +506,11 @@ let g:increment_activator_filetype_candidates = {
 
 " vim-markdown-toc
 let g:vmt_style = 'unordered'
+let g:vmt_list_item_char = '-'
+let g:vmt_fence_text = 'MarkdownTOC'
+let g:vmt_fence_closing_text = '/'.g:vmt_fence_text
+" command! TocInsert :call <SID>GenToc({"GFM": v:true})
+" command! TocUpdate :call <SID>UpdateToc()
 
 " choose-win
 " tmux-like overlay

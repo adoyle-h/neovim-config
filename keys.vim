@@ -340,18 +340,16 @@ nmap <silent> ]e <Plug>(ale_next_wrap)
 "     \ :<C-u>call ac_smooth_scroll#scroll('k', 4, g:ac_smooth_scroll_fb_sleep_time_msec, 10)<CR>
 
 " CamelCaseMotion
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-noremap W w
-noremap B b
-noremap E e
-noremap gE ge
-" sunmap w
-" sunmap b
-" sunmap e
-" sunmap ge
+if exists('*camelcasemotion#InnerMotion')
+  map <silent> w <Plug>CamelCaseMotion_w
+  map <silent> b <Plug>CamelCaseMotion_b
+  map <silent> e <Plug>CamelCaseMotion_e
+  map <silent> ge <Plug>CamelCaseMotion_ge
+  noremap W w
+  noremap B b
+  noremap E e
+  noremap gE ge
+endif
 
 " vim-abolish
 " :h cr for more descriptions
@@ -363,21 +361,6 @@ noremap gE ge
 " kebab-case (crk)
 " dot.case (cr.)
 " space case (cr<space>)
-
-
-" clever-f.vim
-nmap <M-f> <Plug>(clever-f-f)
-xmap <M-f> <Plug>(clever-f-f)
-omap <M-f> <Plug>(clever-f-f)
-nmap F <Plug>(clever-f-F)
-xmap F <Plug>(clever-f-F)
-omap F <Plug>(clever-f-F)
-nmap t <Plug>(clever-f-t)
-xmap t <Plug>(clever-f-t)
-omap t <Plug>(clever-f-t)
-nmap T <Plug>(clever-f-T)
-xmap T <Plug>(clever-f-T)
-omap T <Plug>(clever-f-T)
 
 " easymotion
 map f <Plug>(easymotion-prefix)
