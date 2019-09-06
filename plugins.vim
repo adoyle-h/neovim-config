@@ -7,7 +7,8 @@ Plug 'koron/nyancat-vim', {'on': ['Nyancat', 'Nyancat2']}
 Plug 'uguu-org/vim-matrix-screensaver', {'on': 'Matrix'}
 
 "" File Explorer
-Plug 'shougo/unite.vim' "  search and display information from arbitrary sources like files, buffers, recently used files or registers.
+" use coc-list
+" Plug 'Shougo/denite.nvim'  " to replace unite.vim
 
 """ Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }

@@ -6,5 +6,18 @@
       "rootPatterns": ["go.mod"],
       "filetypes": ["go"]
     }
-  }
+  },
+  "list.source.files.excludePatterns": [
+    "**/vendor/**",
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/.git/**",
+  ],
+	"list.insertMappings": {
+		"<C-c>": "do:exit",
+		"<C-x>": "do:stop",
+		"<C-t>": "action:tabe"
+	},
+	"list.normalMappings": {
+	}
 }

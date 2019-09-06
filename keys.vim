@@ -198,42 +198,10 @@ noremap <silent> <leader>nf :NERDTreeTabsFind<CR>
 " defx.nvim
 noremap <silent> <leader>m :Defx -toggle<CR>
 
-" Unite
-noremap <silent><leader>uf :call Unite_open("file")<CR>
-"noremap <silent><leader>uF :call Unite_open("file_rec")<CR>
-noremap <silent><leader>uF :call Unite_open("file_rec/neovim")<CR>
-noremap <silent><leader>ud :call Unite_open("directory")<CR>
-" noremap <silent><leader>ub :call Unite_open("buffer_tab")<CR>
-noremap <silent><leader>ub :call Unite_open("buffer")<CR>
-noremap <silent><leader>uc :call Unite_open("command")<CR>
-noremap <silent><leader>ut :call Unite_open("tab")<CR>
-noremap <silent><leader>ur :call Unite_open("register")<CR>
-noremap <silent><leader>um :call Unite_open("bookmark")<CR>
-noremap <silent><leader>uM :call Unite_open("mapping")<CR>
-noremap <silent><leader>uy :call Unite_open("history/yank")<CR>
-noremap <silent><leader>uj :call Unite_open("jump")<CR>
-noremap <silent><leader>uo :call Unite_open("output")<CR>
-noremap z= :call Unite_open("spell_suggest")<CR>
-
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-
-function! Unite_open(field)
-  let a:command = "Unite -start-insert -prompt=>\   -prompt-focus -prompt-visible -direction=dynamicbottom -buffer-name=".a:field." ".a:field
-  execute a:command
-endfunction
-
-function! s:unite_settings()
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
-  nmap <silent><buffer><expr> s unite#do_action('split')
-  nmap <silent><buffer><expr> vs unite#do_action('vsplit')
-  nmap <silent><buffer><expr> S unite#do_action('vsplit')
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
-
+" coc-list
+noremap <silent><leader>uu :CocList -N<CR>
+noremap <silent><leader>uf :CocList -N files<CR>
+noremap <silent><leader>uc :CocList -N commands<CR>
 
 " vim-easy-align
 nmap <leader>A <Plug>(EasyAlign)

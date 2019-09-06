@@ -416,24 +416,6 @@ let g:visualstar_no_default_key_mappings = 0
 let g:clever_f_not_overwrites_standard_mappings = 1
 let g:clever_f_show_prompt = 1
 
-" unite
-let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#custom#source('file_rec/neovim', 'ignore_pattern', 'node_modules/\|bower_components/\|vendor/')
-autocmd FileType unite setlocal number relativenumber
-
-if executable('ag')
-  " Use ag (the silver searcher) https://github.com/ggreer/the_silver_searcher
-  let g:unite_source_rec_async_command = ['ag', '--smart-case', '--nocolor', '--follow', '--vimgrep', '--hidden', '--nogroup', '-g', '']
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts =
-    \ '--smart-case --nocolor --follow --vimgrep --hidden --nogroup -g ""' .
-    \ '--ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr''' .
-    \ '--ignore ''node_modules'' --ignore ''bower_components'' --ignore ''vendor'''.
-    \ ''
-  let g:unite_source_grep_recursive_opt = ''
-endif
-
 " easy-align
 let g:easy_align_delimiters = {
 \ '>': { 'pattern': '>>\|=>\|>' },
@@ -465,17 +447,6 @@ let g:bookmark_sign = '▶'
 let g:bookmark_annotation_sign = '▶'
 let g:bookmark_highlight_lines = 1
 let g:bookmark_location_list = 1
-
-call unite#custom#profile('source/vim_bookmarks', 'context', {
-  \ 'winheight': 20,
-  \ 'direction': 'dynamicbottom',
-  \ 'start_insert': 0,
-  \ 'prompt': '> ',
-  \ 'prompt-focus': 1,
-  \ 'prompt-visible': 1,
-  \ 'keep_focus': 1,
-  \ 'no_quit': 1,
-\ })
 
 " vim-session
 let g:session_directory=$NVIM_HOME.'/temp/session'
