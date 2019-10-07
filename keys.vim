@@ -198,10 +198,21 @@ noremap <silent> <leader>nf :NERDTreeTabsFind<CR>
 " defx.nvim
 noremap <silent> <leader>m :Defx -toggle<CR>
 
+" coc
+inoremap <silent><expr> <M-Tab> coc#refresh()
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
+                                            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " coc-list
 noremap <silent><leader>uu :CocList -N<CR>
 noremap <silent><leader>uf :CocList -N files<CR>
+noremap <silent><leader>ue :CocList -N extensions<CR>
 noremap <silent><leader>uc :CocList -N commands<CR>
+noremap <silent><leader>ul :CocList lines<CR>
+noremap <silent><leader>uhs :CocList searchhistory<CR>
+noremap <silent><leader>uhc :CocList cmdhistory<CR>
+noremap <silent><leader>uy :CocList -A -N yank<cr>
 
 " vim-easy-align
 nmap <leader>A <Plug>(EasyAlign)
@@ -254,14 +265,14 @@ autocmd User Node
   \ endif
 
 " vim-gitgutter
-nmap <leader>gk <Plug>GitGutterPrevHunk
-nmap <leader>gj <Plug>GitGutterNextHunk
-nmap [g <Plug>GitGutterPrevHunk
-nmap ]g <Plug>GitGutterNextHunk
-nmap <leader>gp <Plug>GitGutterPreviewHunk
-nmap <leader>gu <Plug>GitGutterUndoHunk
-nmap <leader>ga <Plug>GitGutterStageHunk
-nmap <leader>gl <Plug>GitGutterLineHighlightsToggle
+nmap <leader>gk <Plug>(GitGutterPrevHunk)
+nmap <leader>gj <Plug>(GitGutterNextHunk)
+nmap [g <Plug>(GitGutterPrevHunk)
+nmap ]g <Plug>(GitGutterNextHunk)
+nmap <leader>gp <Plug>(GitGutterPreviewHunk)
+nmap <leader>gu <Plug>(GitGutterUndoHunk)
+nmap <leader>ga <Plug>(GitGutterStageHunk)
+nmap <leader>gl <Plug>(GitGutterLineHighlightsToggle)
 nmap <leader>gt :call ToggleGitGutterPreview()<CR>
 nmap <leader>gc :pclose<CR>
 

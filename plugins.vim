@@ -94,6 +94,7 @@ Plug 'ahmedelgabri/vim-ava-snippets'
 "" Auto Completion
 " Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " 自动补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'zxqfl/tabnine-vim'
 
 "" Lint
 Plug 'w0rp/ale' " Asynchronous Syntax Lint Engine

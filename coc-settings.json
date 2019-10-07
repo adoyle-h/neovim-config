@@ -1,5 +1,6 @@
 {
   "diagnostic.displayByAle": true,
+  "yank.highlight.enable": false,
   "languageserver": {
     "golang": {
       "command": "gopls",
@@ -13,11 +14,13 @@
     "**/bower_components/**",
     "**/.git/**",
   ],
-	"list.insertMappings": {
-		"<C-c>": "do:exit",
-		"<C-x>": "do:stop",
-		"<C-t>": "action:tabe"
-	},
-	"list.normalMappings": {
-	}
+  "list.insertMappings": {
+    "<C-c>": "do:exit",
+    "<C-x>": "do:stop",
+    "<C-t>": "action:tabe",
+    "<C-v>": "action:vsplit",
+  },
+  "list.normalMappings": {
+  },
+  "coc.preferences.extensionUpdateCheck": "weekly",
 }
