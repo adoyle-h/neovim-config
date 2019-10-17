@@ -105,3 +105,4 @@ Zsh
 builtin
 mktemp
 
+shellcheck
