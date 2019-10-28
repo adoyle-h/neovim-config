@@ -45,8 +45,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'  " alt vim-indent-guides
 
 """ Window
-" Plug 'wesQ3/vim-windowswap'  " window 窗口交换
 Plug 'szw/vim-maximizer'  " window 缩放
+Plug 'simeji/winresizer'
 
 """ Brackets and Tags Matching
 Plug 'luochen1990/rainbow'  " 括号颜色配对。Attention: 可能会影响到其他语法着色

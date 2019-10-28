@@ -118,8 +118,8 @@ nmap <C-W>j <C-W>j
 nmap <C-W>k <C-W>k
 nmap <C-W>l <C-W>l
 nmap <C-W>H <C-W>5<<C-W>
-nmap <C-W>J <C-W>5+<C-W>
-nmap <C-W>K <C-W>5-<C-W>
+nmap <C-W>J <C-W>3+<C-W>
+nmap <C-W>K <C-W>3-<C-W>
 nmap <C-W>L <C-W>5><C-W>
 nmap <C-W>< <C-W><<C-W>
 nmap <C-W>+ <C-W>+<C-W>
@@ -139,9 +139,10 @@ nmap <C-W>o <C-W>w<C-W>
 nmap <C-W>O <C-W>W<C-W>
 " vim-maximizer
 noremap <silent> <C-W>z :MaximizerToggle!<CR>
-" " vim-windowswap
-" let g:windowswap_map_keys = 0 "prevent default bindings
-" nnoremap <C-W>w :call WindowSwap#EasyWindowSwap()<CR>
+" simeji/winresizer
+let g:winresizer_start_key = '<C-W><C-W>'
+let g:winresizer_vert_resize = 5
+let g:winresizer_horiz_resize = 3
 
 " -------------------------- Tab Keymap ----------------------------
 let g:lasttab = 1
