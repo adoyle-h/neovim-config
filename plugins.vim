@@ -6,10 +6,6 @@ Plug 'johngrib/vim-game-snake', {'on': 'VimGameSnake'}
 Plug 'koron/nyancat-vim', {'on': ['Nyancat', 'Nyancat2']}
 Plug 'uguu-org/vim-matrix-screensaver', {'on': 'Matrix'}
 
-"" File Explorer
-" use coc-list
-" Plug 'Shougo/denite.nvim'  " to replace unite.vim
-
 """ Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'jistr/vim-nerdtree-tabs', {'on': ['NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'] }
@@ -148,6 +144,7 @@ Plug 'fatih/vim-go'
 Plug 'sirosen/vim-rockstar'
 Plug 'jvirtanen/vim-hcl'
 Plug 'hashivim/vim-terraform'
+Plug 'google/vim-jsonnet'
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
