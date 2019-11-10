@@ -106,3 +106,11 @@ builtin
 mktemp
 
 shellcheck
+configs
+keybase
+gitconfig
+XDG_CONFIG_HOME
+nvim
+editorconfig
+update
+gRPC
