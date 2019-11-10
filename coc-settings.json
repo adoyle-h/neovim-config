@@ -23,4 +23,5 @@
   "list.normalMappings": {
   },
   "coc.preferences.extensionUpdateCheck": "weekly",
+  "tabnine.priority": 999,
 }
