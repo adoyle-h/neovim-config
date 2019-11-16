@@ -21,20 +21,30 @@ NVIM v0.3 and higher.
 
 ## Dependency
 
-- Vim Package Manager: https://github.com/junegunn/vim-plug
+- Vim Plugin Manager: https://github.com/junegunn/vim-plug
+- 100+ Vim plugins
+- python3、pip3、python2、pip2
+- nvim python provider
+  - `pip2 install --upgrade --user pynvim`
+  - `pip3 install --upgrade --user pynvim`
+
+The plugin manager and plugins will be auto-installed. Just invoke `nvim`.
 
 ## Installation
 
 ```sh
-git clone https://github.com/adoyle-h/neovim-config.git
-cd neovim-config
-./install
+# Set your nvim config directory
+NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+git clone --depth 1 https://github.com/adoyle-h/neovim-config.git $NVIM_HOME
 
-# export `NVIM_HOME` in your `.bashrc` file.
-echo 'export NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim' >> ~/.bashrc
+# Export `NVIM_HOME` in your .bashrc file.
+echo "export NVIM_HOME=$NVIM_HOME" >> ~/.bashrc
+
+# Restart terminal
+
+# Invoke `nvim` to get started.
+nvim
 ```
-
-And then enter `nvim` to open neovim and `:PlugInstall` to install vim plugins.
 
 ## Files Structure
 
@@ -46,10 +56,12 @@ And then enter `nvim` to open neovim and `:PlugInstall` to install vim plugins.
 ├── abbreviations.vim
 ├── autocmds.vim
 ├── autoload/          // vim-plug
+├── coc-settings.json  // coc.nvim configuration
 ├── color.vim          // color setting
 ├── colors/            // color themes
-├── filetype.vim
+├── filetype.vim       // user-setting filetypes
 ├── functions.vim      // commands and functions
+├── highlights.vim     // user-setting highlights
 ├── init.vim           // <= neovim configuration entry point
 ├── keys.vim           // keyboard maps
 ├── plugged/           // plugins

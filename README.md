@@ -23,20 +23,30 @@ NVIM v0.3 及以上版本。
 
 ## 依赖
 
-- Vim 包管理器: https://github.com/junegunn/vim-plug
+- Vim 插件管理器: https://github.com/junegunn/vim-plug
+- 100+ Vim 插件
+- python3、pip3、python2、pip2
+- nvim python provider
+  - `pip2 install --upgrade --user pynvim`
+  - `pip3 install --upgrade --user pynvim`
+
+插件管理器和插件会自动安装，执行 `nvim` 即可。
 
 ## 安装
 
 ```sh
-git clone https://github.com/adoyle-h/neovim-config.git
-cd neovim-config
-./install
+# 设置你的 nvim 配置目录
+NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+git clone --depth 1 https://github.com/adoyle-h/neovim-config.git $NVIM_HOME
 
-# export `NVIM_HOME` in your `.bashrc` file.
-echo 'export NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim' >> ~/.bashrc
+# 在你的 .bashrc 文件中设置 `NVIM_HOME` 变量
+echo "export NVIM_HOME=$NVIM_HOME" >> ~/.bashrc
+
+# 重启终端
+
+# 执行 `nvim` 开始。
+nvim
 ```
-
-执行 `nvim` 打开 neovim 然后执行 `:PlugInstall` 安装 vim 插件.
 
 ## 目录结构
 
@@ -48,10 +58,12 @@ echo 'export NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim' >> ~/.bashrc
 ├── abbreviations.vim
 ├── autocmds.vim
 ├── autoload/          // vim-plug
+├── coc-settings.json  // coc.nvim configuration
 ├── color.vim          // color setting
 ├── colors/            // color themes
-├── filetype.vim
+├── filetype.vim       // user-setting filetypes
 ├── functions.vim      // commands and functions
+├── highlights.vim     // user-setting highlights
 ├── init.vim           // <= neovim configuration entry point
 ├── keys.vim           // keyboard maps
 ├── plugged/           // plugins
