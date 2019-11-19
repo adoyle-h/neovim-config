@@ -6,14 +6,57 @@
 let mapleader = ';'
 
 " ------------------------ F1~F9 Keymap ----------------------------
-" 废弃 F1 这个键，防止调出系统帮助。可以使用 :help 来调出 vim 帮助
+" Prevent <F1> key from opening system help window. You can use ":help" to open vim help window
 noremap <F1> <Esc>
 noremap <silent><F2> :Tagbar<CR>
 noremap <silent><F3> :UndotreeToggle<CR>
-" ------------------------------------------------------------------
 
+" ------------------------- General Keymap -------------------------
+
+" disable Ex mode
+noremap Q <NOP>
+
+" Exit from input mode
+inoremap jk <Esc>
+" Exit from terminal mode
+tnoremap kj <C-\><C-n>
+
+" select all
+nnoremap <leader>sa ggVG
+
+" toggle scrolloff
+noremap <leader>so :let &scrolloff=999-&scrolloff<CR>
+
+" enable . command in visual mode
+vnoremap . :normal .<CR>
+
+" ---------------------- Insert Spaces Keymap ----------------------
+" insert a space at right position of cursor
+nnoremap <space> a<space><esc>
+nnoremap ]<space> a<space><esc>
+" insert a space at left position of cursor
+nnoremap [<space> i<space><esc>
+
+" add a blank line before current line
+nnoremap <silent><C-k> :put! =''<CR>j
+" add a blank line after current line
+nnoremap <silent><C-j> :put =''<CR>k
+" split line from current cursor position
+nnoremap K i<Enter><Esc>
+
+" ------------------------- Search Keymap --------------------------
+" quick search word
+nnoremap <C-n> *
+nnoremap <C-p> #
+nnoremap g<C-n> g*
+nnoremap g<C-p> g#
+
+" clear highlighted search
 noremap <leader>C :ClearSearch<CR>
+" toggle highlighted search
+noremap <leader>h :set hlsearch! hlsearch?<CR>
 
+" ----------------------- Copy&Paste Keymap ------------------------
 " copy selected into system clipboard
 vnoremap <leader>y "+y
 " y$ -> Y Make Y behave like other capitals: D, C etc...
@@ -28,82 +71,55 @@ xnoremap <leader>P "*p
 " toggle paste mode
 noremap <M-p> :set paste!<CR>
 
-" Exit from input mode
-inoremap jk <Esc>
-" Exit from terminal mode
-tnoremap kj <C-\><C-n>
-
-" clear highlighted search
-noremap <leader>h :set hlsearch! hlsearch?<CR>
-
-" add spaces in normal mode
-nnoremap <space> a<space><esc>
-nnoremap ]<space> a<space><esc>
-nnoremap [<space> i<space><esc>
-
-" add blank before/after current line
-nnoremap <silent><C-k> :put! =''<CR>j
-nnoremap <silent><C-j> :put =''<CR>k
-" split line
-nnoremap K i<Enter><Esc>
-
-" shortcut to save
-nnoremap <leader>w :w<CR>
-" shortcut to quit
-nnoremap <leader>q :close<CR>
-nnoremap <leader>Q :tabclose<CR>
-" shortcut to refresh
-nnoremap <leader>e :e<CR>
-
-" disable Ex mode
-noremap Q <NOP>
-
-" toggle invisible characters
-noremap <leader>l :set list!<CR>
-" select all
-nnoremap <leader>sa ggVG
-" toggle scrolloff
-noremap <leader>so :let &scrolloff=999-&scrolloff<CR>
+" ------------------------ Toggles Keymap --------------------------
 noremap <leader>N :call NumberToggle()<CR>
 noremap <leader>L :ToggleLineNumber<CR>
+" toggle invisible characters
+noremap <leader>l :set list!<CR>
 noremap <leader>I :IndentLinesToggle<CR>
 
-" enable . command in visual mode
-vnoremap . :normal .<CR>
-
-" jumps
+" -------------------------- Jump Keymap ---------------------------
+" jump to previous cursor position
 nnoremap go <C-o>
+" jump reverse to previous cursor position
 nnoremap gi <C-i>
-nnoremap g. g;
 
-" scroll the viewport faster
-nnoremap <C-e> 5<C-e>
-nnoremap <C-y> 5<C-y>
-
-" 调整缩进后自动选中，方便再次操作
+" ------------------------- Indent Keymap --------------------------
+" indent line while keep visual selected
 vnoremap < <gv
 vnoremap > >gv
+" indent line
 nnoremap > >>
 nnoremap < <<
-" nnoremap <S-tab> <<
-inoremap <S-Tab> <C-d>
-" 缩进当前行所在段落
+
+" -------------------------- Fold Keymap ---------------------------
+" When cursor on a closed fold: open it. When cursor on an open fold, close it.
 nnoremap <Tab> za
-" 按当前行的缩进，缩进所有同 level 的段落
+" Similar to <Tab>, but effect all paragraphs in same fold level.
 nnoremap <M-Tab> :call IndentToLevel()<CR>
-" 因为 YCM 的影响，insert mode 下 tab 键被占用
-" 不能重定义 tab，因为 tab 和 <C-I> 绑定在一起的
-"nnoremap <tab> >>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
-" difftool
+" ------------------------ Difftool Keymap -------------------------
 if &diff
   map ,1 :diffget LOCAL<CR>
   map ,2 :diffget REMOTE<CR>
   map ,0 :diffget BASE<CR>
 endif
+
+" --------------------- Emacs Editline Keymap ----------------------
+inoremap <silent> <C-a> <Esc>I
+inoremap <silent> <C-e> <Esc>A
+inoremap <silent> <C-b> <Esc>ha
+inoremap <silent> <C-f> <Esc>la
+inoremap <silent> <M-b> <Esc>bi
+inoremap <silent> <M-f> <Esc>fi
+inoremap <silent> <M-d> <Esc>dwa
+inoremap <silent> <C-d> <Esc>dla
+inoremap <silent> <C-w> <Esc>bdei
+inoremap <silent> <C-k> <Esc>Da
+inoremap <silent> <C-u> <Esc>d0
 
 " ------------------------- M- Keymap ------------------------------
 nnoremap <M-g> :echo expand('%:p')<CR>
@@ -112,6 +128,15 @@ nnoremap <M-v> ^v$
 noremap <M-s> :set invspell<CR>
 
 " ----------------------- Window Keymap ----------------------------
+" shortcut to save current buffer
+nnoremap <leader>w :w<CR>
+" shortcut to quit current window
+nnoremap <leader>q :close<CR>
+" shortcut to quit current tab
+nnoremap <leader>Q :tabclose<CR>
+" shortcut to refresh current window
+nnoremap <leader>e :e<CR>
+
 noremap <C-W>N :vnew<CR>
 nmap <C-W>h <C-W>h
 nmap <C-W>j <C-W>j
@@ -137,12 +162,12 @@ noremap <C-W>x <C-W>q
 noremap <C-W>! <C-W>T
 nmap <C-W>o <C-W>w<C-W>
 nmap <C-W>O <C-W>W<C-W>
+
 " vim-maximizer
 noremap <silent> <C-W>z :MaximizerToggle!<CR>
+
 " simeji/winresizer
 let g:winresizer_start_key = '<C-W><C-W>'
-let g:winresizer_vert_resize = 5
-let g:winresizer_horiz_resize = 3
 
 " -------------------------- Tab Keymap ----------------------------
 let g:lasttab = 1
@@ -162,7 +187,7 @@ noremap <C-t>h :tabmove -<CR>
 noremap <C-t>l :tabmove +<CR>
 inoremap <C-t>n <Esc>:tabnew<CR>
 
-" normal模式下切换到确切的tab
+" switch tab in normal mode
 noremap <C-t>1 1gt
 noremap <C-t>2 2gt
 noremap <C-t>3 3gt
@@ -189,7 +214,7 @@ noremap <leader>0 :tablast<CR>
 " noremap <leader>bk :bp<CR>
 " noremap <leader>bd :bd<CR>
 
-" ------------------------ Pugins Keymap ---------------------------
+" ------------------------ Plugin Keymap ---------------------------
 
 " NERDTreeTabsToggle
 noremap <silent> <leader>nt :NERDTreeTabsToggle<CR>
@@ -249,39 +274,19 @@ xmap <leader>a <Plug>(LiveEasyAlign)
 " vim-fuzzysearch
 nmap <leader>/ :FuzzySearch<CR>
 
+" ctrlsf.vim
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordPath
 
-" vim-visualstar, 不能使用 xnoremap !
+" vim-visualstar. xnoremap cannot work!
 silent! xmap <C-n> <Plug>(visualstar-*)
 silent! xmap <C-p> <Plug>(visualstar-#)
 silent! xmap g<C-n> <Plug>(visualstar-g*)
 silent! xmap g<C-p> <Plug>(visualstar-g#)
 
-nnoremap <C-n> *
-nnoremap <C-p> #
-nnoremap g<C-n> g*
-nnoremap g<C-p> g#
-
 " vim-table-mode
 noremap <leader>tm :TableModeToggle<CR>
 noremap <leader>tc :echomsg TableModeChange()<CR>
-
-" emacs editline
-inoremap <silent> <C-a> <Esc>I
-inoremap <silent> <C-e> <Esc>A
-inoremap <silent> <C-b> <Esc>ha
-inoremap <silent> <C-f> <Esc>la
-inoremap <silent> <M-b> <Esc>bi
-inoremap <silent> <M-f> <Esc>fi
-inoremap <silent> <M-d> <Esc>dwa
-inoremap <silent> <C-d> <Esc>dla
-inoremap <silent> <C-w> <Esc>bdei
-inoremap <silent> <C-k> <Esc>Da
-inoremap <silent> <C-u> <Esc>d0
-
-" syntastic
-nnoremap <leader>sc :SyntasticCheck<CR>
 
 " vim-node
 autocmd User Node
@@ -334,16 +339,6 @@ nmap - <Plug>(choosewin)
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
 
-" accelerated-smooth-scroll
-" nnoremap <silent> <C-d>
-"     \ :<C-u>call ac_smooth_scroll#scroll('j', 2, g:ac_smooth_scroll_du_sleep_time_msec, 10)<CR>
-" nnoremap <silent> <C-u>
-"     \ :<C-u>call ac_smooth_scroll#scroll('k', 2, g:ac_smooth_scroll_du_sleep_time_msec, 10)<CR>
-" nnoremap <silent> <C-f>
-"     \ :<C-u>call ac_smooth_scroll#scroll('j', 4, g:ac_smooth_scroll_fb_sleep_time_msec, 10)<CR>
-" nnoremap <silent> <C-b>
-"     \ :<C-u>call ac_smooth_scroll#scroll('k', 4, g:ac_smooth_scroll_fb_sleep_time_msec, 10)<CR>
-
 " CamelCaseMotion
 if exists('*camelcasemotion#InnerMotion')
   map <silent> w <Plug>CamelCaseMotion_w
@@ -369,7 +364,6 @@ endif
 
 " easymotion
 map f <Plug>(easymotion-prefix)
-" 重复上一次操作, 类似repeat插件, 很强大
 map f. <Plug>(easymotion-repeat)
 
 " open-browser.vim
@@ -389,10 +383,6 @@ execute 'nnoremap '.tern_prefix.'ts' ':TernDefSplit<CR>'
 " execute 'nnoremap '.tern_prefix.'ttd' ':TernDefTab<CR>'
 execute 'nnoremap '.tern_prefix.'tr' ':TernRefs<CR>'
 execute 'nnoremap '.tern_prefix.'tR' ':TernRename<CR>'
-
-" vim-slime
-xmap <leader>ss <Plug>SlimeRegionSend
-nmap <leader>ss <Plug>SlimeParagraphSend
 
 " vim-which-key
 nnoremap <silent> <leader><leader> :WhichKey ';'<CR>

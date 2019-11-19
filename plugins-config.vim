@@ -699,3 +699,7 @@ let g:vista_ctags_cmd = {
 let g:colorizer_auto_color = 1
 let g:colorizer_auto_filetype='css,html,vim,markdown,js,jsx'
 " let g:colorizer_skip_comments = 1
+
+" simeji/winresizer
+let g:winresizer_vert_resize = 5
+let g:winresizer_horiz_resize = 3
