@@ -13,7 +13,7 @@ if empty(glob('$NVIM_HOME/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-source $NVIM_HOME/abbreviations.vim
+autocmd VimEnter * source $NVIM_HOME/abbreviations.vim
 source $NVIM_HOME/color.vim
 source $NVIM_HOME/functions.vim
 source $NVIM_HOME/settings.vim
