@@ -8,6 +8,11 @@
       "filetypes": ["go"]
     }
   },
+  // find is slower than ag
+  "list.source.files.command": "ag",
+  // list.source.files.args must specify whole
+  // https://github.com/neoclide/coc-lists/blob/25cd38285df23766fa8c543c307f9ddf65120902/src/files.ts#L94
+  "list.source.files.args": ["--hidden", "-f", "-g", ".", "--nocolor"],
   "list.source.files.excludePatterns": [
     "**/vendor/**",
     "**/node_modules/**",
