@@ -394,14 +394,6 @@ let g:javascript_plugin_jsdoc = 1
 " mxw/vim-jsx
 let g:jsx_ext_required = 1
 
-" tern-for-vim
-" 鼠标停留在方法内时显示参数提示
-let g:tern_show_argument_hints = 'on_hold'
-" 补全时显示函数类型定义
-let g:tern_show_signature_in_pum = 1
-let g:tern_map_keys = 0
-let g:tern_map_prefix = ';'
-
 " ctrlsf
 let g:ctrlsf_auto_close = 0
 let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules', 'vendor']

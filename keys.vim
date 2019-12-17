@@ -372,17 +372,5 @@ vmap gx <Plug>(openbrowser-smart-search)
 nmap gX <Plug>(openbrowser-open)
 vmap gX <Plug>(openbrowser-open)
 
-" tern-for-vim
-let tern_prefix = exists('g:tern_map_prefix') ? g:tern_map_prefix : "<LocalLeader>"
-execute 'nnoremap '.tern_prefix.'tD' ':TernDoc<CR>'
-execute 'nnoremap '.tern_prefix.'tb' ':TernDocBrowse<CR>'
-execute 'nnoremap '.tern_prefix.'tt' ':TernType<CR>'
-execute 'nnoremap '.tern_prefix.'td' ':TernDef<CR>'
-execute 'nnoremap '.tern_prefix.'tp' ':TernDefPreview<CR>'
-execute 'nnoremap '.tern_prefix.'ts' ':TernDefSplit<CR>'
-" execute 'nnoremap '.tern_prefix.'ttd' ':TernDefTab<CR>'
-execute 'nnoremap '.tern_prefix.'tr' ':TernRefs<CR>'
-execute 'nnoremap '.tern_prefix.'tR' ':TernRename<CR>'
-
 " vim-which-key
 nnoremap <silent> <leader><leader> :WhichKey ';'<CR>
