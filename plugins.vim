@@ -29,6 +29,7 @@ Plug 'xolox/vim-misc' | Plug 'xolox/vim-session' " 会话管理器
 Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'tyru/open-browser.vim', {'on': ['<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)']} " Open url from text with browser
+Plug 'MattesGroeger/vim-bookmarks'
 
 "" Content Explorer
 Plug 'majutsushi/tagbar', {'on': 'Tagbar'}
@@ -88,10 +89,8 @@ Plug 'ahmedelgabri/vim-ava-snippets'
 " Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
 
 "" Auto Completion
-" Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " 自动补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " use coc-tabnine instead of tabnine-vim
-" Plug 'zxqfl/tabnine-vim'
 
 "" Lint
 Plug 'w0rp/ale' " Asynchronous Syntax Lint Engine
@@ -125,7 +124,6 @@ Plug 'mattn/emmet-vim', {'for': ['html', 'xml', 'xhtml']}
 Plug 'elzr/vim-json', {'for': ['javascript', 'json']}
 Plug 'pangloss/vim-javascript' " 不要使用 for 选项，否则会导致语法高亮不会在初次加载时生效
 Plug 'moll/vim-node', {'for': ['javascript']}
-" Plug 'ternjs/tern_for_vim', {'for': ['javascript', 'javascript.jsx'], 'do': 'npm install'}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
 " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
