@@ -18,6 +18,11 @@ command! FixLineBreak :call FixLineBreak()
 command! TogglePlainTextMode :call PlainTextModeToggle()
 command! CD :lcd %:p:h
 
+" This function not works with vim-plug lazy-load feature
+function! PlugLoaded(name)
+  return (stridx(&rtp, $NVIM_HOME.'/plugged/'.a:name) >= 0)
+endfunction
+
 function! ProfileStart()
   profile start profile.log
   profile func *
