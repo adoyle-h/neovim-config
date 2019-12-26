@@ -23,7 +23,10 @@
     "<C-c>": "do:exit",
     "<C-x>": "do:stop",
     "<C-t>": "action:tabe",
-    "<C-v>": "action:vsplit",
+    "<C-s>": "do:switch",
+    "<A-s>": "action:split",
+    "<A-v>": "action:vsplit",
+    "<C-v>": "prompt:paste",
   },
   "list.normalMappings": {
   },

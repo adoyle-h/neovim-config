@@ -1,4 +1,4 @@
-"" NERDTree
+" nerdtree
 let NERDTreeShowBookmarks=1
 let g:NERDTreeMapChangeRoot='L'
 let g:NERDTreeMapUpdir='H'
@@ -33,28 +33,28 @@ let g:NERDTreeExtensionHighlightColor = {
   \ 'exs': '6D4B7D',
   \ 'j2': 'B21A1F',
   \ 'pdf': 'FC2122',
-\}
+  \}
 
 let g:NERDTreeExactMatchHighlightColor = {
   \ 'Dockerfile': '3EA0EB',
   \ 'Makefile': '447721',
   \ '.git': 'B19D54',
   \ '.gitignore': '877840',
-\}
+  \}
 
-" NERDTree-git-plugin
+" nerdtree-git-plugin
 let g:NERDTreeIndicatorMapCustom = {
-\ "Modified"  : "✹",
-\ "Staged"    : "✚",
-\ "Untracked" : "✭",
-\ "Renamed"   : "➜",
-\ "Unmerged"  : "═",
-\ "Deleted"   : "✖",
-\ "Dirty"     : "*",
-\ "Clean"     : "✔︎",
-\ 'Ignored'   : '☒',
-\ "Unknown"   : "?"
-\ }
+  \ "Modified"  : "✹",
+  \ "Staged"    : "✚",
+  \ "Untracked" : "✭",
+  \ "Renamed"   : "➜",
+  \ "Unmerged"  : "═",
+  \ "Deleted"   : "✖",
+  \ "Dirty"     : "*",
+  \ "Clean"     : "✔︎",
+  \ 'Ignored'   : '☒',
+  \ "Unknown"   : "?"
+  \}
 
 " autocmd FileType nerdtree call s:nerdtree_my_settings()
 " function! s:nerdtree_my_settings() abort
@@ -71,14 +71,14 @@ let g:NERDTreeIndicatorMapCustom = {
 "     endfunction
 " endfunction
 
-" NERDComment
+" nerdcommenter
 let g:NERDSpaceDelims = 1
 let g:NERDRemoveExtraSpaces = 1
 let g:NERDCommentWholeLinesInVMode = 1
 let g:NERDCustomDelimiters = {
-    \ 'javascript.jsx': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
-    \ 'plantuml': { 'left': "'", 'right': '' }
-\ }
+  \ 'javascript.jsx': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
+  \ 'plantuml': { 'left': "'", 'right': '' }
+  \}
 
 " indentline
 let g:indentLine_color_term = 237
@@ -108,7 +108,7 @@ let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 
-" Goyo
+" goyo.vim
 let g:goyo_width = '120' " (default: 80)
 let g:goyo_height = '90%' " (default: 85%)
 let g:goyo_linenr = 1 " (default: 0)
@@ -169,7 +169,7 @@ let g:airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|undotree|vimfile
 " Or Use ['all'] to enable for all filetypes.
 let g:airline#extensions#wordcount#filetypes = [
   \'asciidoc', 'help', 'mail', 'markdown', 'org', 'rst', 'tex', 'text',
-\]
+  \]
 
 "" vim-airline symbols
 if !exists('g:airline_symbols')
@@ -193,6 +193,7 @@ function! AirlineInit()
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 
+" Default g:airline_mode_map is:
 " let g:airline_mode_map = {
 "   \ 's': 'SELECT',
 "   \ 'V': 'V-LINE',
@@ -212,7 +213,7 @@ autocmd User AirlineAfterInit call AirlineInit()
 "   \ 'S ': 'S-LINE',
 "   \ 't': 'TERMINAL',
 "   \ 'v': 'VISUAL',
-" \}
+"   \}
 let g:airline_mode_map = {
   \ 'n': 'N',
   \ 'i': 'I',
@@ -232,7 +233,7 @@ let g:airline_mode_map = {
   \ 'Rv': 'V REPLACE',
   \ 'ix': 'INSERT COMPL',
   \ '__': '------',
-\}
+  \}
 
 function! PatchInactiveStatusLine(...)
   call setwinvar(a:2.winnr, 'airline_section_a', '')
@@ -243,7 +244,7 @@ function! PatchInactiveStatusLine(...)
 endfunction
 call airline#add_inactive_statusline_func('PatchInactiveStatusLine')
 
-" gitgutter
+" vim-gitgutter
 let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_modified_removed = '⋍'
 let g:gitgutter_preview_active = 0
@@ -258,26 +259,16 @@ au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_
 \   endif |
 \ endif
 
-" luochen1990/rainbow
+" rainbow
 let g:rainbow_active = 1 " 0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
   \ 'ctermfgs': ['24', '119', '33', '48', '229', '202', '166', '4', '13', '105'],
   \ 'separately': {
   \   'nerdtree': 0,
   \ }
-\}
+  \}
 
-" MatchTagAlways
-let g:mta_filetypes = {
-\ 'html' : 1,
-\ 'xhtml' : 1,
-\ 'xml' : 1,
-\ 'jinja' : 1,
-\}
-let g:mta_use_matchparen_group = 0
-let g:mta_set_default_matchtag_color = 0
-
-" easymotion
+" vim-easymotion
 let g:EasyMotion_smartcase = 1
 
 " vim-closetag
@@ -305,8 +296,10 @@ function! TableModeChange()
   endif
   return 'Table Mode: '.b:table_mode_mode
 endfunc
+
 autocmd BufNew,BufRead * let b:table_mode_mode = 'GFM'
 autocmd BufNew,BufRead * call TableModeChange()
+
 let g:table_mode_motion_up_map = '[{'
 let g:table_mode_motion_down_map = ']}'
 let g:table_mode_motion_left_map = '[['
@@ -317,57 +310,47 @@ let g:tagbar_autofocus = 1
 let g:tagbar_case_insensitive = 1
 let g:tagbar_sort = 1
 let g:tagbar_type_go = {
-\ 'ctagstype' : 'go',
-\ 'kinds'     : [
-  \ 'p:package',
-  \ 'i:imports:1',
-  \ 'c:constants',
-  \ 'v:variables',
-  \ 't:types',
-  \ 'n:interfaces',
-  \ 'w:fields',
-  \ 'e:embedded',
-  \ 'm:methods',
-  \ 'r:constructor',
-  \ 'f:functions'
-\ ],
-\ 'sro' : '.',
-\ 'kind2scope' : {
-  \ 't' : 'ctype',
-  \ 'n' : 'ntype'
-\ },
-\ 'scope2kind' : {
-  \ 'ctype' : 't',
-  \ 'ntype' : 'n'
-\ },
-\ 'ctagsbin'  : 'gotags',
-\ 'ctagsargs' : '-sort -silent'
-\}
+  \ 'ctagstype' : 'go',
+  \ 'kinds' : [
+  \   'p:package',
+  \   'i:imports:1',
+  \   'c:constants',
+  \   'v:variables',
+  \   't:types',
+  \   'n:interfaces',
+  \   'w:fields',
+  \   'e:embedded',
+  \   'm:methods',
+  \   'r:constructor',
+  \   'f:functions'
+  \ ],
+  \ 'sro' : '.',
+  \ 'kind2scope' : {
+  \   't' : 'ctype',
+  \   'n' : 'ntype'
+  \ },
+  \ 'scope2kind' : {
+  \   'ctype' : 't',
+  \   'ntype' : 'n'
+  \ },
+  \ 'ctagsbin'  : 'gotags',
+  \ 'ctagsargs' : '-sort -silent'
+  \}
 
-" UltiSnips
+" ultisnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger='<tab>'
+" let g:UltiSnipsExpandTrigger='<tab>'
+" let g:UltiSnipsListSnippets = '<C-tab>'
 "let g:UltiSnipsJumpForwardTrigger='<C-n>'
 "let g:UltiSnipsJumpBackwardTrigger='<C-p>'
-let g:UltiSnipsListSnippets = '<C-tab>'
 let g:UltiSnipsSnippetsDir = $NVIM_HOME.'/UltiSnips'
-
-" deoplete.nvim
-" let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option({
-"     \ 'camel_case': v:true,
-"     \ 'auto_complete_delay': 80,
-"     \ 'auto_refresh_delay': 50,
-"     \ 'skip_chars': ['(', ')', '[', ']', '{', '}'],
-"     \ 'min_pattern_length': 1,
-"     \ })
 
 " vim-interestingwords
 let g:interestingWordsTermColors = [
   \ '33', '4', '210', '197', '78', '228', '154', '99', '121', '212', '38',
   \ '166', '123', '214', '34', '222', '116', '207',
   \ '242',
-\]
+  \]
 let g:interestingWordsRandomiseColors = 0
 
 " undotree
@@ -391,10 +374,10 @@ let g:javascript_plugin_jsdoc = 1
 " let g:javascript_conceal_noarg_arrow_function = "➤"
 " let g:javascript_conceal_underscore_arrow_function = "⇢"
 
-" mxw/vim-jsx
+" vim-jsx
 let g:jsx_ext_required = 1
 
-" ctrlsf
+" ctrlsf.vim
 let g:ctrlsf_auto_close = 0
 let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules', 'vendor']
 let g:ctrlsf_context = '-C 3'
@@ -402,39 +385,39 @@ let g:ctrlsf_context = '-C 3'
 " vim-visualstar
 let g:visualstar_no_default_key_mappings = 0
 
-" clever-f.vim
-let g:clever_f_not_overwrites_standard_mappings = 1
-let g:clever_f_show_prompt = 1
-
-" easy-align
+" vim-easy-align
 let g:easy_align_delimiters = {
-\ '>': { 'pattern': '>>\|=>\|>' },
-\ '/': {
-  \ 'pattern':         '//\+\|/\*\|\*/',
-  \ 'delimiter_align': 'l',
-  \ 'ignore_groups':   ['!Comment'] },
-\ ']': {
-  \ 'pattern':       '[[\]]',
-  \ 'left_margin':   0,
-  \ 'right_margin':  0,
-  \ 'stick_to_left': 0
-\ },
-\ ')': {
-  \ 'pattern':       '[()]',
-  \ 'left_margin':   0,
-  \ 'right_margin':  0,
-  \ 'stick_to_left': 0
-\ },
-\ 'd': {
-  \ 'pattern':      ' \(\S\+\s*[;=]\)\@=',
-  \ 'left_margin':  0,
-  \ 'right_margin': 0
-\ }
-\}
+  \ '>': {
+  \   'pattern': '>>\|=>\|>'
+  \ },
+  \ '/': {
+  \   'pattern': '//\+\|/\*\|\*/',
+  \   'delimiter_align': 'l',
+  \   'ignore_groups':   ['!Comment']
+  \ },
+  \ ']': {
+  \   'pattern': '[[\]]',
+  \   'left_margin':   0,
+  \   'right_margin':  0,
+  \   'stick_to_left': 0
+  \ },
+  \ ')': {
+  \   'pattern': '[()]',
+  \   'left_margin':   0,
+  \   'right_margin':  0,
+  \   'stick_to_left': 0
+  \ },
+  \ 'd': {
+  \   'pattern': ' \(\S\+\s*[;=]\)\@=',
+  \   'left_margin':  0,
+  \   'right_margin': 0
+  \ }
+  \}
 
 " vim-bookmarks
-let g:bookmark_sign = '▶'
-let g:bookmark_annotation_sign = '▶'
+let g:bookmark_no_default_key_mappings = 1
+let g:bookmark_sign = '笠'
+let g:bookmark_annotation_sign = 'ﰠ'
 let g:bookmark_highlight_lines = 1
 let g:bookmark_location_list = 1
 
@@ -463,9 +446,9 @@ let g:increment_activator_filetype_candidates = {
   \   ['low', 'normal', 'high'],
   \   ['LOW', 'NORMAL', 'HIGH'],
   \ ],
-\}
+  \}
 
-" vim-markdown-toc
+" vim-MarkdownTOC
 let g:vmt_style = 'unordered'
 let g:vmt_list_item_char = '-'
 let g:vmt_fence_text = 'MarkdownTOC'
@@ -473,7 +456,7 @@ let g:vmt_fence_closing_text = '/'.g:vmt_fence_text
 " command! TocInsert :call <SID>GenToc({"GFM": v:true})
 " command! TocUpdate :call <SID>UpdateToc()
 
-" choose-win
+" vim-choosewin
 " tmux-like overlay
 let g:choosewin_overlay_enable = 0
 let g:choosewin_statusline_replace = !g:choosewin_overlay_enable
@@ -482,21 +465,21 @@ let g:choosewin_overlay_shade = 0
 let g:choosewin_blink_on_land = 0 " don't blink at land
 let g:choosewin_color_overlay = {
   \ 'cterm': [33, 33]
-\}
+  \}
 let g:choosewin_color_overlay_current = {
   \ 'cterm': [196, 196]
-\}
+  \}
 let g:choosewin_label_padding = 5
 let g:choosewin_color_bg = 234
 let g:choosewin_color_other = {
   \ 'cterm': [g:choosewin_color_bg, 0]
-\}
+  \}
 let g:choosewin_color_label = {
   \ 'cterm': [g:choosewin_color_bg, 33]
-\}
+  \}
 let g:choosewin_color_label_current = {
   \ 'cterm': [g:choosewin_color_bg, 196]
-\}
+  \}
 let g:choosewin_label = 'QWEASDZXC'
 let g:choosewin_tablabel = '1234567890'
 let g:choosewin_keymap = {
@@ -514,21 +497,21 @@ let g:choosewin_keymap = {
   \ 'k':     'tab_prev',
   \ 'j':     'tab_next',
   \ 'l':     'tab_last',
-\}
+  \}
 
-" ALE
+" ale
 let g:ale_linters = {
   \ 'javascript': ['eslint'],
   \ 'markdown': ['mdl'],
   \ 'jsx': ['stylelint', 'eslint'],
-\}
+  \}
 let g:ale_fixers = {
   \ 'javascript': ['eslint'],
   \ 'css': ['stylelint'],
-\}
+  \}
 let g:ale_linter_aliases = {
   \ 'jsx': 'css',
-\}
+  \}
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
 let g:ale_statusline_format = ['E•%d', 'W•%d', '⬥ ok']
@@ -542,7 +525,7 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 1
 let g:ale_warn_about_trailing_whitespace = 1
 
-" fatih/vim-go
+" vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
@@ -560,23 +543,23 @@ let g:neoformat_enabled_javascript = ['prettier', 'prettydiff', 'prettiereslint'
 " open-browser.vim
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 
-" henrik/vim-indexed-search
+" vim-indexed-search
 let g:indexed_search_shortmess = 1
 let g:indexed_search_numbered_only = 1
 
-" gregsexton/gitv
+" gitv
 let g:Gitv_OpenPreviewOnLaunch = 0
 " let g:Gitv_PreviewOptions = '--stat'
 let g:Gitv_CustomMappings = {
-\  'let': '|',
-\  'stat': 's',
-\  'vstat': 's',
-\  'head': 'H',
-\  'delete': 'dd',
-\  'vdelete': 'dd',
-\}
+  \ 'let': '|',
+  \ 'stat': 's',
+  \ 'vstat': 's',
+  \ 'head': 'H',
+  \ 'delete': 'dd',
+  \ 'vdelete': 'dd',
+  \}
 
-" leafgarland/typescript-vim
+" typescript-vim
 let g:typescript_indent_disable = 1
 
 " defx.nvim
@@ -589,25 +572,25 @@ let g:defx_git#indicators = {
   \ 'Ignored'   : '☒',
   \ 'Deleted'   : '✖',
   \ 'Unknown'   : '?'
-  \ }
+  \}
 
 call defx#custom#column('filename', {
   \ 'min_width': 20,
   \ 'max_width': 40,
   \ 'root_marker_highlight': 'Constant',
-  \ })
+  \})
 
 call defx#custom#column('mark', {
   \ 'readonly_icon': '✗',
   \ 'selected_icon': '✓',
-  \ })
+  \})
 
 call defx#custom#option('_', {
   \ 'columns': 'git:mark:indent:icons:filename:type',
   \ 'split': 'vertical',
   \ 'winwidth': 30,
   \ 'direction': 'topleft',
-  \ })
+  \})
 
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
@@ -681,17 +664,18 @@ function! s:defx_my_settings() abort
     \ defx#do_action('change_vim_cwd')
 endfunction
 
-" Vista
+" vista.vim
 " let g:vista_default_executive = 'coc'
+" @TODO fix it
 let g:vista_ctags_cmd = {
-    \ 'go': 'gotags -sort -silent',
-    \ }
+  \ 'go': 'gotags -sort -silent',
+  \}
 
-" chrisbra/Colorizer
+" Colorizer
 let g:colorizer_auto_color = 1
 let g:colorizer_auto_filetype='css,html,vim,markdown,js,jsx'
 " let g:colorizer_skip_comments = 1
 
-" simeji/winresizer
+" winresizer
 let g:winresizer_vert_resize = 5
 let g:winresizer_horiz_resize = 3

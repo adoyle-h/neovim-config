@@ -217,7 +217,7 @@ noremap <leader>0 :tablast<CR>
 
 " ------------------------ Plugin Keymap ---------------------------
 
-" NERDTreeTabsToggle
+" vim-nerdtree-tabs
 noremap <silent> <leader>nt :NERDTreeTabsToggle<CR>
 noremap <silent> <leader>nm :NERDTreeMirrorToggle<CR>
 noremap <silent> <leader>nf :NERDTreeTabsFind<CR>
@@ -225,13 +225,14 @@ noremap <silent> <leader>nf :NERDTreeTabsFind<CR>
 " defx.nvim
 noremap <silent> <leader>m :Defx -toggle<CR>
 
-" coc
+" coc.nvim
+"" coc
 inoremap <silent><expr> <M-Tab> coc#refresh()
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
 "                                             \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" coc-snippets
+"" coc-snippets
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
 " Use <C-j> for select text for visual placeholder of snippet.
@@ -244,18 +245,8 @@ let g:coc_snippet_next = '<c-n>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-p>'
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" coc-list
+"" coc-list
 noremap <silent><leader>uu :CocList -N<CR>
 noremap <silent><leader>uf :CocList files<CR>
 noremap <silent><leader>ue :CocList extensions<CR>
@@ -265,6 +256,27 @@ noremap <silent><leader>uhs :CocList searchhistory<CR>
 noremap <silent><leader>uhc :CocList cmdhistory<CR>
 noremap <silent><leader>uy :CocList -A yank<cr>
 noremap <silent><leader>us :CocList snippets<CR>
+noremap <silent><leader>uw :CocList windows<CR>
+noremap <silent><leader>ub :CocList buffers<CR>
+noremap <silent><leader>u/ :CocList words<CR>
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+"   return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \   coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \   <SID>check_back_space() ? "\<TAB>" :
+  \   coc#refresh()
+
+" inoremap <silent><expr> <Tab>
+"   \ pumvisible() ? "\<C-n>" :
+"   \ <SID>check_back_space() ? "\<Tab>" :
+"   \ coc#refresh()
 
 " vim-easy-align
 nmap <leader>A <Plug>(EasyAlign)
@@ -279,7 +291,8 @@ nmap <leader>/ :FuzzySearch<CR>
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordPath
 
-" vim-visualstar. xnoremap cannot work!
+" vim-visualstar
+" xnoremap cannot work!
 silent! xmap <C-n> <Plug>(visualstar-*)
 silent! xmap <C-p> <Plug>(visualstar-#)
 silent! xmap g<C-n> <Plug>(visualstar-g*)
@@ -333,26 +346,26 @@ nmap ]k <Plug>InterestingWordsForeward
 nmap <leader>ii <Plug>(increment-activator-increment)<leader>i
 nmap <leader>id <Plug>(increment-activator-decrement)<leader>i
 
-" choose-win
+" vim-choosewin
 nmap - <Plug>(choosewin)
 
+" ale
 " ale
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
 
 " CamelCaseMotion
-if exists('*camelcasemotion#InnerMotion')
-  map <silent> w <Plug>CamelCaseMotion_w
-  map <silent> b <Plug>CamelCaseMotion_b
-  map <silent> e <Plug>CamelCaseMotion_e
-  map <silent> ge <Plug>CamelCaseMotion_ge
-  noremap W w
-  noremap B b
-  noremap E e
-  noremap gE ge
-endif
+" CamelCaseMotion
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+noremap W w
+noremap B b
+noremap E e
+noremap gE ge
 
-" vim-abolish
+" vim-abolish the default keymaps
 " :h cr for more descriptions
 " MixedCase (crm)
 " camelCase (crc)
@@ -363,7 +376,7 @@ endif
 " dot.case (cr.)
 " space case (cr<space>)
 
-" easymotion
+" vim-easymotion
 map f <Plug>(easymotion-prefix)
 map f. <Plug>(easymotion-repeat)
 
@@ -375,3 +388,15 @@ vmap gX <Plug>(openbrowser-open)
 
 " vim-which-key
 nnoremap <silent> <leader><leader> :WhichKey ';'<CR>
+
+" vim-bookmarks
+nmap <Leader>bb <Plug>BookmarkToggle
+nmap <Leader>ba <Plug>BookmarkAnnotate
+nmap <Leader>bs <Plug>BookmarkShowAll
+nmap <Leader>bj <Plug>BookmarkNext<CR>k<Leader>b
+nmap <Leader>bk <Plug>BookmarkPrev<CR>k<Leader>b
+nmap <Leader>bc <Plug>BookmarkClear<CR>
+nmap <Leader>bC <Plug>BookmarkClearAll
+nmap <Leader>bK <Plug>BookmarkMoveUp<CR>k<Leader>b
+nmap <Leader>bJ <Plug>BookmarkMoveDown<CR>k<Leader>b
+nmap <Leader>bt <Plug>BookmarkMoveToLine
