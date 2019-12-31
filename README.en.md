@@ -27,23 +27,17 @@ NVIM v0.3 and higher.
 - nvim python provider
   - `pip2 install --upgrade --user pynvim`
   - `pip3 install --upgrade --user pynvim`
-- Nerd Font. Recommend [DejaVuSansMonoForPowerline Nerd Font][font]. And change your terminal font setting.
-
-The plugin manager and plugins will be auto-installed. Just invoke `nvim`.
+- [Nerd Font][]. Recommend [DejaVuSansMonoForPowerline Nerd Font][font]. And change your terminal font setting.
 
 ## Installation
 
 ```sh
 # Set your nvim config directory
 NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-git clone --depth 1 https://github.com/adoyle-h/neovim-config.git $NVIM_HOME
-
-# Export `NVIM_HOME` in your .bashrc file.
-echo "export NVIM_HOME=$NVIM_HOME" >> ~/.bashrc
-
-# Restart terminal
+git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
 
 # Invoke `nvim` to get started.
+# It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
 nvim
 ```
 
@@ -92,3 +86,4 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 [issue]: https://github.com/adoyle-h/neovim-config/issues
 [LICENSE]: ./LICENSE
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
+[Nerd Font]: https://github.com/ryanoasis/nerd-fonts

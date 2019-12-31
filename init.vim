@@ -1,10 +1,4 @@
-if empty($NVIM_HOME)
-  if empty($XDG_CONFIG_HOME)
-    $NVIM_HOME=$XDG_CONFIG_HOME/nvim
-  else
-    $NVIM_HOME=$HOME/.config/nvim
-  endif
-endif
+let NVIM_HOME=stdpath("config")
 
 " see https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 if empty(glob('$NVIM_HOME/autoload/plug.vim'))
