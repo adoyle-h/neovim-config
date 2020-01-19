@@ -32,7 +32,7 @@ Plug 'tyru/open-browser.vim', {'on': ['<Plug>(openbrowser-smart-search)', '<Plug
 Plug 'MattesGroeger/vim-bookmarks'
 
 "" Content Explorer
-Plug 'majutsushi/tagbar', {'on': 'Tagbar'}
+Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vista.vim' " 目前比 tagbar 弱
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'} " 修改历史树
 

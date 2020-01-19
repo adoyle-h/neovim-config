@@ -9,7 +9,6 @@ let mapleader = ';'
 " Prevent <F1> key from opening system help window. You can use ":help" to open vim help window
 noremap <F1> <Esc>
 noremap <silent><F2> :Tagbar<CR>
-noremap <silent><leader>tb :Tagbar<CR>
 noremap <silent><F3> :UndotreeToggle<CR>
 
 " ------------------------- General Keymap -------------------------
@@ -400,3 +399,7 @@ nmap <Leader>bC <Plug>BookmarkClearAll
 nmap <Leader>bK <Plug>BookmarkMoveUp<CR>k<Leader>b
 nmap <Leader>bJ <Plug>BookmarkMoveDown<CR>k<Leader>b
 nmap <Leader>bt <Plug>BookmarkMoveToLine
+
+" tagbar
+noremap <leader>tb :TagbarOpen fj<CR>
+noremap <leader>tB :TagbarToggle<CR>
