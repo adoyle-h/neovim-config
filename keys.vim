@@ -400,6 +400,11 @@ nmap <Leader>bK <Plug>BookmarkMoveUp<CR>k<Leader>b
 nmap <Leader>bJ <Plug>BookmarkMoveDown<CR>k<Leader>b
 nmap <Leader>bt <Plug>BookmarkMoveToLine
 
+" vim-go
+" Similar to gf. See https://vi.stackexchange.com/a/3369
+au FileType go nmap <C-W>d <Plug>(go-def-vertical)
+au FileType go nmap <C-W>gd <Plug>(go-def-tab)
+
 " tagbar
 noremap <leader>tb :TagbarOpen fj<CR>
 noremap <leader>tB :TagbarToggle<CR>

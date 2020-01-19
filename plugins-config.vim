@@ -679,3 +679,6 @@ let g:colorizer_auto_filetype='css,html,vim,markdown,js,jsx'
 " winresizer
 let g:winresizer_vert_resize = 5
 let g:winresizer_horiz_resize = 3
+
+" vim-go
+let g:go_def_reuse_buffer = 1
