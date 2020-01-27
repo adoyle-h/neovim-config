@@ -682,3 +682,17 @@ let g:winresizer_horiz_resize = 3
 
 " vim-go
 let g:go_def_reuse_buffer = 1
+
+" coc.nvim
+let g:coc_global_extensions = [
+  \'coc-yank',
+  \'coc-tabnine',
+  \'coc-snippets',
+  \'coc-lists',
+  \'coc-json',
+  \'coc-html',
+  \'coc-css',
+  \'coc-emoji',
+  \'coc-vimlsp',
+  \'coc-tsserver',
+  \]
