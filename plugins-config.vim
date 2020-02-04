@@ -525,6 +525,9 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 1
 let g:ale_warn_about_trailing_whitespace = 1
 
+"" ale - java
+let g:ale_java_checkstyle_config = 'style_checks.xml'
+
 " vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
