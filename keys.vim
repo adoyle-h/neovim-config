@@ -226,10 +226,30 @@ noremap <silent> <leader>m :Defx -toggle<CR>
 
 " coc.nvim
 "" coc
+" " Use <M-Tab> to trigger completion.
 inoremap <silent><expr> <M-Tab> coc#refresh()
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
 "                                             \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+"   return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? coc#_select_confirm() :
+  \   coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \   <SID>check_back_space() ? "\<TAB>" :
+  \   coc#refresh()
+
+" inoremap <silent><expr> <Tab>
+"   \ pumvisible() ? "\<C-n>" :
+"   \ <SID>check_back_space() ? "\<Tab>" :
+"   \ coc#refresh()
 
 "" coc-snippets
 " Use <C-l> for trigger snippet expand.
@@ -258,24 +278,6 @@ noremap <silent><leader>us :CocList snippets<CR>
 noremap <silent><leader>uw :CocList windows<CR>
 noremap <silent><leader>ub :CocList buffers<CR>
 noremap <silent><leader>u/ :CocList words<CR>
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-"   return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? coc#_select_confirm() :
-  \   coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-  \   <SID>check_back_space() ? "\<TAB>" :
-  \   coc#refresh()
-
-" inoremap <silent><expr> <Tab>
-"   \ pumvisible() ? "\<C-n>" :
-"   \ <SID>check_back_space() ? "\<Tab>" :
-"   \ coc#refresh()
 
 " vim-easy-align
 nmap <leader>A <Plug>(EasyAlign)

@@ -39,6 +39,7 @@ Plug 'mbbill/undotree', {'on': 'UndotreeToggle'} " 修改历史树
 "" UI
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" @Attention https://github.com/Yggdroot/indentLine#font-patching
 Plug 'yggdroot/indentline'  " alt vim-indent-guides
 
 """ Window

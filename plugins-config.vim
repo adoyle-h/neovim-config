@@ -82,6 +82,8 @@ let g:NERDCustomDelimiters = {
 
 " indentline
 let g:indentLine_color_term = 237
+" @Attention https://github.com/Yggdroot/indentLine#font-patching
+" https://github.com/Yggdroot/indentLine/issues/98#issuecomment-140926831
 let g:indentLine_char = ''  " special character symbol in my font
 " indentLine will overwrite your "concealcursor" and "conceallevel" with default value. So I disable it.
 let g:indentLine_setConceal = 0
