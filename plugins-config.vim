@@ -385,6 +385,7 @@ let g:jsx_ext_required = 1
 let g:ctrlsf_auto_close = 0
 let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules', 'vendor']
 let g:ctrlsf_context = '-C 3'
+let g:ctrlsf_follow_symlinks = 0
 
 " vim-visualstar
 let g:visualstar_no_default_key_mappings = 0
