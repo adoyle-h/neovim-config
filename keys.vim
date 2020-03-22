@@ -171,21 +171,21 @@ let g:winresizer_start_key = '<C-W><C-W>'
 
 " -------------------------- Tab Keymap ----------------------------
 let g:lasttab = 1
-noremap <leader>tl :execute "tabn ".g:lasttab<CR>
+noremap <leader>t- :execute "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-noremap <leader>tx :tabclose<CR>
-noremap <leader>tj :tabnext<CR>
-noremap <leader>tk :tabprev<CR>
+
+noremap <C-t>k :tabprev<CR>
+noremap <C-t>j :tabnext<CR>
 noremap [t :tabprev<CR>
 noremap ]t :tabnext<CR>
-noremap <leader>tn :tabnew<CR>
-noremap <C-t>x :tabclose<CR>
-noremap <C-t>j :tabnext<CR>
-noremap <C-t>k gT
-noremap <C-t>n :tabnew<CR>
+
 noremap <C-t>h :tabmove -<CR>
 noremap <C-t>l :tabmove +<CR>
+
+noremap <C-t>n :tabnew<CR>
 inoremap <C-t>n <Esc>:tabnew<CR>
+
+noremap <C-t>x :tabclose<CR>
 
 " switch tab in normal mode
 noremap <C-t>1 1gt
