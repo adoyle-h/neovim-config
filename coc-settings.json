@@ -33,9 +33,16 @@
   "coc.preferences.extensionUpdateCheck": "weekly",
   "tabnine.priority": 999,
   "tsserver.npm": "~/.nvm/versions/node/v12.13.1/bin/npm",
+  "tsserver.enableJavascript": false,
   "go.goplsPath": "~/Workspace/go/bin/gopls",
   "yaml.schemaStore.enable": true,
+  // default json schemas: https://github.com/neoclide/coc-json/blob/master/src/catalog.json
+  "json.schemas": [
+  ],
+  // See more at http://schemastore.org/json/
   "yaml.schemas": {
-    "https://kubernetesjsonschema.dev/v1.16.0/all.json": "/*"
+    "https://kubernetesjsonschema.dev/v1.16.0/all.json": "/*",
+    "http://json.schemastore.org/ansible-stable-2.9": ["/roles/*", "/tasks/*"],
+    "http://json.schemastore.org/travis": "/.travis.yml",
   },
 }
