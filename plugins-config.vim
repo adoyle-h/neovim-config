@@ -351,9 +351,8 @@ let g:UltiSnipsSnippetsDir = $NVIM_HOME.'/UltiSnips'
 
 " vim-interestingwords
 let g:interestingWordsTermColors = [
-  \ '33', '4', '210', '197', '78', '228', '154', '99', '121', '212', '38',
-  \ '166', '123', '214', '34', '222', '116', '207',
-  \ '242',
+  \ '33', '4', '210', '197', '78', '154', '99', '121', '212', '38',
+  \ '166', '123', '214', '34', '222', '116', '207', '242',
   \]
 let g:interestingWordsRandomiseColors = 0
 
