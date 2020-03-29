@@ -34,4 +34,8 @@
   "tabnine.priority": 999,
   "tsserver.npm": "~/.nvm/versions/node/v12.13.1/bin/npm",
   "go.goplsPath": "~/Workspace/go/bin/gopls",
+  "yaml.schemaStore.enable": true,
+  "yaml.schemas": {
+    "https://kubernetesjsonschema.dev/v1.16.0/all.json": "/*"
+  },
 }

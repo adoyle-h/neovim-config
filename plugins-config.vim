@@ -702,4 +702,9 @@ let g:coc_global_extensions = [
   \'coc-css',
   \'coc-vimlsp',
   \'coc-tsserver',
+  \'coc-yaml',
   \]
+
+let g:coc_filetype_map = {
+  \ 'yaml.ansible': 'yaml',
+  \}
