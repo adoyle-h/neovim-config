@@ -264,6 +264,9 @@ let g:coc_snippet_next = '<c-n>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-p>'
 
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 "" coc-list
 noremap <silent><leader>uu :CocList -N<CR>
