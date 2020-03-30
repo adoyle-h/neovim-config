@@ -265,6 +265,7 @@ noremap <silent><leader>uy :CocList -A yank<cr>
 noremap <silent><leader>us :CocList snippets<CR>
 noremap <silent><leader>uw :CocList windows<CR>
 noremap <silent><leader>ub :CocList buffers<CR>
+noremap <silent><leader>uB :CocList bookmark<CR>
 noremap <silent><leader>u/ :CocList words<CR>
 
 " vim-easy-align
@@ -377,6 +378,13 @@ vmap gX <Plug>(openbrowser-open)
 
 " vim-which-key
 nnoremap <silent> <leader><leader> :WhichKey ';'<CR>
+
+" coc-bookmark
+
+nmap <Leader>Ba <Plug>(coc-bookmark-annotate)
+nmap <Leader>Bb <Plug>(coc-bookmark-toggle)
+nmap <Leader>Bj <Plug>(coc-bookmark-next)
+nmap <Leader>Bk <Plug>(coc-bookmark-prev)
 
 " vim-bookmarks
 nmap <Leader>bb <Plug>BookmarkToggle

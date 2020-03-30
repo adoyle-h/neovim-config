@@ -62,4 +62,7 @@
     // "file:///Users/adoyle/dotfiles/deps/nvim/json-schemas/ansible-stable-2.9.json": "/*",
     "file:///Users/adoyle/dotfiles/deps/nvim/json-schemas/travis.json": "/.travis.yml",
   },
+
+  "bookmark.sign": "笠",
+  "bookmark.signHi": "BookmarkLine",
 }
