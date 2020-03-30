@@ -83,7 +83,8 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chrisbra/Recover.vim'   " 崩溃后打开 swap 文件 diff
 
 "" Snippets
-Plug 'SirVer/ultisnips'
+" The <Tab> key is conflicted to coc.nvim. If you do not use coc, uncomment next line.
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets' " vim-snippets depends on ultisnips
 Plug 'justinj/vim-react-snippets'
 Plug 'ahmedelgabri/vim-ava-snippets'
