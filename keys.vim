@@ -388,6 +388,7 @@ nnoremap <silent> <leader><leader> :WhichKey ';'<CR>
 nmap <Leader>bb <Plug>BookmarkToggle
 nmap <Leader>ba <Plug>BookmarkAnnotate
 nmap <Leader>bs <Plug>BookmarkShowAll
+nmap <Leader>bl <Plug>BookmarkShowAll
 nmap <Leader>bj <Plug>BookmarkNext<CR>k<Leader>b
 nmap <Leader>bk <Plug>BookmarkPrev<CR>k<Leader>b
 nmap <Leader>bc <Plug>BookmarkClear<CR>
