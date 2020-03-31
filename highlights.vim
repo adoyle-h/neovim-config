@@ -21,5 +21,11 @@ highlight ALEWarningSignLineNr ctermfg=0 ctermbg=11
 highlight ALEStyleWarningSignLineNr ctermfg=0 ctermbg=11
 highlight ALEInfoSignLineNr cterm=NONE ctermfg=0 ctermbg=6
 
+" coc
+highlight CocErrorSign cterm=bold ctermfg=1 ctermbg=234
+highlight CocWarningSign cterm=bold ctermfg=11 ctermbg=234
+highlight CocHintSign cterm=bold ctermfg=2 ctermbg=234
+highlight CocInfoSign cterm=bold ctermfg=6 ctermbg=234
+
 " ShowTrailingWhitespace
 highlight ShowTrailingWhitespace ctermbg=1 guibg=1
