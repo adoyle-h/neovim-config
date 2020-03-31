@@ -226,9 +226,8 @@ noremap <silent> <leader>m :Defx -toggle<CR>
 
 " coc.nvim
 "" coc
-" " Use <M-Tab> to trigger completion.
+" Use <M-Tab> to trigger completion.
 inoremap <silent><expr> <M-Tab> coc#refresh()
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
