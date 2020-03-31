@@ -399,3 +399,6 @@ au FileType go nmap <C-W>gd <Plug>(go-def-tab)
 " tagbar
 noremap <leader>tb :TagbarOpen fj<CR>
 noremap <leader>tB :TagbarToggle<CR>
+
+" adoyle-h/vim-MarkdownTOC
+nmap <Leader>toc :Toc<CR>
