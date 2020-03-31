@@ -17,6 +17,7 @@ command! ProfileEnd :profile pause
 command! FixLineBreak :call FixLineBreak()
 command! TogglePlainTextMode :call PlainTextModeToggle()
 command! CD :lcd %:p:h
+command! CocClear :call coc#util#close_popup()
 
 " This function not works with vim-plug lazy-load feature
 function! PlugLoaded(name)
