@@ -209,11 +209,6 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
 
-" ------------------------ Buffer Keymap ---------------------------
-" noremap <leader>bj :bn<CR>
-" noremap <leader>bk :bp<CR>
-" noremap <leader>bd :bd<CR>
-
 " ------------------------ Plugin Keymap ---------------------------
 
 " vim-nerdtree-tabs
