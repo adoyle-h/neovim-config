@@ -18,6 +18,18 @@ command! FixLineBreak :call FixLineBreak()
 command! TogglePlainTextMode :call PlainTextModeToggle()
 command! CD :lcd %:p:h
 command! CocClear :call coc#util#close_popup()
+command! Coc :call s:OpenConfig()
+
+function! s:OpenConfig()
+  let home = coc#util#get_config_home()
+  if home =~# '^\~'
+    let home = substitute(home, '\~', $HOME,'')
+  endif
+  if !isdirectory(home)
+    call mkdir(home, 'p')
+  endif
+  execute 'vs '.home.'/coc-settings.json'
+endfunction
 
 " This function not works with vim-plug lazy-load feature
 function! PlugLoaded(name)

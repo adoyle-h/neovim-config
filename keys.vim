@@ -52,7 +52,7 @@ nnoremap g<C-n> g*
 nnoremap g<C-p> g#
 
 " clear highlighted search
-noremap <leader>C :ClearSearch<CR>
+noremap <silent> <leader>C :ClearSearch<CR>:CocClear<CR>
 " toggle highlighted search
 noremap <leader>h :set hlsearch! hlsearch?<CR>
 
@@ -266,6 +266,18 @@ noremap <silent><leader>us :CocList snippets<CR>
 noremap <silent><leader>uw :CocList windows<CR>
 noremap <silent><leader>ub :CocList buffers<CR>
 noremap <silent><leader>u/ :CocList words<CR>
+noremap <silent><leader>ut :CocList translation<CR>
+
+"" coc-translator
+" popup window
+nmap <Leader>tt <Plug>(coc-translator-p)
+vmap <Leader>tt <Plug>(coc-translator-pv)
+" echo
+nmap <Leader>te <Plug>(coc-translator-e)
+nmap <Leader>te <Plug>(coc-translator-ev)
+" replace
+nmap <Leader>tr <Plug>(coc-translator-r)
+nmap <Leader>tr <Plug>(coc-translator-rv)
 
 " vim-easy-align
 nmap <leader>A <Plug>(EasyAlign)

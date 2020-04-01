@@ -10,8 +10,8 @@
   "coc.preferences.extensionUpdateCheck": "weekly",
 
   "diagnostic.displayByAle": false,
-  "diagnostic.warningSign": "•",
-  "diagnostic.errorSign": "•",
+  "diagnostic.warningSign": "»",
+  "diagnostic.errorSign": "»",
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": "",
 

@@ -702,6 +702,8 @@ let g:coc_global_extensions = [
   \'coc-vimlsp',
   \'coc-tsserver',
   \'coc-yaml',
+  \'coc-marketplace',
+  \'coc-translator',
   \]
 
 let g:coc_filetype_map = {
