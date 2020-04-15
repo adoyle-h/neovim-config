@@ -221,6 +221,21 @@ noremap <silent> <leader>m :Defx -toggle<CR>
 
 " coc.nvim
 "" coc
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gI <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>rr <Plug>(coc-rename)
+
+" Formatting code.
+xmap <leader>=  <Plug>(coc-format-selected)
+" nmap <leader>=  <Plug>(coc-format-selected)
+nmap <leader>=  <Plug>(coc-format)
+
 " Use <M-Tab> to trigger completion.
 inoremap <silent><expr> <M-Tab> coc#refresh()
 
@@ -267,6 +282,7 @@ noremap <silent><leader>uw :CocList windows<CR>
 noremap <silent><leader>ub :CocList buffers<CR>
 noremap <silent><leader>u/ :CocList words<CR>
 noremap <silent><leader>ut :CocList translation<CR>
+noremap <silent><leader>um :CocList marketplace<CR>
 
 "" coc-translator
 " popup window
