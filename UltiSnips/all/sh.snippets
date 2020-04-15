@@ -64,6 +64,7 @@ snippet bash "Add bash shabang and set variables" b
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 endsnippet
 
@@ -85,6 +86,7 @@ snippet bash_program "Add bash program template" b
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 #######################################################################
