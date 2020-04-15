@@ -8,6 +8,7 @@ command! ClearCRLF :%s///g
 command! Q :q!
 command! Qa :qa!
 command! Format :Autoformat
+command! -nargs=0 CocFormat :call CocAction('format')
 command! LimelightOff Limelight!
 command! JSONfy :%s/\v^( +)([^" ]+)(\ +)?:/\1"\2"\3:/g | echo 'JSONfy done'
 command! SnippetsList :echo GetAllSnippets()
