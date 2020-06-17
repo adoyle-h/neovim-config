@@ -18,7 +18,7 @@ command! ProfileEnd :profile pause
 command! FixLineBreak :call FixLineBreak()
 command! TogglePlainTextMode :call PlainTextModeToggle()
 command! CD :lcd %:p:h
-command! CocClear :call coc#util#close_popup()
+command! CocClear :call coc#util#close_floats()
 command! Coc :call s:OpenConfig()
 
 function! s:OpenConfig()
