@@ -16,6 +16,10 @@ noremap <silent><F3> :UndotreeToggle<CR>
 " disable Ex mode
 noremap Q <NOP>
 
+" swap adjacent characters
+noremap t xp
+noremap T Xp
+
 " Exit from input mode
 inoremap jk <Esc>
 " Exit from terminal mode
