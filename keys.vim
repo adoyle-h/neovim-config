@@ -434,3 +434,12 @@ noremap <leader>tB :TagbarToggle<CR>
 
 " adoyle-h/vim-MarkdownTOC
 nmap <Leader>toc :Toc<CR>
+
+nmap <leader>ssa :call <SID>SynStack()<CR>
+" https://jordanelver.co.uk/blog/2015/05/27/working-with-vim-colorschemes/
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
