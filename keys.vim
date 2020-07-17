@@ -398,8 +398,8 @@ noremap gE ge
 " space case (cr<space>)
 
 " vim-easymotion
-map f <Plug>(easymotion-prefix)
-map f. <Plug>(easymotion-repeat)
+noremap f <Plug>(easymotion-prefix)
+noremap f. <Plug>(easymotion-repeat)
 
 " open-browser.vim
 nmap gx <Plug>(openbrowser-smart-search)
