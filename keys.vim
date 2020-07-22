@@ -118,7 +118,7 @@ inoremap <silent> <C-e> <Esc>A
 inoremap <silent> <C-b> <Esc>ha
 inoremap <silent> <C-f> <Esc>la
 inoremap <silent> <M-b> <Esc>bi
-inoremap <silent> <M-f> <Esc>fi
+inoremap <silent> <M-f> <Esc>Ea
 inoremap <silent> <M-d> <Esc>dwa
 inoremap <silent> <C-d> <Esc>dla
 inoremap <silent> <C-w> <Esc>bdei
@@ -398,8 +398,8 @@ noremap gE ge
 " space case (cr<space>)
 
 " vim-easymotion
-noremap f <Plug>(easymotion-prefix)
-noremap f. <Plug>(easymotion-repeat)
+map f <Plug>(easymotion-prefix)
+map f. <Plug>(easymotion-repeat)
 
 " open-browser.vim
 nmap gx <Plug>(openbrowser-smart-search)
