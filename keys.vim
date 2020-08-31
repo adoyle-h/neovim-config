@@ -424,9 +424,11 @@ nmap <Leader>bJ <Plug>BookmarkMoveDown<CR>k<Leader>b
 nmap <Leader>bt <Plug>BookmarkMoveToLine
 
 " vim-go
+" https://github.com/fatih/vim-go/blob/60cd21d836fc25d3b273a1df635b2de41a6ef947/ftplugin/go.vim#L33-L72
 " Similar to gf. See https://vi.stackexchange.com/a/3369
 au FileType go nmap <C-W>d <Plug>(go-def-vertical)
 au FileType go nmap <C-W>gd <Plug>(go-def-tab)
+au FileType go nnoremap <buffer> gD :GoDoc<CR>
 
 " tagbar
 noremap <leader>tb :TagbarOpen fj<CR>

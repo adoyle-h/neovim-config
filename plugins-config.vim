@@ -543,6 +543,9 @@ let g:go_highlight_build_constraints = 1
 " let g:go_bin_path = "/home/fatih/.mypath"      "or give absolute path
 let g:go_get_update = 0
 " let g:go_term_mode = "split"
+let g:go_def_reuse_buffer = 1
+let g:go_doc_keywordprg_enabled = 0
+
 
 " neoformat
 let g:neoformat_enabled_javascript = ['prettier', 'prettydiff', 'prettiereslint']
@@ -686,9 +689,6 @@ let g:colorizer_auto_filetype='css,html,vim,markdown,js,jsx'
 " winresizer
 let g:winresizer_vert_resize = 5
 let g:winresizer_horiz_resize = 3
-
-" vim-go
-let g:go_def_reuse_buffer = 1
 
 " coc.nvim
 let g:coc_global_extensions = [
