@@ -154,11 +154,12 @@ let g:airline#extensions#whitespace#skip_indent_check_ft = {
 \}
 
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tab_type = 1 " show tab label
 let g:airline#extensions#tabline#tabs_label = 'Tab'
 let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_tab_count = 0
 let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#tab_nr_type = 1 " splits and tab number
-let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#buffers_label = 'Buff'
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
@@ -169,6 +170,23 @@ let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = '|'
 let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
+let g:airline#extensions#tabline#formatter = 'short_path'
+let g:airline#extensions#tabline#overflow_marker = '…'
+let g:airline#extensions#tabline#tabtitle_formatter = 'MyAirlineTabTitleFormatter'
+function MyAirlineTabTitleFormatter(n)
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let bufnr = buflist[winnr - 1]
+  let winid = win_getid(winnr, a:n)
+  " let title = bufname(bufnr)
+  let title = airline#extensions#tabline#get_buffer_name(bufnr, buflist)
+
+  if empty(title)
+    let title = '[No Name]'
+  endif
+
+  return title
+endfunction
 
 " Or Use ['all'] to enable for all filetypes.
 let g:airline#extensions#wordcount#filetypes = [
