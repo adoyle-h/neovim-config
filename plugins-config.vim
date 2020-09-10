@@ -44,7 +44,7 @@ let g:NERDTreeExactMatchHighlightColor = {
 
 " nerdtree-git-plugin
 " https://github.com/Xuyuanp/nerdtree-git-plugin/commit/c793d7445e088d5477da676443ebdf8517a32a73
-let g:NERDTreeGitStatusIgnoreSubmodules = 1
+let g:NERDTreeGitStatusIgnoreSubmodules = 'all'
 let g:NERDTreeIndicatorMapCustom = {
   \ "Modified"  : "✹",
   \ "Staged"    : "✚",
