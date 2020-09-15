@@ -141,7 +141,7 @@ Plug 'aklt/plantuml-syntax'
 Plug 'nikvdp/ejs-syntax'
 Plug 'chr4/nginx.vim'
 Plug 'cespare/vim-toml'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sirosen/vim-rockstar'
 Plug 'jvirtanen/vim-hcl'
 Plug 'hashivim/vim-terraform'
