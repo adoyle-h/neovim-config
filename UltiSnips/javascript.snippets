@@ -4,6 +4,19 @@ function* ${1:name}(${2}) {
 }
 endsnippet
 
+snippet req "require module"
+const ${1} = require('${1}');
+endsnippet
+
+snippet mod "module.exports"
+module.exports = ${1};
+endsnippet
+
+snippet cons
+constructor(${1:props}) {
+}
+endsnippet
+
 snippet => "Arrow function" i
 (${1}) => {
     ${2}
@@ -12,8 +25,7 @@ endsnippet
 
 snippet class "ES6 Class"
 class ${1:name} {
-    constructor(${2:arg}) {
-        ${3:// init}
+    constructor(${2:props}) {
     }
 }
 endsnippet
