@@ -28,6 +28,7 @@
     "**/bower_components/**",
     "**/.git/**",
   ],
+  // see :h coc-list-mappings-custom
   "list.insertMappings": {
     "<C-c>": "do:exit",
     "<C-x>": "do:stop",
@@ -36,9 +37,13 @@
     "<C-v>": "action:vsplit",
     "<A-s>": "do:switch",
     "<A-v>": "prompt:paste",
+    "<C-b>": "prompt:left",
+    "<C-f>": "prompt:right",
+    "<C-k>": "prompt:removetail",
   },
   "list.normalMappings": {
   },
+  "list.indicator": ":",
 
   "tabnine.priority": 999,
 
@@ -54,6 +59,8 @@
   // default json schemas: https://github.com/neoclide/coc-json/blob/master/src/catalog.json
   "json.schemas": [
   ],
+
+  "yaml.format.enable": true,
 
   "yaml.schemaStore.enable": false,
   // See more at http://schemastore.org/json/
