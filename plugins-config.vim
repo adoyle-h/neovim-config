@@ -1,3 +1,6 @@
+" neovim
+let g:python_host_prog = '/usr/local/bin/python2'
+
 " nerdtree
 let NERDTreeShowBookmarks=1
 let g:NERDTreeMapChangeRoot='L'
