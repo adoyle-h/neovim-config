@@ -58,15 +58,18 @@
 
   // default json schemas: https://github.com/neoclide/coc-json/blob/master/src/catalog.json
   "json.schemas": [
+//    {
+//      "fileMatch": ["/coc-settings.json"],
+//      "url": "../json-schemas/",
+//    },
   ],
 
   "yaml.format.enable": true,
-
-  "yaml.schemaStore.enable": false,
+  "yaml.schemaStore.enable": true,
   // See more at http://schemastore.org/json/
   "yaml.schemas": {
-    // "file:///Users/adoyle/dotfiles/deps/nvim/json-schemas/kubernetes-json-schema/v1.16.4-local/all.json": "/*",
-    // "file:///Users/adoyle/dotfiles/deps/nvim/json-schemas/ansible-stable-2.9.json": "/*",
-    "file:///Users/adoyle/dotfiles/deps/nvim/json-schemas/travis.json": "/.travis.yml",
+    // "../kubernetes-json-schema/v1.16.4-local/all.json": "/*",
+    // "../ansible-stable-2.9.json": "/*",
+    "../json-schemas/travis.json": ["/.travis.yml"],
   },
 }
