@@ -117,7 +117,6 @@ Plug 'sotte/presenting.vim', { 'for': 'markdown' } " markdown 幻灯片
 "" Languages
 """ Markdown
 Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
-Plug 'lvht/tagbar-markdown', {'for': ['markdown']} " List TOC
 Plug 'adoyle-h/vim-MarkdownTOC', {'for': 'markdown', 'branch': 'adoyle'} " Table of Content generator
 " Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app & yarn install'}

@@ -478,8 +478,8 @@ let g:vmt_style = 'unordered'
 let g:vmt_list_item_char = '-'
 let g:vmt_fence_text = 'MarkdownTOC'
 let g:vmt_fence_closing_text = '/'.g:vmt_fence_text
-" command! TocInsert :call <SID>GenToc({"GFM": v:true})
-" command! TocUpdate :call <SID>UpdateToc()
+command! TocInsert GenTocGFM
+command! TocUpdate UpdateToc
 
 " vim-choosewin
 " tmux-like overlay
