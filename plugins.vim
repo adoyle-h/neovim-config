@@ -1,5 +1,7 @@
 "" Other
 Plug 'neomutt/neomutt.vim'
+" This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim. https://github.com/neovim/neovim/issues/1716
+Plug 'lambdalisue/suda.vim'
 
 "" Funny
 Plug 'johngrib/vim-game-snake', {'on': 'VimGameSnake'}
