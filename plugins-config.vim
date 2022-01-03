@@ -713,7 +713,6 @@ let g:winresizer_horiz_resize = 3
 " coc.nvim
 let g:coc_global_extensions = [
   \'coc-yank',
-  \'coc-tabnine',
   \'coc-snippets',
   \'coc-lists',
   \'coc-json',
