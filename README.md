@@ -19,7 +19,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 版本
 
-NVIM v0.3 及以上版本。
+NVIM v0.7 及以上版本。
 
 ## 依赖
 
@@ -78,7 +78,7 @@ Any comments and suggestions are always welcome. Please open an [issue][] to con
 
 ## 版权声明
 
-Copyright (c) 2016-2020 ADoyle. The project is licensed under the **BSD 3-clause License**.
+Copyright 2016-2022 ADoyle (adoyle.h@gmail.com) All Rights Reserved. The project is licensed under the **BSD 3-clause License**.
 
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 

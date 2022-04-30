@@ -17,7 +17,7 @@ Share for learning and reference.
 
 ## Version
 
-NVIM v0.3 and higher.
+NVIM v0.7 and higher.
 
 ## Dependency
 
@@ -76,7 +76,7 @@ Any comments and suggestions are always welcome. Please open an [issue][] to con
 
 ## Copyright and License
 
-Copyright (c) 2016-2020 ADoyle. The project is licensed under the **BSD 3-clause License**.
+Copyright 2016-2022 ADoyle (adoyle.h@gmail.com) All Rights Reserved. The project is licensed under the **BSD 3-clause License**.
 
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
