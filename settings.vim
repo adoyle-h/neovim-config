@@ -84,6 +84,7 @@ set ttimeout  " prevent '<esc>' delay in terminal http://stackoverflow.com/a/339
 set timeoutlen=99999 " 一直等待组合键完成
 set scrolljump=1 " Lines to scroll when cursor leaves screen
 
+" Left-Sidebar
 set number  " 显示行号
 set relativenumber " 显示相对行号
 

@@ -233,7 +233,7 @@ nmap <silent> gI <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Symbol renaming.
-nmap <leader>rr <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting code.
 xmap <leader>=  <Plug>(coc-format-selected)
@@ -272,10 +272,21 @@ let g:coc_snippet_prev = '<c-p>'
 nmap <silent> [d <Plug>(coc-diagnostic-prev)
 nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
 "" coc-list
-noremap <silent><leader>uu :CocList -N<CR>
+noremap <silent><leader>uu :CocList<CR>
 noremap <silent><leader>uf :CocList files<CR>
 noremap <silent><leader>ue :CocList extensions<CR>
+noremap <silent><leader>uE :CocList marketplace<CR>
 noremap <silent><leader>uc :CocList commands<CR>
 noremap <silent><leader>ul :CocList lines<CR>
 noremap <silent><leader>uhs :CocList searchhistory<CR>

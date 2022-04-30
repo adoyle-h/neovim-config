@@ -7,9 +7,27 @@
     }
   },
 
+  "suggest.floatConfig": {
+    "border": true,
+  },
+
+  "signature.floatConfig": {
+    "border": true,
+  },
+
+  "diagnostic.floatConfig": {
+    "border": true,
+  },
+
+  "hover.floatConfig": {
+    "border": true,
+  },
+
   "coc.preferences.extensionUpdateCheck": "weekly",
 
-  "diagnostic.displayByAle": false,
+  // https://github.com/dense-analysis/ale#5iii-how-can-i-use-ale-and-cocnvim-together
+  "diagnostic.displayByAle": true,
+
   "diagnostic.warningSign": "»",
   "diagnostic.errorSign": "»",
   "diagnostic.infoSign": "",
@@ -28,6 +46,7 @@
     "**/bower_components/**",
     "**/.git/**",
   ],
+
   // see :h coc-list-mappings-custom
   "list.insertMappings": {
     "<C-c>": "do:exit",
@@ -37,8 +56,10 @@
     "<C-v>": "action:vsplit",
     "<A-s>": "do:switch",
     "<A-v>": "prompt:paste",
-    "<C-b>": "prompt:left",
-    "<C-f>": "prompt:right",
+    "<C-r>": "do:refresh",
+    "<C-h>": "prompt:left",
+    "<C-l>": "prompt:right",
+    "<C-u>": "prompt:removeahead",
     "<C-k>": "prompt:removetail",
   },
   "list.normalMappings": {
@@ -53,8 +74,6 @@
 
   "tsserver.npm": "~/.nvm/versions/node/v12.13.1/bin/npm",
   "tsserver.enableJavascript": false,
-
-  "go.goplsPath": "~/Workspace/go/bin/gopls",
 
   // default json schemas: https://github.com/neoclide/coc-json/blob/master/src/catalog.json
   "json.schemas": [

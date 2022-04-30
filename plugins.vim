@@ -149,10 +149,9 @@ Plug 'hashivim/vim-terraform'
 Plug 'google/vim-jsonnet'
 
 " Typescript
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
 " Plug 'Quramy/tsuquyomi'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'HerringtonDarkholme/yats.vim'
 
 "" devicons should be put at last!!
 Plug 'ryanoasis/vim-devicons'

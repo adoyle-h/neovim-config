@@ -531,9 +531,10 @@ let g:ale_linters = {
   \ 'jsx': ['stylelint', 'eslint'],
   \}
 let g:ale_fixers = {
-  \ 'javascript': ['eslint'],
+  \ 'javascript': ['prettier', 'eslint'],
   \ 'css': ['stylelint'],
   \}
+let g:ale_fix_on_save = 1
 let g:ale_linter_aliases = {
   \ 'jsx': 'css',
   \}
@@ -549,6 +550,8 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 1
 let g:ale_warn_about_trailing_whitespace = 1
+" https://github.com/dense-analysis/ale#5iii-how-can-i-use-ale-and-cocnvim-together
+let g:ale_disable_lsp = 1
 
 "" ale - java
 let g:ale_java_checkstyle_config = 'style_checks.xml'
