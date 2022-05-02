@@ -274,13 +274,25 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  " nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  " nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  " inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  " inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  " vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  " vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
+  nnoremap <silent><nowait><expr> <M-f> coc#float#scroll(1)
+  nnoremap <silent><nowait><expr> <M-b> coc#float#scroll(0)
+  inoremap <silent><nowait><expr> <M-f> "\<c-r>=coc#float#scroll(1)\<cr>"
+  inoremap <silent><nowait><expr> <M-b> "\<c-r>=coc#float#scroll(0)\<cr>"
+  vnoremap <silent><nowait><expr> <M-f> coc#float#scroll(1)
+  vnoremap <silent><nowait><expr> <M-b> coc#float#scroll(0)
 endif
+
+" Use K to show documentation in preview window.
+nnoremap <silent><leader>d :call CocActionAsync('doHover')<CR>
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 "" coc-list
 noremap <silent><leader>uu :CocList<CR>
@@ -298,6 +310,8 @@ noremap <silent><leader>ub :CocList buffers<CR>
 noremap <silent><leader>u/ :CocList words<CR>
 noremap <silent><leader>ut :CocList translation<CR>
 noremap <silent><leader>um :CocList marketplace<CR>
+nnoremap <silent><nowait> <leader>ud :CocList diagnostics<cr>
+
 
 "" coc-translator
 " popup window
