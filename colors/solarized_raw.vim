@@ -1,5 +1,3 @@
-" curl https://raw.githubusercontent.com/adoyle-h/vim-colors-solarized/adoyle/colors/solarized.vim -o colors/solarized.vim
-
 " Name:     Solarized vim colorscheme
 " Author:   Ethan Schoonover <es@ethanschoonover.com>
 " URL:      http://ethanschoonover.com/solarized
@@ -302,23 +300,22 @@ elseif g:solarized_termcolors != 256 && &t_Co >= 16
     let s:green       = "2"
 elseif g:solarized_termcolors == 256
     let s:vmode       = "cterm"
-    let s:back        = "232"
-    let s:base03      = "0"    " brblack #000000
-    let s:base02      = "234"  " black #1c1c1c
-    let s:base01      = "246"  " brgreen #949494
-    let s:base00      = "214"   " bryellow #ffaf00
-    let s:base0       = "251"   " brblue #c6c6c6
-    let s:base1       = "14"   " brcyan #00ffff
-    let s:base2       = "7"    " white #c0c0c0
-    let s:base3       = "15"   " brwhite #ffffff
-    let s:yellow      = "185"  " #dfdf5f
-    let s:orange      = "166"  " #df5f00
-    let s:red         = "1"  " #800000
-    let s:magenta     = "129"  " #af00ff
-    let s:violet      = "207"  " #ff5fff
-    let s:blue        = "4"  " #000080
-    let s:cyan        = "111"  " #87afff
-    let s:green       = "2"  " #008000
+    let s:base03      = "234"
+    let s:base02      = "235"
+    let s:base01      = "239"
+    let s:base00      = "240"
+    let s:base0       = "244"
+    let s:base1       = "245"
+    let s:base2       = "187"
+    let s:base3       = "230"
+    let s:yellow      = "136"
+    let s:orange      = "166"
+    let s:red         = "124"
+    let s:magenta     = "125"
+    let s:violet      = "61"
+    let s:blue        = "33"
+    let s:cyan        = "37"
+    let s:green       = "64"
 else
     let s:vmode       = "cterm"
     let s:bright      = "* term=bold cterm=bold"
@@ -613,7 +610,7 @@ else
     exe "hi! NonText"    .s:fmt_bold   .s:fg_base00 .s:bg_none
 endif
 exe "hi! StatusLine"     .s:fmt_none   .s:fg_base1  .s:bg_base02 .s:fmt_revbb
-exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_blue .s:bg_base02 .s:fmt_revbb
+exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_base00 .s:bg_base02 .s:fmt_revbb
 exe "hi! Visual"         .s:fmt_none   .s:fg_base01 .s:bg_base03 .s:fmt_revbb
 exe "hi! Directory"      .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! ErrorMsg"       .s:fmt_revr   .s:fg_red    .s:bg_none
@@ -622,18 +619,17 @@ exe "hi! Search"         .s:fmt_revr   .s:fg_yellow .s:bg_none
 exe "hi! MoreMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! ModeMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! LineNr"         .s:fmt_none   .s:fg_base01 .s:bg_base02
-exe "hi! CursorLineNr"   .s:fmt_bold   .s:fg_base3  .s:bg_base02
 exe "hi! Question"       .s:fmt_bold   .s:fg_cyan   .s:bg_none
 if ( has("gui_running") || &t_Co > 8 )
-    exe "hi! VertSplit"  .s:fmt_none   .s:fg_blue .s:bg_base03
+    exe "hi! VertSplit"  .s:fmt_none   .s:fg_base00 .s:bg_base00
 else
-    exe "hi! VertSplit"  .s:fmt_none  .s:fg_blue .s:bg_base03
+    exe "hi! VertSplit"  .s:fmt_revbb  .s:fg_base00 .s:bg_base02
 endif
 exe "hi! Title"          .s:fmt_bold   .s:fg_orange .s:bg_none
 exe "hi! VisualNOS"      .s:fmt_stnd   .s:fg_none   .s:bg_base02 .s:fmt_revbb
 exe "hi! WarningMsg"     .s:fmt_bold   .s:fg_red    .s:bg_none
 exe "hi! WildMenu"       .s:fmt_none   .s:fg_base2  .s:bg_base02 .s:fmt_revbb
-exe "hi! Folded"         .s:fmt_none   .s:fg_cyan   .s:bg_none .s:sp_base03
+exe "hi! Folded"         .s:fmt_undb   .s:fg_base0  .s:bg_base02  .s:sp_base03
 exe "hi! FoldColumn"     .s:fmt_none   .s:fg_base0  .s:bg_base02
 if      (g:solarized_diffmode=="high")
 exe "hi! DiffAdd"        .s:fmt_revr   .s:fg_green  .s:bg_none
@@ -658,7 +654,7 @@ exe "hi! DiffDelete"     .s:fmt_none   .s:fg_red    .s:bg_base02
 exe "hi! DiffText"       .s:fmt_none   .s:fg_blue   .s:bg_base02 .s:sp_blue
     endif
 endif
-exe "hi! SignColumn"     .s:fmt_none   .s:fg_base0  .s:bg_base02
+exe "hi! SignColumn"     .s:fmt_none   .s:fg_base0
 exe "hi! Conceal"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_red
 exe "hi! SpellCap"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_violet
@@ -674,9 +670,9 @@ exe "hi! TabLineSel"     .s:fmt_undr   .s:fg_base01 .s:bg_base2   .s:sp_base0  .
 exe "hi! CursorColumn"   .s:fmt_none   .s:fg_none   .s:bg_base02
 exe "hi! CursorLine"     .s:fmt_uopt   .s:fg_none   .s:bg_base02  .s:sp_base1
 exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_base02
-exe "hi! Cursor"         .s:fmt_none   .s:fg_base03 .s:bg_blue
+exe "hi! Cursor"         .s:fmt_none   .s:fg_base03 .s:bg_base0
 hi! link lCursor Cursor
-exe "hi! MatchParen"     .s:fmt_none   .s:fg_red    .s:bg_none
+exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_base01
 
 "}}}
 " vim syntax highlighting "{{{

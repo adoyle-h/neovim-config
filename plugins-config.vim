@@ -89,7 +89,9 @@ let g:NERDCustomDelimiters = {
 let g:indentLine_color_term = 237
 " @Attention https://github.com/Yggdroot/indentLine#font-patching
 " https://github.com/Yggdroot/indentLine/issues/98#issuecomment-140926831
-let g:indentLine_char = ''  " special character symbol in my font
+" let g:indentLine_char = '⎸'  " special character symbol in my font
+" let g:indentLine_char = ''  " special character symbol in my font
+let g:indentLine_char = '┊'  " special character symbol in my font
 " indentLine will overwrite your "concealcursor" and "conceallevel" with default value. So I disable it.
 let g:indentLine_setConceal = 0
 
@@ -271,9 +273,14 @@ call airline#add_inactive_statusline_func('PatchInactiveStatusLine')
 
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
-let g:gitgutter_sign_modified_removed = '⋍'
 let g:gitgutter_preview_active = 0
 let g:gitgutter_last_line_number = 0
+let g:gitgutter_sign_added = '┃'
+let g:gitgutter_sign_modified = '┃'
+let g:gitgutter_sign_removed            = '_'
+let g:gitgutter_sign_removed_first_line = '‾'
+let g:gitgutter_sign_removed_above_and_below = 'ニ'
+let g:gitgutter_sign_modified_removed = '⋍'
 
 au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active() && line('.') != g:gitgutter_last_line_number |
 \   let g:gitgutter_last_line_number = line('.') |

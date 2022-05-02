@@ -8,8 +8,6 @@ let mapleader = ';'
 " ------------------------ F1~F9 Keymap ----------------------------
 " Prevent <F1> key from opening system help window. You can use ":help" to open vim help window
 noremap <F1> <Esc>
-noremap <silent><F2> :Tagbar<CR>
-noremap <silent><F3> :UndotreeToggle<CR>
 
 " ------------------------- General Keymap -------------------------
 
@@ -36,7 +34,7 @@ vnoremap . :normal .<CR>
 
 " ---------------------- Insert Spaces Keymap ----------------------
 " insert a space at right position of cursor
-nnoremap <space> a<space><esc>
+nnoremap <space><space> a<space><esc>
 nnoremap ]<space> a<space><esc>
 " insert a space at left position of cursor
 nnoremap [<space> i<space><esc>
@@ -56,7 +54,7 @@ nnoremap g<C-n> g*
 nnoremap g<C-p> g#
 
 " clear highlighted search
-noremap <silent> <leader>C :ClearSearch<CR>:CocClear<CR>
+noremap <silent> <leader>C :let @/ = ""<CR>
 " toggle highlighted search
 noremap <leader>h :set hlsearch! hlsearch?<CR>
 
@@ -175,33 +173,18 @@ let g:winresizer_start_key = '<C-W><C-W>'
 
 " -------------------------- Tab Keymap ----------------------------
 let g:lasttab = 1
-noremap <leader>t- :execute "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-
-noremap <C-t>k :tabprev<CR>
-noremap <C-t>j :tabnext<CR>
+noremap <C-T>t- :execute "tabn ".g:lasttab<CR>
+noremap <C-T>k :tabprev<CR>
+noremap <C-T>j :tabnext<CR>
 noremap [t :tabprev<CR>
 noremap ]t :tabnext<CR>
-
-noremap <C-t>h :tabmove -<CR>
-noremap <C-t>l :tabmove +<CR>
-
-noremap <C-t>n :tabnew<CR>
-inoremap <C-t>n <Esc>:tabnew<CR>
-
-noremap <C-t>x :tabclose<CR>
+" noremap <leader>h :tabmove -<CR>
+" noremap <leader>l :tabmove +<CR>
+noremap <C-T>n :tabnew<CR>
+noremap <C-T>x :tabclose<CR>
 
 " switch tab in normal mode
-noremap <C-t>1 1gt
-noremap <C-t>2 2gt
-noremap <C-t>3 3gt
-noremap <C-t>4 4gt
-noremap <C-t>5 5gt
-noremap <C-t>6 6gt
-noremap <C-t>7 7gt
-noremap <C-t>8 8gt
-noremap <C-t>9 9gt
-noremap <C-t>0 :tablast<CR>
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
@@ -219,110 +202,10 @@ noremap <leader>0 :tablast<CR>
 noremap <silent> <leader>nt :NERDTreeTabsToggle<CR>
 noremap <silent> <leader>nm :NERDTreeMirrorToggle<CR>
 noremap <silent> <leader>nf :NERDTreeTabsFind<CR>
+noremap <space>m :NERDTreeMirrorToggle<CR>
 
 " defx.nvim
 noremap <silent> <leader>m :Defx -toggle<CR>
-
-" coc.nvim
-"" coc
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gI <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting code.
-xmap <leader>=  <Plug>(coc-format-selected)
-" nmap <leader>=  <Plug>(coc-format-selected)
-nmap <leader>=  <Plug>(coc-format)
-
-" Use <M-Tab> to trigger completion.
-inoremap <silent><expr> <M-Tab> coc#refresh()
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? coc#_select_confirm() :
-  \   coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-  \   <SID>check_back_space() ? "\<TAB>" :
-  \   coc#refresh()
-
-"" coc-snippets
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-" Use <C-j> for select text for visual placeholder of snippet.
-" vmap <C-j> <Plug>(coc-snippets-select)
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-l> <Plug>(coc-snippets-expand-jump)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-n>'
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-p>'
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [d <Plug>(coc-diagnostic-prev)
-nmap <silent> ]d <Plug>(coc-diagnostic-next)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  " nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  " nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  " inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  " inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  " vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  " vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-
-  nnoremap <silent><nowait><expr> <M-f> coc#float#scroll(1)
-  nnoremap <silent><nowait><expr> <M-b> coc#float#scroll(0)
-  inoremap <silent><nowait><expr> <M-f> "\<c-r>=coc#float#scroll(1)\<cr>"
-  inoremap <silent><nowait><expr> <M-b> "\<c-r>=coc#float#scroll(0)\<cr>"
-  vnoremap <silent><nowait><expr> <M-f> coc#float#scroll(1)
-  vnoremap <silent><nowait><expr> <M-b> coc#float#scroll(0)
-endif
-
-" Use K to show documentation in preview window.
-nnoremap <silent><leader>d :call CocActionAsync('doHover')<CR>
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-"" coc-list
-noremap <silent><leader>uu :CocList<CR>
-noremap <silent><leader>uf :CocList files<CR>
-noremap <silent><leader>ue :CocList extensions<CR>
-noremap <silent><leader>uE :CocList marketplace<CR>
-noremap <silent><leader>uc :CocList commands<CR>
-noremap <silent><leader>ul :CocList lines<CR>
-noremap <silent><leader>uhs :CocList searchhistory<CR>
-noremap <silent><leader>uhc :CocList cmdhistory<CR>
-noremap <silent><leader>uy :CocList -A yank<cr>
-noremap <silent><leader>us :CocList snippets<CR>
-noremap <silent><leader>uw :CocList windows<CR>
-noremap <silent><leader>ub :CocList buffers<CR>
-noremap <silent><leader>u/ :CocList words<CR>
-noremap <silent><leader>ut :CocList translation<CR>
-noremap <silent><leader>um :CocList marketplace<CR>
-nnoremap <silent><nowait> <leader>ud :CocList diagnostics<cr>
-
-
-"" coc-translator
-" popup window
-nmap <Leader>tt <Plug>(coc-translator-p)
-vmap <Leader>tt <Plug>(coc-translator-pv)
-" echo
-nmap <Leader>te <Plug>(coc-translator-e)
-nmap <Leader>te <Plug>(coc-translator-ev)
-" replace
-nmap <Leader>tr <Plug>(coc-translator-r)
-nmap <Leader>tr <Plug>(coc-translator-rv)
 
 " vim-easy-align
 nmap <leader>A <Plug>(EasyAlign)
@@ -395,10 +278,9 @@ nmap <leader>id <Plug>(increment-activator-decrement)<leader>i
 " vim-choosewin
 nmap - <Plug>(choosewin)
 
-" ale
-" ale
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
+" " ale
+" nmap <silent> [e <Plug>(ale_previous_wrap)
+" nmap <silent> ]e <Plug>(ale_next_wrap)
 
 " CamelCaseMotion
 " CamelCaseMotion
@@ -431,9 +313,6 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 nmap gX <Plug>(openbrowser-open)
 vmap gX <Plug>(openbrowser-open)
-
-" vim-which-key
-nnoremap <silent> <leader><leader> :WhichKey ';'<CR>
 
 " vim-bookmarks
 nmap <Leader>bb <Plug>BookmarkToggle
@@ -470,3 +349,25 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+
+" Undotree
+noremap <leader>ud :UndotreeToggle<CR>
+
+" telescope.nvim
+" nnoremap <leader>uh :lua require('telescope.builtin').find_files()<cr>
+nnoremap <space>; :Telescope builtin<cr>
+nnoremap <space>f :Telescope find_files hidden=true<cr>
+nnoremap <space>g :Telescope current_buffer_fuzzy_find<cr>
+nnoremap <space>F :Telescope live_grep<cr>
+nnoremap <space>b :Telescope buffers<cr>
+nnoremap <space>p :Telescope commands<cr>
+nnoremap <space>D :Telescope diagnostics<cr>
+nnoremap <space>h :Telescope help_tags<cr>
+nnoremap <space>c :Telescope command_history<cr>
+nnoremap <space>s :Telescope search_history<cr>
+nnoremap <space>S :Telescope spell_suggest layout_strategy=cursor<cr>
+nnoremap <space>j :Telescope jumplist<cr>
+nnoremap <space>v :Telescope vim_options<cr>
+nnoremap <space>r :Telescope registers<cr>
+nnoremap <space>k :Telescope keymaps<cr>

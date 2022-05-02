@@ -1119,3 +1119,13 @@ autocmd ColorScheme * if g:colors_name != "solarized" | silent! aunmenu Solarize
 "
 " vim:foldmethod=marker:foldlevel=0
 "}}}
+"
+
+" highlight current line
+"set cursorcolumn
+set cursorline
+
+autocmd WinLeave * set nocursorline
+autocmd WinEnter * set cursorline
+"autocmd WinLeave * set nocursorline nocursorcolumn
+"autocmd WinEnter * set cursorline cursorcolumn

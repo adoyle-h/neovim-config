@@ -51,4 +51,10 @@ highlight ShowTrailingWhitespace ctermbg=1 guibg=1
 " gitgutter
 highlight! link GitGutterAdd DiffAdd
 highlight! link GitGutterChange DiffChange
-highlight! link GitGutterDelete DiffDelete
+" highlight! link GitGutterDelete DiffDelete
+hi! GitGutterDelete guifg=#BF3100 guibg=none guisp=none ctermfg=12 ctermbg=0 guisp=none
+
+" LSP: Highlight symbol under cursor
+hi! LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+hi! LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+hi! LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
