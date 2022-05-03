@@ -231,13 +231,6 @@ silent! xmap g<C-p> <Plug>(visualstar-g#)
 noremap <leader>tm :TableModeToggle<CR>
 noremap <leader>tc :echomsg TableModeChange()<CR>
 
-" vim-node
-autocmd User Node
-  \ if &filetype == "javascript" |
-  \   nmap <buffer> <C-W>f <Plug>NodeVSplitGotoFile |
-  \   nmap <buffer> <C-W><C-f> <Plug>NodeVSplitGotoFile |
-  \ endif
-
 " vim-gitgutter
 nmap <leader>gk <Plug>(GitGutterPrevHunk)
 nmap <leader>gj <Plug>(GitGutterNextHunk)
@@ -353,13 +346,14 @@ endfunc
 
 " Undotree
 noremap <leader>ud :UndotreeToggle<CR>
+noremap <space>u :UndotreeToggle<CR>
 
 " telescope.nvim
 " nnoremap <leader>uh :lua require('telescope.builtin').find_files()<cr>
 nnoremap <space>; :Telescope builtin<cr>
 nnoremap <space>f :Telescope find_files hidden=true<cr>
 nnoremap <space>g :Telescope current_buffer_fuzzy_find<cr>
-nnoremap <space>F :Telescope live_grep<cr>
+nnoremap <space>G :Telescope live_grep<cr>
 nnoremap <space>b :Telescope buffers<cr>
 nnoremap <space>p :Telescope commands<cr>
 nnoremap <space>D :Telescope diagnostics<cr>

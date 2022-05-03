@@ -152,5 +152,3 @@ set updatetime=5000  " 每 5000 毫秒保存一次 swap
 set updatecount=100  " 每 100 字符保存一次 swap
 
 set sessionoptions=buffers,curdir,resize,tabpages,winpos,winsize
-
-set notermguicolors

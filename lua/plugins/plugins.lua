@@ -9,10 +9,13 @@ function M.setup(use)
 	use 'rcarriga/nvim-notify'
 	use 'liuchengxu/vista.vim'
 
+	use(require('plugins.color-theme'))
+	use(require('plugins.colorizer'))
+	use(require('plugins.treesitter'))
+
 	use(require('plugins.search'))
-	use(require('plugins.scrollbar'))
+	use(require('plugins.scrollbar')) -- scrollbar must put after search
 	use(require('plugins.todo'))
-	use(require('plugins.color'))
 	use(require('plugins.telescope'))
 	use(require('plugins.completion'))
 	use(require('plugins.lsp'))

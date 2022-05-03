@@ -53,8 +53,16 @@ function M.config()
 					["<C-j>"] = "move_selection_next",
 					["<C-k>"] = "move_selection_previous",
 					-- clear inputs
-					["<C-u>"] = false
-				}
+					-- ["<C-u>"] = false,
+					-- ["<C-d>"] = false,
+					["<C-b>"] = 'results_scrolling_up',
+					["<C-f>"] = 'results_scrolling_down',
+				},
+
+				n = {
+					["<C-b>"] = 'results_scrolling_up',
+					["<C-f>"] = 'results_scrolling_down',
+				},
 			},
 		},
 

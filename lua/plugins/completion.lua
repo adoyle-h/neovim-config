@@ -13,7 +13,7 @@ local M = {
 		'hrsh7th/cmp-path', -- path source for nvim-cmp
 		'f3fora/cmp-spell',
 		'hrsh7th/cmp-cmdline',
-		'dmitmel/cmp-cmdline-history',
+		-- 'dmitmel/cmp-cmdline-history',
 		"quangnguyen30192/cmp-nvim-ultisnips",
 		'David-Kunz/cmp-npm',
 		{ 'tzachar/cmp-tabnine', run = './install.sh' },
@@ -112,7 +112,6 @@ function M.config()
 			{ name = 'path' }
 		}, {
 			{ name = 'cmdline' },
-			{ name = 'cmdline_history' },
 		})
 	})
 end

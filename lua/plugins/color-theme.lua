@@ -1,7 +1,6 @@
 local M = {
 	'navarasu/onedark.nvim',
 	disable = false,
-	requires = { 'norcalli/nvim-colorizer.lua' },
 }
 
 function MySetup()
@@ -11,8 +10,8 @@ function MySetup()
 	cmd [[
 		set nocursorcolumn
 		set cursorline
-		autocmd WinLeave * set nocursorline
-		autocmd WinEnter * set cursorline
+		autocmd WinLeave,BufLeave * set nocursorline
+		autocmd WinEnter,BufEnter * set cursorline
 	]]
 end
 
@@ -84,24 +83,8 @@ function SetupOnedark()
 	o.load()
 end
 
-function SetupColorizer()
-	require('colorizer').setup({ '*' }, {
-		RGB      = true, -- #RGB hex codes
-		RRGGBB   = true, -- #RRGGBB hex codes
-		names    = true, -- 'Name' codes like Blue
-		RRGGBBAA = false, -- #RRGGBBAA hex codes
-		rgb_fn   = true, -- CSS rgb() and rgba() functions
-		hsl_fn   = true, -- CSS hsl() and hsla() functions
-		css      = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-		css_fn   = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-		-- Available modes: foreground, background
-		mode     = 'background', -- Set the display mode.
-	})
-end
-
 function M.config()
 	SetupOnedark()
-	SetupColorizer()
 	MySetup()
 end
 

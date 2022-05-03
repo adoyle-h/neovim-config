@@ -42,8 +42,6 @@ Plug 'mbbill/undotree', {'on': 'UndotreeToggle'} " 修改历史树
 "" UI
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" @Attention https://github.com/Yggdroot/indentLine#font-patching
-" Plug 'yggdroot/indentline'  " alt vim-indent-guides
 
 """ Window
 Plug 'szw/vim-maximizer'  " window 缩放
@@ -122,7 +120,6 @@ Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app & yarn in
 Plug 'mattn/emmet-vim', {'for': ['html', 'xml', 'xhtml']}
 Plug 'elzr/vim-json', {'for': ['javascript', 'json']}
 Plug 'pangloss/vim-javascript' " 不要使用 for 选项，否则会导致语法高亮不会在初次加载时生效
-" Plug 'moll/vim-node', {'for': ['javascript']}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
 " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
