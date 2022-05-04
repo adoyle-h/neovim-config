@@ -15,46 +15,16 @@ highlight BookmarkLine ctermbg=NONE ctermfg=NONE
 highlight BookmarkAnnotationSign ctermbg=234 ctermfg=35
 highlight BookmarkAnnotationLine ctermbg=NONE ctermfg=NONE
 
-" ale
-highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
-highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
-highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
-highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=11
-highlight ALEErrorSignLineNr cterm=NONE ctermfg=0 ctermbg=1
-highlight ALEStyleErrorSignLineNr cterm=NONE ctermfg=0 ctermbg=1
-highlight ALEWarningSignLineNr ctermfg=0 ctermbg=11
-highlight ALEStyleWarningSignLineNr ctermfg=0 ctermbg=11
-highlight ALEInfoSignLineNr cterm=NONE ctermfg=0 ctermbg=6
-
-" coc
-highlight CocErrorSign cterm=bold ctermfg=1 ctermbg=234
-highlight CocErrorHighlight cterm=NONE ctermfg=0 ctermbg=1
-highlight CocErrorFloat cterm=NONE ctermfg=1 ctermbg=236
-
-highlight CocWarningSign cterm=bold ctermfg=11 ctermbg=234
-highlight CocWarningHighlight cterm=NONE ctermfg=0 ctermbg=11
-highlight CocWarningFloat cterm=NONE ctermfg=11 ctermbg=236
-
-highlight CocHintSign cterm=bold ctermfg=2 ctermbg=234
-highlight CocHintHighlight cterm=NONE ctermfg=0 ctermbg=2
-highlight CocHintFloat cterm=NONE ctermfg=2 ctermbg=236
-
-highlight CocInfoSign cterm=bold ctermfg=6 ctermbg=234
-highlight CocInfoHighlight cterm=NONE ctermfg=0 ctermbg=6
-highlight CocInfoFloat cterm=NONE ctermfg=6 ctermbg=236
-
-highlight CocFloating cterm=NONE ctermfg=7 ctermbg=236
-
 " ShowTrailingWhitespace
-highlight ShowTrailingWhitespace ctermbg=1 guibg=1
+highlight ShowTrailingWhitespace ctermbg=1 guibg=Grey
 
 " gitgutter
-highlight! link GitGutterAdd DiffAdd
-highlight! link GitGutterChange DiffChange
+highlight link GitGutterAdd DiffAdd
+highlight link GitGutterChange DiffChange
 " highlight! link GitGutterDelete DiffDelete
-hi! GitGutterDelete guifg=#BF3100 guibg=none guisp=none ctermfg=12 ctermbg=0 guisp=none
+highlight GitGutterDelete guifg=#BF3100 guibg=none guisp=none ctermfg=12 ctermbg=0 guisp=none
 
 " LSP: Highlight symbol under cursor
-hi! LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-hi! LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-hi! LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+highlight LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+highlight LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+highlight LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow

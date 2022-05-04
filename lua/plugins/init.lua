@@ -14,7 +14,7 @@ local compile_path = util.join_paths(vim.fn.stdpath('config'), 'lua', 'packer_co
 
 packer.startup({
 	function()
-		require('plugins.plugins').setup(packer.use)
+		require('plugins.setup').setup(packer.use)
 
 		-- Automatically set up your configuration after cloning packer.nvim
 		-- Put this at the end after all plugins

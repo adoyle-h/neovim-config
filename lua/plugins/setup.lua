@@ -12,7 +12,6 @@ function M.setup(use)
 	use(require('plugins.color-theme'))
 	use(require('plugins.colorizer'))
 	use(require('plugins.treesitter'))
-
 	use(require('plugins.search'))
 	use(require('plugins.scrollbar')) -- scrollbar must put after search
 	use(require('plugins.todo'))

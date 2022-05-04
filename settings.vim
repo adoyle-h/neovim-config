@@ -123,8 +123,9 @@ set matchpairs=(:),{:},[:],<:>,“:”  " 匹配跳转
 
 set formatoptions+=mB
 
+set nospell
 set spelllang=en,cjk
-set spell
+set spellsuggest=best,6
 set spellfile=$XDG_CONFIG_HOME/nvim/spell/en.utf-8.add
 
 set conceallevel=2
