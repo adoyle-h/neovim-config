@@ -710,22 +710,5 @@ let g:colorizer_auto_filetype='css,html,vim,markdown,js,jsx'
 let g:winresizer_vert_resize = 5
 let g:winresizer_horiz_resize = 3
 
-" coc.nvim
-let g:coc_global_extensions = [
-  \'coc-yank',
-  \'coc-tabnine',
-  \'coc-snippets',
-  \'coc-lists',
-  \'coc-json',
-  \'coc-html',
-  \'coc-css',
-  \'coc-vimlsp',
-  \'coc-tsserver',
-  \'coc-yaml',
-  \'coc-marketplace',
-  \'coc-translator',
-  \]
-
-let g:coc_filetype_map = {
-  \ 'yaml.ansible': 'yaml',
-  \}
+" antoinemadec/FixCursorHold.nvim
+let g:cursorhold_updatetime = 100

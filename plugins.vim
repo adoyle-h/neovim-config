@@ -4,6 +4,7 @@ Plug 'neomutt/neomutt.vim'
 Plug 'lambdalisue/suda.vim'
 " Launch vim-startuptime with :StartupTime
 Plug 'dstein64/vim-startuptime'
+Plug 'antoinemadec/FixCursorHold.nvim'
 
 "" Funny
 Plug 'johngrib/vim-game-snake', {'on': 'VimGameSnake'}

@@ -17,11 +17,14 @@ local M = {
 		"quangnguyen30192/cmp-nvim-ultisnips",
 		'David-Kunz/cmp-npm',
 		{ 'tzachar/cmp-tabnine', run = './install.sh' },
+		'onsails/lspkind.nvim',
 	},
 }
 
 function M.config()
 	local cmp = require('cmp')
+
+	local lspkind = require('lspkind')
 
 	cmp.setup({
 		snippet = {
@@ -46,6 +49,19 @@ function M.config()
 			['<C-e>'] = cmp.mapping.abort(),
 			['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 		}),
+
+		formatting = {
+			format = lspkind.cmp_format({
+				mode = 'symbol', -- show only symbol annotations
+				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+				-- The function below will be called before any actual modifications from lspkind
+				-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+				before = function (entry, vim_item)
+					return vim_item
+				end
+			})
+		},
 
 		sources = cmp.config.sources({
 			{ name = 'nvim_lsp' },
