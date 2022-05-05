@@ -76,6 +76,16 @@ function M.config()
 			-- ...
 		}
 	}
+
+	vim.cmd	[[
+		hi TelescopeResultsBorder guifg=#CED3DC guibg=none guisp=none
+		hi TelescopePreviewBorder guifg=#CED3DC guibg=none guisp=none
+		hi TelescopeResultsBorder guifg=#CED3DC guibg=none guisp=none
+		hi TelescopePromptBorder guifg=#CED3DC guibg=none guisp=none
+		hi TelescopeBorder guifg=#87AFD7 guibg=none guisp=none
+		hi TelescopePromptPrefix guifg=#87AFD7 guibg=none guisp=none
+		hi TelescopeSelection guifg=none guibg=none guisp=none
+	]]
 end
 
 return M
