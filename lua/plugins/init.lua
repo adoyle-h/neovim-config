@@ -1,12 +1,12 @@
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
+	print "Installing packer.nvim ..."
 	PACKER_BOOTSTRAP = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-	print "Installing packer close and reopen Neovim..."
 end
 
 -- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+vim.cmd('packadd packer.nvim')
 
 local packer = require('packer')
 local util = require('packer.util')
@@ -25,6 +25,17 @@ packer.startup({
 
 	config = {
 		compile_path = compile_path,
+
+    max_jobs = 16,
+
+    git = {
+      subcommands = { -- Format strings for git subcommands
+        install = 'clone --depth %i --single-branch --progress',
+			},
+      default_url_format = 'https://hub.fastgit.xyz/%s',
+			clone_timeout = 30, -- Timeout, in seconds, for git clones
+    },
+
 		log = {
 			-- Log file: ~/.cache/nvim/packer.nvim.log
 			-- Value: "trace", "debug", "info", "warn", "error", "fatal". Defaults "warn"
@@ -37,11 +48,6 @@ packer.startup({
 	},
 })
 
-local function file_exists(name)
-	local f = io.open(name, "r")
-	if f ~= nil then io.close(f) return true else return false end
-end
-
-if file_exists(compile_path) then
+if fn.empty(fn.glob(compile_path)) == 0 then
 	require('packer_compiled')
 end

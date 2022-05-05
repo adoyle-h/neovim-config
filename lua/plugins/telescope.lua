@@ -84,7 +84,7 @@ function M.config()
 		hi TelescopePromptBorder guifg=#CED3DC guibg=none guisp=none
 		hi TelescopeBorder guifg=#87AFD7 guibg=none guisp=none
 		hi TelescopePromptPrefix guifg=#87AFD7 guibg=none guisp=none
-		hi TelescopeSelection guifg=none guibg=none guisp=none
+		hi TelescopeSelection guifg=none guibg=#18191B guisp=none
 	]]
 end
 
