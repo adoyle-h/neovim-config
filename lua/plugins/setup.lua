@@ -1,3 +1,5 @@
+-- No more used. It is only for packer.nvim
+
 local M = {}
 
 function M.setup(use)

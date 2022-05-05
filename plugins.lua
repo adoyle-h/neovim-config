@@ -1,9 +1,40 @@
--- See https://github.com/junegunn/vim-plug
-vim.g.plug_timeout = 30
-vim.g.plug_url_format	= 'https://ghproxy.com/https://github.com/%s'
+-- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '$NVIM_HOME/plugged')
+local P = require('plugins.vim-plug')
+local Plug = P.Plug
+local Load = P.load
+
+P.start()
+
+-- Basics
+-- Many plugin require plenary.nvim
+Plug 'nvim-lua/plenary.nvim'
+Plug 'rcarriga/nvim-notify'
+Plug 'liuchengxu/vista.vim'
+
+-- UI
+Load 'plugins.color-theme'
+Load 'plugins.colorizer'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Load 'plugins.rainbow'
+Load 'plugins.indent'
+Load 'plugins.search'
+Load 'plugins.scrollbar' -- scrollbar must put after search
+Plug 'majutsushi/tagbar' -- Content Explorer Sidebar
+
+-- Window
+Plug 'szw/vim-maximizer' -- window 缩放
+Plug 'simeji/winresizer'
+
+-- Functions
+Load 'plugins.lsp'
+Load 'plugins.completion'
+Load 'plugins.treesitter'
+Load 'plugins.todo'
+Load 'plugins.telescope'
+Load 'plugins.session'
+Load 'plugins.undotree'
 
 -- Other
 Plug 'neomutt/neomutt.vim'
@@ -25,11 +56,6 @@ Plug('jistr/vim-nerdtree-tabs', {on = {'NERDTreeMirrorToggle', 'NERDTreeTabsTogg
 Plug('Xuyuanp/nerdtree-git-plugin', { on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'} }) -- It is slow in large git repo
 Plug('tiagofumo/vim-nerdtree-syntax-highlight', {on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'} })
 
--- Defx
-Plug('Shougo/defx.nvim', {['do'] = ':UpdateRemotePlugins'})
-Plug 'kristijanhusak/defx-git'
-Plug 'kristijanhusak/defx-icons'
-
 -- Utilities
 -- Plug 'lifepillar/vim-cheat40', {on = 'Cheat40'} -- 显示快捷键指南
 -- Plug 'liuchengxu/vim-which-key', { on = ['WhichKey', 'WhichKey!'] } -- 显示匹配某个前缀的快捷键
@@ -39,28 +65,13 @@ Plug 'scrooloose/nerdcommenter'  -- 注释插件
 Plug('nishigori/increment-activator', {on = {'<Plug>(increment-activator-increment)', '<Plug>(increment-activator-decrement)'}}) -- 自增/自减
 Plug 'mg979/vim-visual-multi' -- 多光标选择
 
-Plug 'xolox/vim-session'
-Plug 'xolox/vim-misc' -- 会话管理器
-
 Plug 'AndrewRadev/splitjoin.vim' -- single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
-Plug{'tyru/open-browser.vim', {on = {'<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)'}}} -- Open url from text with browser
+Plug('tyru/open-browser.vim', {on = {'<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)'}}) -- Open url from text with browser
 Plug 'MattesGroeger/vim-bookmarks'
 
--- Content Explorer
-Plug 'majutsushi/tagbar'
-Plug('mbbill/undotree', {on = 'UndotreeToggle'}) -- 修改历史树
-
--- UI
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
----- Window
-Plug 'szw/vim-maximizer'  -- window 缩放
-Plug 'simeji/winresizer'
 
 ---- Brackets and Tags Matching
-Plug 'luochen1990/rainbow'  -- 括号颜色配对。Attention: 可能会影响到其他语法着色
 Plug 'tpope/vim-surround' -- mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'Raimondi/delimitMate' -- automatic closing of quotes, parenthesis, brackets, etc.
 Plug('adoyle-h/vim-eunuch', {branch = 'adoyle'})  -- UNIX 命令封装。 :h eunuch
@@ -93,17 +104,6 @@ Plug 'gregsexton/gitv' -- git log in vim
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chrisbra/Recover.vim'   -- 崩溃后打开 swap 文件 diff
 
--- Snippets
--- The <Tab> key is conflicted to coc.nvim. If you do not use coc, uncomment next line.
--- Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
-
--- Auto Completion
--- Plug 'neoclide/coc.nvim', {'branch': 'release'}
--- use coc-tabnine instead of tabnine-vim
-
--- Lint
--- Plug 'w0rp/ale' -- Asynchronous Syntax Lint Engine
-
 -- Formatting
 Plug 'editorconfig/editorconfig-vim' -- .editorconfig support
 Plug 'sbdchd/neoformat'
@@ -126,7 +126,7 @@ Plug('sotte/presenting.vim', { ['for'] = 'markdown' }) -- markdown 幻灯片
 Plug('plasticboy/vim-markdown', {['for'] = 'markdown'})
 Plug('adoyle-h/vim-MarkdownTOC', {['for'] = 'markdown', branch = 'adoyle'}) -- Table of Content generator
 -- Plug 'mzlogin/vim-markdown-toc', {['for'] = 'markdown'}
-Plug('iamcco/markdown-preview.nvim', {['for'] = 'markdown', ['do'] = 'cd app & yarn install'})
+Plug('iamcco/markdown-preview.nvim', {['for'] = 'markdown', ['do'] = 'cd app & npm install'})
 
 -- Plug 'mattn/emmet-vim', {['for'] = ['html', 'xml', 'xhtml']}
 -- Plug 'elzr/vim-json', {['for'] = ['javascript', 'json']}
@@ -153,4 +153,4 @@ Plug('iamcco/markdown-preview.nvim', {['for'] = 'markdown', ['do'] = 'cd app & y
 -- devicons should be put at last!!
 Plug 'ryanoasis/vim-devicons'
 
-vim.call('plug#end')
+P.fin()

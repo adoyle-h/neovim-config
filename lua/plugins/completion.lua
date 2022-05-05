@@ -224,7 +224,7 @@ function M.config()
 	local cmp = require('cmp')
 
 	cmp.setup({
-		mapping = SetMapping(cmp),
+		-- mapping = SetMapping(cmp),
 		formatting = SetFormating(cmp),
 		sources = SetSources(cmp),
 

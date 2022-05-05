@@ -7,10 +7,10 @@ local M = {
 		'j-hui/fidget.nvim',
 		'lukas-reineke/lsp-format.nvim',
 		'ray-x/lsp_signature.nvim',
-		-- {
-		--   'antoinemadec/FixCursorHold.nvim',
-		--   config = function() vim.g.cursorhold_updatetime = 100 end,
-		-- },
+		{
+			'antoinemadec/FixCursorHold.nvim',
+			config = function() vim.g.cursorhold_updatetime = 100 end,
+		},
 	},
 }
 

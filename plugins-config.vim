@@ -281,15 +281,6 @@ au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_
 \   endif |
 \ endif
 
-" rainbow
-let g:rainbow_active = 1 " 0 if you want to enable it later via :RainbowToggle
-let g:rainbow_conf = {
-  \ 'guifgs': ['24', '119', '33', '48', '229', '202', '166', '4', '13', '105'],
-  \ 'separately': {
-  \   'nerdtree': 0,
-  \ }
-  \}
-
 " vim-easymotion
 let g:EasyMotion_smartcase = 1
 
@@ -374,12 +365,6 @@ let g:interestingWordsTermColors = [
   \]
 let g:interestingWordsRandomiseColors = 0
 
-" undotree
-if has("persistent_undo")
-  set undodir=$NVIM_HOME/temp/undodir/
-  set undofile
-endif
-
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
 " let g:javascript_conceal_function        = "⨕"
@@ -442,12 +427,6 @@ let g:bookmark_sign = '笠'
 let g:bookmark_annotation_sign = 'ﰠ'
 let g:bookmark_highlight_lines = 1
 let g:bookmark_location_list = 1
-
-" vim-session
-let g:session_directory=$NVIM_HOME.'/temp/session'
-let g:session_lock_directory=$NVIM_HOME.'/temp/session_lock'
-let g:session_autosave='yes'
-let g:session_autoload='no'
 
 " neoterm
 let g:neoterm_position = 'horizontal'
@@ -589,111 +568,6 @@ let g:Gitv_CustomMappings = {
   \ 'vdelete': 'dd',
   \}
 
-" typescript-vim
-let g:typescript_indent_disable = 1
-
-" defx.nvim
-let g:defx_git#indicators = {
-  \ 'Modified'  : '✹',
-  \ 'Staged'    : '✚',
-  \ 'Untracked' : '✭',
-  \ 'Renamed'   : '➜',
-  \ 'Unmerged'  : '═',
-  \ 'Ignored'   : '☒',
-  \ 'Deleted'   : '✖',
-  \ 'Unknown'   : '?'
-  \}
-
-call defx#custom#column('filename', {
-  \ 'min_width': 20,
-  \ 'max_width': 40,
-  \ 'root_marker_highlight': 'Constant',
-  \})
-
-call defx#custom#column('mark', {
-  \ 'readonly_icon': '✗',
-  \ 'selected_icon': '✓',
-  \})
-
-call defx#custom#option('_', {
-  \ 'columns': 'git:mark:indent:icons:filename:type',
-  \ 'split': 'vertical',
-  \ 'winwidth': 30,
-  \ 'direction': 'topleft',
-  \})
-
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  IndentLinesDisable
-
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-    \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> c
-    \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-    \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-    \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> L
-    \ defx#do_action('drop')
-  nnoremap <silent><buffer><expr> H
-    \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-    \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> v
-    \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> s
-    \ defx#do_action('open', 'pedit')
-  nnoremap <silent><buffer><expr> t
-    \ defx#is_directory() &&
-    \ defx#do_action('open', 'pedit')
-  nnoremap <silent><buffer><expr> o
-    \ defx#is_directory() ?
-    \ defx#do_action('open_or_close_tree') :
-    \ defx#do_action('drop')
-  nnoremap <silent><buffer><expr> K
-    \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-    \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M
-    \ defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C
-    \ defx#do_action('toggle_columns', 'mark:indent:icons:filename:type:size')
-  nnoremap <silent><buffer><expr> S
-    \ defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d
-    \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r
-    \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !
-    \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
-    \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy
-    \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-    \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
-    \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> q
-    \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-    \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-    \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-    \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-    \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
-    \ defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>
-    \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd
-    \ defx#do_action('change_vim_cwd')
-endfunction
-
 " vista.vim
 " let g:vista_default_executive = 'coc'
 " @TODO fix it
@@ -709,6 +583,3 @@ let g:colorizer_auto_filetype='css,html,vim,markdown,js,jsx'
 " winresizer
 let g:winresizer_vert_resize = 5
 let g:winresizer_horiz_resize = 3
-
-" antoinemadec/FixCursorHold.nvim
-let g:cursorhold_updatetime = 100

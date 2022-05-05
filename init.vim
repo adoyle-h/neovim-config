@@ -15,12 +15,6 @@ source $NVIM_HOME/autocmds.vim
 luafile $NVIM_HOME/plugins.lua
 source $NVIM_HOME/plugins-config.vim
 
-lua require('plugins')
-augroup packer_user_config
-  autocmd!
-  autocmd BufWritePost plugins/init.lua source <afile> | PackerCompile
-augroup end
-
 source $NVIM_HOME/highlights.vim
 source $NVIM_HOME/keys.vim
 luafile $NVIM_HOME/keys.lua
