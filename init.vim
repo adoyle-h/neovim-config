@@ -17,7 +17,6 @@ source $NVIM_HOME/plugins-config.vim
 
 source $NVIM_HOME/highlights.vim
 source $NVIM_HOME/keys.vim
-luafile $NVIM_HOME/keys.lua
 
 for file in split(glob('$NVIM_HOME/ftdetect/*.vim'), '\n')
   execute 'source' file

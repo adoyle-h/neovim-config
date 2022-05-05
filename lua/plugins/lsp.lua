@@ -14,6 +14,15 @@ local M = {
 	},
 }
 
+local function setupHighlight()
+	-- LSP: Highlight symbol under cursor
+	vim.cmd [[
+		hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+		hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+		hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+	]]
+end
+
 function M.config()
 	require('lsp_signature').setup{
 		debug = false, -- set to true to enable debug logging
@@ -195,37 +204,8 @@ function M.config()
 
 	-- UI for nvim-lsp loading progress
 	require("fidget").setup {}
+
+	setupHighlight()
 end
-
--- function M.setup()
---   local icons = {
---     Class = " ",
---     Color = " ",
---     Constant = " ",
---     Constructor = " ",
---     Enum = "了 ",
---     EnumMember = " ",
---     Field = " ",
---     File = " ",
---     Folder = " ",
---     Function = " ",
---     Interface = "ﰮ ",
---     Keyword = " ",
---     Method = "ƒ ",
---     Module = " ",
---     Property = " ",
---     Snippet = "﬌ ",
---     Struct = " ",
---     Text = " ",
---     Unit = " ",
---     Value = " ",
---     Variable = " ",
---   }
-
---   local kinds = vim.lsp.protocol.CompletionItemKind
---   for i, kind in ipairs(kinds) do
---     kinds[i] = icons[kind] or kind
---   end
--- end
 
 return M

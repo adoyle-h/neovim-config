@@ -16,6 +16,10 @@ function M.config()
 	vim.g.gitgutter_sign_modified_removed = '⋍'
 
 	vim.cmd [[
+		hi GitGutterDelete guifg=#BF3100 guibg=none guisp=none ctermfg=9 ctermbg=0 guisp=none
+		hi GitGutterAdd guifg=#75C44E guibg=none guisp=none ctermfg=10 ctermbg=0 guisp=none
+		hi GitGutterChange guifg=#C3B11A guibg=none guisp=none ctermfg=10 ctermbg=0 guisp=none
+
 		au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active() && line('.') != g:gitgutter_last_line_number |
 		\   let g:gitgutter_last_line_number = line('.') |
 		\   if empty(gitgutter#hunk#current_hunk()) |

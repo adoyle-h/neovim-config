@@ -22,6 +22,7 @@ Load 'plugins.indent'
 Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search
 Plug 'majutsushi/tagbar' -- Content Explorer Sidebar
+Load 'plugins.trailing'
 
 -- Window
 Plug 'szw/vim-maximizer' -- window 缩放
@@ -104,7 +105,6 @@ Plug 'editorconfig/editorconfig-vim' -- .editorconfig support
 Plug 'sbdchd/neoformat'
 Plug 'Chiel92/vim-autoformat'  -- 整理格式。并且自带的 RemoveTrailingSpaces 也可以去空格
 Plug('rhlobo/vim-super-retab', {on = {'Space2Tab', 'Tab2Space'}})
-Plug 'vim-scripts/ShowTrailingWhitespace'  -- 高亮尾空格
 Plug 'tpope/vim-sleuth' -- 根据上下文自动调整 shiftwidth expandtab
 Plug('dhruvasagar/vim-table-mode', {on = 'TableModeToggle'})  -- 格式化表格
 Plug('junegunn/vim-easy-align', { on = {'<Plug>(EasyAlign)', 'EasyAlign'} })
