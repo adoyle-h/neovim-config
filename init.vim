@@ -12,10 +12,7 @@ source $NVIM_HOME/functions.vim
 source $NVIM_HOME/settings.vim
 source $NVIM_HOME/autocmds.vim
 
-" see https://github.com/junegunn/vim-plug
-call plug#begin('$NVIM_HOME/plugged')
-source $NVIM_HOME/plugins.vim
-call plug#end()
+luafile $NVIM_HOME/plugins.lua
 source $NVIM_HOME/plugins-config.vim
 
 lua require('plugins')

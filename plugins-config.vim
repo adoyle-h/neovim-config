@@ -284,7 +284,7 @@ au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_
 " rainbow
 let g:rainbow_active = 1 " 0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
-  \ 'ctermfgs': ['24', '119', '33', '48', '229', '202', '166', '4', '13', '105'],
+  \ 'guifgs': ['24', '119', '33', '48', '229', '202', '166', '4', '13', '105'],
   \ 'separately': {
   \   'nerdtree': 0,
   \ }
