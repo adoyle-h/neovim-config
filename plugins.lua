@@ -2,7 +2,7 @@
 
 local P = require('plugins.vim-plug')
 local Plug = P.Plug
-local Load = P.load
+local Load = P.Load
 
 P.start()
 
@@ -17,7 +17,7 @@ Load 'plugins.color-theme'
 Load 'plugins.colorizer'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Load 'plugins.rainbow'
+Load 'plugins.brackets'
 Load 'plugins.indent'
 Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search
@@ -35,6 +35,11 @@ Load 'plugins.todo'
 Load 'plugins.telescope'
 Load 'plugins.session'
 Load 'plugins.undotree'
+Load 'plugins.comment'
+Load 'plugins.bookmark'
+Load 'plugins.file-explorer'
+
+Plug('tyru/open-browser.vim', {on = {'<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)'}}) -- Open url from text with browser
 
 -- Other
 Plug 'neomutt/neomutt.vim'
@@ -42,7 +47,6 @@ Plug 'neomutt/neomutt.vim'
 Plug 'lambdalisue/suda.vim'
 -- Launch vim-startuptime with :StartupTime
 Plug 'dstein64/vim-startuptime'
-Plug 'antoinemadec/FixCursorHold.nvim'
 -- Plug 'psliwka/vim-smoothie'
 
 -- Funny
@@ -50,25 +54,16 @@ Plug('johngrib/vim-game-snake', {on = 'VimGameSnake'})
 Plug('koron/nyancat-vim', {on = {'Nyancat', 'Nyancat2'}})
 Plug('uguu-org/vim-matrix-screensaver', {on = 'Matrix'})
 
--- Nerdtree
-Plug('scrooloose/nerdtree', { on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'} })
-Plug('jistr/vim-nerdtree-tabs', {on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'} })
-Plug('Xuyuanp/nerdtree-git-plugin', { on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'} }) -- It is slow in large git repo
-Plug('tiagofumo/vim-nerdtree-syntax-highlight', {on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'} })
-
 -- Utilities
 -- Plug 'lifepillar/vim-cheat40', {on = 'Cheat40'} -- 显示快捷键指南
 -- Plug 'liuchengxu/vim-which-key', { on = ['WhichKey', 'WhichKey!'] } -- 显示匹配某个前缀的快捷键
 Plug('kassio/neoterm', {on = {'T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus', 'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle'}})  -- vim 内启动 shell
 Plug('tyru/capture.vim', {on = 'Capture'})  -- :Capture <命令> 将结果输出到新的 buffer 中
-Plug 'scrooloose/nerdcommenter'  -- 注释插件
 Plug('nishigori/increment-activator', {on = {'<Plug>(increment-activator-increment)', '<Plug>(increment-activator-decrement)'}}) -- 自增/自减
 Plug 'mg979/vim-visual-multi' -- 多光标选择
 
 Plug 'AndrewRadev/splitjoin.vim' -- single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
-Plug('tyru/open-browser.vim', {on = {'<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)'}}) -- Open url from text with browser
-Plug 'MattesGroeger/vim-bookmarks'
 
 
 ---- Brackets and Tags Matching
@@ -96,7 +91,7 @@ Plug 'adoyle-h/vim-emacscommandline'  -- Emacs 快捷键
 Plug 'bkad/CamelCaseMotion' -- either CamelCase ('anIdentifier') or underscore_notation ('an_identifier')
 
 -- Git
-Plug 'airblade/vim-gitgutter' -- git 状态侧边栏
+Load 'plugins.git-gutter'
 Plug 'tpope/vim-fugitive' -- git 命令 in vim
 Plug 'gregsexton/gitv' -- git log in vim
 

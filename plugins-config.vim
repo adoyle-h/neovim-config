@@ -1,90 +1,6 @@
 " neovim
 let g:python_host_prog = '/usr/local/bin/python2'
 
-" nerdtree
-let NERDTreeShowBookmarks=1
-let g:NERDTreeMapChangeRoot='L'
-let g:NERDTreeMapUpdir='H'
-
-" vim-nerdtree-syntax-highlight
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeExtensionHighlightColor = {
-  \ 'yaml': '1AB2AC',
-  \ 'yml': '1AB2AC',
-  \ 'vim': '61A275',
-  \ 'js': 'F0DF64',
-  \ 'jsx': 'F0DF64',
-  \ 'json': 'CBB26F',
-  \ 'ts': '2F7488',
-  \ 'sh': '8CDE5A',
-  \ 'bash': '8CDE5A',
-  \ 'md': '7D876D',
-  \ 'markd': '7D876D',
-  \ 'markdown': '7D876D',
-  \ 'log': '619D00',
-  \ 'go': '1CADD5',
-  \ 'svg': 'A8F927',
-  \ 'toml': '955220',
-  \ 'py': '3873A3',
-  \ 'htm': 'E14D30',
-  \ 'html': 'E14D30',
-  \ 'rs': 'DDA586',
-  \ 'rb': '6F1619',
-  \ 'ex': '6D4B7D',
-  \ 'exs': '6D4B7D',
-  \ 'j2': 'B21A1F',
-  \ 'pdf': 'FC2122',
-  \}
-
-let g:NERDTreeExactMatchHighlightColor = {
-  \ 'Dockerfile': '3EA0EB',
-  \ 'Makefile': '447721',
-  \ '.git': 'B19D54',
-  \ '.gitignore': '877840',
-  \}
-
-" nerdtree-git-plugin
-" https://github.com/Xuyuanp/nerdtree-git-plugin/commit/c793d7445e088d5477da676443ebdf8517a32a73
-let g:NERDTreeGitStatusIgnoreSubmodules = 'all'
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-  \ "Modified"  : "✹",
-  \ "Staged"    : "✚",
-  \ "Untracked" : "✭",
-  \ "Renamed"   : "➜",
-  \ "Unmerged"  : "═",
-  \ "Deleted"   : "✖",
-  \ "Dirty"     : "*",
-  \ "Clean"     : "✔︎",
-  \ 'Ignored'   : '☒',
-  \ "Unknown"   : "?"
-  \}
-
-" autocmd FileType nerdtree call s:nerdtree_my_settings()
-" function! s:nerdtree_my_settings() abort
-"     call NERDTreeAddKeyMap({
-"         \ 'key': '<Space>',
-"         \ 'callback': 'NERDTreeMapActivateNode',
-"         \ 'quickhelpText': 'Toggle open/close of current directory',
-"         \ 'scope': 'DirNode' })
-
-"     unmap <buffer> <Space>
-
-"     function! NERDTreeCDHandler(dirnode)
-"         call a:dirnode.toggleOpen()
-"     endfunction
-" endfunction
-
-" nerdcommenter
-let g:NERDSpaceDelims = 1
-let g:NERDRemoveExtraSpaces = 1
-let g:NERDCommentWholeLinesInVMode = 1
-let g:NERDCustomDelimiters = {
-  \ 'javascript.jsx': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
-  \ 'plantuml': { 'left': "'", 'right': '' }
-  \}
-
 " vim-visual-multi
 let g:VM_maps = {}
 let g:VM_maps['Find Under'] = '<M-n>' " replace C-n
@@ -261,25 +177,6 @@ function! PatchInactiveStatusLine(...)
 endfunction
 call airline#add_inactive_statusline_func('PatchInactiveStatusLine')
 
-" vim-gitgutter
-let g:gitgutter_map_keys = 0
-let g:gitgutter_preview_active = 0
-let g:gitgutter_last_line_number = 0
-let g:gitgutter_sign_added = '┃'
-let g:gitgutter_sign_modified = '┃'
-let g:gitgutter_sign_removed            = '_'
-let g:gitgutter_sign_removed_first_line = '‾'
-let g:gitgutter_sign_removed_above_and_below = 'ニ'
-let g:gitgutter_sign_modified_removed = '⋍'
-
-au CursorMoved * if g:gitgutter_preview_active && exists('*gitgutter#utility#is_active') && gitgutter#utility#is_active() && line('.') != g:gitgutter_last_line_number |
-\   let g:gitgutter_last_line_number = line('.') |
-\   if empty(gitgutter#hunk#current_hunk()) |
-\     pclose |
-\   else |
-\     call gitgutter#preview_hunk() |
-\   endif |
-\ endif
 
 " vim-easymotion
 let g:EasyMotion_smartcase = 1
@@ -420,13 +317,6 @@ let g:easy_align_delimiters = {
   \   'right_margin': 0
   \ }
   \}
-
-" vim-bookmarks
-let g:bookmark_no_default_key_mappings = 1
-let g:bookmark_sign = '笠'
-let g:bookmark_annotation_sign = 'ﰠ'
-let g:bookmark_highlight_lines = 1
-let g:bookmark_location_list = 1
 
 " neoterm
 let g:neoterm_position = 'horizontal'

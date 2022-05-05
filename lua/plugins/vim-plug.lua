@@ -43,8 +43,8 @@ local function useMod(M)
 
 	-- load dependencies first
 	if M.requires then
-		for _, depM in pairs(M.requires) do
-			useMod(depM)
+		for _, dep in pairs(M.requires) do
+			useMod(dep)
 		end
 	end
 
