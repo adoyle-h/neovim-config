@@ -1,6 +1,9 @@
 local M = {
-	nil,
+	'',
+	desc = 'REPL',
 	disable = false,
+	-- requires = {},
+	-- ['for'] = '',
 }
 
 function M.config()

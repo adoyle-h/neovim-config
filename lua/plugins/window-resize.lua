@@ -1,6 +1,6 @@
 local M = {
-	'',
-	desc = 'Resize vim window',
+	nil,
+	desc = 'Resize window layout',
 	disable = false,
 
 	requires = {
@@ -10,10 +10,19 @@ local M = {
 			disable = false,
 			config = function()
 				vim.g.maximizer_set_default_mapping = 0
+				vim.cmd 'noremap <silent> <C-W>z :MaximizerToggle!<CR>'
 			end
 		},
 
-		{'simeji/winresizer', disable = false},
+		{
+			'simeji/winresizer',
+			disable = false,
+			config = function()
+				vim.g.winresizer_vert_resize = 5
+				vim.g.winresizer_horiz_resize = 3
+				vim.g.winresizer_start_key = '<C-W><C-W>'
+			end
+		},
 	},
 }
 

@@ -50,19 +50,16 @@ nvim
 │   └── all.snippets   // snippets for all files
 ├── abbreviations.vim
 ├── autocmds.vim
-├── autoload/          // vim-plug
-├── coc-settings.json  // coc.nvim configuration
-├── color.vim          // color setting
-├── colors/            // color themes
-├── filetype.vim       // user-setting filetypes
+├── autoload/
+│   └── plug.vim       // vim-plug
+├── basic.vim          // neovim/vim basic settings
 ├── functions.vim      // commands and functions
-├── highlights.vim     // user-setting highlights
 ├── init.vim           // <= neovim configuration entry point
 ├── keys.vim           // keyboard maps
-├── plugged/           // plugins
-├── plugins-config.vim // plugin config
-├── plugins.vim        // plugin list (vim-plug)
-├── settings.vim       // neovim/vim settings
+├── lua/
+│   └── plugins/       // Available plugins written in lua
+├── plugged/           // plugins (installed by vim-plug)
+├── plugins.lua        // required plugins
 ├── spell/             // spell check
 └── temp/              // temporary files
     ├── session        // xolox/vim-session plugin

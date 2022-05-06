@@ -4,6 +4,34 @@ local M = {
 	disable = false,
 }
 
+local function configKeymaps()
+	vim.cmd [[
+		function! ToggleGitGutterPreview()
+			let g:gitgutter_preview_active = !g:gitgutter_preview_active
+			if (g:gitgutter_preview_active)
+				if (!empty(gitgutter#hunk#current_hunk()))
+					call gitgutter#preview_hunk()
+				endif
+				echo 'GitGutter AutoPreview: on'
+			else
+				pclose
+				echo 'GitGutter AutoPreview: off'
+			endif
+		endfunction
+
+		nmap <leader>gk <Plug>(GitGutterPrevHunk)
+		nmap <leader>gj <Plug>(GitGutterNextHunk)
+		nmap [g <Plug>(GitGutterPrevHunk)
+		nmap ]g <Plug>(GitGutterNextHunk)
+		nmap <leader>gp <Plug>(GitGutterPreviewHunk)
+		nmap <leader>gu <Plug>(GitGutterUndoHunk)
+		nmap <leader>ga <Plug>(GitGutterStageHunk)
+		nmap <leader>gl <Plug>(GitGutterLineHighlightsToggle)
+		nmap <leader>gt :call ToggleGitGutterPreview()<CR>
+		nmap <leader>gc :pclose<CR>
+	]]
+end
+
 function M.config()
 	vim.g.gitgutter_map_keys = 0
 	vim.g.gitgutter_preview_active = 0
@@ -29,6 +57,8 @@ function M.config()
 		\   endif |
 		\ endif
 	]]
+
+	configKeymaps()
 end
 
 return M

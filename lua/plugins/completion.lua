@@ -1,7 +1,10 @@
+local fn = vim.fn
+local api = vim.api
+
 local function configFuncSignature()
 	require('lsp_signature').setup{
 		debug = false, -- set to true to enable debug logging
-		log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
+		log_path = fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
 		-- default is  ~/.cache/nvim/lsp_signature.log
 		verbose = false, -- show debug line number
 
@@ -102,7 +105,7 @@ local function configFormating(cmp)
 end
 
 local t = function(str)
-	return vim.api.nvim_replace_termcodes(str, true, true, true)
+	return api.nvim_replace_termcodes(str, true, true, true)
 end
 
 local function configMapping(cmp)
@@ -121,15 +124,15 @@ local function configMapping(cmp)
 			i = function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-				elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-					vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+				elseif fn["UltiSnips#CanJumpForwards"]() == 1 then
+					api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
 				else
 					fallback()
 				end
 			end,
 			s = function(fallback)
-				if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-					vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+				if fn["UltiSnips#CanJumpForwards"]() == 1 then
+					api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
 				else
 					fallback()
 				end
@@ -146,15 +149,15 @@ local function configMapping(cmp)
 			i = function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-				elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-					return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+				elseif fn["UltiSnips#CanJumpBackwards"]() == 1 then
+					return api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
 				else
 					fallback()
 				end
 			end,
 			s = function(fallback)
-				if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-					return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+				if fn["UltiSnips#CanJumpBackwards"]() == 1 then
+					return api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
 				else
 					fallback()
 				end
@@ -167,7 +170,7 @@ local function configMapping(cmp)
 				if cmp.visible() then
 					cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 				else
-					vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
+					api.nvim_feedkeys(t('<Down>'), 'n', true)
 				end
 			end,
 			i = function(fallback)
@@ -183,7 +186,7 @@ local function configMapping(cmp)
 				if cmp.visible() then
 					cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 				else
-					vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
+					api.nvim_feedkeys(t('<Up>'), 'n', true)
 				end
 			end,
 			i = function(fallback)
@@ -276,7 +279,11 @@ local M = {
 	disable = false,
 
 	requires = {
-		'SirVer/ultisnips',
+		{
+			'SirVer/ultisnips', config = function()
+				UltiSnipsSnippetsDir = fn.stdpath('config') .. '/UltiSnips'
+			end,
+		},
 		-- vim-snippets depends on ultisnips
 		'honza/vim-snippets',
 		'justinj/vim-react-snippets',
@@ -310,7 +317,7 @@ function M.config()
 				-- vim.fn["vsnip#anonymous"](args.body) For `vsnip` users.
 				-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
 				-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-				vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+				fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
 			end,
 		},
 

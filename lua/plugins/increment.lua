@@ -31,6 +31,11 @@ function M.config()
 			{'LOW', 'NORMAL', 'HIGH'},
 		},
 	}
+
+	vim.cmd [[
+		nmap <leader>ii <Plug>(increment-activator-increment)<leader>i
+		nmap <leader>id <Plug>(increment-activator-decrement)<leader>i
+	]]
 end
 
 return M

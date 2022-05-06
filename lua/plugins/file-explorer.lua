@@ -19,6 +19,15 @@ local M = {
 	}
 }
 
+local function configKeymaps()
+	vim.cmd [[
+		noremap <silent> <leader>nt :NERDTreeTabsToggle<CR>
+		noremap <silent> <leader>nm :NERDTreeMirrorToggle<CR>
+		noremap <silent> <leader>nf :NERDTreeTabsFind<CR>
+		noremap <space>m :NERDTreeMirrorToggle<CR>
+	]]
+end
+
 function M.config()
 	vim.g.NERDTreeShowBookmarks = 1
 	vim.g.NERDTreeMapChangeRoot = 'L'
@@ -78,6 +87,8 @@ function M.config()
 		Ignored    = '☒',
 		Unknown    = "?"
 	}
+
+	configKeymaps()
 end
 
 return M

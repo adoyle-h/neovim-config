@@ -41,19 +41,6 @@ function! NumberToggle()
   endif
 endfunc
 
-function! IndentLevel(lnum)
-  return indent(a:lnum) / &shiftwidth
-endfunction
-
-function! IndentToLevel()
-  let l = IndentLevel(line('.')) - 1
-  if &fdl == l
-    let &l:fdl = 99
-  else
-    let &l:fdl = l
-  end
-endfunction
-
 function! GetSnipsInCurrentScope()
   return UltiSnips#SnippetsInCurrentScope()
 endfunction

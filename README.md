@@ -54,18 +54,14 @@ nvim
 ├── autocmds.vim
 ├── autoload/
 │   └── plug.vim       // vim-plug
-├── color.vim          // color setting
-├── filetype.vim       // user-setting filetypes
+├── basic.vim          // neovim/vim basic settings
 ├── functions.vim      // commands and functions
-├── highlights.vim     // user-setting highlights
 ├── init.vim           // <= neovim configuration entry point
 ├── keys.vim           // keyboard maps
 ├── lua/
-│   └── plugins/       // plugins written in lua
+│   └── plugins/       // Available plugins written in lua
 ├── plugged/           // plugins (installed by vim-plug)
-├── plugins-config.vim // plugin config
-├── plugins.lua        // plugin list
-├── settings.vim       // neovim/vim settings
+├── plugins.lua        // required plugins
 ├── spell/             // spell check
 └── temp/              // temporary files
     ├── session        // xolox/vim-session plugin

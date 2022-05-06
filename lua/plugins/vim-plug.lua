@@ -1,7 +1,7 @@
 -- The packer.nvim is terrible. Use vim-plug! https://github.com/junegunn/vim-plug
 
 local fn = vim.fn
-local NVIM_HOME = vim.fn.stdpath('config')
+local NVIM_HOME = fn.stdpath('config')
 
 -- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 if fn.empty(fn.glob(NVIM_HOME .. '/autoload/plug.vim')) > 0 then

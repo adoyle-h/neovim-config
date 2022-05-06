@@ -1,6 +1,6 @@
 local M = {
 	'vasconcelloslf/vim-interestingwords',
-	desc = '高亮单词',
+	desc = 'highlight any words under cursor',
 	disable = false,
 	requires = {},
 }
@@ -11,6 +11,14 @@ function M.config()
 		'123', '214', '34', '222', '116', '207', '242',
 	}
 	vim.g.interestingWordsRandomiseColors = 0
+
+	vim.cmd [[
+		nnoremap <silent> <leader>k :call InterestingWords('n')<CR>
+		vmap <silent> <leader>k <Plug>InterestingWords
+		nmap <silent> <leader>K <Plug>InterestingWordsClear
+		nmap [k <Plug>InterestingWordsBackward
+		nmap ]k <Plug>InterestingWordsForeward
+	]]
 end
 
 return M

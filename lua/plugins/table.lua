@@ -43,6 +43,11 @@ function M.config()
 			end
 		}
 	)
+
+	vim.cmd [[
+		noremap <leader>tm :TableModeToggle<CR>
+		noremap <leader>tc :echomsg TableModeChange()<CR>
+	]]
 end
 
 return M
