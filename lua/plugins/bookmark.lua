@@ -16,6 +16,18 @@ function M.config()
 		hi BookmarkLine ctermbg=NONE ctermfg=NONE
 		hi BookmarkAnnotationSign ctermbg=234 ctermfg=35
 		hi BookmarkAnnotationLine ctermbg=NONE ctermfg=NONE
+
+		nmap <Leader>bb <Plug>BookmarkToggle
+		nmap <Leader>ba <Plug>BookmarkAnnotate
+		nmap <Leader>bs <Plug>BookmarkShowAll
+		nmap <Leader>bl <Plug>BookmarkShowAll
+		nmap <Leader>bj <Plug>BookmarkNext<CR>k<Leader>b
+		nmap <Leader>bk <Plug>BookmarkPrev<CR>k<Leader>b
+		nmap <Leader>bc <Plug>BookmarkClear<CR>
+		nmap <Leader>bC <Plug>BookmarkClearAll
+		nmap <Leader>bK <Plug>BookmarkMoveUp<CR>k<Leader>b
+		nmap <Leader>bJ <Plug>BookmarkMoveDown<CR>k<Leader>b
+		nmap <Leader>bt <Plug>BookmarkMoveToLine
 	]]
 end
 

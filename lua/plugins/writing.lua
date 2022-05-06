@@ -1,17 +1,7 @@
 local M = {
-	'junegunn/goyo.vim',
+	nil,
+	desc = 'For better writing experience',
 	disable = false,
-	desc = '禅意协作模式',
-	on = 'Goyo',
-	['for'] = 'markdown',
-
-	requires = {
-		{
-			'junegunn/limelight.vim',
-			desc = '高亮当前代码块',
-			['for'] = 'markdown',
-		},
-	},
 }
 
 local function goyoEnter()
@@ -65,10 +55,22 @@ local function configLime()
 	vim.g.limelight_conceal_guifg = '#A9A9A9'
 end
 
+M.requires = {
+	{
+		'junegunn/goyo.vim',
+		disable = false,
+		desc = '禅意协作模式',
+		on = 'Goyo',
+		['for'] = 'markdown',
+		config = configGoyo,
+	},
 
-function M.config()
-	configGoyo()
-	configLime()
-end
+	{
+		'junegunn/limelight.vim',
+		desc = '高亮当前代码块',
+		['for'] = 'markdown',
+		config = configLime,
+	},
+}
 
 return M

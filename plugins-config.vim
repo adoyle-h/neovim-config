@@ -14,76 +14,6 @@ let g:vim_markdown_emphasis_multiline = 0
 let g:vim_markdown_fenced_languages = ['csharp=cs', 'js=javascript']
 let g:vim_markdown_new_list_item_indent = 2
 
-
-" vim-easymotion
-let g:EasyMotion_smartcase = 1
-
-" vim-closetag
-let g:closetag_filenames = "*.html,*.xml,*.xhtml,*.htm,*.jsx"
-
-" vim-maximizer
-let g:maximizer_set_default_mapping = 0
-
-" vim-table-mode
-function! TableModeChange()
-  if (b:table_mode_mode == 'Normal')
-    let g:table_mode_corner = '|'
-    let g:table_mode_separator = '|'
-    let g:table_mode_fillchar = '-'
-    let g:table_mode_corner_corner = '|'
-    let g:table_mode_align_char = ':'
-    let b:table_mode_mode = 'GFM'
-  else
-    let g:table_mode_corner = '+'
-    let g:table_mode_separator = '|'
-    let g:table_mode_fillchar = '-'
-    let g:table_mode_corner_corner="+"
-    let g:table_mode_align_char = ':'
-    let b:table_mode_mode = 'Normal'
-  endif
-  return 'Table Mode: '.b:table_mode_mode
-endfunc
-
-autocmd BufNew,BufRead * let b:table_mode_mode = 'GFM'
-autocmd BufNew,BufRead * call TableModeChange()
-
-let g:table_mode_motion_up_map = '[{'
-let g:table_mode_motion_down_map = ']}'
-let g:table_mode_motion_left_map = '[['
-let g:table_mode_motion_right_map = ']]'
-
-" tagbar
-let g:tagbar_autofocus = 1
-let g:tagbar_case_insensitive = 1
-let g:tagbar_sort = 1
-let g:tagbar_type_go = {
-  \ 'ctagstype' : 'go',
-  \ 'kinds' : [
-  \   'p:package',
-  \   'i:imports:1',
-  \   'c:constants',
-  \   'v:variables',
-  \   't:types',
-  \   'n:interfaces',
-  \   'w:fields',
-  \   'e:embedded',
-  \   'm:methods',
-  \   'r:constructor',
-  \   'f:functions'
-  \ ],
-  \ 'sro' : '.',
-  \ 'kind2scope' : {
-  \   't' : 'ctype',
-  \   'n' : 'ntype'
-  \ },
-  \ 'scope2kind' : {
-  \   'ctype' : 't',
-  \   'ntype' : 'n'
-  \ },
-  \ 'ctagsbin'  : 'gotags',
-  \ 'ctagsargs' : '-sort -silent'
-  \}
-
 " ultisnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 " let g:UltiSnipsExpandTrigger='<tab>'
@@ -91,31 +21,6 @@ let g:tagbar_type_go = {
 "let g:UltiSnipsJumpForwardTrigger='<C-n>'
 "let g:UltiSnipsJumpBackwardTrigger='<C-p>'
 let g:UltiSnipsSnippetsDir = $NVIM_HOME.'/UltiSnips'
-
-" vim-interestingwords
-let g:interestingWordsTermColors = [
-  \ '33', '4', '210', '197', '78', '154', '99', '121', '212', '38',
-  \ '166', '123', '214', '34', '222', '116', '207', '242',
-  \]
-let g:interestingWordsRandomiseColors = 0
-
-" vim-javascript
-let g:javascript_plugin_jsdoc = 1
-" let g:javascript_conceal_function        = "⨕"
-" let g:javascript_conceal_null            = "𝓝"
-" let g:javascript_conceal_this            = "𝓣"
-" let g:javascript_conceal_return          = "⏎"
-" let g:javascript_conceal_undefined       = "𝕦"
-" let g:javascript_conceal_NaN             = "ℕ"
-" let g:javascript_conceal_prototype       = "𝓟"
-" let g:javascript_conceal_static          = "𝕤"
-" let g:javascript_conceal_super           = "𝓢"
-" let g:javascript_conceal_arrow_function  = "➢"
-" let g:javascript_conceal_noarg_arrow_function = "➤"
-" let g:javascript_conceal_underscore_arrow_function = "⇢"
-
-" vim-jsx
-let g:jsx_ext_required = 1
 
 " ctrlsf.vim
 let g:ctrlsf_auto_close = 0
@@ -158,31 +63,6 @@ let g:easy_align_delimiters = {
 " neoterm
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = '<leader>tt'
-
-" increment-activator
-let g:increment_activator_no_default_key_mappings = 1
-let g:increment_activator_filetype_candidates = {
-  \ '_': [
-  \   ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
-  \   ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-  \   ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'],
-  \   ['none', 'debug', 'info', 'warn', 'error'],
-  \   ['NONE', 'DEBUG', 'INFO', 'WARN', 'ERROR'],
-  \   ['Todo', 'Done'],
-  \   ['TODO', 'DONE'],
-  \   ['todo', 'done'],
-  \   ['low', 'normal', 'high'],
-  \   ['LOW', 'NORMAL', 'HIGH'],
-  \ ],
-  \}
-
-" vim-MarkdownTOC
-let g:vmt_style = 'unordered'
-let g:vmt_list_item_char = '-'
-let g:vmt_fence_text = 'MarkdownTOC'
-let g:vmt_fence_closing_text = '/'.g:vmt_fence_text
-command! TocInsert GenTocGFM
-command! TocUpdate UpdateToc
 
 " vim-choosewin
 " tmux-like overlay
@@ -227,61 +107,8 @@ let g:choosewin_keymap = {
   \ 'l':     'tab_last',
   \}
 
-" ale
-let g:ale_linters = {
-  \ 'javascript': ['eslint'],
-  \ 'markdown': ['mdl'],
-  \ 'jsx': ['stylelint', 'eslint'],
-  \}
-let g:ale_fixers = {
-  \ 'javascript': ['prettier', 'eslint'],
-  \ 'css': ['stylelint'],
-  \}
-let g:ale_fix_on_save = 1
-let g:ale_linter_aliases = {
-  \ 'jsx': 'css',
-  \}
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
-let g:ale_statusline_format = ['E•%d', 'W•%d', '⬥ ok']
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_error_str = 'Error'
-let g:ale_echo_msg_warning_str = 'Warn'
-let g:ale_echo_msg_format = '[%linter%][%severity%: %code%] %s'
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_enter = 1
-let g:ale_warn_about_trailing_whitespace = 1
-" https://github.com/dense-analysis/ale#5iii-how-can-i-use-ale-and-cocnvim-together
-let g:ale_disable_lsp = 1
-
-"" ale - java
-let g:ale_java_checkstyle_config = 'style_checks.xml'
-
-" vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_format_strings = 1
-let g:go_get_update = 0
-let g:go_def_reuse_buffer = 1
-let g:go_doc_keywordprg_enabled = 0
-
-
 " neoformat
 let g:neoformat_enabled_javascript = ['prettier', 'prettydiff', 'prettiereslint']
-
-" open-browser.vim
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-
-" vim-indexed-search
-let g:indexed_search_shortmess = 1
-let g:indexed_search_numbered_only = 1
 
 " gitv
 let g:Gitv_OpenPreviewOnLaunch = 0

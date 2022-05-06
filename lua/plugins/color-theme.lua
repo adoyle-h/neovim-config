@@ -4,6 +4,18 @@ local M = {
 	disable = false,
 }
 
+local function configGeneralHighlights()
+	vim.cmd [[
+		hi InactiveWindow ctermbg=234
+		set winhighlight=NormalNC:InactiveWindow
+
+		hi Pmenu cterm=NONE ctermfg=251 ctermbg=235 guibg=Grey
+		hi PmenuSel cterm=NONE ctermfg=232 ctermbg=246 guibg=DarkGrey
+		hi PmenuSbar cterm=NONE ctermfg=234 ctermbg=234 guibg=Grey
+		hi PmenuThumb cterm=NONE ctermfg=247 ctermbg=247 guibg=White
+	]]
+end
+
 local function configCursorLine()
 	-- highlight current line
 	vim.opt.cursorcolumn = false
@@ -18,9 +30,14 @@ local function configCursorLine()
 		{ 'WinEnter', 'BufEnter' },
 		{ pattern = '*', command = 'set cursorline' }
 	)
+
+	vim.cmd [[
+		hi CursorLine guibg=#181928
+		hi CursorLineNr guibg=#181928 guifg=#689AFD
+	]]
 end
 
-local function setupOnedark()
+local function useOnedark()
 	local o = require('onedark')
 
 	o.setup {
@@ -31,7 +48,7 @@ local function setupOnedark()
 		ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
 		cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 		-- toggle theme style ---
-		toggle_style_key = '<leader>ts', -- Default keybinding to toggle
+		toggle_style_key = '<NOP>', -- Default keybinding to toggle
 		toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' }, -- List of styles to toggle between
 
 		-- Change code style ---
@@ -72,11 +89,12 @@ local function setupOnedark()
 			dark_red = '#800000',
 			dark_yellow = '#84714F',
 			dark_purple = '#73628A',
-			diff_add = '#75C44E',
-			diff_delete = '#C03221',
-			diff_change = '#011627',
+			diff_add = '#13230c',
+			diff_delete = '#290005',
+			diff_change = '#212100',
 			diff_text = '#363537',
 		}, -- Override default colors
+
 		highlights = {}, -- Override highlight groups
 
 		-- Plugins Config --
@@ -90,8 +108,7 @@ local function setupOnedark()
 	o.load()
 end
 
-local function setupMaterial()
-
+local function useMaterial()
 	vim.g.material_style = 'darker'
 
 	require('material').setup({
@@ -143,8 +160,9 @@ local function setupMaterial()
 end
 
 function M.config()
-	setupOnedark()
-	-- setupMaterial()
+	useOnedark()
+	-- useMaterial()
+	configGeneralHighlights()
 	configCursorLine()
 end
 

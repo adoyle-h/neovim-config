@@ -1,27 +1,3 @@
-local M = {
-	'hrsh7th/nvim-cmp',
-	disable = false,
-
-	requires = {
-		'SirVer/ultisnips',
-		-- vim-snippets depends on ultisnips
-		'honza/vim-snippets',
-		'justinj/vim-react-snippets',
-		'ahmedelgabri/vim-ava-snippets',
-		'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
-		'hrsh7th/cmp-buffer', -- buffer source for nvim-cmp
-		'hrsh7th/cmp-path', -- path source for nvim-cmp
-		'f3fora/cmp-spell',
-		'hrsh7th/cmp-cmdline',
-		-- 'dmitmel/cmp-cmdline-history',
-		"quangnguyen30192/cmp-nvim-ultisnips",
-		'David-Kunz/cmp-npm',
-		{ 'tzachar/cmp-tabnine', run = './install.sh' },
-		'onsails/lspkind.nvim',
-		'ray-x/lsp_signature.nvim',
-	},
-}
-
 local function configFuncSignature()
 	require('lsp_signature').setup{
 		debug = false, -- set to true to enable debug logging
@@ -295,6 +271,31 @@ local function configFileType(cmp)
 	})
 end
 
+local M = {
+	'',
+	disable = false,
+
+	requires = {
+		'SirVer/ultisnips',
+		-- vim-snippets depends on ultisnips
+		'honza/vim-snippets',
+		'justinj/vim-react-snippets',
+		'ahmedelgabri/vim-ava-snippets',
+		'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
+		'hrsh7th/cmp-buffer', -- buffer source for nvim-cmp
+		'hrsh7th/cmp-path', -- path source for nvim-cmp
+		'f3fora/cmp-spell',
+		'hrsh7th/cmp-cmdline',
+		-- 'dmitmel/cmp-cmdline-history',
+		"quangnguyen30192/cmp-nvim-ultisnips",
+		'David-Kunz/cmp-npm',
+		{ 'tzachar/cmp-tabnine', run = './install.sh' },
+		'hrsh7th/nvim-cmp',
+		'onsails/lspkind.nvim',
+		{'ray-x/lsp_signature.nvim', config = configFuncSignature},
+	},
+}
+
 function M.config()
 	local cmp = require('cmp')
 
@@ -334,7 +335,6 @@ function M.config()
 
 	configCmdLine(cmp)
 	configFileType(cmp)
-	configFuncSignature()
 end
 
 return M

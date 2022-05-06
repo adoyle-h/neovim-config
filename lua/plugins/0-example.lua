@@ -2,7 +2,8 @@ local M = {
 	'',
 	desc = 'Plugin Description',
 	disable = false,
-	requires = {},
+	-- requires = {},
+	-- ['for'] = '',
 }
 
 function M.config()

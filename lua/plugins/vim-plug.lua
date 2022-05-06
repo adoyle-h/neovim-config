@@ -20,7 +20,7 @@ vim.g.plug_url_format	= 'https://ghproxy.com/https://github.com/%s'
 -- All plugins put in this directory
 local pluginDir = NVIM_HOME .. '/plugged'
 
-local Plug = vim.fn['plug#']
+local plug = vim.fn['plug#']
 local mods = {}
 
 local plugOptsKeys = {
@@ -49,51 +49,61 @@ local function parsePlugOpts(M)
 	return opts
 end
 
--- The structure of M should be compatible with packer.nvim Plug
+-- The structure of M should be compatible with packer.nvim Plug and vim-plug Plug
 -- @param M {string|table} See packer.nvim Plug: https://github.com/wbthomason/packer.nvim#specifying-plugins
-local function useMod(M)
-	if type(M) == 'string' then
-		Plug(M)
-		return
+-- @param [Opts] {table}
+-- @useage: useMod(string)
+-- @useage: useMod(string, opts)
+-- @useage: useMod({string, opts...})
+local function useMod(repo, opts)
+	local type = type(repo)
+
+	if not opts then
+		if type == 'string' then
+			plug(repo)
+			return
+		elseif type == 'table' then
+			opts = repo
+			repo = table.remove(opts, 1)
+			opts.repo = repo
+		else
+			error(fn.printf('Invalid Plug Type: %s', type))
+		end
 	end
 
-	-- M is table
-
-	if M.disable == true then
+	if opts.disable == true then
+		-- disbale current and required plugs
 		return
 	end
 
 	-- load dependencies first
-	if M.requires then
-		for _, dep in pairs(M.requires) do
+	if opts.requires then
+		for _, dep in pairs(opts.requires) do
 			useMod(dep)
 		end
 	end
 
 	-- handle current mod
-	local repo = M[1]
-	local repoOpts = parsePlugOpts(M)
+	local repoOpts = parsePlugOpts(opts)
 
-	if M.setup then
+	if opts.setup then
 		-- Run setup before plugin is loaded.
-		M.setup()
+		opts.setup()
 	end
 
-	if #repoOpts > 0 then
-		Plug(repo, repoOpts)
-	else
-		Plug(repo)
+	-- Allow repo equals '' or nil or false
+	if repo and #repo > 0 then
+		if #repoOpts > 0 then
+			plug(repo, repoOpts)
+		else
+			plug(repo)
+		end
 	end
 
-	table.insert(mods, M)
+	table.insert(mods, opts)
 end
 
 local P = {}
-
-function P.Load(path)
-	local M = require(path)
-	useMod(M)
-end
 
 function P.start()
 	vim.call('plug#begin', pluginDir)
@@ -109,6 +119,12 @@ function P.fin()
 	end
 end
 
-P.Plug = Plug
+function P.Plug(...)
+	useMod(...)
+end
+
+function P.Load(path)
+	useMod(require(path))
+end
 
 return P
