@@ -1,27 +1,49 @@
 -- The packer.nvim is terrible. Use vim-plug! https://github.com/junegunn/vim-plug
 
+local fn = vim.fn
+local NVIM_HOME = vim.fn.stdpath('config')
+
+-- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+if fn.empty(fn.glob(NVIM_HOME .. '/autoload/plug.vim')) > 0 then
+	vim.cmd(fn.printf(
+		'silent !curl -fLo %s --create-dirs %s',
+		NVIM_HOME .. '/autoload/plug.vim',
+		'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	))
+	vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
+end
+
+
 vim.g.plug_timeout = 30
 -- Use git proxy for fast downloading
 vim.g.plug_url_format	= 'https://ghproxy.com/https://github.com/%s'
 -- All plugins put in this directory
-local pluginDir = vim.fn.stdpath('config') .. '/plugged'
+local pluginDir = NVIM_HOME .. '/plugged'
 
 local Plug = vim.fn['plug#']
 local mods = {}
 
+local plugOptsKeys = {
+	cmd = 'on',
+	run = 'do',
+	'branch',
+	'for',
+}
+
 local function parsePlugOpts(M)
 	local opts = {}
 
-	if M.run then
-		opts['do'] = M.run
-	end
+	for alias, key in pairs(plugOptsKeys) do
+		if M[key] then
+			opts[key] = M[key]
+		end
 
-	if M.on then
-		opts['on'] = M.on
-	end
-
-	if M.cmd then
-		opts['on'] = M.cmd
+		if (type(alias) == 'string') then
+			-- Support alias. {alias = key}
+			if M[alias] then
+				opts[key] = M[alias]
+			end
+		end
 	end
 
 	return opts

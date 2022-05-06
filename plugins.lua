@@ -15,8 +15,7 @@ Plug 'liuchengxu/vista.vim'
 -- UI
 Load 'plugins.color-theme'
 Load 'plugins.colorizer'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Load 'plugins.statusline'
 Load 'plugins.brackets'
 Load 'plugins.indent'
 Load 'plugins.search'
@@ -39,6 +38,7 @@ Load 'plugins.undotree'
 Load 'plugins.comment'
 Load 'plugins.bookmark'
 Load 'plugins.file-explorer'
+Plug('adoyle-h/vim-eunuch', {branch = 'adoyle'})  -- UNIX 命令封装。 :h eunuch
 
 Plug('tyru/open-browser.vim', {on = {'<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)'}}) -- Open url from text with browser
 
@@ -70,7 +70,6 @@ Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . 
 ---- Brackets and Tags Matching
 Plug 'tpope/vim-surround' -- mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'Raimondi/delimitMate' -- automatic closing of quotes, parenthesis, brackets, etc.
-Plug('adoyle-h/vim-eunuch', {branch = 'adoyle'})  -- UNIX 命令封装。 :h eunuch
 Plug 'tpope/vim-ragtag' -- like closetag. endings for html, xml, etc. - enhance vim-surround
 Plug 'alvan/vim-closetag'
 Plug 'vim-scripts/matchit.zip' -- extended % matching
@@ -112,8 +111,7 @@ Plug 'mechatroner/rainbow_csv' -- for .csv file
 Plug 'tpope/vim-abolish'  -- https://github.com/tpope/vim-abolish#coercion
 
 -- Writing
-Plug('junegunn/goyo.vim', { on = 'Goyo', ['for'] = 'markdown' }) -- 禅意协作模式
-Plug('junegunn/limelight.vim', { on = 'Limelight', ['for'] = 'markdown' }) -- 高亮当前代码块
+Load 'plugins.writing'
 Plug('sotte/presenting.vim', { ['for'] = 'markdown' }) -- markdown 幻灯片
 
 -- Languages

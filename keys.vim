@@ -75,7 +75,7 @@ noremap <M-p> :set paste!<CR>
 
 " ------------------------ Toggles Keymap --------------------------
 noremap <leader>N :call NumberToggle()<CR>
-noremap <leader>L :ToggleLineNumber<CR>
+noremap <silent> <leader>L :set relativenumber! number!<CR>
 " toggle invisible characters
 noremap <leader>l :set list!<CR>
 noremap <leader>I :IndentLinesToggle<CR>

@@ -18,10 +18,63 @@ local M = {
 		'David-Kunz/cmp-npm',
 		{ 'tzachar/cmp-tabnine', run = './install.sh' },
 		'onsails/lspkind.nvim',
+		'ray-x/lsp_signature.nvim',
 	},
 }
 
-function SetFormating(cmp)
+local function configFuncSignature()
+	require('lsp_signature').setup{
+		debug = false, -- set to true to enable debug logging
+		log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
+		-- default is  ~/.cache/nvim/lsp_signature.log
+		verbose = false, -- show debug line number
+
+		bind = true, -- This is mandatory, otherwise border config won't get registered.
+		-- If you want to hook lspsaga or other signature handler, pls set to false
+		doc_lines = 10, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
+		-- set to 0 if you DO NOT want any API comments be shown
+		-- This setting only take effect in insert mode, it does not affect signature help in normal
+		-- mode, 10 by default
+
+		floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
+
+		floating_window_above_cur_line = true, -- try to place the floating above the current line when possible Note:
+		-- will set to true when fully tested, set to false will use whichever side has more space
+		-- this setting will be helpful if you do not want the PUM and floating win overlap
+
+		floating_window_off_x = 0, -- adjust float windows x position.
+		floating_window_off_y = 1, -- adjust float windows y position.
+
+
+		fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
+		hint_enable = true, -- virtual hint enable
+		hint_prefix = "🐼 ",  -- Panda for parameter
+		hint_scheme = "String",
+		hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
+		max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
+		-- to view the hiding contents
+		max_width = 80, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+		handler_opts = {
+			border = "rounded"   -- double, rounded, single, shadow, none
+		},
+
+		always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
+
+		auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
+		extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
+		zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
+
+		padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
+
+		transparency = nil, -- disabled by default, allow floating win transparent value 1~100
+		shadow_blend = 36, -- if you using shadow as border use this set the opacity
+		shadow_guibg = 'Black', -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
+		timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
+		toggle_key = nil -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
+	}
+end
+
+local function configFormating(cmp)
 	local lspkind = require('lspkind')
 
 	return {
@@ -76,7 +129,7 @@ local t = function(str)
 	return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-function SetMapping(cmp)
+local function configMapping(cmp)
 	-- return cmp.mapping.preset.insert({
 	--   ['<C-e>'] = cmp.mapping.abort(),
 	--   ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -182,7 +235,7 @@ function SetMapping(cmp)
 	}
 end
 
-function SetCmdLine(cmp)
+local function configCmdLine(cmp)
 	for _, cmd_type in ipairs({ '/', '?' }) do
 		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 		cmp.setup.cmdline(cmd_type, {
@@ -204,7 +257,7 @@ function SetCmdLine(cmp)
 	})
 end
 
-function SetSources(cmp)
+local function configSources(cmp)
 	return cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'ultisnips' }, -- For ultisnips users.
@@ -220,45 +273,7 @@ function SetSources(cmp)
 	})
 end
 
-function M.config()
-	local cmp = require('cmp')
-
-	cmp.setup({
-		-- mapping = SetMapping(cmp),
-		formatting = SetFormating(cmp),
-		sources = SetSources(cmp),
-
-		snippet = {
-			-- REQUIRED - you must specify a snippet engine
-			expand = function(args)
-				-- vim.fn["vsnip#anonymous"](args.body) For `vsnip` users.
-				-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-				-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-				vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-			end,
-		},
-
-		window = {
-			completion = cmp.config.window.bordered(),
-			documentation = cmp.config.window.bordered(),
-		},
-	})
-
-	SetCmdLine(cmp)
-
-	require('cmp_tabnine.config'):setup({
-		max_lines = 1000,
-		max_num_results = 20,
-		sort = true,
-		run_on_every_keystroke = true,
-		snippet_placeholder = '..',
-		ignored_file_types = { -- default is not to ignore
-			-- uncomment to ignore in lua:
-			-- lua = true
-		},
-		show_prediction_strength = true,
-	})
-
+local function configFileType(cmp)
 	-- cmp.setup.filetype('json', {
 	--   sources = cmp.config.sources({
 	--     { name = 'nvim_lsp' },
@@ -278,7 +293,48 @@ function M.config()
 			{ name = 'buffer' },
 		})
 	})
+end
 
+function M.config()
+	local cmp = require('cmp')
+
+	cmp.setup({
+		-- mapping = configMapping(cmp),
+		formatting = configFormating(cmp),
+		sources = configSources(cmp),
+
+		snippet = {
+			-- REQUIRED - you must specify a snippet engine
+			expand = function(args)
+				-- vim.fn["vsnip#anonymous"](args.body) For `vsnip` users.
+				-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+				-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+				vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+			end,
+		},
+
+		window = {
+			completion = cmp.config.window.bordered(),
+			documentation = cmp.config.window.bordered(),
+		},
+	})
+
+	require('cmp_tabnine.config'):setup({
+		max_lines = 1000,
+		max_num_results = 20,
+		sort = true,
+		run_on_every_keystroke = true,
+		snippet_placeholder = '..',
+		ignored_file_types = { -- default is not to ignore
+			-- uncomment to ignore in lua:
+			-- lua = true
+		},
+		show_prediction_strength = true,
+	})
+
+	configCmdLine(cmp)
+	configFileType(cmp)
+	configFuncSignature()
 end
 
 return M

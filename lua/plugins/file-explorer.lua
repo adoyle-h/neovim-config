@@ -2,18 +2,19 @@ local M = {
 	'scrooloose/nerdtree',
 	disable = false,
 	on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'},
+
 	requires = {
 		{
 			'jistr/vim-nerdtree-tabs',
-			{on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'}},
+			on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'},
 		},
 		{
 			'Xuyuanp/nerdtree-git-plugin', -- It is slow in large git repo
-			{on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'}},
+			on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'},
 		},
 		{
 			'tiagofumo/vim-nerdtree-syntax-highlight',
-			{on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'}},
+			on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'},
 		},
 	}
 }

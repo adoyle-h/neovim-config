@@ -4,18 +4,23 @@ local M = {
 	disable = false,
 }
 
-function MySetup()
+local function configCursorLine()
 	-- highlight current line
-	-- vim.api.nvim_create_autocmd({'WinLeave'}, { pattern = '*', command = 'set nocursorline' })
-	vim.cmd [[
-		set nocursorcolumn
-		set cursorline
-		autocmd WinLeave,BufLeave * set nocursorline
-		autocmd WinEnter,BufEnter * set cursorline
-	]]
+	vim.opt.cursorcolumn = false
+	vim.opt.cursorline = true
+
+	vim.api.nvim_create_autocmd(
+		{ 'WinLeave', 'BufLeave' },
+		{ pattern = '*', command = 'set nocursorline' }
+	)
+
+	vim.api.nvim_create_autocmd(
+		{ 'WinEnter', 'BufEnter' },
+		{ pattern = '*', command = 'set cursorline' }
+	)
 end
 
-function SetupOnedark()
+local function setupOnedark()
 	local o = require('onedark')
 
 	o.setup {
@@ -85,7 +90,7 @@ function SetupOnedark()
 	o.load()
 end
 
-function SetupMaterial()
+local function setupMaterial()
 
 	vim.g.material_style = 'darker'
 
@@ -138,9 +143,9 @@ function SetupMaterial()
 end
 
 function M.config()
-	SetupOnedark()
-	-- SetupMaterial()
-	MySetup()
+	setupOnedark()
+	-- setupMaterial()
+	configCursorLine()
 end
 
 return M
