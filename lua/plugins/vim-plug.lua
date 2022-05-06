@@ -3,8 +3,12 @@
 local fn = vim.fn
 local NVIM_HOME = fn.stdpath('config')
 
+local function exist(path)
+	return fn.empty(fn.glob(path)) == 0
+end
+
 -- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
-if fn.empty(fn.glob(NVIM_HOME .. '/autoload/plug.vim')) > 0 then
+if not exist(NVIM_HOME .. '/autoload/plug.vim') then
 	vim.cmd(fn.printf(
 		'silent !curl -fLo %s --create-dirs %s',
 		NVIM_HOME .. '/autoload/plug.vim',
@@ -47,6 +51,19 @@ local function parsePlugOpts(M)
 	end
 
 	return opts
+end
+
+local function endsWith(str, suffix)
+	return str:sub(-#suffix) == suffix
+end
+
+local function getPlugFolderName(repo)
+	local s = fn.split(repo, '/')
+	local name = s[#s]
+	if endsWith(name, '.git') then
+		name = name:sub(0, -5)
+	end
+	return name
 end
 
 -- The structure of M should be compatible with packer.nvim Plug and vim-plug Plug
@@ -97,6 +114,13 @@ local function useMod(repo, opts)
 			plug(repo, repoOpts)
 		else
 			plug(repo)
+		end
+
+		-- If plug is uninstalled, do not continue
+		local foldname = getPlugFolderName(repo)
+		if not exist(pluginDir..'/'..foldname) then
+			print(fn.printf('[WARN] Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo))
+			return
 		end
 	end
 
