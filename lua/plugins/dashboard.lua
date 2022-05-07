@@ -24,7 +24,7 @@ function M.config()
 	}
 
 	section.buttons.val = {
-		dashboard.button('e', '  New File', ':ene <BAR> startinsert <CR>'),
+		dashboard.button('e', '  New File', ':ene <BAR> <CR>'),
 		dashboard.button('<SPACE>f', '  Search File' , ':Telescope find_files hidden=true<CR>'),
 		dashboard.button('<SPACE>k', '  Search Keymaps', ':Telescope keymaps<CR>'),
 		dashboard.button('<SPACE>p', 'גּ  Run Command', ':Telescope commands<CR>'),
@@ -51,7 +51,7 @@ function M.config()
 	alpha.setup(config)
 
 	vim.cmd[[
-		autocmd User AlphaReady echo 'ready'
+		autocmd User AlphaReady set cursorline
 		autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
 	]]
 end
