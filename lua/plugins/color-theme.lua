@@ -7,8 +7,8 @@ local M = {
 local function configGeneralHighlights()
 	vim.cmd [[
 		" Inactive buffer will be grey color
-		hi InactiveWindow ctermbg=234 guibg=#18191B
-		set winhighlight=NormalNC:InactiveWindow
+		" hi InactiveWindow ctermbg=234 guibg=#18191B
+		" set winhighlight=NormalNC:InactiveWindow
 
 		hi Pmenu cterm=NONE ctermfg=251 ctermbg=235 guibg=Grey
 		hi PmenuSel cterm=NONE ctermfg=232 ctermbg=246 guibg=DarkGrey
