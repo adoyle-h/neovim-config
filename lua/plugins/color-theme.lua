@@ -13,6 +13,8 @@ local function configGeneralHighlights()
 		hi PmenuSel cterm=NONE ctermfg=232 ctermbg=246 guibg=DarkGrey
 		hi PmenuSbar cterm=NONE ctermfg=234 ctermbg=234 guibg=Grey
 		hi PmenuThumb cterm=NONE ctermfg=247 ctermbg=247 guibg=White
+
+		hi FloatBorder cterm=NONE ctermfg=8 ctermbg=0 guibg=#101112 guifg=#34373B
 	]]
 end
 

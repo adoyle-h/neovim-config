@@ -1,4 +1,11 @@
+-- NOTE: Current Lua version is 5.1 util neovim 0.7
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
+
+-- Usage:
+--   <space>k  See Keymaps
+--   <space>f  Open File
+
+require('fix-nvim-lua')
 
 local P = require('plugins.vim-plug')
 local Plug = P.Plug
@@ -7,8 +14,8 @@ local Load = P.Load
 P.start()
 
 -- Library
-Plug 'nvim-lua/plenary.nvim' -- Many plugin require plenary.nvim
-Plug 'rcarriga/nvim-notify' -- super cool!
+Plug 'nvim-lua/plenary.nvim' -- Many plugins require plenary.nvim
+Load 'plugins.notify'
 
 -- UI
 Load 'plugins.colors'
