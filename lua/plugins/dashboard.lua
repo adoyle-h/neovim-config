@@ -26,8 +26,10 @@ function M.config()
 	section.buttons.val = {
 		dashboard.button('e', '  New File', ':ene <BAR> <CR>'),
 		dashboard.button('<SPACE>f', '  Search File' , ':Telescope find_files hidden=true<CR>'),
+		dashboard.button('<SPACE>m', '  File Explorer', ':NERDTreeMirrorToggle<CR>'),
 		dashboard.button('<SPACE>k', '  Search Keymaps', ':Telescope keymaps<CR>'),
 		dashboard.button('<SPACE>p', 'גּ  Run Command', ':Telescope commands<CR>'),
+		dashboard.button('<SPACE>P', '  Plugin List', ':PlugStatus<CR>'),
 		dashboard.button('q', '  Quit' , ':qa<CR>'),
 	}
 

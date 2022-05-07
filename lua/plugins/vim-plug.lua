@@ -17,6 +17,7 @@ if not exist(NVIM_HOME .. '/autoload/plug.vim') then
 	vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
 end
 
+vim.api.nvim_set_keymap('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', {})
 
 vim.g.plug_timeout = 30
 -- Use git proxy for fast downloading
