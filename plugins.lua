@@ -1,10 +1,6 @@
 -- NOTE: Current Lua version is 5.1 util neovim 0.7
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 
--- Usage:
---   <space>k  See Keymaps
---   <space>f  Open File
-
 require('fix-nvim-lua')
 
 local P = require('plugins.vim-plug')
@@ -20,6 +16,7 @@ Load 'plugins.notify'
 -- UI
 Load 'plugins.colors'
 Load 'plugins.statusline'
+Load 'plugins.dashboard'
 Load 'plugins.brackets'
 Load 'plugins.indent'
 Load 'plugins.indent-line'

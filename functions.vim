@@ -1,6 +1,5 @@
 " reload nvim config
 command! Reload :source ~/.config/nvim/init.vim
-command! TrailingSpaces RemoveTrailingSpaces
 command! ClearCRLF :%s///g
 command! Q :q!
 command! Qa :qa!

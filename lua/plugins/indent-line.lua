@@ -13,6 +13,10 @@ function M.config()
 		hi IndentBlanklineContextChar cterm=nocombine gui=nocombine guifg=#875FDF
 	]]
 
+	vim.g.indent_blankline_filetype_exclude = {
+		'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
+	}
+
 	require("indent_blankline").setup {
 		-- space_char_blankline = " ",
 		show_current_context = true,
