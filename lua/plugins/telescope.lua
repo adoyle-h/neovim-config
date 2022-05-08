@@ -27,6 +27,7 @@ local function configMapping()
 		nnoremap <space>p :Telescope commands<cr>
 		nnoremap <space>D :Telescope diagnostics<cr>
 		nnoremap <space>h :Telescope help_tags<cr>
+		nnoremap <space>H :Telescope highlights<cr>
 		nnoremap <space>c :Telescope command_history<cr>
 		nnoremap <space>s :Telescope search_history<cr>
 		nnoremap <space>S :Telescope spell_suggest layout_strategy=cursor<cr>

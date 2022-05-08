@@ -32,7 +32,7 @@ packer.startup({
       subcommands = { -- Format strings for git subcommands
         install = 'clone --depth %i --single-branch --progress',
 			},
-      default_url_format = 'https://ghproxy.com/https://github.com/%s',
+      default_url_format = vim.proxyGithub 'https://github.com/%s',
 			clone_timeout = 30, -- Timeout, in seconds, for git clones
     },
 

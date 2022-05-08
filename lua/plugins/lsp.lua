@@ -56,9 +56,12 @@ local function configLSPInstaller(installer)
 	installer.setup {
 		-- ensure these servers are always installed
 		ensure_installed = {},
+
 		-- automatically detect which servers to install (based on which servers are set up via lspconfig)
 		automatic_installation = true,
+
 		install_root_dir = vim.fn.stdpath('data') .. '/lsp_servers',
+
 		ui = {
 			icons = {
 				server_installed = '✓',
@@ -95,7 +98,7 @@ local function configKeyMaps()
 	vim.api.nvim_set_keymap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 	vim.api.nvim_set_keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 	vim.api.nvim_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	vim.api.nvim_set_keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 	vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 end
 

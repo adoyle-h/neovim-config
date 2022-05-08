@@ -6,27 +6,38 @@ Share for learning and reference.
 
 <!-- MarkdownTOC GFM -->
 
-- [Version](#version)
+- [Features](#features)
+- [Screenshots](#screenshots)
 - [Dependency](#dependency)
 - [Installation](#installation)
+    - [LSP](#lsp)
 - [Files Structure](#files-structure)
+- [NOTE](#note)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
 
 <!-- /MarkdownTOC -->
 
-## Version
+## Features
 
-NVIM v0.7 and higher.
+- Support `.lua` and `.vim` files for configuration
+- Support Neovim Native LSP
+- Manage plugin based on [vim-plug][] and Lua
+- 100+ Vim plugins
+- Awesome UI and color schema
+- Set proxy for fasting git download in China
+  - If you don't need it, set `vim.config.proxy.github = false` in [./config.lua](./config.lua)
+
+## Screenshots
 
 ## Dependency
 
+- NVIM v0.7 and higher
 - Vim Plugin Manager: https://github.com/junegunn/vim-plug
-- 100+ Vim plugins
-- python3、pip3、python2、pip2
+- python3、pip3
 - nvim python provider
-  - `pip2 install --upgrade --user pynvim`
   - `pip3 install --upgrade --user pynvim`
+  - `pip2 install --upgrade --user pynvim` (it is optional)
 - [Nerd Font][]. Recommend [DejaVuSansMonoForPowerline Nerd Font][font]. And change your terminal font setting.
 
 ## Installation
@@ -41,15 +52,15 @@ git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
 nvim
 ```
 
+### LSP
+
+There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs which you need.
+
 ## Files Structure
 
 ```
 .
 ├── README.md
-├── UltiSnips/         // snippets
-│   └── all.snippets   // snippets for all files
-├── abbreviations.vim
-├── autocmds.vim
 ├── autoload/
 │   └── plug.vim       // vim-plug
 ├── basic.vim          // neovim/vim basic settings
@@ -66,6 +77,10 @@ nvim
     ├── session_lock   // xolox/vim-session plugin
     └── undodir        // mbbill/undotree plugin
 ```
+
+## NOTE
+
+`$VIMRUNTIME/filetype.vim` will not run, please put filetype detection in [./lua/plugins/filetype.lua](./lua/plugins/filetype.lua).
 
 ## Suggestion, Bug Reporting, Contributing
 
@@ -84,3 +99,4 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 [LICENSE]: ./LICENSE
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
 [Nerd Font]: https://github.com/ryanoasis/nerd-fonts
+[vim-plug]: https://github.com/junegunn/vim-plug

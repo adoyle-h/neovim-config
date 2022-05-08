@@ -12,7 +12,7 @@ if not exist(NVIM_HOME .. '/autoload/plug.vim') then
 	vim.cmd(fn.printf(
 		'silent !curl -fLo %s --create-dirs %s',
 		NVIM_HOME .. '/autoload/plug.vim',
-		'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+		vim.proxyGithub 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	))
 	vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
 end
@@ -21,7 +21,7 @@ vim.api.nvim_set_keymap('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', {})
 
 vim.g.plug_timeout = 30
 -- Use git proxy for fast downloading
-vim.g.plug_url_format	= 'https://ghproxy.com/https://github.com/%s'
+vim.g.plug_url_format	= vim.proxyGithub 'https://github.com/%s'
 -- All plugins put in this directory
 local pluginDir = NVIM_HOME .. '/plugged'
 

@@ -1,8 +1,6 @@
 -- NOTE: Current Lua version is 5.1 util neovim 0.7
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 
-require('fix-nvim-lua')
-
 local P = require('plugins.vim-plug')
 local Plug = P.Plug
 local Load = P.Load
@@ -25,6 +23,7 @@ Load 'plugins.scrollbar' -- scrollbar must put after search
 Plug {'psliwka/vim-smoothie', disable = true}
 
 -- Functions
+Load 'plugins.filetype'
 Load 'plugins.treesitter'
 Load 'plugins.lsp'
 Load 'plugins.completion'
@@ -33,7 +32,6 @@ Load 'plugins.bookmark'
 Load 'plugins.comment'
 Load 'plugins.content-explorer'
 Load 'plugins.file-explorer'
-Load 'plugins.filetype'
 Load 'plugins.format'
 Load 'plugins.git'
 Load 'plugins.highlight-words'
@@ -54,6 +52,9 @@ Load 'plugins.funny'
 Load 'plugins.cheat'
 Load 'plugins.writing'
 Load 'plugins.keymap'
+Load 'plugins.help'
+Load 'plugins.abbreviation'
+Load 'plugins.autocmd'
 
 
 Plug 'chrisbra/vim-diff-enhanced'

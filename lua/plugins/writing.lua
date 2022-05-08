@@ -36,15 +36,15 @@ local function configGoyo()
 	vim.api.nvim_create_autocmd({'User'}, {
 		pattern = {'GoyoEnter'},
 		group = GoyoGroup,
-		nested = true,
 		callback = goyoEnter,
+		-- nested = true,
 	})
 
 	vim.api.nvim_create_autocmd({'User'}, {
 		pattern = {'GoyoLeave'},
 		group = GoyoGroup,
-		nested = true,
 		callback = goyoLeave,
+		-- nested = true,
 	})
 end
 

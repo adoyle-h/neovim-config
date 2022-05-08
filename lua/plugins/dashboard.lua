@@ -30,6 +30,7 @@ function M.config()
 		dashboard.button('<SPACE>k', '  Search Keymaps', ':Telescope keymaps<CR>'),
 		dashboard.button('<SPACE>p', 'גּ  Run Command', ':Telescope commands<CR>'),
 		dashboard.button('<SPACE>P', '  Plugin List', ':PlugStatus<CR>'),
+		dashboard.button('<SPACE>?', 'ﲉ  Show Help', ':normal <SPACE>?<CR>'),
 		dashboard.button('q', '  Quit' , ':qa<CR>'),
 	}
 
@@ -39,7 +40,7 @@ function M.config()
 	-- handle:close()
 	-- dashboard.section.footer.val = fortune
 
-	local marginTopPercent = 0.3
+	local marginTopPercent = 0.2
 	local headerPadding = fn.max({2, fn.floor(fn.winheight(0) * marginTopPercent) })
 
 	config.layout = {

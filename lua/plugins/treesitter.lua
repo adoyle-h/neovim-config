@@ -5,11 +5,13 @@ local M = {
 }
 
 function M.config()
-	for _, config in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-		config.install_info.url = config.install_info.url:gsub(
-			'https://github.com/',
-			'https://ghproxy.com/https://github.com/'
-		)
+	if vim.config.proxy.github then
+		for _, config in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
+			config.install_info.url = config.install_info.url:gsub(
+				'https://github.com/',
+				vim.proxyGithub 'https://github.com/'
+			)
+		end
 	end
 
 	require('nvim-treesitter.configs').setup {

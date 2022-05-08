@@ -57,18 +57,6 @@ M.requires = {
 	{'rhlobo/vim-super-retab', on = {'Space2Tab', 'Tab2Space'}},
 	{'tpope/vim-sleuth', desc = '根据上下文自动调整 shiftwidth expandtab'},
 	{'junegunn/vim-easy-align', on = {'<Plug>(EasyAlign)', 'EasyAlign'}, config = configEasyAlign },
-
-	-- vim-abolish the default keymaps
-	-- :h cr for more descriptions
-	-- MixedCase (crm)
-	-- camelCase (crc)
-	-- snake_case (crs or cr_)
-	-- SNAKE_UPPERCASE (cru)
-	-- dash-case (cr-)
-	-- kebab-case (crk)
-	-- dot.case (cr.)
-	-- space case (cr<space>)
-	{'tpope/vim-abolish', desc = 'https://github.com/tpope/vim-abolish#coercion'},
 }
 
 return M

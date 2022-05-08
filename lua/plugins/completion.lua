@@ -239,7 +239,7 @@ local function configMapping(cmp)
 	local selectUp = cmp.mapping({
 		c = function()
 			if cmp.visible() then
-				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace, select = false })
 			else
 				feedkey('<Up>', 'n')
 			end
@@ -247,7 +247,7 @@ local function configMapping(cmp)
 
 		i = function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace, select = false })
 			else
 				fallback()
 			end
@@ -257,7 +257,7 @@ local function configMapping(cmp)
 	local selectDown = cmp.mapping({
 		c = function()
 			if cmp.visible() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace, select = false })
 			else
 				feedkey('<Down>', 'n')
 			end
@@ -265,7 +265,7 @@ local function configMapping(cmp)
 
 		i = function(fallback)
 			if cmp.visible() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace, select = false })
 			else
 				fallback()
 			end
@@ -368,7 +368,7 @@ local function configMapping(cmp)
 end
 
 local function configCmdLine(cmp)
-	for _, cmd_type in ipairs({ '/', '?' }) do
+	for _, cmd_type in pairs({ '/', '?' }) do
 		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 		cmp.setup.cmdline(cmd_type, {
 			mapping = cmp.mapping.preset.cmdline(),
