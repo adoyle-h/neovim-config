@@ -20,7 +20,7 @@ M.requires = {
 		'kevinhwang91/nvim-hlslens',
 		disable = false,
 		config = function()
-			vim.cmd 'hi HlSearchLens guibg=#282B2D'
+			vim.cmd('hi HlSearchLens guibg=' .. vim.config.color.grey2)
 		end,
 	},
 

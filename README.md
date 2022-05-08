@@ -10,6 +10,12 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 - [特性](#特性)
 - [截图](#截图)
+    - [Dashboard](#dashboard)
+    - [Finder](#finder)
+    - [UI](#ui)
+    - [Diagnostic Window](#diagnostic-window)
+    - [Completion](#completion)
+    - [Snippet](#snippet)
 - [依赖](#依赖)
 - [安装](#安装)
     - [LSP](#lsp)
@@ -26,11 +32,37 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - 使用 Neovim Native LSP
 - 基于 [vim-plug][] 和 Lua 的插件管理
 - 100+ Vim 插件
-- 帅气的界面和配色。使用真彩色。显示滚动条。
+- 帅气的界面和配色。暗黑模式。真彩色。显示滚动条。
 - 配置了 github 的中国区代理镜像，加快插件下载速度
   - 如果需要禁用，[./config.lua](./config.lua) 里设置 `vim.config.proxy.github = false`
 
 ## 截图
+
+### Dashboard
+
+![dashboard.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/dashboard.png)
+
+### Finder
+
+![finder.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/dashboard.png)
+
+### UI
+
+![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/UI.png)
+
+### Diagnostic Window
+
+![diagnostic.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/diagnostic.png)
+
+### Completion
+
+![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/completion.png)
+
+![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/completion-function-args.png)
+
+### Snippet
+
+![snippet.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/snippet.png)
 
 ## 依赖
 

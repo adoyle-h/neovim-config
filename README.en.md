@@ -8,6 +8,12 @@ Share for learning and reference.
 
 - [Features](#features)
 - [Screenshots](#screenshots)
+    - [Dashboard](#dashboard)
+    - [Finder](#finder)
+    - [UI](#ui)
+    - [Diagnostic Window](#diagnostic-window)
+    - [Completion](#completion)
+    - [Snippet](#snippet)
 - [Dependency](#dependency)
 - [Installation](#installation)
     - [LSP](#lsp)
@@ -24,11 +30,38 @@ Share for learning and reference.
 - Support Neovim Native LSP
 - Manage plugin based on [vim-plug][] and Lua
 - 100+ Vim plugins
-- Awesome UI and color schema
+- Awesome UI and color schema. Dark Mode. True Color. Show Scrollbar.
 - Set proxy for fasting git download in China
   - If you don't need it, set `vim.config.proxy.github = false` in [./config.lua](./config.lua)
 
 ## Screenshots
+
+### Dashboard
+
+![dashboard.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/dashboard.png)
+
+### Finder
+
+![finder.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/dashboard.png)
+
+### UI
+
+![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/UI.png)
+
+### Diagnostic Window
+
+![diagnostic.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/diagnostic.png)
+
+### Completion
+
+![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/completion.png)
+
+![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/completion-function-args.png)
+
+### Snippet
+
+![snippet.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/snippet.png)
+
 
 ## Dependency
 

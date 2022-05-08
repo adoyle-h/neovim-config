@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
-	vim.cmd 'hi TrailingWhitespace ctermbg=8 guibg=Grey'
+	vim.cmd(vim.fn.printf('hi TrailingWhitespace ctermbg=8 guibg=%s', vim.config.color.grey3))
 
 	require('whitespace-nvim').setup({
 		highlight = 'TrailingWhitespace',
