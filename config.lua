@@ -1,4 +1,5 @@
 vim.config = {
+
 	proxy = {
 		github = true,
 	},

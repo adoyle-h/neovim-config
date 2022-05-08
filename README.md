@@ -87,7 +87,7 @@ nvim
 
 ### LSP
 
-默认为安装任何 LSP，执行 `:LspInstallInfo` 安装你需要的 LSP。
+默认未安装任何 LSP，执行 `:LspInstallInfo` 选择你需要的 LSP，并按回车安装。
 
 ## 目录结构
 

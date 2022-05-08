@@ -13,7 +13,9 @@ function M.config()
 		-- `ignored_filetypes` configures which filetypes to ignore when displaying trailing whitespace
 		ignored_filetypes = {
 			'TelescopePrompt',
-			-- 'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
+			'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
+			'lsp-installer',
+			'null-ls-info',
 		},
 	})
 

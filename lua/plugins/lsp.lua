@@ -10,6 +10,8 @@ local M = {
 			'antoinemadec/FixCursorHold.nvim',
 			config = function() vim.g.cursorhold_updatetime = 100 end,
 		},
+
+		'jose-elias-alvarez/null-ls.nvim',
 	},
 }
 
@@ -33,21 +35,6 @@ local function configUI()
 	require('fidget').setup {}
 
 	configHighlight()
-
-	-- Show line diagnostics automatically in hover window
-	-- The CursorHold autocmd is triggered when updatetime. Use https://github.com/antoinemadec/FixCursorHold.nvim to fix it
-	vim.api.nvim_create_autocmd('CursorHold', {
-		callback = function()
-			vim.diagnostic.open_float(nil, {
-				focusable = false,
-				close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
-				border = 'rounded',
-				source = 'always',
-				prefix = ' ',
-				scope = 'cursor',
-			})
-		end
-	})
 end
 
 local function configLSPInstaller(installer)
@@ -75,14 +62,6 @@ local function configLSPInstaller(installer)
 			},
 		}
 	}
-
-	-- Set border for LSPInstaller popup window
-	vim.api.nvim_create_autocmd('FileType', {
-		pattern = 'lsp-installer',
-		callback = function()
-			vim.api.nvim_win_set_config(0, { border = 'rounded' })
-		end,
-	})
 end
 
 local function configKeyMaps()
@@ -102,9 +81,37 @@ local function configKeyMaps()
 	vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 end
 
+local lspSetupOptsMap = {
+	sumneko_lua = function(opts)
+		opts.settings = {
+			Lua = {
+				diagnostics = {
+					globals = { 'vim' }
+				}
+			}
+		}
+	end
+}
 
-function M.config()
-	vim.diagnostic.config{
+local function configNullLSP()
+	local null_ls = require('null-ls')
+
+	null_ls.setup({
+		debounce = 150,
+		default_timeout = 3000,
+		sources = {
+			null_ls.builtins.formatting.stylua,
+			null_ls.builtins.code_actions.eslint_d,
+			null_ls.builtins.diagnostics.eslint_d,
+			null_ls.builtins.formatting.eslint_d,
+			null_ls.builtins.formatting.prettierd,
+			null_ls.builtins.completion.spell,
+		},
+	})
+end
+
+local function configDiagnostic()
+	vim.diagnostic.config {
 		virtual_text = false,
 		signs = true,
 		underline = true,
@@ -116,14 +123,57 @@ function M.config()
 		},
 	}
 
-	local lspFormat = require 'lsp-format'
-	lspFormat.setup {}
-	-- Use an on_attach function to only map the following keys
-	-- after the language server attaches to the current buffer
-	local on_attach = function(client, bufnr)
-		lspFormat.on_attach(client, bufnr)
-	end
+	-- Show line diagnostics automatically in hover window
+	-- The CursorHold autocmd is triggered when updatetime. Use https://github.com/antoinemadec/FixCursorHold.nvim to fix it
+	vim.api.nvim_create_autocmd('CursorHold', {
+		callback = function()
+			vim.diagnostic.open_float(nil, {
+				focusable = false,
+				close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+				border = 'rounded',
+				source = 'always',
+				prefix = ' ',
+				scope = 'cursor',
+			})
+		end
+	})
+end
 
+local function configLspFormat()
+	-- local lspFormat = require('lsp-format')
+	-- lspFormat.setup {}
+	-- -- Use an on_attach function to only map the following keys
+	-- -- after the language server attaches to the current buffer
+	-- local on_attach = function(client, bufnr)
+	--   lspFormat.on_attach(client, bufnr)
+	-- end
+
+	local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+
+	require('null-ls').setup({
+		-- you can reuse a shared lspconfig on_attach callback here
+		on_attach = function(client, bufnr)
+			if client.supports_method('textDocument/formatting') then
+				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					group = augroup,
+					buffer = bufnr,
+					callback = function()
+						-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+						vim.lsp.buf.formatting_sync()
+					end,
+				})
+			end
+		end,
+	})
+end
+
+function M.config()
+	configNullLSP()
+	configDiagnostic()
+	configLspFormat()
+	configKeyMaps()
+	configUI()
 
 	local installer = require('nvim-lsp-installer')
 	configLSPInstaller(installer)
@@ -135,7 +185,8 @@ function M.config()
 	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 	for _, server in pairs(servers) do
-		lspconfig[server.name].setup {
+		local name = server.name
+		local opts = {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			flags = {
@@ -143,20 +194,10 @@ function M.config()
 				debounce_text_changes = 150,
 			}
 		}
+		local fn = lspSetupOptsMap[name]
+		if fn then fn(opts) end
+		lspconfig[name].setup(opts)
 	end
-
-	lspconfig.sumneko_lua.setup {
-		settings = {
-			Lua = {
-				diagnostics = {
-					globals = { 'vim' }
-				}
-			}
-		}
-	}
-
-	configKeyMaps()
-	configUI()
 end
 
 return M

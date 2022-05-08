@@ -21,6 +21,11 @@ local maps = {
 		vim.opt_local.backup = false
 		vim.opt_local.writebackup = false
 	end,
+
+	['lsp-installer'] = function()
+		-- Set border for LSPInstaller popup window
+		vim.api.nvim_win_set_config(0, { border = 'rounded' })
+	end,
 }
 
 function M.config()
