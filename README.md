@@ -40,29 +40,29 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ### Dashboard
 
-![dashboard.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/dashboard.png)
+![dashboard.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/dashboard.png)
 
 ### Finder
 
-![finder.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/dashboard.png)
+![finder.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/finder.png)
 
 ### UI
 
-![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/UI.png)
+![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/UI.png)
 
 ### Diagnostic Window
 
-![diagnostic.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/diagnostic.png)
+![diagnostic.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/diagnostic.png)
 
 ### Completion
 
-![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/completion.png)
+![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion.png)
 
-![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/completion-function-args.png)
+![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png)
 
 ### Snippet
 
-![snippet.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/neovim-config/snippet.png)
+![snippet.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/snippet.png)
 
 ## 依赖
 
