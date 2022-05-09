@@ -17,11 +17,11 @@ if not exist(NVIM_HOME .. '/autoload/plug.vim') then
 	vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
 end
 
-vim.api.nvim_set_keymap('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', {})
+vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { noremap = false, desc = 'Show Plugin Status' })
 
 vim.g.plug_timeout = 30
 -- Use git proxy for fast downloading
-vim.g.plug_url_format	= vim.proxyGithub 'https://github.com/%s'
+vim.g.plug_url_format = vim.proxyGithub 'https://github.com/%s'
 -- All plugins put in this directory
 local pluginDir = NVIM_HOME .. '/plugged'
 
@@ -55,7 +55,7 @@ local function parsePlugOpts(M)
 end
 
 local function endsWith(str, suffix)
-	return str:sub(-#suffix) == suffix
+	return str:sub(- #suffix) == suffix
 end
 
 local function getPlugFolderName(repo)
@@ -119,7 +119,7 @@ local function useMod(repo, opts)
 
 		-- If plug is uninstalled, do not continue
 		local foldname = getPlugFolderName(repo)
-		if not exist(pluginDir..'/'..foldname) then
+		if not exist(pluginDir .. '/' .. foldname) then
 			print(fn.printf('[WARN] Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo))
 			return
 		end

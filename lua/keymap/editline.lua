@@ -5,19 +5,20 @@ local M = {
 }
 
 function M.config()
-	vim.cmd [[
-		inoremap <silent> <C-a> <Esc>I
-		inoremap <silent> <C-e> <Esc>A
-		inoremap <silent> <C-b> <Esc>ha
-		inoremap <silent> <C-f> <Esc>la
-		inoremap <silent> <M-b> <Esc>bi
-		inoremap <silent> <M-f> <Esc>Ea
-		inoremap <silent> <M-d> <Esc>dwa
-		inoremap <silent> <C-d> <Esc>dla
-		inoremap <silent> <C-w> <Esc>bdei
-		inoremap <silent> <C-k> <Esc>Da
-		inoremap <silent> <C-u> <Esc>d0
-	]]
+	local opts = { noremap = true, silent = true }
+	local keymap = vim.keymap.set
+
+	keymap('i', '<C-a>', '<Esc>I', opts)
+	keymap('i', '<C-e>', '<Esc>A', opts)
+	keymap('i', '<C-b>', '<Esc>ha', opts)
+	keymap('i', '<C-f>', '<Esc>la', opts)
+	keymap('i', '<M-b>', '<Esc>bi', opts)
+	keymap('i', '<M-f>', '<Esc>Ea', opts)
+	keymap('i', '<M-d>', '<Esc>dwa', opts)
+	keymap('i', '<C-d>', '<Esc>dla', opts)
+	keymap('i', '<C-w>', '<Esc>bdei', opts)
+	keymap('i', '<C-k>', '<Esc>Da', opts)
+	keymap('i', '<C-u>', '<Esc>d0', opts)
 end
 
 return M

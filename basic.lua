@@ -7,6 +7,9 @@
 -- See https://github.com/neovim/neovim/blob/v0.7.0/runtime/lua/vim/compat.lua
 table.unpack = unpack
 
+-- set a map <leader> for more key combos
+vim.g.mapleader = vim.config.mapleader
+
 if vim.config.proxy.github then
 	vim.proxyGithub = function(url) return 'https://ghproxy.com/' .. url end
 else

@@ -1,4 +1,5 @@
 vim.config = {
+	mapleader = ';', -- set a map <leader> for more key combos
 
 	proxy = {
 		github = true,

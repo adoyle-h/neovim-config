@@ -97,9 +97,7 @@ nvim
 ├── autoload/
 │   └── plug.vim       // vim-plug
 ├── basic.vim          // neovim/vim basic settings
-├── functions.vim      // commands and functions
 ├── init.vim           // <= neovim configuration entry point
-├── keys.vim           // keyboard maps
 ├── lua/
 │   └── plugins/       // Available plugins written in lua
 ├── plugged/           // plugins (installed by vim-plug)

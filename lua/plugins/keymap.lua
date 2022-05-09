@@ -3,6 +3,7 @@ local M = {
 	desc = 'Load all keymap settings',
 	disable = false,
 	requires = {
+		require('keymap.general'),
 		require('keymap.tab'),
 		require('keymap.window'),
 		require('keymap.diff'),

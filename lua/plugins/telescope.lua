@@ -7,7 +7,7 @@ local M = {
 }
 
 local function configHighlight()
-	vim.cmd	[[
+	vim.cmd [[
 		hi TelescopeResultsBorder guifg=#CED3DC guibg=none guisp=none
 		hi TelescopePreviewBorder guifg=#CED3DC guibg=none guisp=none
 		hi TelescopeResultsBorder guifg=#CED3DC guibg=none guisp=none
@@ -19,25 +19,32 @@ local function configHighlight()
 end
 
 local function configMapping()
-	vim.cmd [[
-		" nnoremap <leader>uh :lua require('telescope.builtin').find_files()<cr>
-		nnoremap <space>; :Telescope builtin<cr>
-		nnoremap <space>f :Telescope find_files hidden=true<cr>
-		nnoremap <space>g :Telescope current_buffer_fuzzy_find<cr>
-		nnoremap <space>G :Telescope live_grep<cr>
-		nnoremap <space>b :Telescope buffers<cr>
-		nnoremap <space>p :Telescope commands<cr>
-		nnoremap <space>D :Telescope diagnostics<cr>
-		nnoremap <space>h :Telescope help_tags<cr>
-		nnoremap <space>H :Telescope highlights<cr>
-		nnoremap <space>c :Telescope command_history<cr>
-		nnoremap <space>s :Telescope search_history<cr>
-		nnoremap <space>S :Telescope spell_suggest layout_strategy=cursor<cr>
-		nnoremap <space>j :Telescope jumplist<cr>
-		nnoremap <space>v :Telescope vim_options<cr>
-		nnoremap <space>r :Telescope registers<cr>
-		nnoremap <space>k :Telescope keymaps<cr>
-	]]
+	local opts = { noremap = true, silent = true }
+	local keymap = vim.keymap.set
+
+	-- nnoremap <space>f :lua require('telescope.builtin').find_files()<cr>
+	keymap('n', '<space>;', ':Telescope builtin<cr>', opts)
+	keymap('n', '<space>f', ':Telescope find_files hidden=true<cr>', opts)
+	keymap('n', '<space>g', ':Telescope current_buffer_fuzzy_find<cr>', opts)
+	keymap('n', '<space>G', ':Telescope live_grep<cr>', opts)
+	keymap('n', '<space>b', ':Telescope buffers<cr>', opts)
+	keymap('n', '<space>p', ':Telescope commands<cr>', opts)
+	keymap('n', '<space>D', ':Telescope diagnostics<cr>', opts)
+	keymap('n', '<space>h', ':Telescope help_tags<cr>', opts)
+	keymap('n', '<space>H', ':Telescope highlights<cr>', opts)
+	keymap('n', '<space>c', ':Telescope command_history<cr>', opts)
+	keymap('n', '<space>s', ':Telescope search_history<cr>', opts)
+	keymap('n', '<space>S', ':Telescope spell_suggest layout_strategy=cursor<cr>', opts)
+	keymap('n', '<space>j', ':Telescope jumplist<cr>', opts)
+	keymap('n', '<space>v', ':Telescope vim_options<cr>', opts)
+	keymap('n', '<space>r', ':Telescope registers<cr>', opts)
+	keymap('n', '<space>k', ':Telescope keymaps<cr>', opts)
+
+	-- override lsp keymaps
+	keymap('n', 'gI', ':Telescope lsp_implementations<cr>', opts)
+	keymap('n', 'gd', ':Telescope lsp_definitions<cr>', opts)
+	keymap('n', 'gr', ':Telescope lsp_references<cr>', opts)
+	keymap('n', 'gt', ':Telescope lsp_type_definitions<cr>', opts)
 
 	return {
 		i = {
@@ -79,7 +86,7 @@ function M.config()
 					height = 0.4,
 					preview_cutoff = 40,
 					prompt_position = "top",
-					width = 0.6
+					width = 0.8
 				},
 
 				cursor = {

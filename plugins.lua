@@ -20,7 +20,7 @@ Load 'plugins.indent'
 Load 'plugins.indent-line'
 Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
-Plug {'psliwka/vim-smoothie', disable = true}
+Plug { 'psliwka/vim-smoothie', disable = true }
 
 -- Functions
 Load 'plugins.filetype'
@@ -52,27 +52,26 @@ Load 'plugins.funny'
 Load 'plugins.cheat'
 Load 'plugins.writing'
 Load 'plugins.keymap'
-Load 'plugins.help'
 Load 'plugins.abbreviation'
 Load 'plugins.autocmd'
 Load 'plugins.utils'
 
 
 Plug 'chrisbra/vim-diff-enhanced'
-Plug {'adoyle-h/vim-eunuch', branch = 'adoyle'}  -- UNIX 命令封装。 :h eunuch
-Plug 'chrisbra/Recover.vim'   -- 崩溃后打开 swap 文件 diff
-Plug {'tyru/capture.vim', on = 'Capture'}  -- :Capture <命令> 将结果输出到新的 buffer 中
-Plug {'neomutt/neomutt.vim', disbale = true, desc = 'neomutt'}
+Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle' } -- UNIX 命令封装。 :h eunuch
+Plug 'chrisbra/Recover.vim' -- 崩溃后打开 swap 文件 diff
+Plug { 'tyru/capture.vim', on = 'Capture' } -- :Capture <命令> 将结果输出到新的 buffer 中
+Plug { 'neomutt/neomutt.vim', disbale = true, desc = 'neomutt' }
 -- This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim. https://github.com/neovim/neovim/issues/1716
 Plug 'lambdalisue/suda.vim'
 Plug {
 	'kassio/neoterm',
 	desc = 'vim 内启动 shell',
-	on = {'T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus', 'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle'},
+	on = { 'T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus', 'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle' },
 }
 Plug 'AndrewRadev/splitjoin.vim' -- single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
-Plug {'sotte/presenting.vim',  ['for'] = 'markdown', desc = 'markdown 幻灯片' }
+Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown 幻灯片' }
 Plug 'mechatroner/rainbow_csv' -- for .csv file
 
 

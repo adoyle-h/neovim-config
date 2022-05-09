@@ -68,18 +68,20 @@ end
 local function configKeyMaps()
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 	local opts = { noremap = true, silent = true }
-	vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-	vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+	local keymap = vim.keymap.set
+
+	keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+	keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+	keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+	keymap('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+	keymap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+	keymap('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+	keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+	keymap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+	keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 end
 
 local lspSetupOptsMap = {
@@ -120,7 +122,7 @@ local function configDiagnostic()
 		severity_sort = true,
 		float = {
 			-- Show source in diagnostics
-			source = 'always',  -- Or 'if_many'
+			source = 'always', -- Or 'if_many'
 		},
 	}
 
@@ -158,7 +160,7 @@ function M.config()
 	local lspFormat = require('lsp-format')
 	lspFormat.setup {
 		javascript = {
-			order = {'eslint_d', 'prettierd'},
+			order = { 'eslint_d', 'prettierd' },
 		}
 	}
 	-- Use an on_attach function to only map the following keys
