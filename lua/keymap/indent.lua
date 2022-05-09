@@ -23,10 +23,10 @@ function M.config()
 
 	keymap('n', '<M-Tab>', function()
 		local l = indentLevel(vim.fn.line('.')) - 1
-		if vim.bo.fdl == l then
-			vim.bo.fdl = 99
+		if vim.wo.fdl == l then
+			vim.wo.fdl = 99
 		else
-			vim.bo.fdl = l
+			vim.wo.fdl = l
 		end
 	end, {
 		noremap = true, silent = true,

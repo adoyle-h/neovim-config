@@ -5,10 +5,10 @@ vim.config = {
 		github = true,
 	},
 
-	theme = 'onedark',
+	theme = 'onedarkpro',
 
 	color = {
-		white = '#CED3DC',
+		white = '#BEC0C4',
 		black = '#101012',
 		grey1 = '#18191B',
 		grey2 = '#242629',
@@ -38,7 +38,7 @@ vim.config = {
 
 		blueBG = '#7D8CA3',
 		yellowBG = '#F7B538',
-		bg_d = '#1b1c1e',
+		bg_d = '#1B1C1E',
 
 		cursorLineBG = '#181928',
 		cursorLineNrFG = '#689AFD',

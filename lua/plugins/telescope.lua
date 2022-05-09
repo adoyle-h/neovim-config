@@ -116,7 +116,19 @@ function M.config()
 		pickers = {
 			find_files = {
 				theme = "dropdown",
-			}
+			},
+
+			highlights = {
+				theme = "dropdown",
+			},
+
+			live_grep = {
+				theme = "dropdown",
+			},
+
+			current_buffer_fuzzy_find = {
+				theme = "dropdown",
+			},
 		},
 
 		extensions = {
