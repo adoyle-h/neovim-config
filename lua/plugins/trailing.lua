@@ -16,6 +16,7 @@ function M.config()
 			'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
 			'lsp-installer',
 			'null-ls-info',
+			'lspinfo',
 		},
 	})
 

@@ -30,7 +30,7 @@ function M.config()
 		dashboard.button('<SPACE>k', '  Search Keymaps', ':Telescope keymaps<CR>'),
 		dashboard.button('<SPACE>p', 'גּ  Run Command', ':Telescope commands<CR>'),
 		dashboard.button('<SPACE>P', '  Plugin List', ':PlugStatus<CR>'),
-		dashboard.button('<SPACE>?', 'ﲉ  Show Help', ':normal <SPACE>?<CR>'),
+		dashboard.button('<SPACE>h', 'ﲉ  Find Help', ':Telescope help_tags<CR>'),
 		dashboard.button('q', '  Quit' , ':qa<CR>'),
 	}
 

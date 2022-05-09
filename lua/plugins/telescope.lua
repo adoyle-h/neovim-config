@@ -1,7 +1,9 @@
 local M = {
 	'nvim-telescope/telescope.nvim',
 	disable = false,
-	requires = {},
+	requires = {
+		'nvim-telescope/telescope-ui-select.nvim', -- improve the default vim.ui interfaces
+	},
 }
 
 local function configHighlight()
@@ -58,7 +60,9 @@ local function configMapping()
 end
 
 function M.config()
-	require('telescope').setup {
+	local telescope = require('telescope')
+
+	telescope.setup {
 		defaults = {
 			prompt_prefix = ' ',
 
@@ -109,9 +113,11 @@ function M.config()
 		},
 
 		extensions = {
-			-- ...
 		}
 	}
+
+	telescope.load_extension('ui-select')
+
 
 	configHighlight()
 end

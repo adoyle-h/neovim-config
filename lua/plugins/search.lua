@@ -28,12 +28,14 @@ M.requires = {
 		'dyng/ctrlsf.vim',
 		desc = '项目内内容搜索',
 		on = {'<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', 'CtrlSF'},
+		disable = false,
 		config = configCtrlSF,
 	},
 
 	{
 		'thinca/vim-visualstar',
 		desc = 'visual 模型下查找增强',
+		disable = false,
 		config = function()
 			vim.g.visualstar_no_default_key_mappings = 0
 
@@ -46,6 +48,7 @@ M.requires = {
 			]]
 		end,
 	},
+
 }
 
 return M

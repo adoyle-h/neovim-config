@@ -26,6 +26,16 @@ local maps = {
 		-- Set border for LSPInstaller popup window
 		vim.api.nvim_win_set_config(0, { border = 'rounded' })
 	end,
+
+	['null-ls-info'] = function()
+		-- Set border for LSPInstaller popup window
+		vim.api.nvim_win_set_config(0, { border = 'rounded', height = 30 })
+	end,
+
+	['lspinfo'] = function()
+		-- Set border for LSPInstaller popup window
+		vim.api.nvim_win_set_config(0, { border = 'rounded' })
+	end,
 }
 
 function M.config()

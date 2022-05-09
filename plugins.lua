@@ -19,7 +19,7 @@ Load 'plugins.brackets'
 Load 'plugins.indent'
 Load 'plugins.indent-line'
 Load 'plugins.search'
-Load 'plugins.scrollbar' -- scrollbar must put after search
+Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
 Plug {'psliwka/vim-smoothie', disable = true}
 
 -- Functions
@@ -55,6 +55,7 @@ Load 'plugins.keymap'
 Load 'plugins.help'
 Load 'plugins.abbreviation'
 Load 'plugins.autocmd'
+Load 'plugins.utils'
 
 
 Plug 'chrisbra/vim-diff-enhanced'

@@ -51,13 +51,14 @@ local function configLSPInstaller(installer)
 
 		ui = {
 			icons = {
-				server_installed = '✓',
-				server_pending = '➜',
-				server_uninstalled = '✗'
+				server_installed = '',
+				server_pending = '',
+				server_uninstalled = ''
 			},
 
 			keymaps = {
 				install_server = '<CR>',
+				uninstall_server = 'x',
 				toggle_server_expand = '<Tab>',
 			},
 		}
@@ -139,39 +140,9 @@ local function configDiagnostic()
 	})
 end
 
-local function configLspFormat()
-	-- local lspFormat = require('lsp-format')
-	-- lspFormat.setup {}
-	-- -- Use an on_attach function to only map the following keys
-	-- -- after the language server attaches to the current buffer
-	-- local on_attach = function(client, bufnr)
-	--   lspFormat.on_attach(client, bufnr)
-	-- end
-
-	local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
-
-	require('null-ls').setup({
-		-- you can reuse a shared lspconfig on_attach callback here
-		on_attach = function(client, bufnr)
-			if client.supports_method('textDocument/formatting') then
-				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					group = augroup,
-					buffer = bufnr,
-					callback = function()
-						-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-						vim.lsp.buf.formatting_sync()
-					end,
-				})
-			end
-		end,
-	})
-end
-
 function M.config()
 	configNullLSP()
 	configDiagnostic()
-	configLspFormat()
 	configKeyMaps()
 	configUI()
 
@@ -183,6 +154,18 @@ function M.config()
 	local servers = installer.get_installed_servers()
 	local lspconfig = require('lspconfig')
 	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+	local lspFormat = require('lsp-format')
+	lspFormat.setup {
+		javascript = {
+			order = {'eslint_d', 'prettierd'},
+		}
+	}
+	-- Use an on_attach function to only map the following keys
+	-- after the language server attaches to the current buffer
+	local on_attach = function(client, bufnr)
+		lspFormat.on_attach(client, bufnr)
+	end
 
 	for _, server in pairs(servers) do
 		local name = server.name
