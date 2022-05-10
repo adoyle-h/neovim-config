@@ -55,4 +55,50 @@ vim.config = {
 		'aerial',
 	},
 
+	highlightColumns = { 80, 100 }, -- :h 'cc'
+
+	synmaxcol = 300, -- Syntax coloring lines that are too long just slows down the world
+
+	updatetime = 5000, -- auto save the swap every <updatetime> seconds
+
+	updatecount = 100, -- auto save the swap every <updatecount> characters
+
+	foldenable = true, -- auto fold code
+
+	linenumber = true, -- show linenumber. :h 'linenumber'
+
+	cmdheight = 2, -- cmd line height. :h 'cmdheight'
+
+	history = 1000, --  how many entries may be stored in each of these histories. :h 'history'
+
+	fillchars = { -- window border. :h 'fcs'
+		vert = '│',
+	},
+
+	-- listchars = 'tab:——,space:·,eol:¬,trail:·,extends:⇢,precedes:⇠,nbsp:+', -- 高亮空格、Tab、换行符等
+	listchars = { -- :h 'listchars'
+		tab = '——',
+		space = '·',
+		eol = '¬', -- show at the end of each line
+		lead = '·', -- show for leading spaces
+		trail = '·', -- trailing spaces
+		extends = '⇢', -- show in last column
+		precedes = '⇠', -- show in the first visible
+		nbsp = '+', -- show for a non-breakable space character
+	},
+
+	linebreakChar = '↪', -- :h 'showbreak'
+
+	langmenu = 'zh_CN.UTF-8', -- :h 'langmenu'
+
+	spell = {
+		check = false,
+		lang = { 'en', 'cjk' }, -- :h 'spelllang'
+		suggest = { 'best', 6 }, -- :h 'spellsuggest'
+	},
+
+	matchpairs = { -- Press % to jump from one to the other. :h 'matchpairs'
+		'(:)', '{:}', '[:]', '<:>', '“:”',
+	},
+
 }

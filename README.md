@@ -13,6 +13,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
     - [Dashboard](#dashboard)
     - [Finder](#finder)
     - [UI](#ui)
+    - [Outline](#outline)
     - [Diagnostic Window](#diagnostic-window)
     - [Completion](#completion)
     - [Snippet](#snippet)
@@ -33,8 +34,9 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - 基于 [vim-plug][] 和 Lua 的插件管理
 - 100+ Vim 插件
 - 帅气的界面和配色。暗黑模式。真彩色。显示滚动条。
+- 可配置，详见 [./config.lua](./config.lua)
 - 配置了 github 的中国区代理镜像，加快插件下载速度
-  - 如果需要禁用，[./config.lua](./config.lua) 里设置 `vim.config.proxy.github = false`
+  - 如果需要禁用，在配置文件里设置 `vim.config.proxy.github = false`
 
 ## 截图
 
@@ -49,6 +51,10 @@ Click [./README.en.md](./README.en.md) to read English documents.
 ### UI
 
 ![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/UI.png)
+
+### Outline
+
+![outline.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/outline.png)
 
 ### Diagnostic Window
 

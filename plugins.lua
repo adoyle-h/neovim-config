@@ -10,6 +10,7 @@ P.start()
 -- Library
 Plug 'nvim-lua/plenary.nvim' -- Many plugins require plenary.nvim
 Load 'plugins.notify'
+-- Plug 'kyazdani42/nvim-web-devicons' -- Not suitable for now
 
 -- UI
 Load 'plugins.colors'

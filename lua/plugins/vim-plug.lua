@@ -80,7 +80,7 @@ local function useMod(repo, opts)
 	if not opts then
 		if type == 'string' then
 			plug(repo)
-			return
+			opts = {}
 		elseif type == 'table' then
 			opts = repo
 			repo = table.remove(opts, 1)

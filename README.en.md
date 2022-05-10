@@ -11,6 +11,7 @@ Share for learning and reference.
     - [Dashboard](#dashboard)
     - [Finder](#finder)
     - [UI](#ui)
+    - [Outline](#outline)
     - [Diagnostic Window](#diagnostic-window)
     - [Completion](#completion)
     - [Snippet](#snippet)
@@ -31,8 +32,9 @@ Share for learning and reference.
 - Manage plugin based on [vim-plug][] and Lua
 - 100+ Vim plugins
 - Awesome UI and color schema. Dark Mode. True Color. Show Scrollbar.
+- Configurable. See [./config.lua](./config.lua)
 - Set proxy for fasting git download in China
-  - If you don't need it, set `vim.config.proxy.github = false` in [./config.lua](./config.lua)
+  - If you don't need it, set `vim.config.proxy.github = false` in config file.
 
 ## Screenshots
 
@@ -47,6 +49,10 @@ Share for learning and reference.
 ### UI
 
 ![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/UI.png)
+
+### Outline
+
+![outline.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/outline.png)
 
 ### Diagnostic Window
 

@@ -10,8 +10,46 @@ table.unpack = unpack
 -- set a map <leader> for more key combos
 vim.g.mapleader = vim.config.mapleader
 
-if vim.config.proxy.github then
+local config = vim.config
+local opt = vim.opt
+
+if config.proxy.github then
 	vim.proxyGithub = function(url) return 'https://ghproxy.com/' .. url end
 else
 	vim.proxyGithub = function(url) return url end
+end
+
+function vim.getVisualSelection()
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, '\n', '')
+	if #text > 0 then
+		return text
+	else
+		return ''
+	end
+end
+
+opt.history = config.history
+opt.cmdheight = config.cmdheight
+opt.cc = config.highlightColumn
+opt.synmaxcol = config.synmaxcol
+opt.updatetime = config.updatetime
+opt.updatecount = config.updatecount
+opt.foldenable = config.foldenable
+opt.fillchars = config.fillchars
+opt.listchars = config.listchars
+opt.showbreak = config.linebreakChar
+opt.iskeyword = opt.iskeyword - { '.' }
+opt.langmenu = config.langmenu
+opt.spell = config.spell.check
+opt.spelllang = config.spell.lang
+opt.spellsuggest = config.spell.suggest
+opt.matchpairs = config.matchpairs
+
+if config.linenumber then
+	opt.number = true -- show line number
+	opt.relativenumber = true -- show relative line number
 end
