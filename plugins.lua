@@ -31,7 +31,7 @@ Load 'plugins.completion'
 
 Load 'plugins.bookmark'
 Load 'plugins.comment'
-Load 'plugins.content-explorer'
+Load 'plugins.outline'
 Load 'plugins.file-explorer'
 Load 'plugins.format'
 Load 'plugins.git'
@@ -73,6 +73,23 @@ Plug 'AndrewRadev/splitjoin.vim' -- single/multi line code handler: gS - split o
 Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
 Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown 幻灯片' }
 Plug 'mechatroner/rainbow_csv' -- for .csv file
+
+Plug {
+	'rainbowhxch/accelerated-jk.nvim',
+	disable = false,
+	desc = 'j/k 移动自动加速',
+
+	config = function()
+		require('accelerated-jk').setup({
+			mode = 'time_driven',
+			enable_deceleration = false,
+			acceleration_limit = 200,
+			acceleration_table = { 5, 10, 12, 15, 18 },
+		})
+		vim.api.nvim_set_keymap('n', 'j', '<Plug>(accelerated_jk_gj)', {})
+		vim.api.nvim_set_keymap('n', 'k', '<Plug>(accelerated_jk_gk)', {})
+	end
+}
 
 
 Plug 'ryanoasis/vim-devicons' -- devicons should be put at last!!

@@ -7,15 +7,22 @@ local M = {
 }
 
 local function configHighlight()
-	vim.cmd [[
-		hi TelescopeResultsBorder guifg=#CED3DC guibg=none guisp=none
-		hi TelescopePreviewBorder guifg=#CED3DC guibg=none guisp=none
-		hi TelescopeResultsBorder guifg=#CED3DC guibg=none guisp=none
-		hi TelescopePromptBorder guifg=#CED3DC guibg=none guisp=none
-		hi TelescopeBorder guifg=#87AFD7 guibg=none guisp=none
-		hi TelescopePromptPrefix guifg=#87AFD7 guibg=none guisp=none
-		hi TelescopeSelection guifg=none guibg=#18191B guisp=none
-	]]
+	local color = vim.config.color
+
+	local hls = {
+		{ 'hi TelescopeResultsBorder guifg=%s guibg=none guisp=none', color.white },
+		{ 'hi TelescopePreviewBorder guifg=%s guibg=none guisp=none', color.white },
+		{ 'hi TelescopeResultsBorder guifg=%s guibg=none guisp=none', color.white },
+		{ 'hi TelescopePromptBorder guifg=%s guibg=none guisp=none', color.white },
+		{ 'hi TelescopeBorder guifg=%s guibg=none guisp=none', color.blue },
+		{ 'hi TelescopePromptPrefix guifg=%s guibg=none guisp=none', color.blue },
+		{ 'hi TelescopeSelection guifg=none guibg=%s guisp=none', color.grey1 },
+		{ 'hi TelescopeSelectionCaret guifg=%s guibg=none guisp=none', color.blue },
+	}
+
+	for _, v in pairs(hls) do
+		vim.cmd(vim.fn.printf(table.unpack(v)))
+	end
 end
 
 local function configMapping()

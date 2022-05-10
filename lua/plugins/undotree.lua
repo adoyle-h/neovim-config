@@ -13,10 +13,8 @@ function M.config()
 		vim.api.nvim_set_option('undofile', true)
 	end
 
-	vim.cmd [[
-		noremap <leader>ud :UndotreeToggle<CR>
-		noremap <space>u :UndotreeToggle<CR>
-	]]
+	local keymap = vim.keymap.set
+	keymap('n', '<space>u', ':UndotreeToggle<CR>', { noremap = true })
 end
 
 return M

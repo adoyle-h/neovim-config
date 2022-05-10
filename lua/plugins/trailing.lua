@@ -11,13 +11,7 @@ function M.config()
 		highlight = 'TrailingWhitespace',
 
 		-- `ignored_filetypes` configures which filetypes to ignore when displaying trailing whitespace
-		ignored_filetypes = {
-			'TelescopePrompt',
-			'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
-			'lsp-installer',
-			'null-ls-info',
-			'lspinfo',
-		},
+		ignored_filetypes = vim.config.ignoredFileTypesForSomePlugs,
 	})
 
 	vim.api.nvim_create_user_command('TrailingSpaces', function()

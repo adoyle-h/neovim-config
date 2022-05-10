@@ -26,6 +26,7 @@ function M.config()
 			highlight = color.yellow,
 			-- highlight = "#e2be7d",
 
+			cursorline = color.cursorLineBG,
 			comment = color.grey,
 
 			diff_add = color.diffAddBG,
@@ -37,6 +38,7 @@ function M.config()
 		hlgroups = { -- Override default highlight groups
 			TelescopeMatching = { fg = "${orange}" },
 			Search = { style = 'none' },
+			QuickFixLine = { bg = color.darkYellow, style = 'bold' }
 		},
 
 		filetype_hlgroups = {}, -- Override default highlight groups for specific filetypes
@@ -62,7 +64,7 @@ function M.config()
 			italic = true, -- Use the themes opinionated italic styles?
 			underline = true, -- Use the themes opinionated underline styles?
 			undercurl = true, -- Use the themes opinionated undercurl styles?
-			cursorline = false, -- Use cursorline highlighting?
+			cursorline = true, -- Use cursorline highlighting?
 			transparency = false, -- Use a transparent background?
 			terminal_colors = false, -- Use the theme's colors for Neovim's :terminal?
 			window_unfocussed_color = false, -- When the window is out of focus, change the normal background?

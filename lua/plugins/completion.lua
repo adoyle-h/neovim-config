@@ -16,7 +16,7 @@ local sources = {
 }
 
 local function configFuncSignature()
-	require('lsp_signature').setup{
+	require('lsp_signature').setup {
 		debug = false, -- set to true to enable debug logging
 		log_path = fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
 		-- default is  ~/.cache/nvim/lsp_signature.log
@@ -39,16 +39,16 @@ local function configFuncSignature()
 		floating_window_off_y = 1, -- adjust float windows y position.
 
 
-		fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
+		fix_pos = false, -- set to true, the floating window will not auto-close until finish all parameters
 		hint_enable = true, -- virtual hint enable
-		hint_prefix = "🐼 ",  -- Panda for parameter
+		hint_prefix = "🐼 ", -- Panda for parameter
 		hint_scheme = "String",
 		hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
 		max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
 		-- to view the hiding contents
 		max_width = 80, -- max_width of signature floating_window, line will be wrapped if exceed max_width
 		handler_opts = {
-			border = "rounded"   -- double, rounded, single, shadow, none
+			border = "rounded" -- double, rounded, single, shadow, none
 		},
 
 		always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
@@ -81,41 +81,41 @@ local function configFormating()
 			preset = 'default',
 
 			-- symbol_map = {
-				--   Text = "",
-				--   Method = "",
-				--   Function = "",
-				--   Constructor = "",
-				--   Field = "ﰠ",
-				--   Variable = "",
-				--   Class = "ﴯ",
-				--   Interface = "",
-				--   Module = "",
-				--   Property = "ﰠ",
-				--   Unit = "塞",
-				--   Value = "",
-				--   Enum = "",
-				--   Keyword = "",
-				--   Snippet = "",
-				--   Color = "",
-				--   File = "",
-				--   Reference = "",
-				--   Folder = "",
-				--   EnumMember = "",
-				--   Constant = "",
-				--   Struct = "פּ",
-				--   Event = "",
-				--   Operator = "",
-				--   TypeParameter = ""
-				-- },
+			--   Text = "",
+			--   Method = "",
+			--   Function = "",
+			--   Constructor = "",
+			--   Field = "ﰠ",
+			--   Variable = "",
+			--   Class = "ﴯ",
+			--   Interface = "",
+			--   Module = "",
+			--   Property = "ﰠ",
+			--   Unit = "塞",
+			--   Value = "",
+			--   Enum = "",
+			--   Keyword = "",
+			--   Snippet = "",
+			--   Color = "",
+			--   File = "",
+			--   Reference = "",
+			--   Folder = "",
+			--   EnumMember = "",
+			--   Constant = "",
+			--   Struct = "פּ",
+			--   Event = "",
+			--   Operator = "",
+			--   TypeParameter = ""
+			-- },
 
-				-- The function below will be called before any actual modifications from lspkind
-				-- so that you can provide more controls on popup customization.
-				-- See [#30](https://github.com/onsails/lspkind-nvim/pull/30)
-				before = function (entry, vim_item)
-					return vim_item
-				end
-			})
-		}
+			-- The function below will be called before any actual modifications from lspkind
+			-- so that you can provide more controls on popup customization.
+			-- See [#30](https://github.com/onsails/lspkind-nvim/pull/30)
+			before = function(entry, vim_item)
+				return vim_item
+			end
+		})
+	}
 
 end
 
@@ -128,12 +128,11 @@ local function feedkey(key, mode)
 	api.nvim_feedkeys(api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-
 ---when inside a snippet, seeks to the nearest luasnip field if possible, and checks if it is jumpable
 ---@param dir number 1 for forward, -1 for backward; defaults to 1
 ---@return boolean true if a jumpable luasnip field is found while inside a snippet
 local function jumpable(dir)
-	local luasnip = require'luasnip'
+	local luasnip = require 'luasnip'
 
 	local win_get_cursor = vim.api.nvim_win_get_cursor
 	local get_current_buf = vim.api.nvim_get_current_buf
@@ -189,7 +188,7 @@ local function jumpable(dir)
 			local n_next = node.next
 			local next_pos = n_next and n_next.mark:pos_begin()
 			local candidate = n_next ~= snippet and next_pos and (pos[1] < next_pos[1])
-			or (pos[1] == next_pos[1] and pos[2] < next_pos[2])
+					or (pos[1] == next_pos[1] and pos[2] < next_pos[2])
 
 			-- Past unmarked exit node, exit early
 			if n_next == nil or n_next == snippet.next then
@@ -289,7 +288,7 @@ local function configMapping(cmp)
 			else
 				fallback()
 			end
-		end, {'i'}),
+		end, { 'i' }),
 
 		['<Tab>'] = cmp.mapping({
 			c = function(fallback)
@@ -346,7 +345,7 @@ local function configMapping(cmp)
 			else
 				fallback()
 			end
-		end, {'i', 's'}),
+		end, { 'i', 's' }),
 
 		-- ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
 		-- ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
@@ -357,8 +356,8 @@ local function configMapping(cmp)
 		['<C-p>'] = selectUp,
 
 		-- scroll preview
-		['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i'}),
-		['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i'}),
+		['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i' }),
+		['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i' }),
 
 		-- ['<C-c>'] = cmp.mapping.abort(),
 
@@ -391,14 +390,14 @@ end
 
 local function configFileType(cmp)
 	-- cmp.setup.filetype('json', {
-		--   sources = cmp.config.sources({
-			--     { name = 'nvim_lsp' },
-			--     { name = 'ultisnips' },
-			--     { name = 'path' },
-			--     { name = 'buffer' },
-			--     { name = 'npm', keyword_length = 4 },
-			--   })
-			-- })
+	--   sources = cmp.config.sources({
+	--     { name = 'nvim_lsp' },
+	--     { name = 'ultisnips' },
+	--     { name = 'path' },
+	--     { name = 'buffer' },
+	--     { name = 'npm', keyword_length = 4 },
+	--   })
+	-- })
 
 
 	-- Set configuration for specific filetype.
@@ -430,7 +429,7 @@ local function configTabnine()
 		show_prediction_strength = true,
 	})
 
-	addSource({name = 'tabnine'})
+	addSource({ name = 'tabnine' })
 end
 
 local M = {
@@ -443,7 +442,7 @@ local M = {
 		'hrsh7th/cmp-path', -- path source for nvim-cmp
 		'f3fora/cmp-spell',
 		'hrsh7th/cmp-cmdline',
-		{'ray-x/cmp-treesitter', config = function() addSource({name = 'treesitter'}) end},
+		{ 'ray-x/cmp-treesitter', config = function() addSource({ name = 'treesitter' }) end },
 		'onsails/lspkind.nvim',
 		'hrsh7th/nvim-cmp',
 
@@ -457,8 +456,8 @@ local M = {
 
 		'justinj/vim-react-snippets',
 		'David-Kunz/cmp-npm',
-		{'tzachar/cmp-tabnine', run = './install.sh', config = configTabnine, disable = false},
-		{'ray-x/lsp_signature.nvim', config = configFuncSignature},
+		{ 'tzachar/cmp-tabnine', run = './install.sh', config = configTabnine, disable = false },
+		{ 'ray-x/lsp_signature.nvim', config = configFuncSignature },
 	},
 }
 
@@ -467,9 +466,9 @@ function M.config()
 
 	-- vim.cmd 'set completeopt=menu,menuone,noselect'
 
-	local present, luasnip = pcall(require, "luasnip")
-	if not present then
-		vim.notify('luasnip not found', 'warn', {title = '[Plug=completion]'})
+	local ok, luasnip = pcall(require, 'luasnip')
+	if not ok then
+		vim.notify('luasnip not found', 'warn', { title = '[Plug=completion]' })
 		return
 	end
 

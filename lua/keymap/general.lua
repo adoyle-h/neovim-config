@@ -33,8 +33,8 @@ function M.config()
 	-- Because <C-i> is synonymous to <Tab> in nvim. I don't know the reason.
 	-- :h tui-input
 	-- nnoremap <C-i> <C-i>
-	keymap('n', 'gi', '<C-i>', { noremap = true, silent = true, desc = 'jump reverse to previous cursor position' })
-	keymap('n', 'go', '<C-o>', { noremap = true, silent = true, desc = 'jump to previous cursor position' })
+	keymap('n', 'g]', '<C-i>', { noremap = true, silent = true, desc = 'jump reverse to previous cursor position' })
+	keymap('n', 'g[', '<C-o>', { noremap = true, silent = true, desc = 'jump to previous cursor position' })
 
 	-- Toggles Keymap --
 	keymap('n', '<leader>N', function()

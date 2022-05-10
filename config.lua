@@ -26,10 +26,11 @@ vim.config = {
 
 		lightGrey = '#818387',
 
-		darkCyan = '#33869A',
-		darkRed = '#800000',
-		darkYellow = '#84714F',
-		darkPurple = '#73628A',
+		darkCyan = '#002121',
+		darkRed = '#340009',
+		darkYellow = '#212100',
+		darkOrange = '#371B00',
+		darkPurple = '#180225',
 
 		diffAddBG = '#13230c',
 		diffDeleteBG = '#290005',
@@ -42,6 +43,16 @@ vim.config = {
 
 		cursorLineBG = '#181928',
 		cursorLineNrFG = '#689AFD',
+	},
+
+	ignoredFileTypesForSomePlugs = {
+		'TelescopePrompt',
+		'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
+		'lsp-installer',
+		'null-ls-info',
+		'lspinfo',
+		'nerdtree',
+		'aerial',
 	},
 
 }

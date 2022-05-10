@@ -27,6 +27,7 @@ local pluginDir = NVIM_HOME .. '/plugged'
 
 local plug = vim.fn['plug#']
 local mods = {}
+local unloadRepos = {}
 
 local plugOptsKeys = {
 	cmd = 'on',
@@ -120,7 +121,7 @@ local function useMod(repo, opts)
 		-- If plug is uninstalled, do not continue
 		local foldname = getPlugFolderName(repo)
 		if not exist(pluginDir .. '/' .. foldname) then
-			print(fn.printf('[WARN] Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo))
+			table.insert(unloadRepos, repo)
 			return
 		end
 	end
@@ -141,6 +142,11 @@ function P.fin()
 		if type(M.config) == 'function' then
 			M.config()
 		end
+	end
+
+	local notify = vim.notify and vim.notify or print
+	for _, repo in pairs(unloadRepos) do
+		notify(fn.printf('[WARN] Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo))
 	end
 end
 

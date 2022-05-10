@@ -10,7 +10,7 @@ local M = {
 local function initAirline()
 	-- :h airline-predefined-parts
 	-- let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'keymap', 'spell', 'capslock', 'xkblayout', 'iminsert'])
-	vim.g.airline_section_b = vim.fn['airline#section#create']({'%l/%L|%c'})
+	vim.g.airline_section_b = vim.fn['airline#section#create']({ '%l/%L|%c' })
 	-- let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'grepper', 'filetype'])
 	-- let g:airline_section_y = airline#section#create_right([])
 	vim.g.airline_section_z = vim.fn['airline#section#create']({
@@ -40,7 +40,8 @@ local function configAirlineExtensions()
 		let g:airline#extensions#tabline#buffers_label = 'Buff'
 		let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 		let g:airline#extensions#tabline#show_buffers = 0
-		let g:airline#extensions#tabline#buffer_nr_show = 0
+		let g:airline#extensions#tabline#buffer_nr_show = 1
+		let g:airline#extensions#tabline#buffer_nr_format = '[%s]'
 		let g:airline#extensions#tabline#left_sep = ''
 		let g:airline#extensions#tabline#left_alt_sep = '|'
 		let g:airline#extensions#tabline#right_sep = ''
@@ -87,23 +88,23 @@ function M.config()
 	vim.g.airline_powerline_fonts = 1
 
 	vim.g.airline_mode_map = {
-		n  = 'N',
-		i  = 'I',
-		c  = 'C',
-		R  = 'R',
-		s  = 'S',
-		t  = 'T',
-		v  = 'V',
-		V  = 'V-LINE',
+		n      = 'N',
+		i      = 'I',
+		c      = 'C',
+		R      = 'R',
+		s      = 'S',
+		t      = 'T',
+		v      = 'V',
+		V      = 'V-LINE',
 		['^V'] = 'V-BLOCK',
-		multi = 'M',
+		multi  = 'M',
 		['S '] = 'S-LINE',
 		['^S'] = 'S-BLOCK',
-		ni = '(INSERT)',
-		ic = 'INSERT COMPL',
-		no = 'OP PENDING',
-		Rv = 'V REPLACE',
-		ix = 'INSERT COMPL',
+		ni     = '(INSERT)',
+		ic     = 'INSERT COMPL',
+		no     = 'OP PENDING',
+		Rv     = 'V REPLACE',
+		ix     = 'INSERT COMPL',
 		['__'] = '------',
 	}
 
@@ -115,8 +116,8 @@ function M.config()
 		crypt = '🔒',
 	}
 
-	vim.api.nvim_create_autocmd({'User'}, {
-		pattern = {'AirlineAfterInit'},
+	vim.api.nvim_create_autocmd({ 'User' }, {
+		pattern = { 'AirlineAfterInit' },
 		callback = initAirline
 	})
 
