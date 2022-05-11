@@ -32,10 +32,10 @@ local function configMapping()
 
 	keymap('n', '<space>;', ':Telescope builtin<cr>', opts)
 
-	keymap('n', '<space>f', ':Telescope find_files hidden=true<cr>', opts)
+	keymap('n', '<space>f', ':Telescope find_files<cr>', opts)
 	keymap('v', '<space>f', function()
 		local text = vim.getVisualSelection()
-		tb.find_files({ default_text = text, hidden = ture })
+		tb.find_files({ default_text = text })
 	end, opts)
 
 	keymap('n', '<space>g', ':Telescope current_buffer_fuzzy_find<cr>', opts)
@@ -81,9 +81,9 @@ local function configMapping()
 	end, opts)
 
 	keymap('n', '<space>b', ':Telescope buffers<cr>', opts)
-	keymap('n', '<space>D', ':Telescope diagnostics<cr>', opts)
+	keymap('n', '<space>d', ':Telescope diagnostics<cr>', opts)
 	keymap('n', '<space>s', ':Telescope search_history<cr>', opts)
-	keymap('n', '<space>S', ':Telescope spell_suggest layout_strategy=cursor<cr>', opts)
+	keymap('n', '<space>S', ':Telescope spell_suggest<cr>', opts)
 	keymap('n', '<space>j', ':Telescope jumplist<cr>', opts)
 	keymap('n', '<space>v', ':Telescope vim_options<cr>', opts)
 	keymap('n', '<space>r', ':Telescope registers<cr>', opts)
@@ -125,34 +125,34 @@ function M.config()
 			layout_config = {
 				bottom_pane = {
 					height = 25,
-					preview_cutoff = 120,
+					-- preview_cutoff = 120,
 					-- prompt_position valid values: top or bottom
 					prompt_position = "top"
 				},
 
 				center = {
 					height = 0.4,
-					preview_cutoff = 40,
+					-- preview_cutoff = 40,
 					prompt_position = "top",
 					width = 0.8
 				},
 
 				cursor = {
 					height = 0.4,
-					preview_cutoff = 40,
+					-- preview_cutoff = 40,
 					width = 0.8
 				},
 
 				horizontal = {
 					height = 0.9,
-					preview_cutoff = 120,
+					-- preview_cutoff = 120,
 					prompt_position = "bottom",
 					width = 0.9
 				},
 
 				vertical = {
 					height = 0.9,
-					preview_cutoff = 40,
+					-- preview_cutoff = 40,
 					prompt_position = "bottom",
 					width = 0.8
 				}
@@ -163,6 +163,7 @@ function M.config()
 
 		pickers = {
 			find_files = {
+				hidden = true,
 				theme = "dropdown",
 			},
 
@@ -176,6 +177,14 @@ function M.config()
 
 			current_buffer_fuzzy_find = {
 				theme = "dropdown",
+			},
+
+			spell_suggest = {
+				layout_strategy = 'cursor',
+			},
+
+			oldfiles = {
+				layout_strategy = 'vertical',
 			},
 		},
 

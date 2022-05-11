@@ -70,18 +70,18 @@ local function configKeyMaps()
 	local opts = { noremap = true, silent = true }
 	local keymap = vim.keymap.set
 
-	keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-	keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+	keymap('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
+	keymap('n', ']d', function() vim.diagnostic.goto_next() end, opts)
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-	keymap('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-	keymap('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	keymap('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-	keymap('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-	keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-	keymap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-	keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+	keymap('n', 'gD', function() vim.lsp.buf.declaration() end, opts)
+	keymap('n', 'gI', function() vim.lsp.buf.implementation() end, opts)
+	keymap('n', 'gR', function() vim.lsp.buf.rename() end, opts)
+	keymap('n', 'ga', function() vim.lsp.buf.code_action() end, opts)
+	keymap('n', 'gd', function() vim.lsp.buf.definition() end, opts)
+	keymap('n', 'gh', function() vim.lsp.buf.hover() end, opts)
+	keymap('n', 'gr', function() vim.lsp.buf.references() end, opts)
+	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end, opts)
+	keymap('n', 'gt', function() vim.lsp.buf.type_definition() end, opts)
 end
 
 local lspSetupOptsMap = {
