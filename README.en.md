@@ -17,7 +17,10 @@ Share for learning and reference.
     - [Snippet](#snippet)
 - [Dependency](#dependency)
 - [Installation](#installation)
+    - [Directly Use](#directly-use)
+    - [Library](#library)
     - [LSP](#lsp)
+- [Configuration](#configuration)
 - [Files Structure](#files-structure)
 - [NOTE](#note)
 - [Startup Time](#startup-time)
@@ -82,6 +85,8 @@ Share for learning and reference.
 
 ## Installation
 
+### Directly Use
+
 ```sh
 # Set your nvim config directory
 NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
@@ -90,9 +95,32 @@ git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
 
 Invoke `nvim` to get started. It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
 
+### Library
+
+```sh
+# Set your nvim config directory
+NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/lua/adoyle-neovim-config
+mkdir -p "$NVIM_HOME"/{temp,plugged,snippets,spell}
+
+echo 'require('adoyle-neovim-config').setup {}' > "$NVIM_HOME"/init.lua
+```
+
+You can pass config
+
+```lua
+require('adoyle-neovim-config').setup {
+  config = {},
+}
+```
+
 ### LSP
 
 There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs which you need.
+
+## Configuration
+
+See [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)
 
 ## Files Structure
 

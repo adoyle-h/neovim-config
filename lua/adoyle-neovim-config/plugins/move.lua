@@ -12,21 +12,21 @@ local function configChooseWin()
 	vim.g.choosewin_overlay_shade = 0
 	vim.g.choosewin_blink_on_land = 0 -- don't blink at land
 	vim.g.choosewin_color_overlay = {
-		cterm = {33, 33}
+		cterm = { 33, 33 }
 	}
 	vim.g.choosewin_color_overlay_current = {
-		cterm= {196, 196}
+		cterm = { 196, 196 }
 	}
 	vim.g.choosewin_label_padding = 5
 	vim.g.choosewin_color_bg = 234
 	vim.g.choosewin_color_other = {
-		cterm= {vim.g.choosewin_color_bg, 0}
+		cterm = { vim.g.choosewin_color_bg, 0 }
 	}
 	vim.g.choosewin_color_label = {
-		cterm= {vim.g.choosewin_color_bg, 33}
+		cterm = { vim.g.choosewin_color_bg, 33 }
 	}
 	vim.g.choosewin_color_label_current = {
-		cterm= {vim.g.choosewin_color_bg, 196}
+		cterm = { vim.g.choosewin_color_bg, 196 }
 	}
 	vim.g.choosewin_label = 'QWEASDZXC'
 	vim.g.choosewin_tablabel = '1234567890'
@@ -71,8 +71,11 @@ local function configNvimWindow()
 		border = 'single'
 	})
 
+	vim.keymap.set({ 'n' }, '-', function()
+		require('nvim-window').pick()
+	end, { noremap = true, silent = true })
+
 	vim.cmd [[
-		map <silent> - :lua require('nvim-window').pick()<CR>
 		hi NvimWindowFloating guifg=#000000 guibg=#9AC3DE
 	]]
 end
@@ -99,12 +102,12 @@ local function configEasyMotion()
 end
 
 M.requires = {
-	{'https://gitlab.com/yorickpeterse/nvim-window.git', config = configNvimWindow},
-	{'t9md/vim-choosewin', desc = 'window/tab 切换', config = configChooseWin, disable = true}, -- not support gui
+	{ 'https://gitlab.com/yorickpeterse/nvim-window.git', config = configNvimWindow },
+	{ 't9md/vim-choosewin', desc = 'window/tab 切换', config = configChooseWin, disable = true }, -- not support gui
 	{ 'easymotion/vim-easymotion', config = configEasyMotion },
 	{ 'matze/vim-move', desc = '移动选定段落 <A-k> <A-j>' },
-	{'adoyle-h/vim-emacscommandline', desc = 'Emacs 快捷键'},
-	{'bkad/CamelCaseMotion', config = configCamelCaseMotion},
+	{ 'adoyle-h/vim-emacscommandline', desc = 'Emacs 快捷键' },
+	{ 'bkad/CamelCaseMotion', config = configCamelCaseMotion },
 }
 
 return M

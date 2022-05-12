@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').get_global()
+
 local M = {
 	nil,
 	desc = 'color settings',
@@ -5,7 +7,7 @@ local M = {
 }
 
 M.requires = {
-	require('themes.' .. vim.config.theme),
+	require('adoyle-neovim-config.themes.' .. config.theme),
 
 	{
 		'guns/xterm-color-table.vim',
@@ -14,7 +16,7 @@ M.requires = {
 		disable = false,
 	},
 
-	require 'plugins.color-inline',
+	require 'adoyle-neovim-config.plugins.color-inline',
 
 	{
 		'luochen1990/rainbow',
@@ -40,7 +42,7 @@ M.requires = {
 
 }
 
-local color = vim.config.color
+local color = config.color
 
 local function configGeneralHighlights()
 	-- vim.cmd [[
@@ -99,7 +101,7 @@ function M.config()
 	configCursorLine()
 
 	-- set highlight groups
-	for key, value in pairs(vim.config.highlights) do
+	for key, value in pairs(config.highlights) do
 		vim.cmd(vim.fn.printf('hi %s %s', key, value))
 	end
 end

@@ -1,5 +1,7 @@
 -- The packer.nvim is terrible. Use vim-plug! https://github.com/junegunn/vim-plug
 
+local util = require('adoyle-neovim-config.util')
+
 local fn = vim.fn
 local NVIM_HOME = fn.stdpath('config')
 
@@ -12,7 +14,7 @@ if not exist(NVIM_HOME .. '/autoload/plug.vim') then
 	vim.cmd(fn.printf(
 		'silent !curl -fLo %s --create-dirs %s',
 		NVIM_HOME .. '/autoload/plug.vim',
-		vim.proxyGithub 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+		util.proxyGithub 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	))
 	vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
 end
@@ -21,7 +23,7 @@ vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { noremap = false, desc 
 
 vim.g.plug_timeout = 30
 -- Use git proxy for fast downloading
-vim.g.plug_url_format = vim.proxyGithub 'https://github.com/%s'
+vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
 -- All plugins put in this directory
 local pluginDir = NVIM_HOME .. '/plugged'
 

@@ -1,4 +1,1 @@
-require('fix-lua')
-require('config')
-require('basic')
-require('plugins')
+require('adoyle-neovim-config').setup {}

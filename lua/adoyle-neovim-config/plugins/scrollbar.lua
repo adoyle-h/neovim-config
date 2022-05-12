@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').get_global()
+
 local M = {
 	'petertriho/nvim-scrollbar',
 	disable = false,
@@ -15,13 +17,13 @@ function M.config()
 		},
 
 		handle = {
-			color = vim.config.color.scrollbarBG,
+			color = config.color.scrollbarBG,
 		},
 
 		marks = {
 			Search = {
 				priority = 0,
-				color = vim.config.color.yellowBG,
+				color = config.color.yellowBG,
 			},
 		},
 

@@ -18,9 +18,11 @@ function M.config()
 	command('Q', ':q!', { desc = 'quit current buffer without saving' })
 	command('Qa', ':qa!', { desc = 'quit all buffers without saving' })
 	command('F', ':Neoformat', { desc = 'format code' })
-	command('ClearCRLF', ':%s/\
-//g', { desc = 'Clear ^M' })
-	command('Reload', ':source ~/.config/nvim/init.vim', { desc = 'Reload Nvim Config' })
+
+	command('Reload', function()
+		-- todo
+	end, { desc = 'Reload Nvim Config' })
+
 	command('CD', ':lcd %:p:h', { desc = 'Change PWD in current buffer' })
 
 	command('FixLineBreak', function()

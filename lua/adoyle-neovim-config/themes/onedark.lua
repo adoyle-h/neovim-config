@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').get_global()
+
 local M = {
 	'navarasu/onedark.nvim',
 	disable = false,
@@ -5,7 +7,7 @@ local M = {
 
 function M.config()
 	local o = require('onedark')
-	local color = vim.config.color;
+	local color = config.color;
 
 	o.setup {
 		-- Main options --

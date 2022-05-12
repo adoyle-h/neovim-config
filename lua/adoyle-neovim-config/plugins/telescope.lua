@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').get_global()
+
 local M = {
 	'nvim-telescope/telescope.nvim',
 	disable = false,
@@ -7,7 +9,7 @@ local M = {
 }
 
 local function configHighlight()
-	local color = vim.config.color
+	local color = config.color
 
 	local hls = {
 		{ 'hi TelescopeResultsBorder guifg=%s guibg=none guisp=none', color.white },

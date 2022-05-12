@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').get_global()
+
 local M = {
 	'johnfrankmorgan/whitespace.nvim',
 	desc = '高亮尾空格',
@@ -5,13 +7,13 @@ local M = {
 }
 
 function M.config()
-	vim.cmd(vim.fn.printf('hi TrailingWhitespace ctermbg=8 guibg=%s', vim.config.color.grey3))
+	vim.cmd(vim.fn.printf('hi TrailingWhitespace ctermbg=8 guibg=%s', config.color.grey3))
 
 	require('whitespace-nvim').setup({
 		highlight = 'TrailingWhitespace',
 
 		-- `ignored_filetypes` configures which filetypes to ignore when displaying trailing whitespace
-		ignored_filetypes = vim.config.ignoredFileTypesForSomePlugs,
+		ignored_filetypes = config.ignoredFileTypesForSomePlugs,
 	})
 
 	vim.api.nvim_create_user_command('TrailingSpaces', function()

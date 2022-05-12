@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').get_global()
+
 local fn = vim.fn
 local api = vim.api
 
@@ -74,7 +76,7 @@ local function configFuncSignature()
 
 		shadow_blend = 36, -- if you using shadow as border use this set the opacity
 
-		shadow_guibg = vim.config.color.black, -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
+		shadow_guibg = config.color.black, -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
 
 		timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
 

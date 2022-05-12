@@ -1,17 +1,19 @@
+local config = require('adoyle-neovim-config.config').get_global()
+local util = require('adoyle-neovim-config.util')
+
 -- Set default options for vim/nvim. Use :help 'option' to see the documentation for the given option.
 -- NOTE: Current Lua version is 5.1 util neovim 0.7
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 
 -- set a map <leader> for more key combos
-vim.g.mapleader = vim.config.mapleader
+vim.g.mapleader = config.mapleader
 
-local config = vim.config
 local opt = vim.opt
 
 if config.proxy.github then
-	vim.proxyGithub = function(url) return 'https://ghproxy.com/' .. url end
+	util.proxyGithub = function(url) return config.proxy.github .. url end
 else
-	vim.proxyGithub = function(url) return url end
+	util.proxyGithub = function(url) return url end
 end
 
 function vim.getVisualSelection()

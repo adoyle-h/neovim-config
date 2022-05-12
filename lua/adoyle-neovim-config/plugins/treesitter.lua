@@ -1,3 +1,6 @@
+local config = require('adoyle-neovim-config.config').get_global()
+local util = require('adoyle-neovim-config.util')
+
 local M = {
 	nil,
 	disable = false,
@@ -15,24 +18,24 @@ local M = {
 }
 
 function M.config()
-	if vim.config.proxy.github then
-		for _, config in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-			config.install_info.url = config.install_info.url:gsub(
+	if config.proxy.github then
+		for _, treesitterConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
+			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub(
 				'https://github.com/',
-				vim.proxyGithub 'https://github.com/'
+				util.proxyGithub 'https://github.com/'
 			)
 		end
 	end
 
 	require('nvim-treesitter.configs').setup {
 		-- A list of parser names, or "all"
-		ensure_installed = "all",
+		ensure_installed = config.treesitter.ensure_installed,
 
 		-- Install parsers synchronously (only applied to `ensure_installed`)
 		sync_install = false,
 
 		-- List of parsers to ignore installing (for "all")
-		ignore_install = { 'phpdoc', 'php', 'rasi', 'd' },
+		ignore_install = config.treesitter.ignore_install,
 
 		highlight = {
 			-- `false` will disable the whole extension
@@ -42,7 +45,7 @@ function M.config()
 			-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
 			-- the name of the parser)
 			-- list of language that will be disabled
-			disable = { 'markdown' },
+			disable = config.treesitter.highlight.disable,
 
 			-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 			-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).

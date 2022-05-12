@@ -1,9 +1,11 @@
 -- NOTE: Current Lua version is 5.1 util neovim 0.7
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 
-local P = require('plugins.vim-plug')
+local P = require('adoyle-neovim-config.plugins.vim-plug')
 local Plug = P.Plug
-local Load = P.Load
+local Load = function(path)
+	P.Load('adoyle-neovim-config.' .. path)
+end
 
 P.start()
 

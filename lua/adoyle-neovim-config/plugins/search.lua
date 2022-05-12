@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').get_global()
+
 local M = {
 	nil,
 	disable = false,
@@ -5,7 +7,7 @@ local M = {
 
 local function configCtrlSF()
 	vim.g.ctrlsf_auto_close = 0
-	vim.g.ctrlsf_ignore_dir = {'bower_components', 'node_modules', 'vendor'}
+	vim.g.ctrlsf_ignore_dir = { 'bower_components', 'node_modules', 'vendor' }
 	vim.g.ctrlsf_context = '-C 3'
 	vim.g.ctrlsf_follow_symlinks = 0
 
@@ -20,14 +22,14 @@ M.requires = {
 		'kevinhwang91/nvim-hlslens',
 		disable = false,
 		config = function()
-			vim.cmd('hi HlSearchLens guibg=' .. vim.config.color.grey2)
+			vim.cmd('hi HlSearchLens guibg=' .. config.color.grey2)
 		end,
 	},
 
 	{
 		'dyng/ctrlsf.vim',
 		desc = '项目内内容搜索',
-		on = {'<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', 'CtrlSF'},
+		on = { '<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', 'CtrlSF' },
 		disable = false,
 		config = configCtrlSF,
 	},

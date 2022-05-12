@@ -1,3 +1,5 @@
+local util = require('adoyle-neovim-config.util')
+
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -9,12 +11,12 @@ end
 vim.cmd('packadd packer.nvim')
 
 local packer = require('packer')
-local util = require('packer.util')
-local compile_path = util.join_paths(vim.fn.stdpath('config'), 'lua', 'packer_compiled.lua')
+local packerUtil = require('packer.util')
+local compile_path = packerUtil.join_paths(vim.fn.stdpath('config'), 'lua', 'packer_compiled.lua')
 
 packer.startup({
 	function()
-		require('plugins.setup').setup(packer.use)
+		require('adoyle-neovim-config.plugins.setup').setup(packer.use)
 
 		-- Automatically set up your configuration after cloning packer.nvim
 		-- Put this at the end after all plugins
@@ -26,15 +28,15 @@ packer.startup({
 	config = {
 		compile_path = compile_path,
 
-    max_jobs = 16,
+		max_jobs = 16,
 
-    git = {
-      subcommands = { -- Format strings for git subcommands
-        install = 'clone --depth %i --single-branch --progress',
+		git = {
+			subcommands = { -- Format strings for git subcommands
+				install = 'clone --depth %i --single-branch --progress',
 			},
-      default_url_format = vim.proxyGithub 'https://github.com/%s',
+			default_url_format = util.proxyGithub 'https://github.com/%s',
 			clone_timeout = 30, -- Timeout, in seconds, for git clones
-    },
+		},
 
 		log = {
 			-- Log file: ~/.cache/nvim/packer.nvim.log
