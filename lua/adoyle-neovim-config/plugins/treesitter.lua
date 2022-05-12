@@ -2,15 +2,10 @@ local config = require('adoyle-neovim-config.config').get_global()
 local util = require('adoyle-neovim-config.util')
 
 local M = {
-	nil,
+	'nvim-treesitter/nvim-treesitter',
 	disable = false,
+	-- run = ':TSUpdate',
 	requires = {
-		{
-			'nvim-treesitter/nvim-treesitter',
-			disable = false,
-			-- run = ':TSUpdate',
-		},
-
 		{
 			'nvim-treesitter/playground',
 			desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor',
