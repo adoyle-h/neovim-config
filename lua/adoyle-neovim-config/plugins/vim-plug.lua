@@ -5,12 +5,8 @@ local util = require('adoyle-neovim-config.util')
 local fn = vim.fn
 local NVIM_HOME = fn.stdpath('config')
 
-local function exist(path)
-	return fn.empty(fn.glob(path)) == 0
-end
-
 -- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
-if not exist(NVIM_HOME .. '/autoload/plug.vim') then
+if not util.exist(NVIM_HOME .. '/autoload/plug.vim') then
 	vim.cmd(fn.printf(
 		'silent !curl -fLo %s --create-dirs %s',
 		NVIM_HOME .. '/autoload/plug.vim',
@@ -122,7 +118,7 @@ local function useMod(repo, opts)
 
 		-- If plug is uninstalled, do not continue
 		local foldname = getPlugFolderName(repo)
-		if not exist(pluginDir .. '/' .. foldname) then
+		if not util.exist(pluginDir .. '/' .. foldname) then
 			table.insert(unloadRepos, repo)
 			return
 		end

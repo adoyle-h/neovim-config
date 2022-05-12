@@ -100,10 +100,14 @@ Invoke `nvim` to get started. It is slow started at first time because it instal
 ```sh
 # Set your nvim config directory
 NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+mkdir -p "$NVIM_HOME"/{lua,temp,plugged,snippets,spell}
 git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/lua/adoyle-neovim-config
-mkdir -p "$NVIM_HOME"/{temp,plugged,snippets,spell}
 
-echo 'require('adoyle-neovim-config').setup {}' > "$NVIM_HOME"/init.lua
+# Create init.lua file
+cat <<EOF > "$NVIM_HOME"/init.lua
+vim.opt.rtp = vim.opt.rtp:prepend(vim.fn.stdpath('config') .. '/lua/adoyle-neovim-config')
+require('adoyle-neovim-config').setup {}
+EOF
 ```
 
 You can pass config

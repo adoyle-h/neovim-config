@@ -72,7 +72,6 @@ Plug {
 	desc = 'vim 内启动 shell',
 	on = { 'T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus', 'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle' },
 }
-Plug 'AndrewRadev/splitjoin.vim' -- single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
 Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown 幻灯片' }
 Plug 'mechatroner/rainbow_csv' -- for .csv file

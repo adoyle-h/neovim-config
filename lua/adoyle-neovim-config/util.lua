@@ -1,5 +1,6 @@
 local util = {}
 
+local fn = vim.fn
 local tbl_islist = vim.tbl_islist
 local tbl_isempty = vim.tbl_isempty
 local NIL = vim.NIL
@@ -49,6 +50,10 @@ util.merge = function(v1, v2)
 	end
 
 	return v1
+end
+
+util.exist = function(path)
+	return fn.empty(fn.glob(path)) == 0
 end
 
 return util

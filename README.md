@@ -100,12 +100,16 @@ git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
 ### 加载类库
 
 ```sh
-# Set your nvim config directory
+# 设置你的 nvim 目录
 NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+mkdir -p "$NVIM_HOME"/{lua,temp,plugged,snippets,spell}
 git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/lua/adoyle-neovim-config
-mkdir -p "$NVIM_HOME"/{temp,plugged,snippets,spell}
 
-echo 'require('adoyle-neovim-config').setup {}' > "$NVIM_HOME"/init.lua
+# 创建 init.lua 文件
+cat <<EOF > "$NVIM_HOME"/init.lua
+vim.opt.rtp = vim.opt.rtp:prepend(vim.fn.stdpath('config') .. '/lua/adoyle-neovim-config')
+require('adoyle-neovim-config').setup {}
+EOF
 ```
 
 你也可以传入配置
