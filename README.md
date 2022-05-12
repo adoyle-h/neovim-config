@@ -21,7 +21,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - [安装](#安装)
     - [直接使用](#直接使用)
     - [加载类库](#加载类库)
-    - [LSP](#lsp)
+- [初始化](#初始化)
 - [配置](#配置)
 - [目录结构](#目录结构)
 - [注意](#注意)
@@ -114,9 +114,10 @@ EOF
 
 执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
 
-### LSP
+## 初始化
 
-默认未安装任何 LSP，执行 `:LspInstallInfo` 选择你需要的 LSP，并按回车安装。
+- `:TSUpdate`: 默认未安装 Treesitter Parser，执行 `:TSUpdate` 来一键安装所有。
+- `:LspInstallInfo`: 默认未安装任何 LSP，执行 `:LspInstallInfo` 选择你需要的 LSP，并按回车安装。
 
 ## 配置
 

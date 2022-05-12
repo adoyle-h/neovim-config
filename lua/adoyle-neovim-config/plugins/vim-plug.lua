@@ -108,7 +108,6 @@ local function useMod(repo, opts)
 		opts.setup()
 	end
 
-	-- Allow repo equals '' or nil or false
 	if repo and #repo > 0 then
 		if #repoOpts > 0 then
 			plug(repo, repoOpts)
@@ -122,9 +121,12 @@ local function useMod(repo, opts)
 			table.insert(unloadRepos, repo)
 			return
 		end
-	end
 
-	table.insert(mods, opts)
+		table.insert(mods, opts)
+	else
+		-- repo equals '' or nil or false or []
+		table.insert(mods, opts)
+	end
 end
 
 local P = {}
