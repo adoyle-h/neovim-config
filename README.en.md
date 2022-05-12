@@ -110,13 +110,7 @@ require('adoyle-neovim-config').setup {}
 EOF
 ```
 
-You can pass config
-
-```lua
-require('adoyle-neovim-config').setup {
-  config = {},
-}
-```
+Invoke `nvim` to get started. It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
 
 ### LSP
 
@@ -124,7 +118,15 @@ There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs w
 
 ## Configuration
 
-See [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)
+You can pass config when load with library.
+
+```lua
+require('adoyle-neovim-config').setup {
+  config = {},
+}
+```
+
+See [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua) for details.
 
 ## Files Structure
 

@@ -112,19 +112,21 @@ require('adoyle-neovim-config').setup {}
 EOF
 ```
 
-你也可以传入配置
-
-```lua
-require('adoyle-neovim-config').setup {
-  config = {},
-}
-```
+执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
 
 ### LSP
 
 默认未安装任何 LSP，执行 `:LspInstallInfo` 选择你需要的 LSP，并按回车安装。
 
 ## 配置
+
+当加载类库时，你也可以传入配置。
+
+```lua
+require('adoyle-neovim-config').setup {
+  config = {},
+}
+```
 
 详见 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)
 
