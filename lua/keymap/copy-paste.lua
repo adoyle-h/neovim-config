@@ -5,21 +5,17 @@ local M = {
 }
 
 function M.config()
-	vim.cmd [[
-		" copy selected into system clipboard
-		vnoremap <leader>y "+y
-		" y$ -> Y Make Y behave like other capitals: D, C etc...
-		nnoremap Y y$
+	local keymap = vim.keymap.set
 
-		" paste from vim clipboard
-		nnoremap <leader>p "0p
-		xnoremap <leader>p "0p
-		" paste from system clipboard
-		nnoremap <leader>P "*p
-		xnoremap <leader>P "*p
-		" toggle paste mode
-		noremap <M-p> :set paste!<CR>
-	]]
+	keymap('v', '<leader>y', '"+y', { noremap = true, desc = 'copy selected into system clipboard' })
+
+	keymap('n', 'Y', 'y$', { noremap = true, desc = 'y$ -> Y Make Y behave like other capitals: D, C etc...' })
+
+	keymap({ 'n', 'x' }, '<leader>p', '"0p', { noremap = true, desc = 'paste from vim clipboard' })
+
+	keymap({ 'n', 'x' }, '<leader>P', '"*p', { noremap = true, desc = 'paste from system clipboard' })
+
+	keymap({ 'n', 'x' }, '<M-p>', ':set paste!<CR>', { noremap = true, silent = false, desc = 'toggle paste mode' })
 end
 
 return M

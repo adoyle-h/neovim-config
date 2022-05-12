@@ -1,6 +1,6 @@
 local M = {
 	nil,
-	desc = 'Indent Keymap',
+	desc = 'Indent Keymaps',
 	disable = false,
 }
 

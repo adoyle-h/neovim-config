@@ -9,15 +9,15 @@ local M = {
 local maps = {
 	js = function()
 		-- vim.cmd 'set isk-=.'
-		vim.opt_local.isk:remove {'.'}
+		vim.opt_local.isk:remove { '.' }
 	end,
 
-	jsx = function ()
+	jsx = function()
 		-- vim.cmd 'set isk-=.'
-		vim.opt_local.isk:remove {'.'}
+		vim.opt_local.isk:remove { '.' }
 	end,
 
-	crontab = function ()
+	crontab = function()
 		vim.opt_local.backup = false
 		vim.opt_local.writebackup = false
 	end,
@@ -39,9 +39,9 @@ local maps = {
 }
 
 function M.config()
-	vim.api.nvim_create_autocmd({'FileType'}, {
-		pattern = {'*'},
-		callback = function (args)
+	vim.api.nvim_create_autocmd({ 'FileType' }, {
+		pattern = { '*' },
+		callback = function(args)
 			local fn = maps[args.match]
 			if fn then fn() end
 		end,

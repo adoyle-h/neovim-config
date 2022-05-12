@@ -7,11 +7,11 @@ local M = {
 function M.config()
 	if not vim.fn.has('diff') then return end
 
-	vim.cmd [[
-		map ,1 :diffget LOCAL<CR>
-		map ,2 :diffget REMOTE<CR>
-		map ,0 :diffget BASE<CR>
-	]]
+	local keymap = vim.keymap.set
+
+	keymap('n', ',1', ':diffget LOCAL<CR>', { noremap = true, desc = 'Diff Mode: use local code' })
+	keymap('n', ',2', ':diffget REMOTE<CR>', { noremap = true, desc = 'Diff Mode: use remote code' })
+	keymap('n', ',3', ':diffget BASE<CR>', { noremap = true, desc = 'Diff Mode: use base code' })
 end
 
 return M

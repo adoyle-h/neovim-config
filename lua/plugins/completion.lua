@@ -8,9 +8,9 @@ local sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'snippy' },
 		{ name = 'buffer' },
-		{ name = 'path' },
 	},
 	{
+		{ name = 'path' },
 		{ name = 'spell' },
 	},
 }
@@ -321,35 +321,40 @@ local M = {
 	disable = false,
 
 	requires = {
-		'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
-		'hrsh7th/cmp-buffer', -- buffer source for nvim-cmp
-		'hrsh7th/cmp-path', -- path source for nvim-cmp
-		'f3fora/cmp-spell',
-		'hrsh7th/cmp-cmdline',
-		{ 'ray-x/cmp-treesitter', config = function() addSource({ name = 'treesitter' }) end },
-		'petertriho/cmp-git',
+		{
+			requires = {
+				'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
+				'hrsh7th/cmp-buffer', -- buffer source for nvim-cmp
+				'hrsh7th/cmp-path', -- path source for nvim-cmp
+				'f3fora/cmp-spell',
+				'hrsh7th/cmp-cmdline',
+				{ 'ray-x/cmp-treesitter', config = function() addSource({ name = 'treesitter' }) end },
+				'David-Kunz/cmp-npm',
+				'petertriho/cmp-git',
+				{ 'tzachar/cmp-tabnine', run = './install.sh', config = configTabnine, disable = false },
+			}
+		},
+
 		'onsails/lspkind.nvim',
 		'hrsh7th/nvim-cmp',
+		{ 'ray-x/lsp_signature.nvim', config = configFuncSignature },
 
 		{
 			requires = {
+				'justinj/vim-react-snippets',
+				'rafamadriz/friendly-snippets',
 				'honza/vim-snippets',
 				'dcampos/nvim-snippy',
 				'dcampos/cmp-snippy',
 			}
 		},
-
-		'justinj/vim-react-snippets',
-		'David-Kunz/cmp-npm',
-		{ 'tzachar/cmp-tabnine', run = './install.sh', config = configTabnine, disable = false },
-		{ 'ray-x/lsp_signature.nvim', config = configFuncSignature },
 	},
 }
 
 function M.config()
 	local cmp = require('cmp')
 
-	vim.cmd 'set completeopt=menu,menuone,noselect'
+	vim.cmd 'set completeopt=menu,menuone,noselect' -- Disable Vim Completion Menu
 
 	cmp.setup({
 		mapping = configMapping(cmp),
@@ -357,9 +362,8 @@ function M.config()
 		sources = cmp.config.sources(table.unpack(sources)),
 
 		snippet = {
-			-- REQUIRED - you must specify a snippet engine
 			expand = function(args)
-				require('snippy').expand_snippet(args.body) -- For `snippy` users.
+				require('snippy').expand_snippet(args.body)
 			end,
 		},
 

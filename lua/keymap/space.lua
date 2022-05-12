@@ -5,20 +5,31 @@ local M = {
 }
 
 function M.config()
-	vim.cmd [[
-		" insert a space at right position of cursor
-		nnoremap <space><space> a<space><esc>
-		nnoremap ]<space> a<space><esc>
-		" insert a space at left position of cursor
-		nnoremap [<space> i<space><esc>
+	local keymap = vim.keymap.set
 
-		" add a blank line before current line
-		nnoremap <silent><C-k> :put! =''<CR>j
-		" add a blank line after current line
-		nnoremap <silent><C-j> :put =''<CR>k
-		" split line from current cursor position
-		nnoremap K i<Enter><Esc>
-	]]
+	keymap('n', '<space><space>', 'a<space><esc>', {
+		noremap = true, silent = true, desc = 'insert a space at right position of cursor',
+	})
+
+	keymap('n', ']<space>', 'a<space><esc>', {
+		noremap = true, silent = true, desc = 'insert a space at right position of cursor',
+	})
+
+	keymap('n', '[<space>', 'i<space><esc>', {
+		noremap = true, silent = true, desc = 'insert a space at left position of cursor',
+	})
+
+	keymap('n', '<C-k>', ':put! =\'\'<CR>j', {
+		noremap = true, silent = true, desc = 'add a blank line before current line',
+	})
+
+	keymap('n', '<C-j>', ':put =\'\'<CR>k', {
+		noremap = true, silent = true, desc = 'add a blank line after current line',
+	})
+
+	keymap('n', 'K', 'i<Enter><Esc>', {
+		noremap = true, silent = true, desc = 'split line from current cursor position',
+	})
 end
 
 return M

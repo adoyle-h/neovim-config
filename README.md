@@ -22,6 +22,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
     - [LSP](#lsp)
 - [目录结构](#目录结构)
 - [注意](#注意)
+- [启动时间](#启动时间)
 - [建议，Bug，做贡献](#建议bug做贡献)
 - [版权声明](#版权声明)
 
@@ -29,12 +30,12 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 特性
 
-- 支持 `.lua` 与 `.vim` 文件配置
+- 所有配置都用 Lua 管理
 - 使用 Neovim Native LSP
-- 基于 [vim-plug][] 和 Lua 的插件管理
+- 基于 [vim-plug][] 和 Lua 的插件管理框架。支持按需加载。
 - 100+ Vim 插件
 - 帅气的界面和配色。暗黑模式。真彩色。显示滚动条。
-- 可配置，详见 [./config.lua](./config.lua)
+- 可配置，详见 [./lua/config.lua](./lua/config.lua)
 - 配置了 github 的中国区代理镜像，加快插件下载速度
   - 如果需要禁用，在配置文件里设置 `vim.config.proxy.github = false`
 
@@ -85,11 +86,9 @@ Click [./README.en.md](./README.en.md) to read English documents.
 # 设置你的 nvim 配置目录
 NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
 git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
-
-# 执行 `nvim` 开始。
-# 初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
-nvim
 ```
+
+执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
 
 ### LSP
 
@@ -104,11 +103,16 @@ nvim
 │   └── plug.vim       // vim-plug
 ├── basic.vim          // neovim/vim basic settings
 ├── init.vim           // <= neovim configuration entry point
-├── lua/
-│   └── plugins/       // Available plugins written in lua
-├── plugged/           // plugins (installed by vim-plug)
-├── plugins.lua        // required plugins
-├── spell/             // spell check
+├── lua
+│   ├── basic.lua      // Basic Settings. Some options may be overrided by plugin
+│   ├── config.lua     // Project config
+│   ├── fix-lua.lua
+│   ├── plugins.lua    // required plugins
+│   ├── keymap/
+│   ├── plugins/       // Available plugins written in lua
+│   └── themes/        // color schemas
+├── plugged/           // plugins installed by vim-plug
+├── spell/             // Store spell check data
 └── temp/              // temporary files
     ├── session        // xolox/vim-session plugin
     ├── session_lock   // xolox/vim-session plugin
@@ -118,6 +122,22 @@ nvim
 ## 注意
 
 `$VIMRUNTIME/filetype.vim` 不会被调用，文件类型设置请见 [./lua/plugins/filetype.lua](./lua/plugins/filetype.lua)。
+
+## 启动时间
+
+启动插件 [plugins/profiling](./lua/plugins/profiling.lua) 并调用 `:StartupTime`.
+
+```
+startup: 278.8
+event                  time percent plot
+init.lua             139.55   50.06 ██████████████████████████
+opening buffers       32.68   11.72 ██████▏
+loading rtp plugins   30.12   10.80 █████▋
+NERD_tree.vim         13.66    4.90 ██▌
+VimEnter autocommand   5.81    2.08 █▏
+first screen update    5.73    2.05 █▏
+syntax.vim             4.57    1.64 ▉
+```
 
 ## 建议，Bug，做贡献
 

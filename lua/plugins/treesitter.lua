@@ -57,6 +57,11 @@ function M.config()
 		set foldexpr=nvim_treesitter#foldexpr()
 	]]
 
+	-- Fix the luochen1990/rainbow not work
+	require 'nvim-treesitter.highlight'
+	local hlmap = vim.treesitter.highlighter.hl_map
+	hlmap['punctuation.bracket'] = nil
+
 	require "nvim-treesitter.configs".setup {
 		playground = {
 			enable = true,

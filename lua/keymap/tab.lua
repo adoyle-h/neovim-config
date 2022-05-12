@@ -5,18 +5,26 @@ local M = {
 }
 
 function M.config()
+	vim.g.lasttab = 1
+
+	vim.api.nvim_create_autocmd({ 'TabLeave' }, {
+		pattern = { '*' },
+		callback = function()
+			vim.g.lasttab = vim.fn.tabpagenr()
+		end
+		-- nested = true,
+	})
+
 	vim.cmd [[
-		let g:lasttab = 1
-		au TabLeave * let g:lasttab = tabpagenr()
 		noremap <C-T>t- :execute "tabn ".g:lasttab<CR>
 		noremap <C-T>k :tabprev<CR>
 		noremap <C-T>j :tabnext<CR>
-		noremap [t :tabprev<CR>
-		noremap ]t :tabnext<CR>
-		" noremap <leader>h :tabmove -<CR>
-		" noremap <leader>l :tabmove +<CR>
+		noremap <C-T>h :tabmove -<CR>
+		noremap <C-T>l :tabmove +<CR>
 		noremap <C-T>n :tabnew<CR>
 		noremap <C-T>x :tabclose<CR>
+		noremap [t :tabprev<CR>
+		noremap ]t :tabnext<CR>
 
 		" switch tab in normal mode
 		noremap <leader>1 1gt

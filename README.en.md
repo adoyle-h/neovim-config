@@ -20,6 +20,7 @@ Share for learning and reference.
     - [LSP](#lsp)
 - [Files Structure](#files-structure)
 - [NOTE](#note)
+- [Startup Time](#startup-time)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
 
@@ -27,12 +28,12 @@ Share for learning and reference.
 
 ## Features
 
-- Support `.lua` and `.vim` files for configuration
+- All in Lua
 - Support Neovim Native LSP
-- Manage plugin based on [vim-plug][] and Lua
-- 100+ Vim plugins
+- Manage plugin based on [vim-plug][] and Lua。Support on-demand loading plugin.
+- 100+ Vim plugins。
 - Awesome UI and color schema. Dark Mode. True Color. Show Scrollbar.
-- Configurable. See [./config.lua](./config.lua)
+- Configurable. See [./lua/config.lua](./lua/config.lua)
 - Set proxy for fasting git download in China
   - If you don't need it, set `vim.config.proxy.github = false` in config file.
 
@@ -85,11 +86,9 @@ Share for learning and reference.
 # Set your nvim config directory
 NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
 git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
-
-# Invoke `nvim` to get started.
-# It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
-nvim
 ```
+
+Invoke `nvim` to get started. It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
 
 ### LSP
 
@@ -104,11 +103,16 @@ There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs w
 │   └── plug.vim       // vim-plug
 ├── basic.vim          // neovim/vim basic settings
 ├── init.vim           // <= neovim configuration entry point
-├── lua/
-│   └── plugins/       // Available plugins written in lua
-├── plugged/           // plugins (installed by vim-plug)
-├── plugins.lua        // required plugins
-├── spell/             // spell check
+├── lua
+│   ├── basic.lua      // Basic Settings. Some options may be overrided by plugin
+│   ├── config.lua     // Project config
+│   ├── fix-lua.lua
+│   ├── plugins.lua    // required plugins
+│   ├── keymap/
+│   ├── plugins/       // Available plugins written in lua
+│   └── themes/        // color schemas
+├── plugged/           // plugins installed by vim-plug
+├── spell/             // Store spell check data
 └── temp/              // temporary files
     ├── session        // xolox/vim-session plugin
     ├── session_lock   // xolox/vim-session plugin
@@ -118,6 +122,22 @@ There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs w
 ## NOTE
 
 `$VIMRUNTIME/filetype.vim` will not run, please put filetype detection in [./lua/plugins/filetype.lua](./lua/plugins/filetype.lua).
+
+## Startup Time
+
+Enable [plugins/profiling](./lua/plugins/profiling.lua) and invoke `:StartupTime`.
+
+```
+startup: 278.8
+event                  time percent plot
+init.lua             139.55   50.06 ██████████████████████████
+opening buffers       32.68   11.72 ██████▏
+loading rtp plugins   30.12   10.80 █████▋
+NERD_tree.vim         13.66    4.90 ██▌
+VimEnter autocommand   5.81    2.08 █▏
+first screen update    5.73    2.05 █▏
+syntax.vim             4.57    1.64 ▉
+```
 
 ## Suggestion, Bug Reporting, Contributing
 

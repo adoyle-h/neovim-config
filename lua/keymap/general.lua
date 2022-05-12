@@ -29,7 +29,7 @@ function M.config()
 
 	keymap('n', '<M-g>', ':echo expand("%:p")<CR>', { noremap = true, silent = true, desc = 'indent line' })
 
-	-- ------------------------ Jump Keymap ---------------------------
+	-- Jump Keymap --
 	-- Because <C-i> is synonymous to <Tab> in nvim. I don't know the reason.
 	-- :h tui-input
 	-- nnoremap <C-i> <C-i>

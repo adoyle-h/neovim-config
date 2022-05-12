@@ -15,7 +15,7 @@ function M.config()
 		},
 
 		handle = {
-			color = vim.config.color.grey2,
+			color = vim.config.color.scrollbarBG,
 		},
 
 		marks = {
