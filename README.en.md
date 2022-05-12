@@ -30,7 +30,7 @@ Share for learning and reference.
 
 - All in Lua
 - Support Neovim Native LSP
-- Manage plugin based on [vim-plug][] and Lua。Support on-demand loading plugin.
+- Plugin manage framework based on [vim-plug][] and Lua. Support on-demand loading plugin.
 - 100+ Vim plugins。
 - Awesome UI and color schema. Dark Mode. True Color. Show Scrollbar.
 - Configurable. See [./lua/config.lua](./lua/config.lua)
