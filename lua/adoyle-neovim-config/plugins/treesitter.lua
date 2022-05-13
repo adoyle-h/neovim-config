@@ -1,10 +1,10 @@
-local config = require('adoyle-neovim-config.config').get_global()
+local config = require('adoyle-neovim-config.config').getGlobal()
 local util = require('adoyle-neovim-config.util')
 
 local M = {
 	'nvim-treesitter/nvim-treesitter',
 	disable = false,
-	-- run = ':TSUpdate',
+	run = ':TSUpdate',
 	requires = {
 		{
 			'nvim-treesitter/playground',
@@ -14,25 +14,16 @@ local M = {
 }
 
 function M.config()
+	local c = config.treesitter
 	require('nvim-treesitter.configs').setup {
-		-- A list of parser names, or "all"
-		ensure_installed = config.treesitter.ensure_installed,
-
-		-- Install parsers synchronously (only applied to `ensure_installed`)
-		sync_install = false,
-
-		-- List of parsers to ignore installing (for "all")
-		ignore_install = config.treesitter.ignore_install,
+		ensure_installed = c.ensure_installed,
+		sync_install = c.sync_install,
+		ignore_install = c.ignore_install,
 
 		highlight = {
 			-- `false` will disable the whole extension
-			enable = true,
-
-			-- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-			-- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-			-- the name of the parser)
-			-- list of language that will be disabled
-			disable = config.treesitter.highlight.disable,
+			enable = c.highlight.enable,
+			disable = c.highlight.disable,
 
 			-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 			-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -57,11 +48,11 @@ function M.config()
 	]]
 
 	-- Fix the luochen1990/rainbow not work
-	require 'nvim-treesitter.highlight'
+	require('nvim-treesitter.highlight')
 	local hlmap = vim.treesitter.highlighter.hl_map
 	hlmap['punctuation.bracket'] = nil
 
-	require "nvim-treesitter.configs".setup {
+	require('nvim-treesitter.configs').setup {
 		playground = {
 			enable = true,
 			disable = {},

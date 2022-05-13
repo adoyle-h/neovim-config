@@ -1,4 +1,4 @@
-local config = require('adoyle-neovim-config.config').get_global()
+local config = require('adoyle-neovim-config.config').getGlobal()
 
 local M = {
 	'petertriho/nvim-scrollbar',

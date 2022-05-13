@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').getGlobal()
+
 local M = {
 	'williamboman/nvim-lsp-installer',
 	disable = false,
@@ -83,18 +85,6 @@ local function configKeyMaps()
 	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end, opts)
 	keymap('n', 'gt', function() vim.lsp.buf.type_definition() end, opts)
 end
-
-local lspSetupOptsMap = {
-	sumneko_lua = function(opts)
-		opts.settings = {
-			Lua = {
-				diagnostics = {
-					globals = { 'vim' }
-				}
-			}
-		}
-	end
-}
 
 local function configNullLSP()
 	local null_ls = require('null-ls')
@@ -182,7 +172,7 @@ function M.config()
 				debounce_text_changes = 150,
 			}
 		}
-		local fn = lspSetupOptsMap[name]
+		local fn = config.lsp[name]
 		if fn then fn(opts) end
 		lspconfig[name].setup(opts)
 	end

@@ -61,6 +61,18 @@ return function()
 			},
 		},
 
+		lsp = { -- change lsp.setup(opts). Format: {['lsp_name'] = function(opts)}
+			-- sumneko_lua = function(opts)
+			--   opts.settings = {
+			--     Lua = {
+			--       diagnostics = {
+			--         globals = { 'vim' }
+			--       }
+			--     }
+			--   }
+			-- end
+		},
+
 		color = color,
 
 		ignoredFileTypesForSomePlugs = {
@@ -136,9 +148,17 @@ return function()
 		fileformats = { 'unix', 'dos', 'mac' },
 
 		treesitter = {
-			ensure_installed = 'all',
-			ignore_install = { 'phpdoc', 'php', 'rasi', 'd' },
+			ensure_installed = {}, -- A list of parser names, or "all"
+			sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
+			ignore_install = { 'phpdoc', 'php', 'rasi', 'd' }, -- List of parsers to ignore installing (for "all")
+
 			highlight = {
+				enable = true, -- `false` will disable the whole extension
+
+				-- list of language that will be disabled.
+				-- NOTE: these are the names of the parsers and not the filetype.
+				-- (for example if you want to disable highlighting for the `tex` filetype,
+				-- you need to include `latex` in this list as this is the name of the parser)
 				disable = { 'markdown' },
 			},
 		},

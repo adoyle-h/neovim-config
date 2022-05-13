@@ -4,12 +4,12 @@ local config = {
 	global = require('adoyle-neovim-config.config.default')(),
 }
 
-function config.set_global(c)
+function config.setGlobal(c)
 	config.global = util.merge(c, config.global)
 	config.global._revision = config.global._revision and (config.global._revision + 1) or 1
 end
 
-function config.get_global()
+function config.getGlobal()
 	return config.global
 end
 

@@ -1,7 +1,7 @@
 -- The packer.nvim is terrible. Use vim-plug! https://github.com/junegunn/vim-plug
 
 local util = require('adoyle-neovim-config.util')
-local config = require('adoyle-neovim-config.config').get_global()
+local config = require('adoyle-neovim-config.config').getGlobal()
 
 local fn = vim.fn
 local NVIM_HOME = fn.stdpath('config')

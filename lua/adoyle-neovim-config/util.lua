@@ -1,13 +1,31 @@
 local util = {}
 
 local fn = vim.fn
+local tbl_islist = vim.tbl_islist
 
 ---Merge two tables recursively. The later override the previous
 util.merge = function(v1, v2)
-	local merge1 = type(v1) == 'table'
-	local merge2 = type(v2) == 'table'
+	local v1IsArray = tbl_islist(v1)
+	local v2IsArray = tbl_islist(v2)
 
-	if merge1 and merge2 then
+	if v1IsArray and v2IsArray then
+		local tbl = {}
+
+		for k, v in pairs(v1) do
+			tbl[k] = v
+		end
+
+		for _, v in pairs(v2) do
+			table.insert(tbl, v)
+		end
+
+		return tbl
+	end
+
+	local v1IsTable = type(v1) == 'table'
+	local v2IsTable = type(v2) == 'table'
+
+	if v1IsTable and v2IsTable then
 		local tbl = {}
 
 		for k, v in pairs(v1) do

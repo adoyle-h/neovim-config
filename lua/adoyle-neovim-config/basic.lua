@@ -1,4 +1,4 @@
-local config = require('adoyle-neovim-config.config').get_global()
+local config = require('adoyle-neovim-config.config').getGlobal()
 local util = require('adoyle-neovim-config.util')
 
 -- Set default options for vim/nvim. Use :help 'option' to see the documentation for the given option.

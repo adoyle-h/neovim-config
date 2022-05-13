@@ -116,8 +116,8 @@ EOF
 
 ## 初始化
 
-- `:TSUpdate`: 默认未安装 Treesitter Parser，执行 `:TSUpdate` 来一键安装所有。
-- `:LspInstallInfo`: 默认未安装任何 LSP，执行 `:LspInstallInfo` 选择你需要的 LSP，并按回车安装。
+- `:TSInstall all`: 默认未安装 Treesitter Parser。执行此命令，一键安装所有。
+- `:LspInstallInfo`: 默认未安装任何 LSP。执行此命令，选择你需要的 LSP，并按回车安装。
 
 ## 配置
 
