@@ -1,6 +1,6 @@
 # ADoyle-Style Neovim Configuration
 
-学习交流用，仅供参考。
+Neovim 一体化配置。可作为插件使用。有足够的自由度去定制和扩展它。
 
 Click [./README.en.md](./README.en.md) to read English documents.
 
@@ -19,9 +19,8 @@ Click [./README.en.md](./README.en.md) to read English documents.
     - [Snippet](#snippet)
 - [依赖](#依赖)
 - [安装](#安装)
-- [require('adoyle-neovim-config')](#requireadoyle-neovim-config)
-    - [API](#api)
-    - [配置](#配置)
+- [API](#api)
+- [配置](#配置)
 - [目录结构](#目录结构)
 - [注意](#注意)
 - [启动时间](#启动时间)
@@ -35,11 +34,10 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - 所有配置都用 Lua 管理
 - 使用 Neovim Native LSP
 - 基于 [vim-plug][] 和 Lua 的插件管理框架。支持按需加载。
-- 100+ Vim 插件
-- 帅气的界面和配色。暗黑模式。真彩色。显示滚动条。
+- 集成众多强大的 Vim 插件
+- 帅气的界面和配色。暗黑模式。真彩色。滚动条。
 - 可配置，详见 [./lua/config.lua](./lua/config.lua)
-- 配置了 github 的中国区代理镜像，加快插件下载速度
-  - 如果需要禁用，在配置文件里设置 `vim.config.proxy.github = false`
+- 可配置 github 的代理镜像，在中国大陆可加快插件下载速度
 
 ## 截图
 
@@ -84,7 +82,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 安装
 
-1. 你可以直接使用本项目。也可以类库的形式加载本项目，定制你的功能。
+1. 你可以直接使用本项目。也可以插件的形式加载本项目，定制你的功能。
 
   a. 直接使用
 
@@ -94,7 +92,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
     git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
     ```
 
-  b. 加载类库
+  b. 插件加载
 
     ```sh
     # 设置你的 nvim 目录
@@ -104,35 +102,59 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
     # 创建 init.lua 文件
     cat <<EOF > "$NVIM_HOME"/init.lua
-    vim.opt.rtp = vim.opt.rtp:prepend(vim.fn.stdpath('config') .. '/plugged/adoyle-neovim-config')
-    require('adoyle-neovim-config').setup {}
+    vim.opt.rtp:prepend { vim.fn.stdpath('config') .. '/plugged/adoyle-neovim-config' }
+    require('adoyle-neovim-config').setup {
+      config = {
+        -- 若你在中国大陆，推荐设置成 'https://ghproxy.com/' (别漏掉末尾的 '/')
+        -- 否则，移除这项配置
+        github = 'https://ghproxy.com/', -- emptry string or proxy url
+      },
+    }
     EOF
     ```
 
-3. 执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
-4. 初始化
+2. 执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
+3. 初始化
   - `:TSInstall all` 默认未安装 Treesitter Parser。执行此命令，一键安装所有。
   - `:LspInstallInfo` 默认未安装任何 LSP。执行此命令，选择你需要的 LSP，并按回车安装。
 
-## require('adoyle-neovim-config')
+## API
 
-### API
+```lua
+local A = require('adoyle-neovim-config')
+print(vim.inspect(A))
 
+A.setup()
 ```
-:lua print(vim.inspect(require('adoyle-neovim-config')))
-```
 
-### 配置
+没写文档，直接看[代码](./lua/adoyle-neovim-config/init.lua)
 
-当加载类库时，你也可以传入配置。
+## 配置
+
+当以插件加载时，你可以传入自定义配置。
 
 ```lua
 require('adoyle-neovim-config').setup {
-  config = {},
+  config = {
+    plugins = { -- 覆盖插件默认配置
+      ['plugins.profiling'] = {
+        disable = false, -- 设置成 false 来启动默认禁用的插件
+      },
+
+      ['psliwka/vim-smoothie'] = {
+        disable = false,
+      },
+    },
+  },
+  plugins = function(A)
+    -- A.Plug 'github/repo'
+  end
 }
 ```
 
 详见 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)
+
+插件列表见 [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
 
 ## 目录结构
 
@@ -141,18 +163,22 @@ require('adoyle-neovim-config').setup {
 ├── README.md
 ├── autoload/
 │   └── plug.vim       // vim-plug
-├── basic.vim          // neovim/vim basic settings
-├── init.vim           // <= neovim configuration entry point
+├── init.lua           // neovim configuration entry point (directly use way)
 ├── lua
 │   ├── basic.lua      // Basic Settings. Some options may be overrided by plugin
 │   ├── config.lua     // Project config
 │   ├── fix-lua.lua
+│   ├── init.lua       // The lua required entry point
 │   ├── plugins.lua    // required plugins
+│   ├── util.lua       // utility functions
+│   ├── vim-plug.lua   // Plugin manage framework based on vim-plug
 │   ├── keymap/
 │   ├── plugins/       // Available plugins written in lua
 │   └── themes/        // color schemas
 ├── plugged/           // plugins installed by vim-plug
-├── spell/             // Store spell check data
+├── snippets/          // code snippets
+├── spell/             // spell check data
+├── test/              // Unit tests
 └── temp/              // temporary files
     ├── session        // xolox/vim-session plugin
     ├── session_lock   // xolox/vim-session plugin

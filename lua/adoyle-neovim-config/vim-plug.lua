@@ -79,12 +79,12 @@ local function usePlug(repo, opts)
 		end
 	end
 
-	-- handle current mod
+	-- handle current plugin
 	local plugOpts = parsePlugOpts(opts)
 
-	if opts.setup then
+	if plugOpts.setup then
 		-- Run setup before plugin is loaded.
-		opts.setup()
+		plugOpts.setup()
 	end
 
 	if repo and #repo > 0 then
@@ -101,10 +101,10 @@ local function usePlug(repo, opts)
 			return
 		end
 
-		table.insert(plugs, opts)
+		table.insert(plugs, plugOpts)
 	else
 		-- repo equals '' or nil or false or []
-		table.insert(plugs, opts)
+		table.insert(plugs, plugOpts)
 	end
 end
 
@@ -120,12 +120,12 @@ function P.setup()
 
 	-- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 	if not util.exist(NVIM_HOME .. '/autoload/plug.vim') then
-	vim.cmd(fn.printf(
-				'silent !curl -fLo %s --create-dirs %s',
-				NVIM_HOME .. '/autoload/plug.vim',
-				util.proxyGithub 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-			 ))
-	vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
+		vim.cmd(fn.printf(
+			'silent !curl -fLo %s --create-dirs %s',
+			NVIM_HOME .. '/autoload/plug.vim',
+			util.proxyGithub 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+		))
+		vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
 	end
 end
 

@@ -1,6 +1,6 @@
 # ADoyle-Style Neovim Configuration
 
-Share for learning and reference.
+Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flexible to customize and extend it.
 
 ## TOC
 
@@ -17,9 +17,7 @@ Share for learning and reference.
     - [Snippet](#snippet)
 - [Dependency](#dependency)
 - [Installation](#installation)
-    - [Directly Use](#directly-use)
-    - [Library](#library)
-    - [LSP](#lsp)
+- [API](#api)
 - [Configuration](#configuration)
 - [Files Structure](#files-structure)
 - [NOTE](#note)
@@ -34,11 +32,10 @@ Share for learning and reference.
 - All in Lua
 - Support Neovim Native LSP
 - Plugin manage framework based on [vim-plug][] and Lua. Support on-demand loading plugin.
-- 100+ Vim plugins。
-- Awesome UI and color schema. Dark Mode. True Color. Show Scrollbar.
+- Integrated many powerful Vim plugins。
+- Awesome UI and color schema. Dark Mode. True Color. Scrollbar.
 - Configurable. See [./lua/config.lua](./lua/config.lua)
-- Set proxy for fasting git download in China
-  - If you don't need it, set `vim.config.proxy.github = false` in config file.
+- Configurable proxy for fast git download in China Mainland
 
 ## Screenshots
 
@@ -85,48 +82,79 @@ Share for learning and reference.
 
 ## Installation
 
-### Directly Use
+1. You have two ways to use the project. Use the project directly, or load the project as an plugin for more customizations.
 
-```sh
-# Set your nvim config directory
-NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
+  a. Directly Use
+
+    ```sh
+    # Set your nvim config directory
+    NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
+    ```
+
+  b. Load as Plugin
+
+    ```sh
+    # Set your nvim config directory
+    NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+    mkdir -p "$NVIM_HOME"/{temp,plugged,snippets,spell}
+    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/plugged/adoyle-neovim-config
+
+    # Create init.lua file
+    cat <<EOF > "$NVIM_HOME"/init.lua
+    vim.opt.rtp:prepend { vim.fn.stdpath('config') .. '/plugged/adoyle-neovim-config' }
+    require('adoyle-neovim-config').setup {
+      config = {
+        -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
+        -- Otherwise, remove this option.
+        github = 'https://ghproxy.com/', -- emptry string or proxy url
+      },
+    }
+    EOF
+    ```
+
+2. Invoke `nvim` to get started. It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
+3. Initialization
+  - There no any Treesitter Parer installed by default. Invoke `:TSInstall all` to install them.
+  - There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs which you need.
+
+## API
+
+```lua
+local A = require('adoyle-neovim-config')
+print(vim.inspect(A))
+
+A.setup()
 ```
 
-Invoke `nvim` to get started. It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
-
-### Library
-
-```sh
-# Set your nvim config directory
-NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-mkdir -p "$NVIM_HOME"/{lua,temp,plugged,snippets,spell}
-git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/lua/adoyle-neovim-config
-
-# Create init.lua file
-cat <<EOF > "$NVIM_HOME"/init.lua
-vim.opt.rtp = vim.opt.rtp:prepend(vim.fn.stdpath('config') .. '/lua/adoyle-neovim-config')
-require('adoyle-neovim-config').setup {}
-EOF
-```
-
-Invoke `nvim` to get started. It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
-
-### LSP
-
-There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs which you need.
+No more document. Just see [codes](./lua/adoyle-neovim-config/init.lua)
 
 ## Configuration
 
-You can pass config when load with library.
+You can pass config when load as plugin.
 
 ```lua
 require('adoyle-neovim-config').setup {
-  config = {},
+  config = {
+    plugins = { -- Override plugin default config
+      ['plugins.profiling'] = {
+        disable = false, -- Set false to enable the disabled plugin by default.
+      },
+
+      ['psliwka/vim-smoothie'] = {
+        disable = false,
+      },
+    },
+  },
+  plugins = function(A)
+    -- A.Plug 'github/repo'
+  end
 }
 ```
 
 See [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua) for details.
+
+Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
 
 ## Files Structure
 
@@ -135,18 +163,22 @@ See [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/c
 ├── README.md
 ├── autoload/
 │   └── plug.vim       // vim-plug
-├── basic.vim          // neovim/vim basic settings
-├── init.vim           // <= neovim configuration entry point
+├── init.lua           // neovim configuration entry point (directly use way)
 ├── lua
 │   ├── basic.lua      // Basic Settings. Some options may be overrided by plugin
 │   ├── config.lua     // Project config
 │   ├── fix-lua.lua
+│   ├── init.lua       // The lua required entry point
 │   ├── plugins.lua    // required plugins
+│   ├── util.lua       // utility functions
+│   ├── vim-plug.lua   // Plugin manage framework based on vim-plug
 │   ├── keymap/
 │   ├── plugins/       // Available plugins written in lua
 │   └── themes/        // color schemas
 ├── plugged/           // plugins installed by vim-plug
-├── spell/             // Store spell check data
+├── snippets/          // code snippets
+├── spell/             // spell check data
+├── test/              // Unit tests
 └── temp/              // temporary files
     ├── session        // xolox/vim-session plugin
     ├── session_lock   // xolox/vim-session plugin
