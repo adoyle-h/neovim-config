@@ -79,6 +79,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
   - `pip3 install --upgrade --user pynvim`
   - `pip2 install --upgrade --user pynvim` (这是可选的)
 - [Nerd Font 字体][Nerd Font]。推荐 [DejaVuSansMonoForPowerline Nerd Font][font]。然后修改你的终端的字体设置。
+- 支持 Linux 和 MacOS，不支持 Windows
 
 ## 安装
 
@@ -105,9 +106,10 @@ Click [./README.en.md](./README.en.md) to read English documents.
     vim.opt.rtp:prepend { vim.fn.stdpath('config') .. '/plugged/adoyle-neovim-config' }
     require('adoyle-neovim-config').setup {
       config = {
-        -- 若你在中国大陆，推荐设置成 'https://ghproxy.com/' (别漏掉末尾的 '/')
-        -- 否则，移除这项配置
-        github = 'https://ghproxy.com/', -- emptry string or proxy url
+        proxy = {
+          -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
+          -- Otherwise, remove this option.
+          github = 'https://ghproxy.com/', -- emptry string or proxy url
       },
     }
     EOF
@@ -168,7 +170,7 @@ require('adoyle-neovim-config').setup {
 │   ├── basic.lua      // Basic Settings. Some options may be overrided by plugin
 │   ├── config.lua     // Project config
 │   ├── fix-lua.lua
-│   ├── init.lua       // The lua required entry point
+│   ├── init.lua       // The lua required entry point (plugin way)
 │   ├── plugins.lua    // required plugins
 │   ├── util.lua       // utility functions
 │   ├── vim-plug.lua   // Plugin manage framework based on vim-plug

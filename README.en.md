@@ -79,6 +79,7 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
   - `pip3 install --upgrade --user pynvim`
   - `pip2 install --upgrade --user pynvim` (it is optional)
 - [Nerd Font][]. Recommend [DejaVuSansMonoForPowerline Nerd Font][font]. And change your terminal font setting.
+- Linux and MacOS are supported. Windows not.
 
 ## Installation
 
@@ -105,9 +106,11 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
     vim.opt.rtp:prepend { vim.fn.stdpath('config') .. '/plugged/adoyle-neovim-config' }
     require('adoyle-neovim-config').setup {
       config = {
-        -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
-        -- Otherwise, remove this option.
-        github = 'https://ghproxy.com/', -- emptry string or proxy url
+        proxy = {
+          -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
+          -- Otherwise, remove this option.
+          github = 'https://ghproxy.com/', -- emptry string or proxy url
+        },
       },
     }
     EOF
@@ -168,7 +171,7 @@ Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-con
 │   ├── basic.lua      // Basic Settings. Some options may be overrided by plugin
 │   ├── config.lua     // Project config
 │   ├── fix-lua.lua
-│   ├── init.lua       // The lua required entry point
+│   ├── init.lua       // The lua required entry point (plugin way)
 │   ├── plugins.lua    // required plugins
 │   ├── util.lua       // utility functions
 │   ├── vim-plug.lua   // Plugin manage framework based on vim-plug
