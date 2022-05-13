@@ -92,7 +92,7 @@ local function usePlug(repo, opts)
 
 		-- If plug is uninstalled, do not continue
 		local foldname = getPlugFolderName(repo)
-		if not util.exist(pluginDir .. '/' .. foldname) then
+		if not util.exist(P.pluginDir .. '/' .. foldname) then
 			table.insert(unloadRepos, repo)
 			return
 		end
@@ -104,7 +104,9 @@ local function usePlug(repo, opts)
 	end
 end
 
-local P = {}
+local P = {
+	pluginDir = nil,
+}
 
 function P.setup()
 	vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { noremap = false, desc = 'Show Plugin Status' })
@@ -114,7 +116,7 @@ function P.setup()
 	vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
 
 	local NVIM_HOME = fn.stdpath('config')
-	local pluginDir = NVIM_HOME .. '/plugged' -- All plugins put in this directory
+	P.pluginDir = NVIM_HOME .. '/plugged' -- All plugins put in this directory
 
 	-- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 	if not util.exist(NVIM_HOME .. '/autoload/plug.vim') then
@@ -128,7 +130,7 @@ function P.setup()
 end
 
 function P.start()
-	vim.call('plug#begin', pluginDir)
+	vim.call('plug#begin', P.pluginDir)
 end
 
 function P.fin()
