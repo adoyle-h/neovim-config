@@ -5,6 +5,7 @@ local config = require('adoyle-neovim-config.config').get_global()
 
 local fn = vim.fn
 local NVIM_HOME = fn.stdpath('config')
+local userPlugins = config.plugins
 
 -- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 if not util.exist(NVIM_HOME .. '/autoload/plug.vim') then
@@ -24,8 +25,8 @@ vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
 -- All plugins put in this directory
 local pluginDir = NVIM_HOME .. '/plugged'
 
-local plug = vim.fn['plug#']
-local mods = {}
+local loadPlug = vim.fn['plug#']
+local plugs = {}
 local unloadRepos = {}
 
 local plugOptsKeys = {
@@ -70,15 +71,15 @@ end
 -- The structure of M should be compatible with packer.nvim Plug and vim-plug Plug
 -- @param M {string|table} See packer.nvim Plug: https://github.com/wbthomason/packer.nvim#specifying-plugins
 -- @param [Opts] {table}
--- @useage: useMod(string)
--- @useage: useMod(string, opts)
--- @useage: useMod({string, opts...})
-local function useMod(repo, opts)
+-- @useage: usePlug(string)
+-- @useage: usePlug(string, opts)
+-- @useage: usePlug({string, opts...})
+local function usePlug(repo, opts)
 	local type = type(repo)
 
 	if not opts then
 		if type == 'string' then
-			plug(repo)
+			loadPlug(repo)
 			opts = {}
 		elseif type == 'table' then
 			opts = repo
@@ -89,9 +90,10 @@ local function useMod(repo, opts)
 		end
 	end
 
-	local isEnabled = config.enablePlugins[repo]
-	if (isEnabled ~= nil and isEnabled ~= true) or
-			config.disablePlugins[repo] == true or opts.disable == true then
+	-- local userPluginOpts = userPlugins
+	-- opts = util.merge(opts, userPluginOpts)
+
+	if opts.disable == true then
 		-- disbale current and required plugs
 		return
 	end
@@ -99,7 +101,7 @@ local function useMod(repo, opts)
 	-- load dependencies first
 	if opts.requires then
 		for _, dep in pairs(opts.requires) do
-			useMod(dep)
+			usePlug(dep)
 		end
 	end
 
@@ -113,9 +115,9 @@ local function useMod(repo, opts)
 
 	if repo and #repo > 0 then
 		if #repoOpts > 0 then
-			plug(repo, repoOpts)
+			loadPlug(repo, repoOpts)
 		else
-			plug(repo)
+			loadPlug(repo)
 		end
 
 		-- If plug is uninstalled, do not continue
@@ -125,10 +127,10 @@ local function useMod(repo, opts)
 			return
 		end
 
-		table.insert(mods, opts)
+		table.insert(plugs, opts)
 	else
 		-- repo equals '' or nil or false or []
-		table.insert(mods, opts)
+		table.insert(plugs, opts)
 	end
 end
 
@@ -141,7 +143,7 @@ end
 function P.fin()
 	vim.call('plug#end')
 
-	for _, M in pairs(mods) do
+	for _, M in pairs(plugs) do
 		if type(M.config) == 'function' then
 			M.config()
 		end
@@ -154,11 +156,11 @@ function P.fin()
 end
 
 function P.Plug(...)
-	useMod(...)
+	usePlug(...)
 end
 
 function P.Load(path)
-	useMod(require(path))
+	usePlug(require(path))
 end
 
 return P

@@ -10,7 +10,10 @@ end
 P.start()
 
 -- Library
-Plug 'nvim-lua/plenary.nvim' -- Many plugins require plenary.nvim
+-- Many plugins require plenary.nvim
+Plug { 'nvim-lua/plenary.nvim', config = function()
+	vim.api.nvim_create_user_command('PlenaryTest', ':lua require(\'plenary.test_harness\').test_directory(vim.fn.expand("%:p"))<CR>', {})
+end }
 Load 'plugins.notify'
 -- Plug 'kyazdani42/nvim-web-devicons' -- Not suitable for now
 

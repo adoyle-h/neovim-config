@@ -51,11 +51,15 @@ return function()
 
 		theme = 'onedarkpro',
 
-		enablePlugins = { -- To enable the disabled plugings by default. Format: {plugin-name = boolean}
-			['plugins/profiling'] = true,
-		},
+		plugins = { -- override plugin default config
+			['plugins/profiling'] = {
+				disable = true, -- To enable the disabled plugings by default.
+			},
 
-		disablePlugins = {}, -- To disable the enabled plugings by default. Format: {plugin-name = boolean}
+			['psliwka/vim-smoothie'] = {
+				disable = true,
+			},
+		},
 
 		color = color,
 
