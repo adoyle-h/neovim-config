@@ -13,6 +13,10 @@ local plugOptsKeys = {
 	run = 'do',
 }
 
+local P = {
+	pluginDir = nil,
+}
+
 local function parsePlugOpts(plugin)
 	local opts = util.merge({}, plugin)
 
@@ -103,10 +107,6 @@ local function usePlug(repo, opts)
 		table.insert(plugs, opts)
 	end
 end
-
-local P = {
-	pluginDir = nil,
-}
 
 function P.setup()
 	vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { noremap = false, desc = 'Show Plugin Status' })
