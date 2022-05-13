@@ -1,7 +1,7 @@
 -- The packer.nvim is terrible. Use vim-plug! https://github.com/junegunn/vim-plug
 
 local util = require('adoyle-neovim-config.util')
-local config = require('adoyle-neovim-config.config').getGlobal()
+local config = require('adoyle-neovim-config.config').global
 
 local fn = vim.fn
 local NVIM_HOME = fn.stdpath('config')
@@ -32,23 +32,14 @@ local unloadRepos = {}
 local plugOptsKeys = {
 	cmd = 'on',
 	run = 'do',
-	'branch',
-	'for',
 }
 
-local function parsePlugOpts(M)
-	local opts = {}
+local function parsePlugOpts(plugin)
+	local opts = util.merge({}, plugin)
 
 	for alias, key in pairs(plugOptsKeys) do
-		if M[key] then
-			opts[key] = M[key]
-		end
-
-		if (type(alias) == 'string') then
-			-- Support alias. {alias = key}
-			if M[alias] then
-				opts[key] = M[alias]
-			end
+		if plugin[alias] ~= nil then
+			opts[key] = plugin[alias]
 		end
 	end
 
@@ -70,10 +61,10 @@ end
 
 -- The structure of M should be compatible with packer.nvim Plug and vim-plug Plug
 -- @param M {string|table} See packer.nvim Plug: https://github.com/wbthomason/packer.nvim#specifying-plugins
--- @param [Opts] {table}
--- @useage: usePlug(string)
--- @useage: usePlug(string, opts)
--- @useage: usePlug({string, opts...})
+-- @param [opts] {table}
+-- @useage Plug(repo[, opts])
+-- @useage Plug({repo, opts...})
+-- The repo is a string. Example: 'nvim-lua/plenary.nvim'
 local function usePlug(repo, opts)
 	local type = type(repo)
 
@@ -106,7 +97,7 @@ local function usePlug(repo, opts)
 	end
 
 	-- handle current mod
-	local repoOpts = parsePlugOpts(opts)
+	local plugOpts = parsePlugOpts(opts)
 
 	if opts.setup then
 		-- Run setup before plugin is loaded.
@@ -114,8 +105,8 @@ local function usePlug(repo, opts)
 	end
 
 	if repo and #repo > 0 then
-		if #repoOpts > 0 then
-			loadPlug(repo, repoOpts)
+		if #plugOpts > 0 then
+			loadPlug(repo, plugOpts)
 		else
 			loadPlug(repo)
 		end
@@ -157,10 +148,6 @@ end
 
 function P.Plug(...)
 	usePlug(...)
-end
-
-function P.Load(path)
-	usePlug(require(path))
 end
 
 return P

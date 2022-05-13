@@ -1,4 +1,4 @@
-local config = require('adoyle-neovim-config.config').getGlobal()
+local config = require('adoyle-neovim-config.config').global
 
 local M = {
 	'johnfrankmorgan/whitespace.nvim',

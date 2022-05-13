@@ -1,13 +1,13 @@
 -- NOTE: Current Lua version is 5.1 util neovim 0.7
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 
-local P = require('adoyle-neovim-config.plugins.vim-plug')
+local P = require('adoyle-neovim-config.vim-plug')
 local Plug = P.Plug
-local Load = function(path)
-	P.Load('adoyle-neovim-config.' .. path)
-end
 
-P.start()
+-- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
+local Load = function(path)
+	P.Load(require('adoyle-neovim-config.' .. path))
+end
 
 -- Library
 -- Many plugins require plenary.nvim
@@ -96,6 +96,4 @@ Plug {
 	end
 }
 
-
 Plug 'ryanoasis/vim-devicons' -- devicons should be put at last!!
-P.fin()

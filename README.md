@@ -19,7 +19,9 @@ Click [./README.en.md](./README.en.md) to read English documents.
     - [Snippet](#snippet)
 - [依赖](#依赖)
 - [安装](#安装)
-- [配置](#配置)
+- [require('adoyle-neovim-config')](#requireadoyle-neovim-config)
+    - [API](#api)
+    - [配置](#配置)
 - [目录结构](#目录结构)
 - [注意](#注意)
 - [启动时间](#启动时间)
@@ -112,7 +114,15 @@ Click [./README.en.md](./README.en.md) to read English documents.
   - `:TSInstall all` 默认未安装 Treesitter Parser。执行此命令，一键安装所有。
   - `:LspInstallInfo` 默认未安装任何 LSP。执行此命令，选择你需要的 LSP，并按回车安装。
 
-## 配置
+## require('adoyle-neovim-config')
+
+### API
+
+```
+:lua print(vim.inspect(require('adoyle-neovim-config')))
+```
+
+### 配置
 
 当加载类库时，你也可以传入配置。
 
