@@ -1,20 +1,9 @@
 -- The packer.nvim is terrible. Use vim-plug! https://github.com/junegunn/vim-plug
 
 local util = require('adoyle-neovim-config.util')
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config')
 
 local fn = vim.fn
-local NVIM_HOME = fn.stdpath('config')
-local userPlugins = config.plugins
-
-vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { noremap = false, desc = 'Show Plugin Status' })
-
-vim.g.plug_timeout = 30
--- Use git proxy for fast downloading
-vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
--- All plugins put in this directory
-local pluginDir = NVIM_HOME .. '/plugged'
-
 local loadPlug = vim.fn['plug#']
 local plugs = {}
 local unloadRepos = {}
@@ -71,7 +60,7 @@ local function usePlug(repo, opts)
 		end
 	end
 
-	local userPluginOpts = userPlugins[repo]
+	local userPluginOpts = config.global.plugins[repo]
 	opts = util.merge(opts, userPluginOpts)
 
 	if opts.disable == true then
@@ -118,6 +107,15 @@ end
 local P = {}
 
 function P.setup()
+	vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { noremap = false, desc = 'Show Plugin Status' })
+
+	vim.g.plug_timeout = 30
+	-- Use git proxy for fast downloading
+	vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
+
+	local NVIM_HOME = fn.stdpath('config')
+	local pluginDir = NVIM_HOME .. '/plugged' -- All plugins put in this directory
+
 	-- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 	if not util.exist(NVIM_HOME .. '/autoload/plug.vim') then
 	vim.cmd(fn.printf(
