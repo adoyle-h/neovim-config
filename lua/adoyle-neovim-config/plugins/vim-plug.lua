@@ -1,6 +1,7 @@
 -- The packer.nvim is terrible. Use vim-plug! https://github.com/junegunn/vim-plug
 
 local util = require('adoyle-neovim-config.util')
+local config = require('adoyle-neovim-config.config').get_global()
 
 local fn = vim.fn
 local NVIM_HOME = fn.stdpath('config')
@@ -88,7 +89,9 @@ local function useMod(repo, opts)
 		end
 	end
 
-	if opts.disable == true then
+	local isEnabled = config.enablePlugins[repo]
+	if (isEnabled ~= nil and isEnabled ~= true) or
+			config.disablePlugins[repo] == true or opts.disable == true then
 		-- disbale current and required plugs
 		return
 	end

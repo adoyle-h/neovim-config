@@ -51,6 +51,12 @@ return function()
 
 		theme = 'onedarkpro',
 
+		enablePlugins = { -- To enable the disabled plugings by default. Format: {plugin-name = boolean}
+			['plugins/profiling'] = true,
+		},
+
+		disablePlugins = {}, -- To disable the enabled plugings by default. Format: {plugin-name = boolean}
+
 		color = color,
 
 		ignoredFileTypesForSomePlugs = {
