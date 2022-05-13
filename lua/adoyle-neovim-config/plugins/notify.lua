@@ -7,8 +7,6 @@ local M = {
 function M.config()
 	vim.notify = require('notify')
 
-	vim.keymap.set('n', '<space>n', ':Telescope notify<CR>', { noremap = true, desc = 'show notification list' })
-
 	vim.api.nvim_create_user_command('Notify', function(opts)
 		local args = opts.fargs
 		vim.notify(args[1], args[2] or 'info')

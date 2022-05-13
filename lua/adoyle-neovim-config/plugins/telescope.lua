@@ -96,6 +96,8 @@ local function configMapping()
 	keymap('n', 'gr', ':Telescope lsp_references<cr>', opts)
 	keymap('n', 'gt', ':Telescope lsp_type_definitions<cr>', opts)
 
+	keymap('n', '<space>n', ':Telescope notify<cr>', opts)
+
 	return {
 		i = {
 			-- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/mappings.lua
@@ -195,7 +197,7 @@ function M.config()
 	}
 
 	telescope.load_extension('ui-select')
-
+	telescope.load_extension('notify')
 
 	configHighlight()
 end

@@ -53,7 +53,7 @@ return {
 	theme = 'onedarkpro',
 
 	plugins = { -- Override plugin default config
-		-- ['plugins/profiling'] = {
+		-- ['plugins.profiling'] = {
 		--   disable = false, -- Set false to enable the disabled plugin by default.
 		-- },
 
