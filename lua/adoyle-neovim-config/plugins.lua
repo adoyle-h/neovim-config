@@ -26,7 +26,6 @@ Load 'plugins.indent'
 Load 'plugins.indent-line'
 Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
-Plug { 'psliwka/vim-smoothie', disable = true }
 
 -- Functions
 Load 'plugins.keymap'

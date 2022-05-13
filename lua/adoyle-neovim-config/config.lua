@@ -12,7 +12,7 @@ function config.setGlobal(c)
 	config.global = util.merge(config.global, c)
 	config.global._revision = config.global._revision and (config.global._revision + 1) or 1
 
-	if config.global.proxy.github then
+	if #config.global.proxy.github > 0 then
 		util.proxyGithub = function(url) return config.global.proxy.github .. url end
 	else
 		util.proxyGithub = function(url) return url end

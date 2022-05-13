@@ -1,3 +1,5 @@
+-- User should not change this file. Edit require('adoyle-neovim-config').setup({config}) in your init.lua.
+
 local color = {
 	white = '#BEC0C4',
 	black = '#101012',
@@ -44,19 +46,20 @@ return {
 	mapleader = ';', -- Set a map <leader> for more key combos
 
 	proxy = {
-		github = 'https://ghproxy.com/', -- string or false. Do not missing the last '/'.
+		-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/')
+		github = '', -- emptry string or proxy url
 	},
 
 	theme = 'onedarkpro',
 
 	plugins = { -- Override plugin default config
-		['plugins/profiling'] = {
-			disable = true, -- To enable the disabled plugings by default.
-		},
+		-- ['plugins/profiling'] = {
+		--   disable = false, -- Set false to enable the disabled plugin by default.
+		-- },
 
-		['psliwka/vim-smoothie'] = {
-			disable = true,
-		},
+		-- ['psliwka/vim-smoothie'] = {
+		--   disable = false,
+		-- },
 	},
 
 	lsp = { -- Change lsp.setup(opts). Format: {['lsp_name'] = function(opts)}
