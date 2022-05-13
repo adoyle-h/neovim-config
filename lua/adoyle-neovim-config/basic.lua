@@ -10,12 +10,6 @@ vim.g.mapleader = config.mapleader
 
 local opt = vim.opt
 
-if config.proxy.github then
-	util.proxyGithub = function(url) return config.proxy.github .. url end
-else
-	util.proxyGithub = function(url) return url end
-end
-
 function vim.getVisualSelection()
 	vim.cmd('noau normal! "vy"')
 	local text = vim.fn.getreg('v')
