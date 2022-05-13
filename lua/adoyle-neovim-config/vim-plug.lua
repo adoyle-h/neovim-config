@@ -7,16 +7,6 @@ local fn = vim.fn
 local NVIM_HOME = fn.stdpath('config')
 local userPlugins = config.plugins
 
--- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
-if not util.exist(NVIM_HOME .. '/autoload/plug.vim') then
-	vim.cmd(fn.printf(
-		'silent !curl -fLo %s --create-dirs %s',
-		NVIM_HOME .. '/autoload/plug.vim',
-		util.proxyGithub 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-	))
-	vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
-end
-
 vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { noremap = false, desc = 'Show Plugin Status' })
 
 vim.g.plug_timeout = 30
@@ -126,6 +116,18 @@ local function usePlug(repo, opts)
 end
 
 local P = {}
+
+function P.setup()
+	-- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+	if not util.exist(NVIM_HOME .. '/autoload/plug.vim') then
+	vim.cmd(fn.printf(
+				'silent !curl -fLo %s --create-dirs %s',
+				NVIM_HOME .. '/autoload/plug.vim',
+				util.proxyGithub 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+			 ))
+	vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
+	end
+end
 
 function P.start()
 	vim.call('plug#begin', pluginDir)

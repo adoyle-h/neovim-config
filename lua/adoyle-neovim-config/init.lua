@@ -32,6 +32,7 @@ M.setup = function(opts)
 	require('adoyle-neovim-config.fix-lua')
 	require('adoyle-neovim-config.basic')
 
+	P.setup()
 	P.start()
 	require('adoyle-neovim-config.plugins')
 	if opts.plugins then opts.plugins(M) end
