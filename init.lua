@@ -4,7 +4,7 @@ require('adoyle-neovim-config').setup {
 		github = 'https://ghproxy.com/', -- emptry string or proxy url
 
 		plugins = {
-			['plugins/profiling'] = {
+			['plugins.profiling'] = {
 				disable = true,
 			},
 		},

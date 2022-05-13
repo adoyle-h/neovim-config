@@ -31,6 +31,16 @@ describe('util.merge', function()
 		assert.are.same({ 1, 3, b = 2, a = '4' }, r)
 	end)
 
+	it('(PluginOpts, table)', function()
+		local r = util.merge({ 'abc', a = 1, c = 3 }, { b = 2, a = '4' })
+		assert.are.same({ 'abc', a = '4', b = 2, c = 3 }, r)
+	end)
+
+	it('(table, PluginOpts)', function()
+		local r = util.merge({ a = 1, c = 3 }, { nil, b = 2, a = '4' })
+		assert.are.same({ a = '4', b = 2, c = 3 }, r)
+	end)
+
 	it('nested tables', function()
 		local r = util.merge({ a = { b = 2, c = { d = 4 } } }, { a = { b = 5 } })
 		assert.are.same({ a = { b = 5, c = { d = 4 } } }, r)
