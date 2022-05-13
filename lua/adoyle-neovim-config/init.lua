@@ -24,10 +24,10 @@ M.setup = function(opts)
 	config.setSetupOpts(opts)
 	M.config = config.global
 
-	local P = require('adoyle-neovim-config.vim-plug')
-	M.Plug = P.Plug
 	local util = require('adoyle-neovim-config.util')
 	M.util = util,
+	local P = require('adoyle-neovim-config.vim-plug')
+	M.Plug = P.Plug
 
 	require('adoyle-neovim-config.fix-lua')
 	require('adoyle-neovim-config.basic')
