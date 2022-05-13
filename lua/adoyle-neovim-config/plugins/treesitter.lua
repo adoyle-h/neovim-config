@@ -14,6 +14,15 @@ local M = {
 }
 
 function M.config()
+	if config.proxy.github then
+		for _, treesitterConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
+			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub(
+				'https://github.com/',
+				util.proxyGithub 'https://github.com/'
+			)
+		end
+	end
+
 	local c = config.treesitter
 	require('nvim-treesitter.configs').setup {
 		ensure_installed = c.ensure_installed,
@@ -32,15 +41,6 @@ function M.config()
 			additional_vim_regex_highlighting = false,
 		},
 	}
-
-	if config.proxy.github then
-		for _, treesitterConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub(
-				'https://github.com/',
-				util.proxyGithub 'https://github.com/'
-			)
-		end
-	end
 
 	vim.opt.foldmethod = 'expr'
 	vim.cmd [[
