@@ -2,8 +2,6 @@
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 
 local config = require('adoyle-neovim-config.config')
-local util = require('adoyle-neovim-config.util')
-local P = require('adoyle-neovim-config.vim-plug')
 
 -- @class ADoyleNeovimConfig
 -- @field util {table}
@@ -17,8 +15,6 @@ local P = require('adoyle-neovim-config.vim-plug')
 --
 -- @field config {Config}
 local M = {
-	util = util,
-	Plug = P.Plug,
 	config = nil,
 }
 
@@ -27,6 +23,11 @@ local M = {
 M.setup = function(opts)
 	config.setSetupOpts(opts)
 	M.config = config.global
+
+	local P = require('adoyle-neovim-config.vim-plug')
+	M.Plug = P.Plug
+	local util = require('adoyle-neovim-config.util')
+	M.util = util,
 
 	require('adoyle-neovim-config.fix-lua')
 	require('adoyle-neovim-config.basic')
