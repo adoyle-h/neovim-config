@@ -6,7 +6,7 @@ local Plug = P.Plug
 
 -- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
 local Load = function(path)
-	P.Load(require('adoyle-neovim-config.' .. path))
+	Plug(require('adoyle-neovim-config.' .. path))
 end
 
 -- Library
