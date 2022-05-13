@@ -319,10 +319,14 @@ local function configTabnine()
 end
 
 local M = {
-	nil,
+	'hrsh7th/nvim-cmp',
 	disable = false,
 
 	requires = {
+		'onsails/lspkind.nvim',
+
+		{ 'ray-x/lsp_signature.nvim', config = configFuncSignature },
+
 		{
 			requires = {
 				'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
@@ -336,10 +340,6 @@ local M = {
 				{ 'tzachar/cmp-tabnine', run = './install.sh', config = configTabnine, disable = false },
 			}
 		},
-
-		'onsails/lspkind.nvim',
-		'hrsh7th/nvim-cmp',
-		{ 'ray-x/lsp_signature.nvim', config = configFuncSignature },
 
 		{
 			requires = {
@@ -356,7 +356,7 @@ local M = {
 function M.config()
 	local cmp = require('cmp')
 
-	vim.cmd 'set completeopt=menu,menuone,noselect' -- Disable Vim Completion Menu
+	vim.opt.completeopt = { 'menu', 'menuone', 'noselect' } -- Disable Vim Completion Menu
 
 	cmp.setup({
 		mapping = configMapping(cmp),

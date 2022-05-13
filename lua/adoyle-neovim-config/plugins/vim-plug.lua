@@ -90,8 +90,8 @@ local function usePlug(repo, opts)
 		end
 	end
 
-	-- local userPluginOpts = userPlugins
-	-- opts = util.merge(opts, userPluginOpts)
+	local userPluginOpts = userPlugins[repo]
+	opts = util.merge(opts, userPluginOpts)
 
 	if opts.disable == true then
 		-- disbale current and required plugs

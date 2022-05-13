@@ -1,5 +1,5 @@
 local M = {
-	'stevearc/aerial.nvim/',
+	'stevearc/aerial.nvim',
 	desc = 'Outline',
 	disable = false,
 	requires = {},
@@ -14,6 +14,8 @@ function M.config()
 
 	require('aerial').setup {
 		highlight_on_hover = true,
+
+		default_direction = 'right',
 
 		min_width = 20,
 

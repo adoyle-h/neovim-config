@@ -19,9 +19,6 @@ Click [./README.en.md](./README.en.md) to read English documents.
     - [Snippet](#snippet)
 - [依赖](#依赖)
 - [安装](#安装)
-    - [直接使用](#直接使用)
-    - [加载类库](#加载类库)
-- [初始化](#初始化)
 - [配置](#配置)
 - [目录结构](#目录结构)
 - [注意](#注意)
@@ -85,39 +82,35 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 安装
 
-你可以直接使用本项目。也可以类库的形式加载本项目，定制你的功能。
+1. 你可以直接使用本项目。也可以类库的形式加载本项目，定制你的功能。
 
-### 直接使用
+  a. 直接使用
 
-```sh
-# 设置你的 nvim 配置目录
-NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
-```
+    ```sh
+    # 设置你的 nvim 配置目录
+    NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+    git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
+    ```
 
-执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
+  b. 加载类库
 
-### 加载类库
+    ```sh
+    # 设置你的 nvim 目录
+    NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+    mkdir -p "$NVIM_HOME"/{temp,plugged,snippets,spell}
+    git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/plugged/adoyle-neovim-config
 
-```sh
-# 设置你的 nvim 目录
-NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-mkdir -p "$NVIM_HOME"/{lua,temp,plugged,snippets,spell}
-git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/lua/adoyle-neovim-config
+    # 创建 init.lua 文件
+    cat <<EOF > "$NVIM_HOME"/init.lua
+    vim.opt.rtp = vim.opt.rtp:prepend(vim.fn.stdpath('config') .. '/plugged/adoyle-neovim-config')
+    require('adoyle-neovim-config').setup {}
+    EOF
+    ```
 
-# 创建 init.lua 文件
-cat <<EOF > "$NVIM_HOME"/init.lua
-vim.opt.rtp = vim.opt.rtp:prepend(vim.fn.stdpath('config') .. '/lua/adoyle-neovim-config')
-require('adoyle-neovim-config').setup {}
-EOF
-```
-
-执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
-
-## 初始化
-
-- `:TSInstall all`: 默认未安装 Treesitter Parser。执行此命令，一键安装所有。
-- `:LspInstallInfo`: 默认未安装任何 LSP。执行此命令，选择你需要的 LSP，并按回车安装。
+3. 执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
+4. 初始化
+  - `:TSInstall all` 默认未安装 Treesitter Parser。执行此命令，一键安装所有。
+  - `:LspInstallInfo` 默认未安装任何 LSP。执行此命令，选择你需要的 LSP，并按回车安装。
 
 ## 配置
 

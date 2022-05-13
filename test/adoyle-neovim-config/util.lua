@@ -11,6 +11,16 @@ describe('util.merge', function()
 		assert.are.same({ a = '4', b = 2, c = 3 }, r)
 	end)
 
+	it('(nil, table)', function()
+		local r = util.merge(nil, { b = 2, a = '4' })
+		assert.are.same({ a = '4', b = 2 }, r)
+	end)
+
+	it('(table, nil)', function()
+		local r = util.merge({ a = 1, c = 3 }, nil)
+		assert.are.same({ a = 1, c = 3 }, r)
+	end)
+
 	it('(array, array)', function()
 		local r = util.merge({ 1, 3 }, { 2, '4' })
 		assert.are.same({ 1, 3, 2, '4' }, r)
