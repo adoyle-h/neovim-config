@@ -25,7 +25,7 @@ M.setup = function(opts)
 	M.config = config.global
 
 	local util = require('adoyle-neovim-config.util')
-	M.util = util,
+	M.util = util
 	local P = require('adoyle-neovim-config.vim-plug')
 	M.Plug = P.Plug
 
