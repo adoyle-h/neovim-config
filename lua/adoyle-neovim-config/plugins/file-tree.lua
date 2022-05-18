@@ -75,12 +75,12 @@ function M.config()
 	-- https://github.com/Xuyuanp/nerdtree-git-plugin/commit/c793d7445e088d5477da676443ebdf8517a32a73
 	vim.g.NERDTreeGitStatusIgnoreSubmodules = 'all'
 	vim.g.NERDTreeGitStatusIndicatorMapCustom = {
-		Dirty     = "",
-		Modified  = "",
+		Dirty     = "",
+		Modified  = "",
 		Staged    = "✚",
 		Untracked = "-",
 		Renamed   = "➜",
-		Unmerged  = "═",
+		Unmerged  = "",
 		Deleted   = "✖",
 		Clean     = "✔︎",
 		Ignored   = '',

@@ -54,7 +54,7 @@ return {
 
 	pluginDir = vim.fn.stdpath('data') .. '/plugins', -- All plugins are downloaded in this directory
 
-	plugins = { -- Override plugin default config
+	pluginOpts = { -- Override plugin default config
 		-- ['plugins.profiling'] = {
 		--   disable = false, -- Set false to enable the disabled plugin by default.
 		-- },
@@ -62,6 +62,14 @@ return {
 		-- ['psliwka/vim-smoothie'] = {
 		--   disable = false,
 		-- },
+	},
+
+	plugins = { -- Set your plugins
+		-- { 'psliwka/vim-smoothie', disable = false },
+
+		-- function(Plug)
+		--   Plug { 'psliwka/vim-smoothie', disable = false }
+		-- end,
 	},
 
 	lsp = { -- Change lsp.setup(opts). Format: {['lsp_name'] = function(opts)}

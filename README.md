@@ -98,8 +98,10 @@ Click [./README.en.md](./README.en.md) to read English documents.
     ```sh
     # 设置你的 nvim 目录
     NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+    NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
     mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
-    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim/plugins/adoyle-neovim-config
+    mkdir -p "$NVIM_DATA"/plugins
+    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
 
     # 创建 init.lua 文件
     cat <<EOF > "$NVIM_HOME"/init.lua
@@ -110,15 +112,17 @@ Click [./README.en.md](./README.en.md) to read English documents.
           -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
           -- Otherwise, remove this option.
           github = 'https://ghproxy.com/', -- emptry string or proxy url
+        }
       },
     }
     EOF
     ```
 
-2. 执行 `nvim` 开始。初次执行 `nvim` 会自动安装插件管理器和插件，会比较慢，请耐心等待。
-3. 初始化
+2. 初始化
+  - `:PlugInstall` 安装 vim 插件。可能会比较慢，请耐心等待。
   - `:TSInstall all` 默认未安装 Treesitter Parser。执行此命令，一键安装所有。
   - `:LspInstallInfo` 默认未安装任何 LSP。执行此命令，选择你需要的 LSP，并按回车安装。
+3. 执行 `nvim` 开始。
 
 ## API
 
@@ -200,15 +204,18 @@ require('adoyle-neovim-config').setup {
 启动插件 [plugins/profiling](./lua/plugins/profiling.lua) 并调用 `:StartupTime`.
 
 ```
-startup: 278.8
+startup: 339.8
 event                  time percent plot
-init.lua             139.55   50.06 ██████████████████████████
-opening buffers       32.68   11.72 ██████▏
-loading rtp plugins   30.12   10.80 █████▋
-NERD_tree.vim         13.66    4.90 ██▌
-VimEnter autocommand   5.81    2.08 █▏
-first screen update    5.73    2.05 █▏
-syntax.vim             4.57    1.64 ▉
+init.lua             129.06   37.98 ██████████████████████████
+loading rtp plugins   46.32   13.63 █████████▍
+opening buffers       42.66   12.56 ████████▋
+NERD_tree.vim         14.90    4.38 ███
+first screen update    6.91    2.03 █▍
+VimEnter autocommand   6.56    1.93 █▍
+syntax.vim             4.67    1.37 █
+done waiting for UI    4.39    1.29 ▉
+loading after plugin   4.38    1.29 ▉
+reading ShaDa          3.68    1.08 ▊
 ```
 
 ## 建议，Bug，做贡献

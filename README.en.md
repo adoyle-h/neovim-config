@@ -98,8 +98,10 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
     ```sh
     # Set your nvim config directory
     NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+    NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
     mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
-    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim/plugins/adoyle-neovim-config
+    mkdir -p "$NVIM_DATA"/plugins
+    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
 
     # Create init.lua file
     cat <<EOF > "$NVIM_HOME"/init.lua
@@ -116,10 +118,11 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
     EOF
     ```
 
-2. Invoke `nvim` to get started. It is slow started at first time because it installs plugin manager and plugins automatically. Please be patient.
-3. Initialization
+2. Initialization
+  - `:PlugInstall`. It maybe slow. Please be patient.
   - There no any Treesitter Parer installed by default. Invoke `:TSInstall all` to install them.
   - There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs which you need.
+3. `nvim` to get started.
 
 ## API
 
@@ -201,15 +204,18 @@ All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plug
 Enable [plugins/profiling](./lua/plugins/profiling.lua) and invoke `:StartupTime`.
 
 ```
-startup: 278.8
+startup: 339.8
 event                  time percent plot
-init.lua             139.55   50.06 ██████████████████████████
-opening buffers       32.68   11.72 ██████▏
-loading rtp plugins   30.12   10.80 █████▋
-NERD_tree.vim         13.66    4.90 ██▌
-VimEnter autocommand   5.81    2.08 █▏
-first screen update    5.73    2.05 █▏
-syntax.vim             4.57    1.64 ▉
+init.lua             129.06   37.98 ██████████████████████████
+loading rtp plugins   46.32   13.63 █████████▍
+opening buffers       42.66   12.56 ████████▋
+NERD_tree.vim         14.90    4.38 ███
+first screen update    6.91    2.03 █▍
+VimEnter autocommand   6.56    1.93 █▍
+syntax.vim             4.67    1.37 █
+done waiting for UI    4.39    1.29 ▉
+loading after plugin   4.38    1.29 ▉
+reading ShaDa          3.68    1.08 ▊
 ```
 
 ## Suggestion, Bug Reporting, Contributing

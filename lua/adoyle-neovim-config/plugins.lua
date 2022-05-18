@@ -9,7 +9,7 @@ local Plug = P.Plug
 -- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
 local Load = function(path)
 	local opts = require('adoyle-neovim-config.' .. path)
-	local userPluginOpts = config.plugins[path]
+	local userPluginOpts = config.pluginOpts[path]
 	opts = util.merge(opts, userPluginOpts)
 	Plug(opts)
 end

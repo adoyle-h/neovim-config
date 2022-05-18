@@ -1,7 +1,7 @@
 -- NOTE: Current Lua version is 5.1 util neovim 0.7
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 
-local config = require('adoyle-neovim-config.config')
+local C = require('adoyle-neovim-config.config')
 local util = require('adoyle-neovim-config.util')
 local P = require('adoyle-neovim-config.vim-plug')
 -- local P = require('adoyle-neovim-config.paq')
@@ -28,8 +28,9 @@ local M = {
 -- @param opts.config {table}
 -- @param opts.plugins {function(ADoyleNeovimConfig)} You can load plugins by yourself. See examples at ./lua/adoyle-neovim-config/plugins.lua
 M.setup = function(opts)
-	config.setSetupOpts(opts)
-	M.config = config.global
+	C.setSetupOpts(opts)
+	local config = C.global
+	M.config = config
 
 	require('adoyle-neovim-config.fix-lua')
 	require('adoyle-neovim-config.basic')
@@ -37,7 +38,13 @@ M.setup = function(opts)
 	P.setup()
 	P.start()
 	require('adoyle-neovim-config.plugins')
-	if opts.plugins then opts.plugins(M) end
+	for _, plugin in pairs(config.plugins) do
+		if type(plugin) == 'function' then
+			plugin(P.Plug)
+		else
+			P.Plug(plugin)
+		end
+	end
 	P.fin()
 end
 

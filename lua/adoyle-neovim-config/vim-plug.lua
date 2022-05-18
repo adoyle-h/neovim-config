@@ -79,7 +79,7 @@ local function usePlug(repo, opts)
 		end
 	end
 
-	local userPluginOpts = config.global.plugins[repo]
+	local userPluginOpts = config.global.pluginOpts[repo]
 	opts = util.merge(opts, userPluginOpts)
 
 	if opts.disable == true then
@@ -152,8 +152,6 @@ function P.fin()
 	end
 end
 
-function P.Plug(...)
-	usePlug(...)
-end
+P.Plug = usePlug
 
 return P

@@ -8,14 +8,14 @@ require('adoyle-neovim-config').setup {
 			github = 'https://ghproxy.com/', -- emptry string or proxy url
 		},
 
-		plugins = {
+		pluginOpts = {
 			['plugins.profiling'] = {
-				disable = true,
+				disable = false,
 			},
 		},
-	},
 
-	plugins = function(A)
-		A.Plug { 'psliwka/vim-smoothie', disable = true }
-	end,
+		plugins = {
+			{ 'psliwka/vim-smoothie', disable = true },
+		},
+	},
 }
