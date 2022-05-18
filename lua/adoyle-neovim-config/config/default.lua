@@ -52,6 +52,8 @@ return {
 
 	theme = 'onedarkpro',
 
+	pluginDir = vim.fn.stdpath('data') .. '/plugins', -- All plugins are downloaded in this directory
+
 	plugins = { -- Override plugin default config
 		-- ['plugins.profiling'] = {
 		--   disable = false, -- Set false to enable the disabled plugin by default.
@@ -84,6 +86,7 @@ return {
 		'lspinfo',
 		'nerdtree',
 		'aerial',
+		'Mundo',
 	},
 
 	highlightColumns = { 80, 100 }, -- :h 'cc'

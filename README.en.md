@@ -98,12 +98,12 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
     ```sh
     # Set your nvim config directory
     NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-    mkdir -p "$NVIM_HOME"/{temp,plugged,snippets,spell}
-    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/plugged/adoyle-neovim-config
+    mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
+    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim/plugins/adoyle-neovim-config
 
     # Create init.lua file
     cat <<EOF > "$NVIM_HOME"/init.lua
-    vim.opt.rtp:prepend { vim.fn.stdpath('config') .. '/plugged/adoyle-neovim-config' }
+    vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
     require('adoyle-neovim-config').setup {
       config = {
         proxy = {
@@ -168,17 +168,19 @@ Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-con
 │   └── plug.vim       // vim-plug
 ├── init.lua           // neovim configuration entry point (directly use way)
 ├── lua
-│   ├── basic.lua      // Basic Settings. Some options may be overrided by plugin
-│   ├── config.lua     // Project config
-│   ├── fix-lua.lua
-│   ├── init.lua       // The lua required entry point (plugin way)
-│   ├── plugins.lua    // required plugins
-│   ├── util.lua       // utility functions
-│   ├── vim-plug.lua   // Plugin manage framework based on vim-plug
-│   ├── keymap/
-│   ├── plugins/       // Available plugins written in lua
-│   └── themes/        // color schemas
-├── plugged/           // plugins installed by vim-plug
+│   └── adoyle-neovim-config
+│       ├── basic.lua        // Basic Settings. Some options may be overrided by plugin
+│       ├── config/          // Keymaps
+│       │   └── default.lua  // default config
+│       ├── config.lua       // config loader
+│       ├── fix-lua.lua
+│       ├── init.lua         // The lua required entry point (plugin way)
+│       ├── plugins.lua      // Plugin loading list
+│       ├── util.lua         // utility functions
+│       ├── vim-plug.lua     // Plugin manage framework based on vim-plug
+│       ├── keymap/          // Keymaps
+│       ├── plugins/         // Available plugins written in lua
+│       └── themes/          // color schemas
 ├── snippets/          // code snippets
 ├── spell/             // spell check data
 ├── test/              // Unit tests
@@ -187,6 +189,8 @@ Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-con
     ├── session_lock   // xolox/vim-session plugin
     └── undodir        // mbbill/undotree plugin
 ```
+
+All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plugin directory with the `pluginDir` option in [default config][default-config]。
 
 ## NOTE
 
@@ -226,3 +230,4 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
 [Nerd Font]: https://github.com/ryanoasis/nerd-fonts
 [vim-plug]: https://github.com/junegunn/vim-plug
+[default-config]: ./lua/adoyle-neovim-config/config/default.lua

@@ -1,20 +1,20 @@
 local M = {
 	'scrooloose/nerdtree',
 	disable = false,
-	on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'},
+	on = { 'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind' },
 
 	requires = {
 		{
 			'jistr/vim-nerdtree-tabs',
-			on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'},
+			on = { 'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind' },
 		},
 		{
 			'Xuyuanp/nerdtree-git-plugin', -- It is slow in large git repo
-			on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'},
+			on = { 'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind' },
 		},
 		{
 			'tiagofumo/vim-nerdtree-syntax-highlight',
-			on = {'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind'},
+			on = { 'NERDTreeMirrorToggle', 'NERDTreeTabsToggle', 'NERDTreeTabsFind', 'NERDTreeToggle', 'NERDTreeFind' },
 		},
 	}
 }
@@ -75,16 +75,16 @@ function M.config()
 	-- https://github.com/Xuyuanp/nerdtree-git-plugin/commit/c793d7445e088d5477da676443ebdf8517a32a73
 	vim.g.NERDTreeGitStatusIgnoreSubmodules = 'all'
 	vim.g.NERDTreeGitStatusIndicatorMapCustom = {
-		Modified   = "✹",
-		Staged     = "✚",
-		Untracked  = "✭",
-		Renamed    = "➜",
-		Unmerged   = "═",
-		Deleted    = "✖",
-		Dirty      = "*",
-		Clean      = "✔︎",
-		Ignored    = '☒',
-		Unknown    = "?"
+		Dirty     = "",
+		Modified  = "",
+		Staged    = "✚",
+		Untracked = "-",
+		Renamed   = "➜",
+		Unmerged  = "═",
+		Deleted   = "✖",
+		Clean     = "✔︎",
+		Ignored   = '',
+		Unknown   = ""
 	}
 
 	configKeymaps()

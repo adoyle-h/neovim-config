@@ -4,6 +4,7 @@
 local config = require('adoyle-neovim-config.config')
 local util = require('adoyle-neovim-config.util')
 local P = require('adoyle-neovim-config.vim-plug')
+-- local P = require('adoyle-neovim-config.paq')
 
 
 -- @class ADoyleNeovimConfig
@@ -21,6 +22,7 @@ local M = {
 	config = nil,
 	util = util,
 	Plug = P.Plug,
+	P = P,
 }
 
 -- @param opts.config {table}

@@ -5,8 +5,6 @@ local config = require('adoyle-neovim-config.config')
 
 local fn = vim.fn
 local loadPlug = vim.fn['plug#']
-local plugs = {}
-local unloadRepos = {}
 
 local plugOptsKeys = {
 	cmd = 'on',
@@ -15,6 +13,8 @@ local plugOptsKeys = {
 
 local P = {
 	pluginDir = nil,
+	plugs = {},
+	unloadRepos = {},
 }
 
 local function parsePlugOpts(plugin)
@@ -25,6 +25,21 @@ local function parsePlugOpts(plugin)
 			opts[key] = plugin[alias]
 		end
 	end
+
+	-- if opts['do'] then
+	--   local origDo = opts['do']
+	--   opts['do'] = function(args)
+	--     -- args: { 'name': name, 'status': status, 'force': a:force }
+	--     if (args.status == 'installed') then
+	--     end
+
+	--     opts.config(args)
+	--   end
+	-- else
+	--   opts['do'] = function(args)
+	--     opts.config(args)
+	--   end
+	-- end
 
 	return opts
 end
@@ -97,14 +112,14 @@ local function usePlug(repo, opts)
 		-- If plug is uninstalled, do not continue
 		local foldname = getPlugFolderName(repo)
 		if not util.exist(P.pluginDir .. '/' .. foldname) then
-			table.insert(unloadRepos, repo)
+			table.insert(P.unloadRepos, repo)
 			return
 		end
 
-		table.insert(plugs, plugOpts)
+		table.insert(P.plugs, plugOpts)
 	else
 		-- repo equals '' or nil or false or []
-		table.insert(plugs, plugOpts)
+		table.insert(P.plugs, plugOpts)
 	end
 end
 
@@ -115,18 +130,7 @@ function P.setup()
 	-- Use git proxy for fast downloading
 	vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
 
-	local NVIM_HOME = fn.stdpath('config')
-	P.pluginDir = NVIM_HOME .. '/plugged' -- All plugins put in this directory
-
-	-- See https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
-	if not util.exist(NVIM_HOME .. '/autoload/plug.vim') then
-		vim.cmd(fn.printf(
-			'silent !curl -fLo %s --create-dirs %s',
-			NVIM_HOME .. '/autoload/plug.vim',
-			util.proxyGithub 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-		))
-		vim.cmd 'autocmd VimEnter * PlugInstall --sync | source $MYVIMRC'
-	end
+	P.pluginDir = config.global.pluginDir
 end
 
 function P.start()
@@ -136,14 +140,14 @@ end
 function P.fin()
 	vim.call('plug#end')
 
-	for _, M in pairs(plugs) do
+	for _, M in pairs(P.plugs) do
 		if type(M.config) == 'function' then
 			M.config()
 		end
 	end
 
 	local notify = vim.notify and vim.notify or print
-	for _, repo in pairs(unloadRepos) do
+	for _, repo in pairs(P.unloadRepos) do
 		notify(fn.printf('[WARN] Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo))
 	end
 end

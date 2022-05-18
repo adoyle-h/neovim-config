@@ -1,3 +1,5 @@
+-- This file is loaded by neovim. See `:h init.lua`
+
 require('adoyle-neovim-config').setup {
 	config = {
 		proxy = {
@@ -14,6 +16,6 @@ require('adoyle-neovim-config').setup {
 	},
 
 	plugins = function(A)
-		A.Plug { 'psliwka/vim-smoothie', disable = false }
+		A.Plug { 'psliwka/vim-smoothie', disable = true }
 	end,
 }

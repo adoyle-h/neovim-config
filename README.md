@@ -36,7 +36,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - 基于 [vim-plug][] 和 Lua 的插件管理框架。支持按需加载。
 - 集成众多强大的 Vim 插件
 - 帅气的界面和配色。暗黑模式。真彩色。滚动条。
-- 可配置，详见 [./lua/config.lua](./lua/config.lua)
+- 可配置，详见[默认配置][default-config]
 - 可配置 github 的代理镜像，在中国大陆可加快插件下载速度
 
 ## 截图
@@ -98,12 +98,12 @@ Click [./README.en.md](./README.en.md) to read English documents.
     ```sh
     # 设置你的 nvim 目录
     NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-    mkdir -p "$NVIM_HOME"/{temp,plugged,snippets,spell}
-    git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"/plugged/adoyle-neovim-config
+    mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
+    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim/plugins/adoyle-neovim-config
 
     # 创建 init.lua 文件
     cat <<EOF > "$NVIM_HOME"/init.lua
-    vim.opt.rtp:prepend { vim.fn.stdpath('config') .. '/plugged/adoyle-neovim-config' }
+    vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
     require('adoyle-neovim-config').setup {
       config = {
         proxy = {
@@ -167,17 +167,19 @@ require('adoyle-neovim-config').setup {
 │   └── plug.vim       // vim-plug
 ├── init.lua           // neovim configuration entry point (directly use way)
 ├── lua
-│   ├── basic.lua      // Basic Settings. Some options may be overrided by plugin
-│   ├── config.lua     // Project config
-│   ├── fix-lua.lua
-│   ├── init.lua       // The lua required entry point (plugin way)
-│   ├── plugins.lua    // required plugins
-│   ├── util.lua       // utility functions
-│   ├── vim-plug.lua   // Plugin manage framework based on vim-plug
-│   ├── keymap/
-│   ├── plugins/       // Available plugins written in lua
-│   └── themes/        // color schemas
-├── plugged/           // plugins installed by vim-plug
+│   └── adoyle-neovim-config
+│       ├── basic.lua        // Basic Settings. Some options may be overrided by plugin
+│       ├── config/          // Keymaps
+│       │   └── default.lua  // default config
+│       ├── config.lua       // config loader
+│       ├── fix-lua.lua
+│       ├── init.lua         // The lua required entry point (plugin way)
+│       ├── plugins.lua      // Plugin loading list
+│       ├── util.lua         // utility functions
+│       ├── vim-plug.lua     // Plugin manage framework based on vim-plug
+│       ├── keymap/          // Keymaps
+│       ├── plugins/         // Available plugins written in lua
+│       └── themes/          // color schemas
 ├── snippets/          // code snippets
 ├── spell/             // spell check data
 ├── test/              // Unit tests
@@ -186,6 +188,8 @@ require('adoyle-neovim-config').setup {
     ├── session_lock   // xolox/vim-session plugin
     └── undodir        // mbbill/undotree plugin
 ```
+
+插件默认安装在 `~/.local/share/nvim/plugins`。你可以修改插件目录。查看[默认配置][default-config]里的 `pluginDir` 选项。
 
 ## 注意
 
@@ -225,3 +229,4 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
 [Nerd Font]: https://github.com/ryanoasis/nerd-fonts
 [vim-plug]: https://github.com/junegunn/vim-plug
+[default-config]: ./lua/adoyle-neovim-config/config/default.lua
