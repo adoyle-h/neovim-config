@@ -9,8 +9,7 @@ function M.config()
 
 	keymap('n', '<leader>w', ':w<CR>', { noremap = true, desc = 'save current buffer' })
 	keymap('n', '<leader>e', ':e<CR>', { noremap = true, desc = 'refresh current window' })
-	keymap('n', '<C-W>x', '<C-W>q', { noremap = true, desc = 'close buffer' })
-	keymap('n', '<C-W>!', '<C-W>T', { noremap = true, desc = 'put current buffer to new tab' })
+	keymap('n', '<C-W>t', '<C-W>T', { noremap = true, desc = 'put current buffer to new tab' })
 
 	keymap('n', '<C-W><', '<C-W>1<<C-W>', { remap = true, desc = 'adjust window border to left (1 space)' })
 	keymap('n', '<C-W>>', '<C-W>1><C-W>', { remap = true, desc = 'adjust window border to right (1 space)' })

@@ -9,6 +9,12 @@ local M = {
 		require 'adoyle-neovim-config.plugins.git-gutter',
 
 		{
+			'sindrets/diffview.nvim',
+			desc = 'Git Diff',
+			disable = false,
+		},
+
+		{
 			'f-person/git-blame.nvim',
 			config = function()
 				local color = config.color

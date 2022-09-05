@@ -6,6 +6,8 @@ local M = {
 }
 
 function M.config()
+	local hlslensOK, _ = pcall(require, 'kevinhwang91/nvim-hlslens')
+
 	require('scrollbar').setup {
 		excluded_buftypes = {
 			-- 'terminal',
@@ -29,7 +31,7 @@ function M.config()
 
 		handlers = {
 			diagnostic = true,
-			search = true, -- Requires hlslens to be loaded, will run require('scrollbar.handlers.search').setup() for you
+			search = hlslensOK, -- Requires hlslens to be loaded, will run require('scrollbar.handlers.search').setup() for you
 		},
 	}
 end

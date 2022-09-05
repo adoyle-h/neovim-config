@@ -10,9 +10,9 @@ local sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'snippy' },
 		{ name = 'buffer' },
+		{ name = 'path' },
 	},
 	{
-		{ name = 'path' },
 		{ name = 'spell' },
 	},
 }

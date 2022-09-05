@@ -1,7 +1,7 @@
 local config = require('adoyle-neovim-config.config').global
 
 local M = {
-	'williamboman/nvim-lsp-installer',
+	'williamboman/nvim-lsp-installer', -- Use :LspInstallInfo to install/upgrade/uninstall lsp
 	disable = false,
 
 	requires = {
@@ -27,7 +27,8 @@ local function configHighlight()
 end
 
 local function configUI()
-	local signs = { Error = '•', Warn = '•', Hint = '', Info = '' }
+	-- local signs = { Error = '•', Warn = '•', Hint = '•', Info = '•' }
+	local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 	for type, icon in pairs(signs) do
 		local hl = 'DiagnosticSign' .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -69,23 +70,23 @@ end
 
 local function configKeyMaps()
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-	local opts = { noremap = true, silent = true }
 	local keymap = vim.keymap.set
 
-	keymap('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
-	keymap('n', ']d', function() vim.diagnostic.goto_next() end, opts)
+	keymap('n', '[d', function() vim.diagnostic.goto_prev() end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_prev' })
+	keymap('n', ']d', function() vim.diagnostic.goto_next() end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' })
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	keymap('n', 'gD', function() vim.lsp.buf.declaration() end, opts)
-	keymap('n', 'gI', function() vim.lsp.buf.implementation() end, opts)
-	keymap('n', 'gR', function() vim.lsp.buf.rename() end, opts)
-	keymap('n', 'ga', function() vim.lsp.buf.code_action() end, opts)
-	keymap('n', 'gd', function() vim.lsp.buf.definition() end, opts)
-	keymap('n', 'gh', function() vim.lsp.buf.hover() end, opts)
-	keymap('n', 'gr', function() vim.lsp.buf.references() end, opts)
-	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end, opts)
-	keymap('n', 'gt', function() vim.lsp.buf.type_definition() end, opts)
+	keymap('n', 'gD', function() vim.lsp.buf.declaration() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' })
+	keymap('n', 'gI', function() vim.lsp.buf.implementation() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.implementation' })
+	keymap('n', 'gR', function() vim.lsp.buf.rename() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.rename' })
+	keymap('n', 'ga', function() vim.lsp.buf.code_action() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' })
+	keymap('n', 'gd', function() vim.lsp.buf.definition() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.definition' })
+	keymap('n', 'gh', function() vim.lsp.buf.hover() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' })
+	keymap('n', 'gr', function() vim.lsp.buf.references() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.references' })
+	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' })
+	keymap('n', 'gt', function() vim.lsp.buf.type_definition() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.type_definition' })
 end
 
+-- null-ls is an attempt to bridge that gap and simplify the process of creating, sharing, and setting up LSP sources using pure Lua.
 local function configNullLSP()
 	local null_ls = require('null-ls')
 
@@ -93,12 +94,13 @@ local function configNullLSP()
 		debounce = 150,
 		default_timeout = 3000,
 		sources = {
-			null_ls.builtins.formatting.stylua,
 			null_ls.builtins.code_actions.eslint_d,
 			null_ls.builtins.diagnostics.eslint_d,
+			null_ls.builtins.completion.spell,
+
+			null_ls.builtins.formatting.stylua,
 			null_ls.builtins.formatting.eslint_d,
 			null_ls.builtins.formatting.prettierd,
-			null_ls.builtins.completion.spell,
 		},
 	})
 end

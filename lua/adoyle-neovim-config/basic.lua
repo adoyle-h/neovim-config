@@ -1,5 +1,4 @@
 local config = require('adoyle-neovim-config.config').global
-local util = require('adoyle-neovim-config.util')
 
 -- Set default options for vim/nvim. Use :help 'option' to see the documentation for the given option.
 -- NOTE: Current Lua version is 5.1 util neovim 0.7

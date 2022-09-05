@@ -24,7 +24,9 @@ Load 'plugins.notify'
 
 -- UI
 Load 'plugins.colors'
-Load 'plugins.statusline'
+-- Load 'plugins.statusline.airline'
+Load 'plugins.statusline.lualine'
+Load 'plugins.bufferline'
 Load 'plugins.dashboard'
 Load 'plugins.brackets'
 Load 'plugins.indent'
@@ -41,8 +43,8 @@ Load 'plugins.completion'
 
 Load 'plugins.bookmark'
 Load 'plugins.comment'
-Load 'plugins.outline'
-Load 'plugins.file-tree'
+Load 'plugins.outline.aerial'
+Load 'plugins.filetree.nvim-tree'
 Load 'plugins.format'
 Load 'plugins.git'
 Load 'plugins.highlight-words'
@@ -65,6 +67,7 @@ Load 'plugins.writing'
 Load 'plugins.abbreviation'
 Load 'plugins.autocmd'
 Load 'plugins.utils'
+Load 'plugins.terminal'
 
 
 Plug 'chrisbra/vim-diff-enhanced'
@@ -82,22 +85,5 @@ Plug {
 Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
 Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown 幻灯片' }
 Plug 'mechatroner/rainbow_csv' -- for .csv file
-
-Plug {
-	'rainbowhxch/accelerated-jk.nvim',
-	disable = false,
-	desc = 'j/k 移动自动加速',
-
-	config = function()
-		require('accelerated-jk').setup({
-			mode = 'time_driven',
-			enable_deceleration = false,
-			acceleration_limit = 200,
-			acceleration_table = { 5, 10, 12, 15, 18 },
-		})
-		vim.api.nvim_set_keymap('n', 'j', '<Plug>(accelerated_jk_gj)', {})
-		vim.api.nvim_set_keymap('n', 'k', '<Plug>(accelerated_jk_gk)', {})
-	end
-}
 
 Plug 'ryanoasis/vim-devicons' -- devicons should be put at last!!

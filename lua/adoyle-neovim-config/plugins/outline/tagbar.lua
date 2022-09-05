@@ -1,6 +1,6 @@
 local M = {
 	'majutsushi/tagbar',
-	desc = 'Content Explorer Sidebar',
+	desc = 'Outline - tagbar',
 	disable = false,
 	requires = {},
 }
@@ -10,7 +10,7 @@ function M.config()
 	vim.g.tagbar_case_insensitive = 1
 	vim.g.tagbar_sort = 1
 	vim.g.tagbar_type_go = {
-    ctagstype = 'go',
+		ctagstype = 'go',
 		kinds = {
 			'p:package',
 			'i:imports:1',

@@ -1,10 +1,11 @@
-local config = require('adoyle-neovim-config.config').global
-
 local M = {
 	nil,
 	desc = 'color settings',
 	disable = false,
 }
+
+local config = require('adoyle-neovim-config.config').global
+local color = config.color
 
 M.requires = {
 	require('adoyle-neovim-config.themes.' .. config.theme),
@@ -41,8 +42,6 @@ M.requires = {
 	},
 
 }
-
-local color = config.color
 
 local function configGeneralHighlights()
 	-- vim.cmd [[
@@ -101,8 +100,9 @@ function M.config()
 	configCursorLine()
 
 	-- set highlight groups
-	for key, value in pairs(config.highlights) do
-		vim.cmd(vim.fn.printf('hi %s %s', key, value))
+	for _, hi in pairs(config.highlights) do
+		if type(hi) == 'function' then hi = hi(color) end
+		vim.cmd.hi(hi)
 	end
 end
 

@@ -24,22 +24,16 @@ function M.config()
 	}
 
 	section.buttons.val = {
+		dashboard.button('<SPACE>m', '  File Explorer', ':NvimTreeToggle<CR>'),
 		dashboard.button('e', '  New File', ':ene <BAR> <CR>'),
 		dashboard.button('r', '  Recently Opened Files', ':Telescope oldfiles<CR>'),
 		dashboard.button('<SPACE>f', '  Search File', ':Telescope find_files<CR>'),
-		dashboard.button('<SPACE>m', '  File Explorer', ':NERDTreeMirrorToggle<CR>'),
 		dashboard.button('<SPACE>k', '  Search Keymaps', ':Telescope keymaps<CR>'),
 		dashboard.button('<SPACE>p', 'גּ  Run Command', ':Telescope commands<CR>'),
-		dashboard.button('<SPACE>P', '  Plugin List', ':PlugStatus<CR>'),
+		dashboard.button('<SPACE>P', '  List Plugin Status', ':PlugStatus<CR>'),
 		dashboard.button('<SPACE>h', 'ﲉ  Find Help', ':Telescope help_tags<CR>'),
 		dashboard.button('q', '  Quit', ':qa<CR>'),
 	}
-
-	-- What is the fortune?
-	-- local handle = io.popen('fortune')
-	-- local fortune = handle:read("*a")
-	-- handle:close()
-	-- dashboard.section.footer.val = fortune
 
 	local marginTopPercent = 0.2
 	local headerPadding = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
@@ -54,10 +48,8 @@ function M.config()
 
 	alpha.setup(config)
 
-	vim.cmd [[
-		autocmd User AlphaReady set cursorline
-		autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
-	]]
+	vim.cmd 'autocmd User AlphaReady set cursorline'
+	-- vim.cmd 'autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2'
 end
 
 return M

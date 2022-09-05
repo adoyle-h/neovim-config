@@ -1,28 +1,27 @@
-local config = require('adoyle-neovim-config.config').global
-
 local M = {
 	nil,
 	disable = false,
 }
-
-local function configCtrlSF()
-	vim.g.ctrlsf_auto_close = 0
-	vim.g.ctrlsf_ignore_dir = { 'bower_components', 'node_modules', 'vendor' }
-	vim.g.ctrlsf_context = '-C 3'
-	vim.g.ctrlsf_follow_symlinks = 0
-
-	vim.cmd [[
-		nmap <leader>f <Plug>CtrlSFPrompt
-		vmap <leader>f <Plug>CtrlSFVwordPath
-	]]
-end
 
 M.requires = {
 	{
 		'kevinhwang91/nvim-hlslens',
 		disable = false,
 		config = function()
-			vim.cmd('hi HlSearchLens guibg=' .. config.color.grey2)
+			local config = require('adoyle-neovim-config.config').global
+			local mainColor = config.color.orange
+			local bgColor = config.color.grey2
+
+			vim.cmd.hi { 'Search', 'guibg=' .. bgColor, 'guifg=' .. mainColor }
+			vim.cmd.hi { 'IncSearch', 'guibg=' .. bgColor, 'guifg=' .. mainColor }
+			-- 1. HlSearchLensNear: highlight the nearest virtual text
+			vim.cmd.hi { 'HlSearchLensNear', 'guibg=' .. bgColor, 'guifg=' .. mainColor }
+			-- 2. HlSearchLens: highlight virtual text except for the nearest one
+			vim.cmd.hi { 'HlSearchLens', 'guibg=' .. bgColor, 'guifg=' .. config.color.grey }
+			-- 3. HlSearchNear: highlight the nearest matched instance
+			vim.cmd.hi { 'HlSearchNear', 'guibg=' .. mainColor, 'guifg=' .. config.color.black }
+			-- 4. HlSearchFloat: highlight the nearest text for the floating window
+			vim.cmd.hi { 'HlSearchFloat', 'guibg=' .. bgColor, 'guifg=' .. mainColor }
 		end,
 	},
 
@@ -31,7 +30,17 @@ M.requires = {
 		desc = '项目内内容搜索',
 		on = { '<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', 'CtrlSF' },
 		disable = false,
-		config = configCtrlSF,
+		config = function()
+			vim.g.ctrlsf_auto_close = 0
+			vim.g.ctrlsf_ignore_dir = { 'bower_components', 'node_modules', 'vendor' }
+			vim.g.ctrlsf_context = '-C 3'
+			vim.g.ctrlsf_follow_symlinks = 0
+
+			vim.cmd [[
+				nmap <leader>f <Plug>CtrlSFPrompt
+				vmap <leader>f <Plug>CtrlSFVwordPath
+			]]
+		end,
 	},
 
 	{

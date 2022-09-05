@@ -26,10 +26,10 @@ function M.config()
 			black = color.black,
 			gray = color.grey,
 			highlight = color.yellow,
-			-- highlight = "#e2be7d",
 
 			cursorline = color.cursorLineBG,
 			comment = color.grey,
+			selection = color.selection,
 
 			diff_add = color.diffAddBG,
 			diff_delete = color.diffDeleteBG,
@@ -37,13 +37,13 @@ function M.config()
 			-- diff_change = color.diffChangeBG,
 		},
 
-		hlgroups = { -- Override default highlight groups
+		highlights = { -- Override default highlight groups
 			TelescopeMatching = { fg = "${orange}" },
 			Search = { style = 'none' },
 			QuickFixLine = { bg = color.darkYellow, style = 'bold' }
 		},
 
-		filetype_hlgroups = {}, -- Override default highlight groups for specific filetypes
+		ft_highlights = {}, -- Override default highlight groups for specific filetypes
 
 		plugins = { -- Override which plugins highlight groups are loaded
 			native_lsp = true,

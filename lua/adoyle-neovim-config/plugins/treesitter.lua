@@ -10,10 +10,17 @@ local M = {
 			'nvim-treesitter/playground',
 			desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor',
 		},
+
+		{
+			'nvim-treesitter/nvim-treesitter-context',
+			desc = 'shows the context of the currently visible buffer contents.',
+		},
 	}
 }
 
 function M.config()
+	local color = require('adoyle-neovim-config.config').global.color
+
 	if config.proxy.github then
 		for _, treesitterConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
 			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub(
@@ -72,6 +79,14 @@ function M.config()
 			},
 		}
 	}
+
+
+	require 'treesitter-context'.setup {
+		mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+	}
+	vim.cmd.hi { 'TreesitterContext', 'guibg=' .. color.contextBG, 'gui=italic,bold' }
+	vim.cmd.hi { 'TreesitterContextLineNumber', 'guibg=' .. color.contextBG, 'gui=italic,bold' }
+
 end
 
 return M

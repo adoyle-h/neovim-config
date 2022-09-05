@@ -38,49 +38,52 @@ local function configMapping()
 	keymap('v', '<space>f', function()
 		local text = vim.getVisualSelection()
 		tb.find_files({ default_text = text })
-	end, opts)
+	end, { noremap = true, silent = true, desc = 'Find files with selection' })
 
 	keymap('n', '<space>G', ':Telescope current_buffer_fuzzy_find<cr>', opts)
 	keymap('v', '<space>G', function()
 		local text = vim.getVisualSelection()
 		tb.current_buffer_fuzzy_find({ default_text = text })
-	end, opts)
+	end, { noremap = true, silent = true, desc = 'Search in current file with selection' })
 
 	keymap('n', '<space>g', ':Telescope live_grep<cr>', opts)
 	keymap('v', '<space>g', function()
 		local text = vim.getVisualSelection()
 		tb.live_grep({ default_text = text })
-	end, opts)
+	end, { noremap = true, silent = true, desc = 'Global search content with selection' })
 
 	keymap('n', '<space>p', ':Telescope commands<cr>', opts)
 	keymap('v', '<space>p', function()
 		local text = vim.getVisualSelection()
 		tb.commands({ default_text = text })
-	end, opts)
+	end, { noremap = true, silent = true, desc = 'List commands with selection' })
 
+	-- Press '<Enter>' to execute command immediately.
+	-- Press '<Ctrl-e>' to edit command in terminal mode.
+	-- See https://github.com/nvim-telescope/telescope.nvim/pull/656/files
 	keymap('n', '<space>c', ':Telescope command_history<cr>', opts)
 	keymap('v', '<space>c', function()
 		local text = vim.getVisualSelection()
 		tb.command_history({ default_text = text })
-	end, opts)
+	end, { noremap = true, silent = true, desc = 'List command history with selection' })
 
 	keymap('n', '<space>h', ':Telescope help_tags<cr>', opts)
 	keymap('v', '<space>h', function()
 		local text = vim.getVisualSelection()
 		tb.help_tags({ default_text = text })
-	end, opts)
+	end, { noremap = true, silent = true, desc = 'List help documents with selection' })
 
 	keymap('n', '<space>H', ':Telescope highlights<cr>', opts)
 	keymap('v', '<space>h', function()
 		local text = vim.getVisualSelection()
 		tb.highlights({ default_text = text })
-	end, opts)
+	end, { noremap = true, silent = true, desc = 'List highlights with selection' })
 
 	keymap('n', '<space>k', ':Telescope keymaps<cr>', opts)
 	keymap('v', '<space>k', function()
 		local text = vim.getVisualSelection()
 		tb.keymaps({ default_text = text })
-	end, opts)
+	end, { noremap = true, silent = true, desc = 'List keymaps with selection' })
 
 	keymap('n', '<space>b', ':Telescope buffers<cr>', opts)
 	keymap('n', '<space>d', ':Telescope diagnostics<cr>', opts)
@@ -88,7 +91,8 @@ local function configMapping()
 	keymap('n', '<space>S', ':Telescope spell_suggest<cr>', opts)
 	keymap('n', '<space>j', ':Telescope jumplist<cr>', opts)
 	keymap('n', '<space>v', ':Telescope vim_options<cr>', opts)
-	keymap('n', '<space>r', ':Telescope registers<cr>', opts)
+	keymap('n', '<space>y', ':Telescope registers<cr>', opts)
+	keymap('n', '<space>r', ':Telescope reloader<cr>', opts)
 
 	-- override lsp keymaps
 	keymap('n', 'gI', ':Telescope lsp_implementations<cr>', opts)
@@ -176,6 +180,10 @@ function M.config()
 			},
 
 			live_grep = {
+				theme = "dropdown",
+			},
+
+			buffers = {
 				theme = "dropdown",
 			},
 
