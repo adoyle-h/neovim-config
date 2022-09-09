@@ -5,19 +5,25 @@ local M_NullLS = {
 	'jose-elias-alvarez/null-ls.nvim',
 	config = function()
 		local null_ls = require('null-ls')
+		local sources = {
+			null_ls.builtins.code_actions.eslint_d,
+			null_ls.builtins.diagnostics.eslint_d,
+			null_ls.builtins.completion.spell,
+
+			null_ls.builtins.formatting.stylua,
+			null_ls.builtins.formatting.eslint_d,
+			null_ls.builtins.formatting.prettierd,
+		}
+
+		local has_gitsigns = pcall(require, 'gitsigns')
+		if has_gitsigns then
+			table.insert(sources, null_ls.builtins.code_actions.gitsigns)
+		end
 
 		null_ls.setup({
 			debounce = 150,
 			default_timeout = 3000,
-			sources = {
-				null_ls.builtins.code_actions.eslint_d,
-				null_ls.builtins.diagnostics.eslint_d,
-				null_ls.builtins.completion.spell,
-
-				null_ls.builtins.formatting.stylua,
-				null_ls.builtins.formatting.eslint_d,
-				null_ls.builtins.formatting.prettierd,
-			},
+			sources = sources,
 		})
 	end
 }
@@ -86,8 +92,8 @@ local M = {
 
 local function configUI()
 	-- local signs = { Error = '•', Warn = '•', Hint = '•', Info = '•' }
-	local lvSym = config.levelSymbols
-	local signs = { Error = lvSym.ERROR, Warn = lvSym.WARN, Hint = lvSym.HINT, Info = lvSym.INFO }
+	local symbolMap = config.symbolMap
+	local signs = { Error = symbolMap.ERROR, Warn = symbolMap.WARN, Hint = symbolMap.HINT, Info = symbolMap.INFO }
 	for type, icon in pairs(signs) do
 		local hl = 'DiagnosticSign' .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })

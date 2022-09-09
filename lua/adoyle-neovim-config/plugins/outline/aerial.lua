@@ -15,7 +15,7 @@ function M.config()
 	})
 
 	local icons = { Interface = '·', }
-	for k, v in pairs(config.symbolMap) do
+	for k, v in pairs(config.kindSymbolMap) do
 		if icons[k] == nil then
 			icons[k] = v
 		end

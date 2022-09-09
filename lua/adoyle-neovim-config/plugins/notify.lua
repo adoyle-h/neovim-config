@@ -6,6 +6,7 @@ local M = {
 
 function M.config()
 	local config = require('adoyle-neovim-config.config').global
+	local symbolMap = config.symbolMap
 
 	vim.notify = require('notify')
 
@@ -13,11 +14,11 @@ function M.config()
 		background_colour = 'Normal',
 		fps = 30,
 		icons = {
-			ERROR = config.levelSymbols.ERROR,
-			WARN = config.levelSymbols.WARN,
-			INFO = config.levelSymbols.INFO,
-			DEBUG = config.levelSymbols.DEBUG,
-			TRACE = config.levelSymbols.TRACE,
+			ERROR = symbolMap.ERROR,
+			WARN = symbolMap.WARN,
+			INFO = symbolMap.INFO,
+			DEBUG = symbolMap.DEBUG,
+			TRACE = symbolMap.TRACE,
 		},
 		level = 2,
 		minimum_width = 50,

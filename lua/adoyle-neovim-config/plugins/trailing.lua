@@ -7,7 +7,11 @@ local M = {
 }
 
 function M.config()
-	vim.cmd(vim.fn.printf('hi TrailingWhitespace ctermbg=8 guibg=%s', config.color.grey3))
+	local util = require('adoyle-neovim-config.util')
+
+	util.set_hl {
+		{ 'TrailingWhitespace', { bg = config.color.grey3 } }
+	}
 
 	require('whitespace-nvim').setup({
 		highlight = 'TrailingWhitespace',

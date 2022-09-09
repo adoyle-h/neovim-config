@@ -4,7 +4,7 @@ local M = {
 	'nvim-telescope/telescope.nvim',
 	disable = false,
 	requires = {
-		'nvim-telescope/telescope-ui-select.nvim', -- improve the default vim.ui interfaces
+		'nvim-telescope/telescope-ui-select.nvim', -- improve the default vim.ui interfaces, like lsp.buf.code_action
 	},
 }
 
@@ -16,7 +16,6 @@ local function configHighlight()
 	util.set_hl {
 		{ 'TelescopeResultsBorder', { fg = color.white, bg = 'none' } },
 		{ 'TelescopePreviewBorder', { fg = color.white, bg = 'none' } },
-		{ 'TelescopeResultsBorder', { fg = color.white, bg = 'none' } },
 		{ 'TelescopePromptBorder', { fg = color.white, bg = 'none' } },
 		{ 'TelescopeBorder', { fg = color.blue, bg = 'none' } },
 		{ 'TelescopePromptPrefix', { fg = color.blue, bg = 'none' } },
@@ -194,6 +193,19 @@ function M.config()
 			find_files = {
 				hidden = true,
 				theme = 'dropdown',
+				path_display = {},
+				layout_config = {
+					width = 0.8,
+				},
+			},
+
+			oldfiles = {
+				layout_strategy = 'vertical',
+				path_display = {},
+			},
+
+			git_files = {
+				path_display = {},
 			},
 
 			highlights = {
@@ -237,10 +249,6 @@ function M.config()
 				layout_strategy = 'cursor',
 			},
 
-			oldfiles = {
-				layout_strategy = 'vertical',
-			},
-
 			lsp_references = {
 				theme = 'dropdown',
 				layout_config = {
@@ -260,6 +268,12 @@ function M.config()
 		},
 
 		extensions = {
+			['ui-select'] = {
+				layout_config = {
+					width = 0.4,
+					height = 16,
+				},
+			}
 		},
 	}
 

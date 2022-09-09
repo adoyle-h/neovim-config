@@ -67,7 +67,7 @@ return {
 		'Mundo',
 	},
 
-	colorcolumn = { 80, 100 }, -- highlight columns. See ":h 'cc'"
+	colorcolumn = {}, -- highlight columns. See ":h 'cc'"
 
 	synmaxcol = 300, -- Syntax coloring lines that are too long just slows down the world
 
@@ -144,16 +144,18 @@ return {
 		},
 	},
 
-	levelSymbols = {
+	symbolMap = {
 		DEBUG = "",
 		ERROR = "", -- 
 		INFO = "", -- 
 		TRACE = "",
 		WARN = "", -- 
 		HINT = '',
+		LOCK = '',
+		BRANCH = '',
 	},
 
-	symbolMap = {
+	kindSymbolMap = {
 		Array = '',
 		Boolean = '◩',
 		Class = 'ﴯ',
@@ -161,7 +163,7 @@ return {
 		Color = '',
 		Constant = '🄲',
 		Constructor = '',
-		Enum = '練',
+		Enum = '',
 		EnumMember = '',
 		Event = '',
 		Field = '', --'ﰠ',
@@ -186,8 +188,6 @@ return {
 		Text = '',
 		TypeParameter = '𝕋', -- ''
 		Unit = '塞',
-		-- Variable      = '',
-		-- Variable    = '𝒗',
-		Variable = '𝕍',
+		Variable = '𝕍', -- '', '𝒗'
 	},
 }

@@ -6,7 +6,8 @@ local M = {
 }
 
 local printf = vim.fn.printf
-local colors = require('adoyle-neovim-config.config').global.color.statusline
+local config = require('adoyle-neovim-config.config').global
+local colors = config.color.statusline
 local sec_c_bg = colors.sec_c_bg
 
 local function theme()
@@ -142,37 +143,38 @@ local function my_sections()
 	return printf('%s %s', location(), spaces())
 end
 
-local diagnostics = {
-	'diagnostics',
-
-	-- Table of diagnostic sources, available sources are:
-	--   'nvim_lsp', 'nvim_diagnostic', 'nvim_workspace_diagnostic', 'coc', 'ale', 'vim_lsp'.
-	-- or a function that returns a table as such:
-	--   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
-	sources = { 'nvim_diagnostic' },
-
-	-- Displays diagnostics for the defined severity types
-	sections = { 'error', 'warn', 'info', 'hint' },
-
-	diagnostics_color = {
-		-- Same values as the general color option can be used here.
-		error = { fg = colors.red, bg = sec_c_bg },
-		warn  = { fg = colors.yellow, bg = sec_c_bg },
-		info  = { fg = colors.blue, bg = sec_c_bg },
-		hint  = { fg = colors.cyan, bg = sec_c_bg },
-	},
-
-	symbols = {
-		icons = { error = '', warn = '', info = '', hint = '' },
-	},
-
-	colored = true, -- Displays diagnostics status in color if set to true.
-	update_in_insert = false, -- Update diagnostics in insert mode.
-	always_visible = false, -- Show diagnostics even if there are none.
-}
-
 function M.config()
-	local config = {
+	local symbolMap = config.symbolMap
+	local diagnostics = {
+		'diagnostics',
+
+		-- Table of diagnostic sources, available sources are:
+		--   'nvim_lsp', 'nvim_diagnostic', 'nvim_workspace_diagnostic', 'coc', 'ale', 'vim_lsp'.
+		-- or a function that returns a table as such:
+		--   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
+		sources = { 'nvim_diagnostic' },
+
+		-- Displays diagnostics for the defined severity types
+		sections = { 'error', 'warn', 'info', 'hint' },
+
+		diagnostics_color = {
+			-- Same values as the general color option can be used here.
+			error = { fg = colors.red, bg = sec_c_bg },
+			warn  = { fg = colors.yellow, bg = sec_c_bg },
+			info  = { fg = colors.blue, bg = sec_c_bg },
+			hint  = { fg = colors.cyan, bg = sec_c_bg },
+		},
+
+		symbols = {
+			icons = { error = symbolMap.ERROR, warn = symbolMap.WARN, info = symbolMap.INFO, hint = symbolMap.HINT },
+		},
+
+		colored = true, -- Displays diagnostics status in color if set to true.
+		update_in_insert = false, -- Update diagnostics in insert mode.
+		always_visible = false, -- Show diagnostics even if there are none.
+	}
+
+	local lualineConfig = {
 		options = {
 			icons_enabled = true,
 			theme = theme(),
@@ -199,7 +201,7 @@ function M.config()
 		sections = {
 			lualine_a = { getMode },
 
-			lualine_b = { { 'branch', icon = '' } },
+			lualine_b = { { 'branch', icon = symbolMap.BRANCH } },
 
 			lualine_c = {
 				{
@@ -215,7 +217,7 @@ function M.config()
 					-- for other components. (terrible name, any suggestions?)
 					symbols = {
 						modified = '[*]', -- Text to show when the file is modified.
-						readonly = ' ', -- Text to show when the file is non-modifiable or readonly.
+						readonly = ' ' .. symbolMap.LOCK, -- Text to show when the file is non-modifiable or readonly.
 						unnamed = '[No Name]', -- Text to show for unnamed buffers.
 						newfile = '[New]', -- Text to show for new created file before first writting
 					}
@@ -259,13 +261,14 @@ function M.config()
 
 	local has_navic, navic = pcall(require, 'nvim-navic')
 	if has_navic then
-		table.insert(config.winbar.lualine_c, {
+		table.insert(lualineConfig.winbar.lualine_c, {
 			navic.get_location,
 			cond = navic.is_available,
+			color = { fg = colors.sec_c_fg, bg = colors.sec_c_bg, gui = 'underline' },
 		})
 	end
 
-	require('lualine').setup(config)
+	require('lualine').setup(lualineConfig)
 end
 
 return M

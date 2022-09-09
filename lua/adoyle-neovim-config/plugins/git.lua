@@ -1,36 +1,22 @@
-local config = require('adoyle-neovim-config.config').global
-
 local M = {
 	nil,
 	desc = 'Git Plugins',
 	disable = false,
 
 	requires = {
-		require 'adoyle-neovim-config.plugins.git-gutter',
+		-- require 'adoyle-neovim-config.plugins.git.blame',
+		-- require 'adoyle-neovim-config.plugins.git.gutter',
+		require 'adoyle-neovim-config.plugins.git.sign',
+
+		-- {
+		--   'tpope/vim-fugitive',
+		--   desc = 'git 命令 in vim',
+		--   disable = false,
+		-- },
 
 		{
 			'sindrets/diffview.nvim',
 			desc = 'Git Diff',
-			disable = false,
-		},
-
-		{
-			'f-person/git-blame.nvim',
-			config = function()
-				local color = config.color
-				vim.keymap.set('n', '<leader>gb', ':GitBlameToggle<CR>', { silent = true, noremap = true })
-				vim.g.gitblame_enabled = false
-				vim.g.gitblame_message_template = '  <date> <author>: <summary>'
-				vim.g.gitblame_date_format = '%Y/%m/%d %H:%M:%S'
-				vim.cmd(vim.fn.printf('hi GitBlameVirtualText guifg=%s guibg=%s gui=italic', color.grey, color.cursorLineBG))
-				vim.g.gitblame_highlight_group = 'GitBlameVirtualText'
-				vim.g.gitblame_ignored_filetypes = config.ignoredFileTypesForSomePlugs
-			end
-		},
-
-		{
-			'tpope/vim-fugitive',
-			desc = 'git 命令 in vim',
 			disable = false,
 		},
 

@@ -83,7 +83,7 @@ local function configFormating()
 			-- 'codicons' for codicon preset (requires vscode-codicons font)
 			preset = 'default',
 
-			symbol_map = config.symbolMap,
+			symbol_map = config.kindSymbolMap,
 
 			-- The function below will be called before any actual modifications from lspkind
 			-- so that you can provide more controls on popup customization.

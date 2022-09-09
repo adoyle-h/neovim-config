@@ -170,13 +170,13 @@ function M.config()
 					'add',
 					-- some commands may take optional config options, see `:h neo-tree-mappings` for details
 					config = {
-						show_path = 'reletive' -- 'none', 'relative', 'absolute'
+						show_path = 'relative' -- 'none', 'relative', 'absolute'
 					}
 				},
 				['A'] = {
 					'add_directory',
 					config = {
-						show_path = 'reletive' -- 'none', 'relative', 'absolute'
+						show_path = 'relative' -- 'none', 'relative', 'absolute'
 					}
 				},
 				['c'] = {
