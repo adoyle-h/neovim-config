@@ -1,43 +1,97 @@
 local config = require('adoyle-neovim-config.config').global
 
+-- null-ls is an attempt to bridge that gap and simplify the process of creating, sharing, and setting up LSP sources using pure Lua.
+local M_NullLS = {
+	'jose-elias-alvarez/null-ls.nvim',
+	config = function()
+		local null_ls = require('null-ls')
+
+		null_ls.setup({
+			debounce = 150,
+			default_timeout = 3000,
+			sources = {
+				null_ls.builtins.code_actions.eslint_d,
+				null_ls.builtins.diagnostics.eslint_d,
+				null_ls.builtins.completion.spell,
+
+				null_ls.builtins.formatting.stylua,
+				null_ls.builtins.formatting.eslint_d,
+				null_ls.builtins.formatting.prettierd,
+			},
+		})
+	end
+}
+
+local M_GotoPreview = {
+	'rmagatti/goto-preview',
+	config = function()
+		require('goto-preview').setup {
+			width = 100; -- Width of the floating window
+			height = 15; -- Height of the floating window
+			border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }; -- Border characters of the floating window
+			default_mappings = false; -- Bind default mappings
+			debug = false; -- Print debug information
+			opacity = nil; -- 0-100 opacity level of the floating window where 100 is fully transparent.
+			resizing_mappings = false; -- Binds arrow keys to resizing the floating window.
+			post_open_hook = function()
+				vim.wo.cc = '';
+			end; -- A function taking two arguments, a buffer and a window to be ran as a hook.
+
+			-- references = { -- Configure the telescope UI for slowing the references cycling window.
+			--   telescope = telescope.themes.get_dropdown({ hide_preview = false })
+			-- };
+
+			-- These two configs can also be passed down to the goto-preview definition and implementation calls for one off "peak" functionality.
+			focus_on_open = true; -- Focus the floating window when opening it.
+			dismiss_on_move = false; -- Dismiss the floating window when moving the cursor.
+			force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
+			bufhidden = "wipe", -- the bufhidden option to set on the floating window. See :h bufhidden
+		}
+
+		vim.cmd [[
+			nnoremap gd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
+			nnoremap gt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
+			nnoremap gi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
+			nnoremap gc <cmd>lua require('goto-preview').close_all_win()<CR>
+			" Only set if you have telescope installed
+			nnoremap gr <cmd>lua require('goto-preview').goto_preview_references()<CR>
+		]]
+	end
+}
+
 local M = {
 	'williamboman/nvim-lsp-installer', -- Use :LspInstallInfo to install/upgrade/uninstall lsp
 	disable = false,
 
 	requires = {
+		M_NullLS,
+		M_GotoPreview,
 		'neovim/nvim-lspconfig',
-		'j-hui/fidget.nvim',
 		'lukas-reineke/lsp-format.nvim',
+
+		{
+			'j-hui/fidget.nvim',
+			desc = 'nvim-lsp loading progress',
+			config = function()
+				require('fidget').setup {}
+			end
+		},
+
 		{
 			'antoinemadec/FixCursorHold.nvim',
 			config = function() vim.g.cursorhold_updatetime = 100 end,
 		},
-
-		'jose-elias-alvarez/null-ls.nvim',
 	},
 }
 
-local function configHighlight()
-	-- LSP: Highlight symbol under cursor
-	vim.cmd [[
-		hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-		hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-		hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-	]]
-end
-
 local function configUI()
 	-- local signs = { Error = '•', Warn = '•', Hint = '•', Info = '•' }
-	local signs = { Error = '', Warn = '', Hint = '', Info = '' }
+	local lvSym = config.levelSymbols
+	local signs = { Error = lvSym.ERROR, Warn = lvSym.WARN, Hint = lvSym.HINT, Info = lvSym.INFO }
 	for type, icon in pairs(signs) do
 		local hl = 'DiagnosticSign' .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 	end
-
-	-- UI for nvim-lsp loading progress
-	require('fidget').setup {}
-
-	configHighlight()
 end
 
 local function configLSPInstaller(installer)
@@ -76,33 +130,10 @@ local function configKeyMaps()
 	keymap('n', ']d', function() vim.diagnostic.goto_next() end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' })
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	keymap('n', 'gD', function() vim.lsp.buf.declaration() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' })
-	keymap('n', 'gI', function() vim.lsp.buf.implementation() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.implementation' })
 	keymap('n', 'gR', function() vim.lsp.buf.rename() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.rename' })
 	keymap('n', 'ga', function() vim.lsp.buf.code_action() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' })
-	keymap('n', 'gd', function() vim.lsp.buf.definition() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.definition' })
 	keymap('n', 'gh', function() vim.lsp.buf.hover() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' })
-	keymap('n', 'gr', function() vim.lsp.buf.references() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.references' })
 	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' })
-	keymap('n', 'gt', function() vim.lsp.buf.type_definition() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.type_definition' })
-end
-
--- null-ls is an attempt to bridge that gap and simplify the process of creating, sharing, and setting up LSP sources using pure Lua.
-local function configNullLSP()
-	local null_ls = require('null-ls')
-
-	null_ls.setup({
-		debounce = 150,
-		default_timeout = 3000,
-		sources = {
-			null_ls.builtins.code_actions.eslint_d,
-			null_ls.builtins.diagnostics.eslint_d,
-			null_ls.builtins.completion.spell,
-
-			null_ls.builtins.formatting.stylua,
-			null_ls.builtins.formatting.eslint_d,
-			null_ls.builtins.formatting.prettierd,
-		},
-	})
 end
 
 local function configDiagnostic()
@@ -135,7 +166,6 @@ local function configDiagnostic()
 end
 
 function M.config()
-	configNullLSP()
 	configDiagnostic()
 	configKeyMaps()
 	configUI()
@@ -153,13 +183,17 @@ function M.config()
 	lspFormat.setup {
 		javascript = {
 			order = { 'eslint_d', 'prettierd' },
-		}
+		},
 	}
+
+	local has_aerial, aerial = pcall(require, 'aerial')
+	local has_navic, navic = pcall(require, 'nvim-navic')
+
 	-- Use an on_attach function to only map the following keys
 	-- after the language server attaches to the current buffer
 	local on_attach = function(client, bufnr)
-		local ok, aerial = pcall(require, 'aerial')
-		if ok then aerial.on_attach(client, bufnr) end
+		if has_aerial then aerial.on_attach(client, bufnr) end
+		if has_navic then navic.attach(client, bufnr) end
 
 		lspFormat.on_attach(client, bufnr)
 	end

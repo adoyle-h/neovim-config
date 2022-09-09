@@ -8,20 +8,24 @@ M.requires = {
 		'kevinhwang91/nvim-hlslens',
 		disable = false,
 		config = function()
-			local config = require('adoyle-neovim-config.config').global
-			local mainColor = config.color.orange
-			local bgColor = config.color.grey2
+			local util = require('adoyle-neovim-config.util')
+			local color = require('adoyle-neovim-config.config').global.color
+			local mainColor = color.orange
+			local bgColor = color.grey2
+			local black = color.black
 
-			vim.cmd.hi { 'Search', 'guibg=' .. bgColor, 'guifg=' .. mainColor }
-			vim.cmd.hi { 'IncSearch', 'guibg=' .. bgColor, 'guifg=' .. mainColor }
-			-- 1. HlSearchLensNear: highlight the nearest virtual text
-			vim.cmd.hi { 'HlSearchLensNear', 'guibg=' .. bgColor, 'guifg=' .. mainColor }
-			-- 2. HlSearchLens: highlight virtual text except for the nearest one
-			vim.cmd.hi { 'HlSearchLens', 'guibg=' .. bgColor, 'guifg=' .. config.color.grey }
-			-- 3. HlSearchNear: highlight the nearest matched instance
-			vim.cmd.hi { 'HlSearchNear', 'guibg=' .. mainColor, 'guifg=' .. config.color.black }
-			-- 4. HlSearchFloat: highlight the nearest text for the floating window
-			vim.cmd.hi { 'HlSearchFloat', 'guibg=' .. bgColor, 'guifg=' .. mainColor }
+			util.set_hl {
+				{ 'Search', { bg = black, fg = mainColor, underline = true } },
+				{ 'IncSearch', { bg = black, fg = mainColor, underline = true } },
+				-- 1. HlSearchLensNear: highlight the nearest virtual text
+				{ 'HlSearchLensNear', { bg = bgColor, fg = mainColor } },
+				-- 2. HlSearchLens: highlight virtual text except for the nearest one
+				{ 'HlSearchLens', { bg = bgColor, fg = color.grey } },
+				-- 3. HlSearchNear: highlight the nearest matched instance
+				{ 'HlSearchNear', { bg = mainColor, fg = color.black } },
+				-- 4. HlSearchFloat: highlight the nearest text for the floating window
+				{ 'HlSearchFloat', { bg = bgColor, fg = mainColor } },
+			}
 		end,
 	},
 

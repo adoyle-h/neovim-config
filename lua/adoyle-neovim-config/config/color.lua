@@ -72,6 +72,35 @@ local functionsColors = {
 		cyan     = '#9ac3de',
 	},
 
+	-- Use :TSCaptureUnderCursor to get highlight group of text
+	-- Color schema references:
+	-- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Colorschemes
+	-- https://github.com/rockerBOO/awesome-neovim#tree-sitter-supported-colorscheme
+	treesitter = {
+		-- Query ":h nvim_set_hl" for function arguments
+		{ 'TSVariable', { fg = color.white } },
+		{ 'TSParameter', { fg = color.white } },
+		{ 'TSProperty', { fg = '#5098A3' } },
+		{ 'TSKeyword', { fg = '#9ED817' } },
+		{ 'TSFunction', { fg = '#3D84FF' } }, -- #4083F8
+		{ 'TSKeywordFunction', { fg = '#1197DC' } },
+		{ 'TSField', { fg = '#B1B16B' } },
+		{ 'TSKeywordReturn', { fg = '#3C9B2F' } },
+		{ 'TSConditional', { fg = '#916E99' } },
+		{ 'TSType', { fg = '#C9853E' } },
+		{ 'TSBoolean', { fg = '#AD3838' } },
+		{ 'TSConstant', { fg = '#CBB708' } },
+		{ 'TSInclude', { fg = '#A486E1' } },
+		{ 'TSNamespace', { fg = '#8255FF' } },
+	},
+
+	highlightWords = {
+		gui = {
+			'#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF', '#C9853E', '#4083F8',
+			'#5F9B2F', '#8255FF', '#D25B9F', '#406661', '#95956E', '#284184', '#6C7B95', '#835858',
+		},
+		cterm = {},
+	},
 }
 
 for k, v in pairs(functionsColors) do color[k] = v end

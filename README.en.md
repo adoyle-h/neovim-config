@@ -72,7 +72,7 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
 
 ## Dependency
 
-- NVIM v0.7 and higher
+- NVIM v0.8 (latest commit)
 - Vim Plugin Manager: https://github.com/junegunn/vim-plug
 - python3、pip3
 - nvim python provider
@@ -172,14 +172,16 @@ Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-con
 ├── init.lua           // neovim configuration entry point (directly use way)
 ├── lua
 │   └── adoyle-neovim-config
-│       ├── basic.lua        // Basic Settings. Some options may be overrided by plugin
 │       ├── config/          // Keymaps
-│       │   └── default.lua  // default config
-│       ├── config.lua       // config loader
+│       │   ├── color.lua  // default color config
+│       │   └── default.lua  // Default config
+│       ├── config.lua       // Config loader
 │       ├── fix-lua.lua
 │       ├── init.lua         // The lua required entry point (plugin way)
 │       ├── plugins.lua      // Plugin loading list
 │       ├── util.lua         // utility functions
+│       ├── vim-options.lua
+│       ├── extend.lua       // General user functions and commands
 │       ├── vim-plug.lua     // Plugin manage framework based on vim-plug
 │       ├── keymap/          // Keymaps
 │       ├── plugins/         // Available plugins written in lua

@@ -6,10 +6,10 @@ local M = {
 }
 
 function M.config()
-	vim.g.interestingWordsTermColors = {
-		'33', '4', '210', '197', '78', '154', '99', '121', '212', '38', '166',
-		'123', '214', '34', '222', '116', '207', '242',
-	}
+	local color = require('adoyle-neovim-config.config').global.color
+
+	vim.g.interestingWordsGUIColors = color.highlightWords.gui
+	vim.g.interestingWordsTermColors = color.highlightWords.cterm
 	vim.g.interestingWordsRandomiseColors = 0
 
 	vim.cmd [[

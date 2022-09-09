@@ -2,9 +2,16 @@ local util = {}
 
 local fn = vim.fn
 local tbl_islist = vim.tbl_islist
+local set_hl = vim.api.nvim_set_hl
+
+function util.set_hl(hls)
+	for _, hl in pairs(hls) do
+		set_hl(0, hl[1], hl[2])
+	end
+end
 
 ---Merge two tables recursively. The later override the previous
-util.merge = function(v1, v2)
+function util.merge(v1, v2)
 	local v1IsArray = tbl_islist(v1)
 	local v2IsArray = tbl_islist(v2)
 
@@ -46,8 +53,20 @@ util.merge = function(v1, v2)
 	end
 end
 
-util.exist = function(path)
+function util.exist(path)
 	return fn.empty(fn.glob(path)) == 0
+end
+
+function util.getVisualSelection(return_raw)
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	if return_raw then
+		return text
+	else
+		return string.gsub(text, '\n', '')
+	end
 end
 
 return util

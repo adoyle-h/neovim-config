@@ -2,8 +2,7 @@ local M = {
 	'nvim-lualine/lualine.nvim',
 	desc = 'lualine.nvim',
 	disable = false,
-	requires = {
-	},
+	requires = {},
 }
 
 local printf = vim.fn.printf
@@ -11,31 +10,36 @@ local colors = require('adoyle-neovim-config.config').global.color.statusline
 local sec_c_bg = colors.sec_c_bg
 
 local function theme()
+	local black = colors.black
+	local white = colors.white
+	local green = colors.green
+	local grey = colors.grey
+
 	return {
 		normal = {
-			a = { fg = colors.black, bg = colors.green, gui = 'bold' },
-			b = { fg = colors.white, bg = colors.grey },
+			a = { fg = black, bg = green, gui = 'bold' },
+			b = { fg = white, bg = grey },
 			c = { fg = colors.sec_c_fg, bg = sec_c_bg },
-			y = { fg = colors.white, bg = colors.sec_y_bg },
-			z = { fg = colors.black, bg = colors.green },
+			y = { fg = white, bg = colors.sec_y_bg },
+			z = { fg = black, bg = green },
 		},
 
 		insert = {
-			a = { fg = colors.black, bg = colors.blue, gui = 'bold' },
+			a = { fg = black, bg = colors.blue, gui = 'bold' },
 		},
 
 		visual = {
-			a = { fg = colors.black, bg = colors.orange, gui = 'bold' },
+			a = { fg = black, bg = colors.orange, gui = 'bold' },
 		},
 
 		replace = {
-			a = { fg = colors.black, bg = colors.purple, gui = 'bold' },
+			a = { fg = black, bg = colors.purple, gui = 'bold' },
 		},
 
 		inactive = {
-			c = { fg = colors.white, bg = colors.black },
-			a = { fg = colors.white, bg = colors.grey, gui = 'bold' },
-			b = { fg = colors.white, bg = colors.sec_y_bg },
+			c = { fg = white, bg = black },
+			a = { fg = white, bg = grey, gui = 'bold' },
+			b = { fg = white, bg = colors.sec_y_bg },
 		},
 	}
 end
@@ -168,7 +172,7 @@ local diagnostics = {
 }
 
 function M.config()
-	require('lualine').setup {
+	local config = {
 		options = {
 			icons_enabled = true,
 			theme = theme(),
@@ -239,11 +243,29 @@ function M.config()
 			lualine_z = {}
 		},
 
-		tabline = {},
-		winbar = {},
+		winbar = {
+			lualine_a = {},
+			lualine_b = {},
+			lualine_c = {},
+			lualine_x = {},
+			lualine_y = {},
+			lualine_z = {},
+		},
 		inactive_winbar = {},
+
+		tabline = {},
 		extensions = {}
 	}
+
+	local has_navic, navic = pcall(require, 'nvim-navic')
+	if has_navic then
+		table.insert(config.winbar.lualine_c, {
+			navic.get_location,
+			cond = navic.is_available,
+		})
+	end
+
+	require('lualine').setup(config)
 end
 
 return M

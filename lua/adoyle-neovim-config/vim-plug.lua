@@ -148,7 +148,7 @@ function P.fin()
 
 	local notify = vim.notify and vim.notify or print
 	for _, repo in pairs(P.unloadRepos) do
-		notify(fn.printf('[WARN] Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo))
+		notify(fn.printf('Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo))
 	end
 end
 

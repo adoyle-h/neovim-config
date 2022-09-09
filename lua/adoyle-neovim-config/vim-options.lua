@@ -9,14 +9,6 @@ vim.g.mapleader = config.mapleader
 
 local opt = vim.opt
 
-function vim.getVisualSelection()
-	vim.cmd('noau normal! "vy"')
-	local text = vim.fn.getreg('v')
-	vim.fn.setreg('v', {})
-
-	return string.gsub(text, '\n', '')
-end
-
 vim.cmd [[
 	syntax on " turn on that syntax highlighting. Default is on in neovim.
 
@@ -134,7 +126,8 @@ opt.visualbell = true
 
 opt.history = config.history
 opt.cmdheight = config.cmdheight
-opt.cc = config.highlightColumn
+opt.colorcolumn = config.colorcolumn
+opt.signcolumn = config.signcolumn
 opt.synmaxcol = config.synmaxcol
 opt.updatetime = config.updatetime
 opt.updatecount = config.updatecount

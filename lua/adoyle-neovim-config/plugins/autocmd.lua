@@ -40,7 +40,6 @@ local maps = {
 
 function M.config()
 	vim.api.nvim_create_autocmd({ 'FileType' }, {
-		pattern = { '*' },
 		callback = function(args)
 			local fn = maps[args.match]
 			if fn then fn() end

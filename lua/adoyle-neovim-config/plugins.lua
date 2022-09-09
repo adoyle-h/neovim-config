@@ -14,20 +14,30 @@ local Load = function(path)
 	Plug(opts)
 end
 
--- Library
--- Many plugins require plenary.nvim
-Plug { 'nvim-lua/plenary.nvim', config = function()
-	vim.api.nvim_create_user_command('PlenaryTest', ':lua require(\'plenary.test_harness\').test_directory(vim.fn.expand("%:p"))<CR>', {})
-end }
+------- Basic required plugins -------
+Plug {
+	'nvim-lua/plenary.nvim',
+	config = function()
+		vim.api.nvim_create_user_command('PlenaryTest', function()
+			require('plenary.test_harness').test_directory(vim.fn.expand("%:p"))
+		end, {})
+	end
+}
+
 Load 'plugins.notify'
--- Plug 'kyazdani42/nvim-web-devicons' -- Not suitable for now
+
+Plug {
+	'kyazdani42/nvim-web-devicons',
+	config = function() require('nvim-web-devicons').setup {} end
+}
+
+--------------------------------------
 
 -- UI
 Load 'plugins.colors'
 -- Load 'plugins.statusline.airline'
 Load 'plugins.statusline.lualine'
 Load 'plugins.bufferline'
-Load 'plugins.dashboard'
 Load 'plugins.brackets'
 Load 'plugins.indent'
 Load 'plugins.indent-line'
@@ -44,7 +54,8 @@ Load 'plugins.completion'
 Load 'plugins.bookmark'
 Load 'plugins.comment'
 Load 'plugins.outline.aerial'
-Load 'plugins.filetree.nvim-tree'
+-- Load 'plugins.filetree.nvim-tree'
+Load 'plugins.filetree.neo-tree'
 Load 'plugins.format'
 Load 'plugins.git'
 Load 'plugins.highlight-words'
@@ -68,6 +79,8 @@ Load 'plugins.abbreviation'
 Load 'plugins.autocmd'
 Load 'plugins.utils'
 Load 'plugins.terminal'
+Load 'plugins.dashboard' -- put dashboard after filetree
+Load 'plugins.winbar'
 
 
 Plug 'chrisbra/vim-diff-enhanced'

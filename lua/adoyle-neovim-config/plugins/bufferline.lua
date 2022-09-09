@@ -44,7 +44,7 @@ function M.config()
 	require('bufferline').setup {
 		options = {
 			mode = mode,
-			numbers = 'ordinal',
+			numbers = 'none',
 
 			indicator = {
 				icon = '▎', -- this should be omitted if indicator style is not 'icon'
@@ -64,6 +64,14 @@ function M.config()
 			diagnostics = false, -- false | 'nvim_lsp' | 'coc',
 
 			offsets = {
+				{
+					filetype = 'neo-tree',
+					text = '[File Explorer]',
+					text_align = 'center', -- 'left' | 'center' | 'right'
+					highlight = 'BufferLineInfoSelected',
+					separator = true,
+				},
+
 				{
 					filetype = 'NvimTree',
 					text = '[File Explorer]',

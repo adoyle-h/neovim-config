@@ -33,7 +33,8 @@ M.setup = function(opts)
 	M.config = config
 
 	require('adoyle-neovim-config.fix-lua')
-	require('adoyle-neovim-config.basic')
+	require('adoyle-neovim-config.vim-options')
+	require('adoyle-neovim-config.extend')
 
 	P.setup()
 	P.start()

@@ -2,9 +2,7 @@ local M = {
 	'kyazdani42/nvim-tree.lua',
 	disable = false,
 	on = {},
-	requires = {
-		'kyazdani42/nvim-web-devicons',
-	}
+	requires = {}
 }
 
 local function configKeymaps()
@@ -15,7 +13,40 @@ local function configKeymaps()
 	]]
 end
 
+-- Temp Fix: too many notifications.
+-- https://github.com/kyazdani42/nvim-tree.lua/issues/1502
+local function fixNotify()
+	local utils = require('nvim-tree.utils')
+
+	local has_notify, notify = pcall(require, 'notify')
+	if has_notify then
+		notify = notify.instance {
+			level = vim.log.levels.WARN,
+		}
+	else
+		notify = function(msg, level, title)
+			vim.notify(vim.fn.printf('[%s] %s', title, msg), level)
+		end
+	end
+
+	local function notify_level(level)
+		return function(msg)
+			vim.schedule(function()
+				notify(msg, level, { title = 'NvimTree' })
+			end)
+		end
+	end
+
+	local levels = vim.log.levels
+	utils.notify.warn = notify_level(levels.WARN)
+	utils.notify.error = notify_level(levels.ERROR)
+	utils.notify.info = notify_level(levels.INFO)
+	utils.notify.debug = notify_level(levels.DEBUG)
+end
+
 function M.config()
+	fixNotify()
+
 	require('nvim-tree').setup({
 		sort_by = 'case_sensitive',
 
@@ -51,11 +82,11 @@ function M.config()
 
 				glyphs = {
 					git = {
-						unstaged = "*",
+						unstaged = "",
 						staged = "",
 						unmerged = "",
 						renamed = "➜",
-						untracked = "✣",
+						untracked = "",
 						deleted = "",
 						ignored = "◌",
 					},

@@ -6,48 +6,41 @@ local M = {
 	requires = {},
 }
 
-
-local function TableModeChange()
-  if (vim.b.table_mode_mode == 'Normal') then
-    vim.b.table_mode_corner = '|'
-    vim.b.table_mode_separator = '|'
-    vim.b.table_mode_fillchar = '-'
-    vim.b.table_mode_corner_corner = '|'
-    vim.b.table_mode_align_char = ':'
-    vim.b.table_mode_mode = 'GFM'
+local function changeTableMode()
+	local b = vim.b
+	if (b.table_mode_mode == 'Normal') then
+		b.table_mode_corner = '|'
+		b.table_mode_separator = '|'
+		b.table_mode_fillchar = '-'
+		b.table_mode_corner_corner = '|'
+		b.table_mode_align_char = ':'
+		b.table_mode_mode = 'GFM'
 	else
-    vim.b.table_mode_corner = '+'
-    vim.b.table_mode_separator = '|'
-    vim.b.table_mode_fillchar = '-'
-    vim.b.table_mode_corner_corner="+"
-    vim.b.table_mode_align_char = ':'
-    vim.b.table_mode_mode = 'Normal'
-  end
-  return 'Table Mode: ' .. vim.b.table_mode_mode
+		b.table_mode_corner = '+'
+		b.table_mode_separator = '|'
+		b.table_mode_fillchar = '-'
+		b.table_mode_corner_corner = "+"
+		b.table_mode_align_char = ':'
+		b.table_mode_mode = 'Normal'
+	end
+
+	print('Table Mode: ' .. b.table_mode_mode)
 end
 
-
 function M.config()
-	vim.g.table_mode_motion_up_map = '[{'
-	vim.g.table_mode_motion_down_map = ']}'
-	vim.g.table_mode_motion_left_map = '[['
-	vim.g.table_mode_motion_right_map = ']]'
+	local g = vim.g
+	g.table_mode_motion_up_map = '[{'
+	g.table_mode_motion_down_map = ']}'
+	g.table_mode_motion_left_map = '[['
+	g.table_mode_motion_right_map = ']]'
+	g.table_mode_map_prefix = '<leader>T'
 
-	vim.api.nvim_create_autocmd(
-		{ 'BufNew', 'BufRead' },
-		{
-			pattern = '*',
-			callback = function()
-				vim.b.table_mode_mode = 'GFM'
-				TableModeChange()
-			end
-		}
-	)
+	vim.keymap.set('n', '<leader>Tm', function()
+		vim.b.table_mode_mode = 'GFM'
+		vim.cmd.TableModeToggle()
+	end, { noremap = true, desc = 'Toggle TableMode' })
 
-	vim.cmd [[
-		noremap <leader>tm :TableModeToggle<CR>
-		noremap <leader>tc :echomsg TableModeChange()<CR>
-	]]
+	vim.keymap.set('n', '<leader>Tc', changeTableMode, { noremap = true, desc = 'Change TableMode' })
 end
 
 return M

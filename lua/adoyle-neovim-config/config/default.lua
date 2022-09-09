@@ -49,12 +49,11 @@ return {
 	color = color,
 
 	highlights = {
-		-- function(c) return { 'MyCursor', 'guibg=' .. c.blue } end,
-		{ 'MyCursor', 'guibg=' .. color.blue },
-		-- { 'DiffDelete', 'guifg=' .. color.black, 'guibg=' .. color.darkRed },
-		{ 'DiffDelete', 'guifg=' .. color.red, 'guibg=' .. color.darkRed },
-		{ 'DiffChange', 'guibg=' .. color.darkYellow, 'gui=none' },
-		{ 'DiffText', 'guibg=#484800', 'gui=none' },
+		-- function(c) return { 'MyCursor', { bg = color.blue } } end,
+		{ 'MyCursor', { bg = color.blue } },
+		{ 'DiffDelete', { fg = color.red, bg = color.darkRed } },
+		{ 'DiffChange', { bg = color.darkYellow, nocombine = true } },
+		{ 'DiffText', { bg = '#484800', nocombine = true } },
 	},
 
 	ignoredFileTypesForSomePlugs = {
@@ -68,7 +67,7 @@ return {
 		'Mundo',
 	},
 
-	highlightColumns = { 80, 100 }, -- :h 'cc'
+	colorcolumn = { 80, 100 }, -- highlight columns. See ":h 'cc'"
 
 	synmaxcol = 300, -- Syntax coloring lines that are too long just slows down the world
 
@@ -79,6 +78,8 @@ return {
 	foldenable = true, -- auto fold code
 
 	linenumber = true, -- show linenumber. :h 'linenumber'
+
+	signcolumn = 'auto:2',
 
 	cmdheight = 2, -- cmd line height. :h 'cmdheight'
 
@@ -117,8 +118,8 @@ return {
 
 	systemClipboard = false, -- paste and copy in vim with system clipboard
 
-	guicursor = { -- :h 'guicursor'
-		'n-v-c-sm:block-MyCursor',
+	guicursor = { -- :h 'guicursor'. But nvim has many bug on guicursor
+		'n-v-c-sm:block-MyCursor', -- block cursor with colors from the "MyCursor" highlight group
 		'i-ci-ve:ver25-MyCursor',
 		'r-cr-o:hor20',
 	},
@@ -130,7 +131,7 @@ return {
 	treesitter = {
 		ensure_installed = {}, -- A list of parser names, or "all"
 		sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
-		ignore_install = { 'phpdoc', 'php', 'rasi', 'd' }, -- List of parsers to ignore installing (for "all")
+		ignore_install = { 'rasi', 'r', 'd', 'v', 'slint' }, -- List of parsers to ignore installing (for "all")
 
 		highlight = {
 			enable = true, -- `false` will disable the whole extension
@@ -141,5 +142,52 @@ return {
 			-- you need to include `latex` in this list as this is the name of the parser)
 			disable = { 'markdown' },
 		},
+	},
+
+	levelSymbols = {
+		DEBUG = "",
+		ERROR = "", -- 
+		INFO = "", -- 
+		TRACE = "",
+		WARN = "", -- 
+		HINT = '',
+	},
+
+	symbolMap = {
+		Array = '',
+		Boolean = '◩',
+		Class = 'ﴯ',
+		Collapsed = '',
+		Color = '',
+		Constant = '🄲',
+		Constructor = '',
+		Enum = '練',
+		EnumMember = '',
+		Event = '',
+		Field = '', --'ﰠ',
+		File = '',
+		Folder = '',
+		Function = '',
+		Interface = '', -- ''
+		Keyword = '',
+		Method = '',
+		Module = '',
+		Namespace = '',
+		Null = '∅',
+		Number = '',
+		Object = '',
+		Operator = '',
+		Package = '',
+		Property = '',
+		Reference = '',
+		Snippet = '',
+		String = '',
+		Struct = 'פּ',
+		Text = '',
+		TypeParameter = '𝕋', -- ''
+		Unit = '塞',
+		-- Variable      = '',
+		-- Variable    = '𝒗',
+		Variable = '𝕍',
 	},
 }

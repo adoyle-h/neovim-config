@@ -73,7 +73,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 依赖
 
-- NVIM v0.7 及以上版本
+- NVIM v0.8 (最新提交的版本)
 - python3、pip3
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
@@ -172,14 +172,16 @@ require('adoyle-neovim-config').setup {
 ├── init.lua           // neovim configuration entry point (directly use way)
 ├── lua
 │   └── adoyle-neovim-config
-│       ├── basic.lua        // Basic Settings. Some options may be overrided by plugin
 │       ├── config/          // Keymaps
-│       │   └── default.lua  // default config
-│       ├── config.lua       // config loader
+│       │   ├── color.lua  // default color config
+│       │   └── default.lua  // Default config
+│       ├── config.lua       // Config loader
 │       ├── fix-lua.lua
 │       ├── init.lua         // The lua required entry point (plugin way)
 │       ├── plugins.lua      // Plugin loading list
 │       ├── util.lua         // utility functions
+│       ├── vim-options.lua
+│       ├── extend.lua       // General user functions and commands
 │       ├── vim-plug.lua     // Plugin manage framework based on vim-plug
 │       ├── keymap/          // Keymaps
 │       ├── plugins/         // Available plugins written in lua

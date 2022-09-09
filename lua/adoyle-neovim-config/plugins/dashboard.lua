@@ -24,18 +24,29 @@ function M.config()
 	}
 
 	section.buttons.val = {
-		dashboard.button('<SPACE>m', '  File Explorer', ':NvimTreeToggle<CR>'),
 		dashboard.button('e', '  New File', ':ene <BAR> <CR>'),
-		dashboard.button('r', '  Recently Opened Files', ':Telescope oldfiles<CR>'),
+		dashboard.button('<SPACE>r', '  Recently Opened Files', ':Telescope oldfiles<CR>'),
 		dashboard.button('<SPACE>f', '  Search File', ':Telescope find_files<CR>'),
+		dashboard.button('<SPACE>/', '  Search Contents', ':Telescope live_grep<CR>'),
 		dashboard.button('<SPACE>k', '  Search Keymaps', ':Telescope keymaps<CR>'),
 		dashboard.button('<SPACE>p', 'גּ  Run Command', ':Telescope commands<CR>'),
 		dashboard.button('<SPACE>P', '  List Plugin Status', ':PlugStatus<CR>'),
+		dashboard.button('<SPACE>v', '  List Vim Options', ':Telescope vim_options<CR>'),
+		dashboard.button('<SPACE>n', '  List Notifications', ':Telescope notify<CR>'),
 		dashboard.button('<SPACE>h', 'ﲉ  Find Help', ':Telescope help_tags<CR>'),
 		dashboard.button('q', '  Quit', ':qa<CR>'),
 	}
 
-	local marginTopPercent = 0.2
+	local keymap = vim.api.nvim_get_keymap('n');
+	for _, key in pairs(keymap) do
+		if key.lhs == ' m' then
+			table.insert(section.buttons.val, 1, dashboard.button('<SPACE>m', '  File Explorer', key.rhs))
+			break
+		end
+	end
+
+
+	local marginTopPercent = 0.12
 	local headerPadding = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
 
 	config.layout = {
@@ -48,8 +59,20 @@ function M.config()
 
 	alpha.setup(config)
 
-	vim.cmd 'autocmd User AlphaReady set cursorline'
-	-- vim.cmd 'autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2'
+	vim.api.nvim_create_autocmd('User', {
+		pattern = { 'AlphaReady' },
+		callback = function()
+			vim.opt.cursorline = true
+			vim.opt.showtabline = 0
+		end,
+	})
+
+	vim.api.nvim_create_autocmd('User', {
+		pattern = { 'AlphaClosed' },
+		callback = function()
+			vim.opt.showtabline = 2
+		end,
+	})
 end
 
 return M

@@ -19,8 +19,6 @@ function M.config()
 
 	keymap('i', 'jk', '<Esc>', { noremap = true, silent = true, desc = 'Exit from input mode' })
 
-	keymap('t', 'kj', '<C-\\><C-n>', { noremap = true, silent = true, desc = 'Exit from terminal mode' })
-
 	keymap('n', '<leader>sa', 'ggVG', { noremap = true, silent = true, desc = 'select all' })
 
 	keymap('v', '.', ':normal .<CR>', { noremap = true, silent = true, desc = 'enable . command in visual mode' })

@@ -47,7 +47,7 @@ function M.config()
 
 		plugins = { -- Override which plugins highlight groups are loaded
 			native_lsp = true,
-			treesitter = true,
+			treesitter = false,
 			telescope = true,
 			-- All plugins list in https://github.com/olimorris/onedarkpro.nvim/tree/main/lua/onedarkpro/plugins
 		},

@@ -1,6 +1,3 @@
-local config = require('adoyle-neovim-config.config').global
-local util = require('adoyle-neovim-config.util')
-
 local M = {
 	'nvim-treesitter/nvim-treesitter',
 	disable = false,
@@ -15,12 +12,35 @@ local M = {
 			'nvim-treesitter/nvim-treesitter-context',
 			desc = 'shows the context of the currently visible buffer contents.',
 		},
+
+		{
+			'p00f/nvim-ts-rainbow',
+			desc = 'Rainbow brackets',
+		},
 	}
 }
 
-function M.config()
+local config = require('adoyle-neovim-config.config').global
+local util = require('adoyle-neovim-config.util')
+
+
+local function configHighlights()
 	local color = require('adoyle-neovim-config.config').global.color
 
+	util.set_hl(color.treesitter)
+
+	util.set_hl {
+		{ 'TreesitterContext', { bg = color.contextBG, italic = true, bold = true } },
+		{ 'TreesitterContextLineNumber', { bg = color.contextBG, italic = true, bold = true } },
+	}
+end
+
+function M.config()
+	configHighlights()
+
+	local c = config.treesitter
+
+	require("nvim-treesitter.install").prefer_git = true
 	if config.proxy.github then
 		for _, treesitterConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
 			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub(
@@ -30,7 +50,11 @@ function M.config()
 		end
 	end
 
-	local c = config.treesitter
+	vim.opt.foldmethod = 'expr'
+	vim.cmd [[
+		set foldexpr=nvim_treesitter#foldexpr()
+	]]
+
 	require('nvim-treesitter.configs').setup {
 		ensure_installed = c.ensure_installed,
 		sync_install = c.sync_install,
@@ -47,19 +71,7 @@ function M.config()
 			-- Instead of true it can also be a list of languages
 			additional_vim_regex_highlighting = false,
 		},
-	}
 
-	vim.opt.foldmethod = 'expr'
-	vim.cmd [[
-		set foldexpr=nvim_treesitter#foldexpr()
-	]]
-
-	-- Fix the luochen1990/rainbow not work
-	require('nvim-treesitter.highlight')
-	local hlmap = vim.treesitter.highlighter.hl_map
-	hlmap['punctuation.bracket'] = nil
-
-	require('nvim-treesitter.configs').setup {
 		playground = {
 			enable = true,
 			disable = {},
@@ -77,15 +89,27 @@ function M.config()
 				goto_node = '<cr>',
 				show_help = '?',
 			},
+		},
+
+		rainbow = {
+			enable = true,
+			-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+			extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+			max_file_lines = nil, -- Do not enable for files with more than n lines, int
+			colors = { -- table of hex strings
+				'#005f87', '#d75f00', '#87ff5f', '#0087ff', '#00aa87', '#b2ffaf', '#ff5f00', '#003080',
+				'#ff00ff', '#8787ff', '#87875f',
+			},
+			termcolors = {} -- table of colour name strings
 		}
 	}
 
 
+	-- doc: https://github.com/nvim-treesitter/nvim-treesitter-context
 	require 'treesitter-context'.setup {
 		mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+		max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
 	}
-	vim.cmd.hi { 'TreesitterContext', 'guibg=' .. color.contextBG, 'gui=italic,bold' }
-	vim.cmd.hi { 'TreesitterContextLineNumber', 'guibg=' .. color.contextBG, 'gui=italic,bold' }
 
 end
 

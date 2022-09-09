@@ -4,6 +4,7 @@ local M = {
 	disable = false,
 }
 
+local util = require('adoyle-neovim-config.util')
 local config = require('adoyle-neovim-config.config').global
 local color = config.color
 
@@ -13,37 +14,17 @@ M.requires = {
 	{
 		'guns/xterm-color-table.vim',
 		on = { 'XtermColorTable', 'SXtermColorTable', 'VXtermColorTable', 'TXtermColorTable', 'EXtermColorTable', 'OXtermColorTable' },
-		desc = '终端颜色表',
+		desc = 'List xterm colors',
 		disable = false,
 	},
 
 	require 'adoyle-neovim-config.plugins.color-inline',
 
-	{
-		'luochen1990/rainbow',
-		desc = '括号颜色配对。Attention: 可能会影响到其他语法着色',
-		disable = false,
-
-		config = function()
-			vim.g.rainbow_active = true
-			vim.g.rainbow_conf = {
-				ctermfgs = { '24', '166', '119', '33', '48', '229', '202', '4', '13', '105', '101' },
-
-				guifgs = {
-					'#005f87', '#d75f00', '#87ff5f', '#0087ff', '#00ff87', '#ffffaf', '#ff5f00', '#000080',
-					'#ff00ff', '#8787ff', '#87875f'
-				},
-
-				separately = {
-					nerdtree = 0,
-				},
-			}
-		end
-	},
-
+	-- Do not use 'luochen1990/rainbow'. It has bug with treesitter.
 }
 
 local function configGeneralHighlights()
+	-- @TODO: Maybe useless
 	-- vim.cmd [[
 	--   Inactive buffer will be grey color
 	--   hi InactiveWindow ctermbg=234 guibg=#18191B
@@ -55,54 +36,38 @@ local function configGeneralHighlights()
 	--   hi PmenuThumb cterm=NONE ctermfg=247 ctermbg=247 guibg=White
 	-- ]]
 
-	local hls = {
+	util.set_hl {
 		-- Diagnostic Popup Window Background
-		{ 'hi NormalFloat ctermbg=0 guibg=%s', color.black },
+		{ 'NormalFloat', { bg = color.black } },
 		-- Diagnostic Popup Window Border
-		{ 'hi FloatBorder cterm=NONE ctermfg=8 ctermbg=0 guibg=%s guifg=%s', color.black, color.grey3 },
+		{ 'FloatBorder', { bg = color.black, fg = color.grey3 } },
+		{ 'MatchParen', { fg = color.orange, bg = color.black, underline = true } },
+		{ 'DiagnosticVirtualTextError', { fg = color.red } },
 	}
-
-	for _, v in pairs(hls) do
-		vim.cmd(vim.fn.printf(table.unpack(v)))
-	end
 end
 
 local function configCursorLine()
-	-- highlight current line
 	vim.opt.cursorcolumn = false
-	vim.opt.cursorline = true
+	vim.opt.cursorline = true -- highlight current line
 
-	vim.api.nvim_create_autocmd(
-		{ 'WinLeave', 'BufLeave' },
-		{ pattern = '*', command = 'set nocursorline' }
-	)
+	vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, { command = 'set cursorline' })
+	vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, { command = 'set nocursorline' })
 
-	vim.api.nvim_create_autocmd(
-		{ 'WinEnter', 'BufEnter' },
-		{ pattern = '*', command = 'set cursorline' }
-	)
-
-	-- Current neovim not support vin.api.nvim_set_hl. See Bug https://github.com/neovim/neovim/issues/18160
-	-- vim.api.nvim_set_hl(0, 'CursorLine', {guibg = color.cursorLineBG})
-
-	local hls = {
-		{ 'hi CursorLine guibg=%s', color.cursorLineBG },
-		{ 'hi CursorLineNr guibg=%s guifg=%s', color.cursorLineBG, color.cursorLineNrFG },
+	util.set_hl {
+		{ 'CursorLine', { bg = color.cursorLineBG } },
+		{ 'CursorLineNr', { bg = color.cursorLineBG, fg = color.cursorLineNrFG } },
 	}
-
-	for _, v in pairs(hls) do
-		vim.cmd(vim.fn.printf(table.unpack(v)))
-	end
 end
 
 function M.config()
 	configGeneralHighlights()
 	configCursorLine()
 
+	local set_hl = vim.api.nvim_set_hl
 	-- set highlight groups
 	for _, hi in pairs(config.highlights) do
 		if type(hi) == 'function' then hi = hi(color) end
-		vim.cmd.hi(hi)
+		set_hl(0, hi[1], hi[2])
 	end
 end
 
