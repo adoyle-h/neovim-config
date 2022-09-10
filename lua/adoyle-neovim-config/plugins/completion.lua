@@ -1,4 +1,5 @@
 local config = require('adoyle-neovim-config.config').global
+local kindSymbolMap = config.kindSymbolMap
 local fn = vim.fn
 local api = vim.api
 
@@ -71,34 +72,40 @@ local sources = {
 }
 
 local function configFormating()
-	local lspkind = require('lspkind')
-
 	return {
-		format = lspkind.cmp_format({
-			mode = 'symbol', -- show only symbol annotations. Options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-			maxwidth = 50, -- prevent the popup from showing more than provided characters
+		-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua#L42-L47
+		fields = { 'kind', 'abbr', 'menu' }, -- fields see ":h complete-items"
+		format = function(entry, item)
+			-- vim_item.kind = string.format("%s %s", kindSymbolMap[vim_item.kind], vim_item.kind)
+			item.kind = kindSymbolMap[item.kind]
 
-			-- default symbol map
-			-- 'default' (requires nerd-fonts font) or
-			-- 'codicons' for codicon preset (requires vscode-codicons font)
-			preset = 'default',
+			local srcName = entry.source.name
+			item.menu = ({
+				buffer = 'BUF',
+				nvim_lsp = 'LSP',
+				nvim_lua = 'LUA',
+				path = 'PATH',
+				npm = 'NPM',
+				neorg = 'ORG',
+				tabnine = 'TABN',
+				snippy = 'SNIP'
+			})[srcName] or srcName
 
-			symbol_map = config.kindSymbolMap,
+			local MAX_LABEL_WIDTH = 30
+			local abbr = item.abbr
 
-			-- The function below will be called before any actual modifications from lspkind
-			-- so that you can provide more controls on popup customization.
-			-- See [#30](https://github.com/onsails/lspkind-nvim/pull/30)
-			before = function(entry, vim_item)
-				return vim_item
+			if #abbr > MAX_LABEL_WIDTH then
+				item.abbr = vim.fn.strcharpart(abbr, 0, MAX_LABEL_WIDTH) .. '…'
 			end
-		})
-	}
 
+			return item
+		end,
+	}
 end
 
 local function has_words_before()
 	local line, col = table.unpack(api.nvim_win_get_cursor(0))
-	return col ~= 0 and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	return col ~= 0 and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
 local function feedkey(key, mode)
@@ -106,128 +113,164 @@ local function feedkey(key, mode)
 end
 
 local function configMapping(cmp)
-
-	local selectUp = cmp.mapping({
-		c = function()
-			if cmp.visible() then
-				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace, select = false })
-			else
-				feedkey('<Up>', 'n')
-			end
-		end,
-
-		i = function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace, select = false })
-			else
-				fallback()
-			end
-		end
-	})
-
-	local selectDown = cmp.mapping({
-		c = function()
-			if cmp.visible() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace, select = false })
-			else
-				feedkey('<Down>', 'n')
-			end
-		end,
-
-		i = function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace, select = false })
-			else
-				fallback()
-			end
-		end
-	})
-
 	local snippy = require('snippy')
+	local useFallback = function(fallback) fallback() end
 
-	-- return cmp.mapping.preset.insert({
-	--   ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-	return cmp.mapping.preset.insert {
+	-- SelectBehavior : { Insert = "insert", Select = "select" }
+	-- :lua print(vim.inspect(require('cmp').SelectBehavior))
+	local Select = cmp.SelectBehavior.Select
 
-		['<CR>'] = cmp.mapping(function(fallback)
+	local selectNext = {
+		i = function(fallback)
 			if cmp.visible() then
-				local entry = cmp.get_selected_entry()
-				if entry then
-					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-				else
-					fallback()
-				end
+				cmp.select_next_item({ behavior = Select })
+			elseif snippy.can_jump(1) then
+				snippy.next()
+			elseif snippy.can_expand(1) then
+				snippy.expand()
+			elseif has_words_before() then
+				cmp.complete()
 			else
 				fallback()
 			end
-		end, { 'i' }),
+		end,
 
-		['<Tab>'] = cmp.mapping {
-			c = function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				elseif has_words_before() then
-					cmp.complete()
-				else
-					fallback()
-				end
-			end,
-
-			i = function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				elseif snippy.can_jump(1) then
-					snippy.next()
-				elseif snippy.can_expand(1) then
-					snippy.expand()
-				elseif has_words_before() then
-					cmp.complete()
-				else
-					fallback()
-				end
-			end,
-
-			s = function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				elseif snippy.can_jump(1) then
-					snippy.next()
-				elseif snippy.can_expand(1) then
-					snippy.expand()
-				elseif has_words_before() then
-					cmp.complete()
-				else
-					fallback()
-				end
-			end
-		},
-
-		['<S-Tab>'] = cmp.mapping(function(fallback)
+		s = function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item()
+				cmp.select_next_item({ behavior = Select })
+			elseif snippy.can_jump(1) then
+				snippy.next()
+			elseif snippy.can_expand(1) then
+				snippy.expand()
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		end,
+
+		c = function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item({ behavior = Select })
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		end,
+	}
+
+	local selectPrev = {
+		i = function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item({ behavior = Select })
 			elseif snippy.can_jump(-1) then
 				snippy.previous()
 			else
 				fallback()
 			end
-		end, { 'i', 's' }),
+		end,
 
-		['<Down>'] = selectDown,
-		['<Up>'] = selectUp,
-		['<C-n>'] = selectDown,
-		['<C-p>'] = selectUp,
+		s = function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item({ behavior = Select })
+			elseif snippy.can_jump(-1) then
+				snippy.previous()
+			else
+				fallback()
+			end
+		end,
+
+		c = function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item({ behavior = Select })
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		end,
+	}
+
+	local selectPrevOrHistoryPrev = {
+		c = useFallback,
+	}
+	selectPrevOrHistoryPrev.i = selectPrev.i
+	selectPrevOrHistoryPrev.s = selectPrev.s
+
+	local selectNextOrHistoryNext = {
+		c = useFallback,
+	}
+	selectNextOrHistoryNext.i = selectNext.i
+	selectNextOrHistoryNext.s = selectNext.s
+
+
+	local selectPageUp = cmp.mapping(function()
+		local i = 8
+		if cmp.visible() then
+			while i > 0 do
+				cmp.select_prev_item({ behavior = Select })
+				i = i - 1
+			end
+		else
+			feedkey(i .. '<Up>', 'n')
+		end
+	end, { 'i', 'c', 's' })
+
+	local selectPageDown = cmp.mapping(function()
+		local i = 8
+		if cmp.visible() then
+			while i > 0 do
+				cmp.select_next_item({ behavior = Select })
+				i = i - 1
+			end
+		else
+			feedkey(i .. '<Down>', 'n')
+		end
+	end, { 'i', 'c', 's' })
+
+	local confirm = cmp.mapping(function(fallback)
+		if cmp.visible() then
+			local entry = cmp.get_selected_entry()
+			if entry then
+				-- :lua print(vim.inspect(require('cmp').ConfirmBehavior))
+				-- { Insert = "insert", Replace = "replace" }
+				cmp.confirm {
+					behavior = cmp.ConfirmBehavior.Replace,
+					select = false, -- If select = true, automatically select the first item when completion.
+				}
+			else
+				fallback()
+			end
+		else
+			fallback()
+		end
+	end, { 'i', 'c', 's' })
+
+	return cmp.mapping.preset.insert {
+		['<CR>'] = confirm,
+		['<Down>'] = selectNextOrHistoryNext,
+		['<Up>'] = selectPrevOrHistoryPrev,
+		['<C-n>'] = selectNextOrHistoryNext,
+		['<C-p>'] = selectPrevOrHistoryPrev,
+
+		['<Tab>'] = selectNext,
+		['<S-Tab>'] = selectPrev,
+		['<C-j>'] = selectNext,
+		['<C-k>'] = selectPrev,
+		['<C-f>'] = selectPageDown,
+		['<C-b>'] = selectPageUp,
 		['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 's' }), -- scroll preview up
 		['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 's' }), -- scroll preview down
-		-- ['<C-e>'] = cmp.mapping.abort(),
-
+		['<M-c>'] = cmp.mapping.abort(),
 	}
 end
 
-local function configCmdLine(cmp)
+local function configCmdLineSources(cmp)
 	for _, cmd_type in pairs({ '/', '?' }) do
 		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 		cmp.setup.cmdline(cmd_type, {
-			mapping = cmp.mapping.preset.cmdline(),
+			-- mapping = cmp.mapping.preset.cmdline(),
 			sources = {
 				{ name = 'buffer' },
 				{ name = 'path' },
@@ -237,15 +280,13 @@ local function configCmdLine(cmp)
 
 	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(':', {
-		mapping = cmp.mapping.preset.cmdline(),
+		-- mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
 			{ name = 'path' },
 			{ name = 'cmdline' },
 		})
 	})
-end
 
-local function configFileType(cmp)
 	-- Set configuration for specific filetype.
 	cmp.setup.filetype('gitcommit', {
 		sources = cmp.config.sources({
@@ -283,8 +324,6 @@ local M = {
 	disable = false,
 
 	requires = {
-		'onsails/lspkind.nvim',
-
 		{ 'ray-x/lsp_signature.nvim', config = configFuncSignature },
 
 		{
@@ -316,7 +355,20 @@ local M = {
 function M.config()
 	local cmp = require('cmp')
 
-	vim.opt.completeopt = { 'menu', 'menuone', 'noselect' } -- Disable Vim Completion Menu
+	vim.opt.completeopt = {
+		'menu', -- Use a popup menu to show the possible completions.
+		'menuone', -- Use the popup menu also when there is only one match.
+		'noselect', -- Do not select a match in the menu, force the user to select one from the menu.
+		'noinsert', -- Do not insert any text for a match until the user selects a match from the menu.
+	}
+
+	local util = require('adoyle-neovim-config.util')
+	local color = config.color
+	util.set_hl {
+		{ 'MenuSelectLine', { bg = color.menu.selectBG } },
+		{ 'CmpFloatBorder', { fg = color.grey, bg = color.black } },
+		{ 'PmenuThumb', { bg = color.grey3 } }, -- cmp scrollbar thumb
+	}
 
 	cmp.setup({
 		mapping = configMapping(cmp),
@@ -330,13 +382,18 @@ function M.config()
 		},
 
 		window = {
-			completion = cmp.config.window.bordered(),
-			documentation = cmp.config.window.bordered(),
+			-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/window.lua
+			completion = cmp.config.window.bordered({
+				winhighlight = 'Normal:Normal,FloatBorder:CmpFloatBorder,CursorLine:MenuSelectLine,Search:None'
+			}),
+
+			documentation = cmp.config.window.bordered({
+				winhighlight = 'Normal:Normal,FloatBorder:CmpFloatBorder,CursorLine:MenuSelectLine,Search:None'
+			}),
 		},
 	})
 
-	configCmdLine(cmp)
-	configFileType(cmp)
+	configCmdLineSources(cmp)
 end
 
 return M

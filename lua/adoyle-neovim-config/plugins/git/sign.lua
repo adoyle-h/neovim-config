@@ -13,7 +13,7 @@ function M.config()
 			change       = { hl = 'GitSignsChange', text = '┃', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
 			delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
 			topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-			changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+			changedelete = { hl = 'GitSignsChange', text = '┃', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
 		},
 		signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
 		numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -70,6 +70,7 @@ function M.config()
 			-- Actions
 			map({ 'n', 'v' }, '<leader>gs', ':Gitsigns stage_hunk<CR>', { desc = 'stage hunk' })
 			map({ 'n', 'v' }, '<leader>gr', ':Gitsigns reset_hunk<CR>', { desc = 'reset hunk' })
+			map('n', '<leader>G', ':Gitsigns<CR>')
 			map('n', '<leader>gS', gs.stage_buffer, { desc = 'stage buffer' })
 			map('n', '<leader>gu', gs.undo_stage_hunk, { desc = 'undo staged hunk' })
 			map('n', '<leader>gR', gs.reset_buffer, { desc = 'reset buffer' })

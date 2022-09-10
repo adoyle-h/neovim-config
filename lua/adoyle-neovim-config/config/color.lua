@@ -40,6 +40,10 @@ local functionsColors = {
 	diffChangeBG = color.darkYellow,
 	diffText = '#363537',
 
+	menu = {
+		selectBG = '#012867',
+	},
+
 	selection = color.darkOrange,
 
 	cursorLineBG = color.darkBlue,
