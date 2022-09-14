@@ -166,7 +166,10 @@ function M.config()
 		},
 
 		symbols = {
-			icons = { error = symbolMap.ERROR, warn = symbolMap.WARN, info = symbolMap.INFO, hint = symbolMap.HINT },
+			error = symbolMap.ERROR .. ' ',
+			warn = symbolMap.WARN .. ' ',
+			info = symbolMap.INFO .. ' ',
+			hint = symbolMap.HINT .. ' ',
 		},
 
 		colored = true, -- Displays diagnostics status in color if set to true.

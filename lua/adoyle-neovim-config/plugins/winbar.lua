@@ -1,12 +1,12 @@
+local config = require('adoyle-neovim-config.config').global
+
 local M = {
 	'SmiteshP/nvim-navic',
 	desc = 'A winbar component that uses LSP to show your current code context.',
-	disable = false,
+	disable = not config.codeContext.winbar,
 }
 
 function M.config()
-	local config = require('adoyle-neovim-config.config').global
-
 	local icons = {}
 	for k, v in pairs(config.kindSymbolMap) do
 		icons[k] = v .. ' '
@@ -16,9 +16,9 @@ function M.config()
 		icons = icons,
 
 		highlight = false,
-		separator = " > ",
+		separator = ' > ',
 		depth_limit = 0,
-		depth_limit_indicator = "..",
+		depth_limit_indicator = '..',
 	}
 end
 

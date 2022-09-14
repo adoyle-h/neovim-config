@@ -1,3 +1,6 @@
+local config = require('adoyle-neovim-config.config').global
+local util = require('adoyle-neovim-config.util')
+
 local M = {
 	'nvim-treesitter/nvim-treesitter',
 	disable = false,
@@ -11,6 +14,7 @@ local M = {
 		{
 			'nvim-treesitter/nvim-treesitter-context',
 			desc = 'shows the context of the currently visible buffer contents.',
+			disable = not config.codeContext.float,
 		},
 
 		{
@@ -19,9 +23,6 @@ local M = {
 		},
 	}
 }
-
-local config = require('adoyle-neovim-config.config').global
-local util = require('adoyle-neovim-config.util')
 
 
 local function configHighlights()
@@ -106,11 +107,13 @@ function M.config()
 
 
 	-- doc: https://github.com/nvim-treesitter/nvim-treesitter-context
-	require 'treesitter-context'.setup {
-		mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
-		max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-	}
-
+	local has_ts_context, ts_context = pcall(require, 'treesitter-context')
+	if has_ts_context then
+		ts_context.setup {
+			mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+			max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+		}
+	end
 end
 
 return M

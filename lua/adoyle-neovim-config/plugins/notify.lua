@@ -11,7 +11,7 @@ function M.config()
 	vim.notify = require('notify')
 
 	vim.notify.setup {
-		background_colour = 'Normal',
+		background_colour = config.color.black,
 		fps = 30,
 		icons = {
 			ERROR = symbolMap.ERROR,

@@ -273,7 +273,7 @@ function M.config()
 					width = 0.4,
 					height = 16,
 				},
-			}
+			},
 		},
 	}
 

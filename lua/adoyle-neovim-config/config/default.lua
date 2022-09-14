@@ -34,16 +34,54 @@ return {
 		-- end,
 	},
 
-	lsp = { -- Change lsp.setup(opts). Format: {['lsp_name'] = function(opts)}
-		-- sumneko_lua = function(opts)
-		--   opts.settings = {
-		--     Lua = {
-		--       diagnostics = {
-		--         globals = {}
-		--       }
-		--     }
-		--   }
-		-- end
+	lsp = {
+		-- a list of all tools you want to ensure are installed upon start;
+		-- Package Index: https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md
+		ensureInstalled = {
+			-- 'gopls', -- package name
+			-- { 'golangci-lint', version = '1.47.0' }, -- you can pin a tool to a particular version
+			-- { 'bash-language-server', auto_update = true }, -- you can turn off/on auto_update per tool
+		},
+
+		-- if set to true this will check each tool for updates. If updates
+		-- are available the tool will be updated. This setting does not
+		-- affect :MasonToolsUpdate or :MasonToolsInstall.
+		autoUpdate = false,
+
+		-- automatically install / update on startup. If set to false nothing
+		-- will happen on startup. You can use :MasonToolsInstall or
+		-- :MasonToolsUpdate to install tools and check for updates.
+		runOnStart = true,
+
+		checkOutdatedPackagesOnOpen = true,
+
+		-- set a delay (in ms) before the installation starts. This is only
+		-- effective if run_on_start is set to true.
+		-- e.g.: 5000 = 5 second delay, 10000 = 10 second delay, etc...
+		startDelay = 2000, -- 2 second delay
+
+		-- Change lsp.setup(opts). Format: {['lsp_name'] = function(opts)}
+		setup = {
+			-- sumneko_lua = function(opts)
+			--   opts.settings = {
+			--     Lua = {
+			--       diagnostics = {
+			--         globals = {}
+			--       }
+			--     }
+			--   }
+			-- end
+		},
+
+		format = { -- :h lsp-format
+			javascript = {
+				-- order: (table|nil) List of client names. Formatting is requested from clients
+				-- in the following order: first all clients that are not in the order list,
+				-- then the remaining clients in the order as they occur in the order list.
+				-- Use :LspInfo to see the clients.
+				order = { 'eslint_d', 'prettierd' },
+			},
+		},
 	},
 
 	color = color,
@@ -54,6 +92,18 @@ return {
 		{ 'DiffDelete', { fg = color.red, bg = color.darkRed } },
 		{ 'DiffChange', { bg = color.darkYellow, nocombine = true } },
 		{ 'DiffText', { bg = '#484800', nocombine = true } },
+		{ 'DiagnosticBorder', { fg = color.cyan } },
+	},
+
+	diagnosticBorder = { -- See the border property of ":h nvim_open_win"
+		{ '╭', 'DiagnosticBorder' },
+		{ '─', 'DiagnosticBorder' },
+		{ '╮', 'DiagnosticBorder' },
+		{ '│', 'DiagnosticBorder' },
+		{ '╯', 'DiagnosticBorder' },
+		{ '─', 'DiagnosticBorder' },
+		{ '╰', 'DiagnosticBorder' },
+		{ '│', 'DiagnosticBorder' },
 	},
 
 	ignoredFileTypesForSomePlugs = {
@@ -146,13 +196,17 @@ return {
 
 	symbolMap = {
 		DEBUG = "",
-		ERROR = "", -- 
-		INFO = "", -- 
+		ERROR = "", -- 
+		INFO = "", -- 
 		TRACE = "",
-		WARN = "", -- 
+		WARN = "", -- 
 		HINT = '',
 		LOCK = '',
 		BRANCH = '',
+		INSTALLED = '',
+		UNINSTALLED = '',
+		PENDING = '',
+		MID_DOT = '•',
 	},
 
 	kindSymbolMap = {
@@ -189,5 +243,19 @@ return {
 		TypeParameter = '𝕋', -- ''
 		Unit = '塞',
 		Variable = '𝕍', -- '', '𝒗'
+	},
+
+	codeContext = { -- show code context which parsed by treesitter
+		winbar = true, -- show context path in winbar
+		float = true, -- show context funciton float on top
+	},
+
+	indentLine = {
+		line = '⎜', -- '┊', '', '⎸', '│', '⎜', '⎜', '⎜'
+		inactive = { fg = color.grey1 },
+		active = { fg = color.purple },
+		excludeFileType = {
+			'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
+		},
 	},
 }

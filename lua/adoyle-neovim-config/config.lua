@@ -14,8 +14,6 @@ function config.setGlobal(c)
 
 	if #config.global.proxy.github > 0 then
 		util.proxyGithub = function(url) return config.global.proxy.github .. url end
-	else
-		util.proxyGithub = function(url) return url end
 	end
 end
 

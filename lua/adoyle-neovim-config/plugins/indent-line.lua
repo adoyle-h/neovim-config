@@ -5,19 +5,18 @@ local M = {
 }
 
 function M.config()
-	vim.g.indent_blankline_char = '│' -- '┊', '', '⎸'
+	local config = require('adoyle-neovim-config.config').global.indentLine
+	local util = require('adoyle-neovim-config.util')
 
-	-- hi IndentBlanklineContextStart cterm=nocombine gui=nocombine guisp=NONE
-	vim.cmd [[
-		hi IndentBlanklineChar cterm=nocombine gui=nocombine guifg=#18191B
-		hi IndentBlanklineContextChar cterm=nocombine gui=nocombine guifg=#875FDF
-	]]
+	vim.g.indent_blankline_char = config.line
+	vim.g.indent_blankline_filetype_exclude = config.excludeFileType
 
-	vim.g.indent_blankline_filetype_exclude = {
-		'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
+	util.set_hl {
+		{ 'IndentBlanklineChar', config.inactive },
+		{ 'IndentBlanklineContextChar', config.active },
 	}
 
-	require("indent_blankline").setup {
+	require('indent_blankline').setup {
 		-- space_char_blankline = " ",
 		show_current_context = true,
 		show_current_context_start = false,

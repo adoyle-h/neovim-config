@@ -39,7 +39,6 @@ Load 'plugins.colors'
 Load 'plugins.statusline.lualine'
 Load 'plugins.bufferline'
 Load 'plugins.brackets'
-Load 'plugins.indent'
 Load 'plugins.indent-line'
 Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens

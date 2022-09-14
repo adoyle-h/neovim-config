@@ -17,6 +17,8 @@ local P = {
 	unloadRepos = {},
 }
 
+local UNLOAD = 'UNLOAD'
+
 local function parsePlugOpts(plugin)
 	local opts = util.merge({}, plugin)
 
@@ -25,21 +27,6 @@ local function parsePlugOpts(plugin)
 			opts[key] = plugin[alias]
 		end
 	end
-
-	-- if opts['do'] then
-	--   local origDo = opts['do']
-	--   opts['do'] = function(args)
-	--     -- args: { 'name': name, 'status': status, 'force': a:force }
-	--     if (args.status == 'installed') then
-	--     end
-
-	--     opts.config(args)
-	--   end
-	-- else
-	--   opts['do'] = function(args)
-	--     opts.config(args)
-	--   end
-	-- end
 
 	return opts
 end
@@ -96,6 +83,7 @@ local function usePlug(repo, opts)
 
 	-- handle current plugin
 	local plugOpts = parsePlugOpts(opts)
+	plugOpts.repo = repo
 
 	if plugOpts.setup then
 		-- Run setup before plugin is loaded.
@@ -112,7 +100,8 @@ local function usePlug(repo, opts)
 		-- If plug is uninstalled, do not continue
 		local foldname = getPlugFolderName(repo)
 		if not util.exist(P.pluginDir .. '/' .. foldname) then
-			table.insert(P.unloadRepos, repo)
+			plugOpts.status = UNLOAD
+			P.unloadRepos[repo] = plugOpts
 			return
 		end
 
@@ -140,18 +129,39 @@ end
 function P.fin()
 	vim.call('plug#end')
 
+	local has_notify, notify = pcall(require, 'notify')
+	if not has_notify then
+		notify = print
+	end
+
 	for _, M in pairs(P.plugs) do
-		if type(M.config) == 'function' then
-			M.config()
+		local unloadRequired = false
+		for _, requiredName in pairs(M.requires or {}) do
+			M2 = P.unloadRepos[requiredName]
+			if M2 then
+				unloadRequired = M2
+				break
+			end
+		end
+
+		if unloadRequired then
+			notify(fn.printf('Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.', M.repo, unloadRequired.repo), 'warn')
+		else
+			if type(M.config) == 'function' then
+				M.config()
+			end
 		end
 	end
 
-	local notify = vim.notify and vim.notify or print
-	for _, repo in pairs(P.unloadRepos) do
-		notify(fn.printf('Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo))
+	for repo in pairs(P.unloadRepos) do
+		notify(fn.printf('Plug "%s" has not installed. Try ":PlugInstall" to install it.', repo), 'warn')
 	end
 end
 
 P.Plug = usePlug
+
+vim.api.nvim_create_user_command('ListPlugs', function()
+	vim.notify(vim.inspect(P.plugs))
+end, {})
 
 return P

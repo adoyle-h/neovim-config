@@ -4,6 +4,8 @@ local fn = vim.fn
 local tbl_islist = vim.tbl_islist
 local set_hl = vim.api.nvim_set_hl
 
+function util.proxyGithub(url) return url end
+
 function util.set_hl(hls)
 	for _, hl in pairs(hls) do
 		set_hl(0, hl[1], hl[2])

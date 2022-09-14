@@ -118,12 +118,12 @@ local function configMapping(cmp)
 
 	-- SelectBehavior : { Insert = "insert", Select = "select" }
 	-- :lua print(vim.inspect(require('cmp').SelectBehavior))
-	local Select = cmp.SelectBehavior.Select
+	local behavior = cmp.SelectBehavior.Insert
 
 	local selectNext = {
 		i = function(fallback)
 			if cmp.visible() then
-				cmp.select_next_item({ behavior = Select })
+				cmp.select_next_item({ behavior = behavior })
 			elseif snippy.can_jump(1) then
 				snippy.next()
 			elseif snippy.can_expand(1) then
@@ -137,7 +137,7 @@ local function configMapping(cmp)
 
 		s = function(fallback)
 			if cmp.visible() then
-				cmp.select_next_item({ behavior = Select })
+				cmp.select_next_item({ behavior = behavior })
 			elseif snippy.can_jump(1) then
 				snippy.next()
 			elseif snippy.can_expand(1) then
@@ -151,7 +151,7 @@ local function configMapping(cmp)
 
 		c = function(fallback)
 			if cmp.visible() then
-				cmp.select_next_item({ behavior = Select })
+				cmp.select_next_item({ behavior = behavior })
 			elseif has_words_before() then
 				cmp.complete()
 			else
@@ -163,7 +163,7 @@ local function configMapping(cmp)
 	local selectPrev = {
 		i = function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item({ behavior = Select })
+				cmp.select_prev_item({ behavior = behavior })
 			elseif snippy.can_jump(-1) then
 				snippy.previous()
 			else
@@ -173,7 +173,7 @@ local function configMapping(cmp)
 
 		s = function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item({ behavior = Select })
+				cmp.select_prev_item({ behavior = behavior })
 			elseif snippy.can_jump(-1) then
 				snippy.previous()
 			else
@@ -183,7 +183,7 @@ local function configMapping(cmp)
 
 		c = function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item({ behavior = Select })
+				cmp.select_prev_item({ behavior = behavior })
 			elseif has_words_before() then
 				cmp.complete()
 			else
@@ -209,7 +209,7 @@ local function configMapping(cmp)
 		local i = 8
 		if cmp.visible() then
 			while i > 0 do
-				cmp.select_prev_item({ behavior = Select })
+				cmp.select_prev_item({ behavior = behavior })
 				i = i - 1
 			end
 		else
@@ -221,7 +221,7 @@ local function configMapping(cmp)
 		local i = 8
 		if cmp.visible() then
 			while i > 0 do
-				cmp.select_next_item({ behavior = Select })
+				cmp.select_next_item({ behavior = behavior })
 				i = i - 1
 			end
 		else

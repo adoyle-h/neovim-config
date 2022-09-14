@@ -1,18 +1,23 @@
 local config = require('adoyle-neovim-config.config').global
+local util = require('adoyle-neovim-config.util')
 
 -- null-ls is an attempt to bridge that gap and simplify the process of creating, sharing, and setting up LSP sources using pure Lua.
 local M_NullLS = {
 	'jose-elias-alvarez/null-ls.nvim',
+	disable = false,
+	requires = {
+		"jayp0521/mason-null-ls.nvim",
+	},
 	config = function()
 		local null_ls = require('null-ls')
 		local sources = {
-			null_ls.builtins.code_actions.eslint_d,
-			null_ls.builtins.diagnostics.eslint_d,
-			null_ls.builtins.completion.spell,
+			-- null_ls.builtins.code_actions.eslint_d,
+			-- null_ls.builtins.diagnostics.eslint_d,
+			-- null_ls.builtins.completion.spell,
 
-			null_ls.builtins.formatting.stylua,
-			null_ls.builtins.formatting.eslint_d,
-			null_ls.builtins.formatting.prettierd,
+			-- null_ls.builtins.formatting.stylua,
+			-- null_ls.builtins.formatting.eslint_d,
+			-- null_ls.builtins.formatting.prettierd,
 		}
 
 		local has_gitsigns = pcall(require, 'gitsigns')
@@ -25,11 +30,26 @@ local M_NullLS = {
 			default_timeout = 3000,
 			sources = sources,
 		})
+
+
+		require('mason-null-ls').setup {
+			automatic_installation = false,
+		}
+
+		require('mason-null-ls').check_install(true)
+
+		vim.api.nvim_create_autocmd('User', {
+			pattern = 'MasonNullLsUpdateCompleted',
+			callback = function()
+				vim.schedule(function() print 'mason-null-ls has finished' end)
+			end,
+		})
 	end
 }
 
 local M_GotoPreview = {
 	'rmagatti/goto-preview',
+	disable = false,
 	config = function()
 		require('goto-preview').setup {
 			width = 100; -- Width of the floating window
@@ -58,20 +78,123 @@ local M_GotoPreview = {
 			nnoremap gd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
 			nnoremap gt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
 			nnoremap gi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
-			nnoremap gc <cmd>lua require('goto-preview').close_all_win()<CR>
-			" Only set if you have telescope installed
 			nnoremap gr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 		]]
+
+		vim.api.nvim_create_user_command('CleanPreviews', function()
+			require('goto-preview').close_all_win()
+		end, {})
+	end
+}
+
+local M_MasonToolInstaller = {
+	'WhoIsSethDaniel/mason-tool-installer.nvim',
+	disable = false,
+	config = function()
+		require('mason-tool-installer').setup {
+			ensure_installed = config.lsp.ensureInstalled,
+			auto_update = config.lsp.autoUpdate,
+			run_on_start = config.lsp.runOnStart,
+			start_delay = config.lsp.startDelay,
+		}
+
+		vim.api.nvim_create_autocmd('User', {
+			pattern = 'MasonToolsUpdateCompleted',
+			callback = function()
+				vim.schedule(function() print 'mason-tool-installer has finished' end)
+			end,
+		})
+
+	end
+}
+
+local M_Mason = {
+	'williamboman/mason.nvim', -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+	disable = false,
+	config = function()
+		local symbolMap = config.symbolMap
+
+		require('mason').setup {
+			ui = {
+				-- Whether to automatically check for new versions when opening the :Mason window.
+				check_outdated_packages_on_open = config.lsp.checkOutdatedPackagesOnOpen,
+
+				-- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
+				border = 'none',
+
+				icons = {
+					-- The list icon to use for installed packages.
+					package_installed = symbolMap.INSTALLED,
+					-- The list icon to use for packages that are installing, or queued for installation.
+					package_pending = symbolMap.PENDING,
+					-- The list icon to use for packages that are not installed.
+					package_uninstalled = symbolMap.UNINSTALLED,
+				},
+
+				keymaps = {
+					-- Keymap to expand a package
+					toggle_package_expand = '<Tab>',
+					-- Keymap to install the package under the current cursor position
+					install_package = '<CR>',
+					-- Keymap to reinstall/update the package under the current cursor position
+					update_package = 'u',
+					-- Keymap to check for new version for the package under the current cursor position
+					check_package_version = 'c',
+					-- Keymap to update all installed packages
+					update_all_packages = 'U',
+					-- Keymap to check which installed packages are outdated
+					check_outdated_packages = 'C',
+					-- Keymap to uninstall a package
+					uninstall_package = 'x',
+					-- Keymap to cancel a package installation
+					cancel_installation = '<C-c>',
+					-- Keymap to apply language filter
+					apply_language_filter = '<C-f>',
+				},
+			},
+
+			-- The directory in which to install packages.
+			install_root_dir = vim.fn.stdpath('data') .. '/mason',
+
+			pip = {
+				-- These args will be added to `pip install` calls. Note that setting extra args might impact intended behavior
+				-- and is not recommended.
+				--
+				-- Example: { "--proxy", "https://proxyserver" }
+				install_args = {},
+			},
+
+			-- Controls to which degree logs are written to the log file. It's useful to set this to vim.log.levels.DEBUG when
+
+			-- Limit for the maximum amount of packages to be installed at the same time. Once this limit is reached, any further
+			-- packages that are requested to be installed will be put in a queue.
+			max_concurrent_installers = 4,
+
+			github = {
+				-- The template URL to use when downloading assets from GitHub.
+				-- The placeholders are the following (in order):
+				-- 1. The repository (e.g. "rust-lang/rust-analyzer")
+				-- 2. The release version (e.g. "v0.3.0")
+				-- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
+				download_url_template = util.proxyGithub('https://github.com/%s/releases/download/%s/%s'),
+			},
+		}
+
+
 	end
 }
 
 local M = {
-	'williamboman/nvim-lsp-installer', -- Use :LspInstallInfo to install/upgrade/uninstall lsp
+	nil,
 	disable = false,
 
 	requires = {
+		M_Mason,
+		M_MasonToolInstaller,
 		M_NullLS,
 		M_GotoPreview,
+		'williamboman/mason-lspconfig.nvim',
+
 		'neovim/nvim-lspconfig',
 		'lukas-reineke/lsp-format.nvim',
 
@@ -91,7 +214,6 @@ local M = {
 }
 
 local function configUI()
-	-- local signs = { Error = '•', Warn = '•', Hint = '•', Info = '•' }
 	local symbolMap = config.symbolMap
 	local signs = { Error = symbolMap.ERROR, Warn = symbolMap.WARN, Hint = symbolMap.HINT, Info = symbolMap.INFO }
 	for type, icon in pairs(signs) do
@@ -100,46 +222,23 @@ local function configUI()
 	end
 end
 
-local function configLSPInstaller(installer)
-	-- In order for nvim-lsp-installer to register the necessary hooks at the right moment,
-	-- make sure you call the .setup() function before you set up any servers with lspconfig!
-	installer.setup {
-		-- ensure these servers are always installed
-		ensure_installed = {},
-
-		-- automatically detect which servers to install (based on which servers are set up via lspconfig)
-		automatic_installation = true,
-
-		install_root_dir = vim.fn.stdpath('data') .. '/lsp_servers',
-
-		ui = {
-			icons = {
-				server_installed = '',
-				server_pending = '',
-				server_uninstalled = ''
-			},
-
-			keymaps = {
-				install_server = '<CR>',
-				uninstall_server = 'x',
-				toggle_server_expand = '<Tab>',
-			},
-		}
-	}
-end
-
 local function configKeyMaps()
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 	local keymap = vim.keymap.set
 
-	keymap('n', '[d', function() vim.diagnostic.goto_prev() end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_prev' })
-	keymap('n', ']d', function() vim.diagnostic.goto_next() end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' })
+	keymap('n', '[d', function() vim.diagnostic.goto_prev() end,
+		{ noremap = true, silent = true, desc = ':h vim.diagnostic.goto_prev' })
+	keymap('n', ']d', function() vim.diagnostic.goto_next() end,
+		{ noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' })
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	keymap('n', 'gD', function() vim.lsp.buf.declaration() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' })
+	keymap('n', 'gD', function() vim.lsp.buf.declaration() end,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' })
 	keymap('n', 'gR', function() vim.lsp.buf.rename() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.rename' })
-	keymap('n', 'ga', function() vim.lsp.buf.code_action() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' })
+	keymap('n', 'gc', function() vim.lsp.buf.code_action() end,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' })
 	keymap('n', 'gh', function() vim.lsp.buf.hover() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' })
-	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' })
+	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' })
 end
 
 local function configDiagnostic()
@@ -160,9 +259,11 @@ local function configDiagnostic()
 	vim.api.nvim_create_autocmd('CursorHold', {
 		callback = function()
 			vim.diagnostic.open_float(nil, {
+				width = 100,
+				max_height = 20,
 				focusable = false,
 				close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
-				border = 'rounded',
+				border = config.diagnosticBorder,
 				source = 'always',
 				prefix = ' ',
 				scope = 'cursor',
@@ -176,21 +277,8 @@ function M.config()
 	configKeyMaps()
 	configUI()
 
-	local installer = require('nvim-lsp-installer')
-	configLSPInstaller(installer)
-
-	-- Use a loop to conveniently call 'setup' on multiple servers and
-	-- map buffer local keybindings when the language server attaches
-	local servers = installer.get_installed_servers()
-	local lspconfig = require('lspconfig')
-	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
 	local lspFormat = require('lsp-format')
-	lspFormat.setup {
-		javascript = {
-			order = { 'eslint_d', 'prettierd' },
-		},
-	}
+	lspFormat.setup(config.lsp.format)
 
 	local has_aerial, aerial = pcall(require, 'aerial')
 	local has_navic, navic = pcall(require, 'nvim-navic')
@@ -204,17 +292,27 @@ function M.config()
 		lspFormat.on_attach(client, bufnr)
 	end
 
-	for _, server in pairs(servers) do
-		local name = server.name
+	local masonLspconfig = require('mason-lspconfig')
+	masonLspconfig.setup {
+		automatic_installation = false,
+	}
+
+	local servers = masonLspconfig.get_installed_servers()
+	local lspconfig = require('lspconfig')
+	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+	-- Use a loop to conveniently call 'setup' on multiple servers and
+	-- map buffer local keybindings when the language server attaches
+	for _, name in pairs(servers) do
 		local opts = {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			flags = {
-				-- This will be the default in neovim 0.7+
-				debounce_text_changes = 150,
+				debounce_text_changes = 150, -- This will be the default in neovim 0.7+
 			}
 		}
-		local fn = config.lsp[name]
+
+		local fn = config.lsp.setup[name]
 		if fn then fn(opts) end
 		lspconfig[name].setup(opts)
 	end

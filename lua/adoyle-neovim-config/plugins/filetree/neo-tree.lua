@@ -252,7 +252,7 @@ function M.config()
 			show_unloaded = true,
 			window = {
 				mappings = {
-					['bd'] = 'buffer_delete',
+					['d'] = 'buffer_delete',
 				}
 			},
 		},

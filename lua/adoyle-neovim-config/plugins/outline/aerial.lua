@@ -14,7 +14,7 @@ function M.config()
 		noremap = true, silent = true, desc = 'Toggle the aerial window',
 	})
 
-	local icons = { Interface = '·', }
+	local icons = { Interface = config.symbolMap.MID_DOT, }
 	for k, v in pairs(config.kindSymbolMap) do
 		if icons[k] == nil then
 			icons[k] = v
