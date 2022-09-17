@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
-	local config = require('adoyle-neovim-config.config').global.indentLine
+	local config = require('adoyle-neovim-config.config').config.indentLine
 	local util = require('adoyle-neovim-config.util')
 
 	vim.g.indent_blankline_char = config.line

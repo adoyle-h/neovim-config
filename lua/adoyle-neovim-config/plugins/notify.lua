@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
-	local config = require('adoyle-neovim-config.config').global
+	local config = require('adoyle-neovim-config.config').config
 	local symbolMap = config.symbolMap
 
 	vim.notify = require('notify')

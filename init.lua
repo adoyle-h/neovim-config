@@ -1,24 +1,29 @@
 -- This file is loaded by neovim. See `:h init.lua`
 
 require('adoyle-neovim-config').setup {
-	-- This config is an example for personal usage.
+	-- This user config will override default config. Below config is an example just for my personal usage.
 	config = {
 		colorcolumn = { 80, 100 }, -- highlight columns. See ":h 'cc'"
 
 		proxy = {
 			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
 			-- Otherwise, remove this option.
-			github = 'https://ghproxy.com/', -- emptry string or proxy url
+			github = 'https://ghproxy.com/',
 		},
 
-		pluginOpts = {
+		pluginOpts = { -- Override plugin default config
 			['plugins.profiling'] = {
 				disable = false,
 			},
 		},
 
+		-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
 		plugins = {
-			{ 'psliwka/vim-smoothie', disable = true },
+			-- { 'psliwka/vim-smoothie', disable = false },
+
+			-- function(Plug)
+			--   Plug { 'psliwka/vim-smoothie', disable = false }
+			-- end,
 		},
 
 		lsp = {
@@ -37,7 +42,6 @@ require('adoyle-neovim-config').setup {
 				'buf-language-server',
 				-- 'chrome-debug-adapter',
 				'css-lsp',
-				'cssmodules-language-server',
 				'delve', -- #DAP Delve is a debugger for the Go programming language.
 				'dockerfile-language-server',
 				'dot-language-server',
@@ -46,7 +50,7 @@ require('adoyle-neovim-config').setup {
 				-- 'erlang-ls',
 				'esbonio', -- #LSP for Sphinx-doc
 				'rstcheck', -- #Linter for reStructuredText
-				'eslint_d',
+				'eslint_d', -- #null-ls
 				'fixjson', -- #Formatter A JSON file fixer/formatter for humans using (relaxed) JSON5
 				'gopls',
 				'hadolint', -- Dockerfile linter, validate inline bash, written in Haskell
@@ -54,10 +58,9 @@ require('adoyle-neovim-config').setup {
 				'json-lsp', -- #LSP
 				'lelwel', -- rust
 				'lemminx', -- XML Language Server
-				-- 'ltex-ls', -- LTeX Language Server
 				'lua-language-server',
 				'marksman', -- markdown
-				'prettierd',
+				'prettierd', -- #null-ls
 				'pyright',
 				'python-lsp-server',
 				'shellcheck',
@@ -65,11 +68,29 @@ require('adoyle-neovim-config').setup {
 				'sqlfluff', --#Linter SQLFluff is a dialect-flexible and configurable SQL linter
 				'sqls', -- #LSP
 				'taplo', -- #LSP TOML
+				'texlab', -- LTeX Language Server
+				'typescript-language-server',
 				'vim-language-server',
 				'write-good',
 				'yaml-language-server', -- #LSP
 				'yamlfmt', -- #Formatter
 			},
+
+			nullLS = {
+				sources = function(builtins)
+					local code_actions = builtins.code_actions
+					local diagnostics = builtins.diagnostics
+					local formatting = builtins.formatting
+
+					return {
+						code_actions.eslint_d,
+						diagnostics.eslint_d,
+						formatting.eslint_d,
+						formatting.prettierd,
+					}
+				end,
+			},
+
 		},
 	},
 }

@@ -18,17 +18,7 @@ function util.merge(v1, v2)
 	local v2IsArray = tbl_islist(v2)
 
 	if v1IsArray and v2IsArray then
-		local tbl = {}
-
-		for k, v in pairs(v1) do
-			tbl[k] = v
-		end
-
-		for _, v in pairs(v2) do
-			table.insert(tbl, v)
-		end
-
-		return tbl
+		return v2
 	end
 
 	local v1IsTable = type(v1) == 'table'

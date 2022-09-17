@@ -23,7 +23,7 @@ describe('util.merge', function()
 
 	it('(array, array)', function()
 		local r = util.merge({ 1, 3 }, { 2, '4' })
-		assert.are.same({ 1, 3, 2, '4' }, r)
+		assert.are.same({ 2, '4' }, r)
 	end)
 
 	it('(array, table)', function()
@@ -44,5 +44,13 @@ describe('util.merge', function()
 	it('nested tables', function()
 		local r = util.merge({ a = { b = 2, c = { d = 4 } } }, { a = { b = 5 } })
 		assert.are.same({ a = { b = 5, c = { d = 4 } } }, r)
+	end)
+
+	it('function override', function()
+		local f1 = function() return 1 end
+		local f2 = function() return 2 end
+		local r = util.merge({ a = { b = { f = f1 } } }, { a = { b = { f = f2 } } })
+
+		assert.equals(r.a.b.f, f2)
 	end)
 end)

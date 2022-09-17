@@ -1,26 +1,35 @@
 local util = require('adoyle-neovim-config.util')
 
--- @class Config
--- @field global {table} The config for ADoyleNeovimConfig
--- @field setupOpts {table} The opts of ADoyleNeovimConfig.setup(opts)
-local config = {
-	global = require('adoyle-neovim-config.config.default'),
-	setupOpts = nil,
+-- @class ConfigManager
+-- @field config {table} The config for ConfigManager
+-- @field userSetup {table} The opts of ConfigManager.setup(opts)
+local ConfigManager = {
+	config = {},
+	userSetup = {},
 }
 
-function config.setGlobal(c)
-	config.global = util.merge(config.global, c)
-	config.global._revision = config.global._revision and (config.global._revision + 1) or 1
+function ConfigManager.setConfig(conf)
+	local defaultConfigFn = require('adoyle-neovim-config.config.default')
+	local defaultColor = require('adoyle-neovim-config.config.color')
 
-	if #config.global.proxy.github > 0 then
-		util.proxyGithub = function(url) return config.global.proxy.github .. url end
+	local color = util.merge(defaultColor, conf.color)
+	local defaultConfig = defaultConfigFn(color)
+	local config = util.merge(defaultConfig, conf)
+
+	config._revision = ConfigManager.config._revision and (ConfigManager.config._revision + 1) or 1
+
+	if #config.proxy.github > 0 then
+		util.proxyGithub = function(url) return ConfigManager.config.proxy.github .. url end
 	end
+
+	ConfigManager.config = config
+	return ConfigManager
 end
 
-function config.setSetupOpts(opts)
-	config.setupOpts = util.merge({}, opts)
-	config.setGlobal(opts.config)
-	return config.setupOpts
+function ConfigManager.setup(opts)
+	ConfigManager.userSetup = opts
+	ConfigManager.setConfig(opts.config)
+	return ConfigManager
 end
 
-return config
+return ConfigManager

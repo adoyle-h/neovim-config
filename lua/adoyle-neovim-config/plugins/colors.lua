@@ -5,7 +5,7 @@ local M = {
 }
 
 local util = require('adoyle-neovim-config.util')
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config').config
 local color = config.color
 
 M.requires = {
@@ -13,7 +13,8 @@ M.requires = {
 
 	{
 		'guns/xterm-color-table.vim',
-		on = { 'XtermColorTable', 'SXtermColorTable', 'VXtermColorTable', 'TXtermColorTable', 'EXtermColorTable', 'OXtermColorTable' },
+		on = { 'XtermColorTable', 'SXtermColorTable', 'VXtermColorTable', 'TXtermColorTable', 'EXtermColorTable',
+			'OXtermColorTable' },
 		desc = 'List xterm colors',
 		disable = false,
 	},
@@ -22,29 +23,6 @@ M.requires = {
 
 	-- Do not use 'luochen1990/rainbow'. It has bug with treesitter.
 }
-
-local function configGeneralHighlights()
-	-- @TODO: Maybe useless
-	-- vim.cmd [[
-	--   Inactive buffer will be grey color
-	--   hi InactiveWindow ctermbg=234 guibg=#18191B
-	--   set winhighlight=NormalNC:InactiveWindow
-
-	--   hi Pmenu cterm=NONE ctermfg=251 ctermbg=235 guibg=Grey
-	--   hi PmenuSel cterm=NONE ctermfg=232 ctermbg=246 guibg=DarkGrey
-	--   hi PmenuSbar cterm=NONE ctermfg=234 ctermbg=234 guibg=Grey
-	--   hi PmenuThumb cterm=NONE ctermfg=247 ctermbg=247 guibg=White
-	-- ]]
-
-	util.set_hl {
-		-- Diagnostic Popup Window Background
-		{ 'NormalFloat', { bg = color.black } },
-		-- Diagnostic Popup Window Border
-		{ 'FloatBorder', { bg = color.black, fg = color.grey3 } },
-		{ 'MatchParen', { fg = color.orange, bg = color.black, underline = true } },
-		{ 'DiagnosticVirtualTextError', { fg = color.red } },
-	}
-end
 
 local function configCursorLine()
 	vim.opt.cursorcolumn = false
@@ -60,7 +38,6 @@ local function configCursorLine()
 end
 
 function M.config()
-	configGeneralHighlights()
 	configCursorLine()
 
 	local set_hl = vim.api.nvim_set_hl

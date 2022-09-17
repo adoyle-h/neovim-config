@@ -1,6 +1,6 @@
 # ADoyle-Style Neovim Configuration
 
-Neovim 一体化配置。可作为插件使用。有足够的自由度去定制和扩展它。
+Lua 编写的 Neovim 一体化配置。可作为 Lua 包加载。易配置，可扩展。
 
 Click [./README.en.md](./README.en.md) to read English documents.
 
@@ -20,7 +20,9 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - [依赖](#依赖)
 - [安装](#安装)
 - [API](#api)
-- [配置](#配置)
+    - [setup(opts)](#setupopts)
+- [用户配置](#用户配置)
+- [默认配置](#默认配置)
 - [目录结构](#目录结构)
 - [注意](#注意)
 - [启动时间](#启动时间)
@@ -31,13 +33,13 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 特性
 
-- 所有配置都用 Lua 管理
-- 使用 Neovim Native LSP
-- 基于 [vim-plug][] 和 Lua 的插件管理框架。支持按需加载。
-- 集成众多强大的 Vim 插件
-- 帅气的界面和配色。暗黑模式。真彩色。滚动条。
-- 可配置，详见[默认配置][default-config]
-- 可配置 github 的代理镜像，在中国大陆可加快插件下载速度
+- 用 Lua 管理所有配置。
+- 充分使用 Neovim 特性：Native LSP、Float Window、Winbar。
+- 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载。
+- 集成了 111 个 Vim/Nvim 插件。
+- 帅气的界面和配色。暗黑模式。支持真彩色、滚动条、Dashboard。
+- 可配置，详见[默认配置][default-config]。
+- 支持配置 github 代理，在中国大陆可加快插件下载速度。
 
 ## 截图
 
@@ -106,6 +108,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
     # 创建 init.lua 文件
     cat <<EOF > "$NVIM_HOME"/init.lua
     vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
+
     require('adoyle-neovim-config').setup {
       config = {
         proxy = {
@@ -126,23 +129,35 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## API
 
+### setup(opts)
+
 ```lua
 local A = require('adoyle-neovim-config')
-print(vim.inspect(A))
 
-A.setup()
+A.setup {
+  config = {},
+}
+
+-- or
+-- A.setup()
 ```
 
 没写文档，直接看[代码](./lua/adoyle-neovim-config/init.lua)
 
-## 配置
+## 用户配置
 
 当以插件加载时，你可以传入自定义配置。
 
 ```lua
 require('adoyle-neovim-config').setup {
   config = {
-    plugins = { -- 覆盖插件默认配置
+		proxy = {
+			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
+			-- Otherwise, remove this option.
+			github = 'https://ghproxy.com/',
+		},
+
+    pluginOpts = { -- 覆盖插件默认配置
       ['plugins.profiling'] = {
         disable = false, -- 设置成 false 来启动默认禁用的插件
       },
@@ -151,16 +166,26 @@ require('adoyle-neovim-config').setup {
         disable = false,
       },
     },
+
+    plugins = {
+      function(A)
+        -- A.Plug 'github/repo'
+      end,
+    },
   },
-  plugins = function(A)
-    -- A.Plug 'github/repo'
-  end
+
 }
 ```
 
-详见 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)
+用户配置可参考 [./init.lua](./init.lua)
 
 插件列表见 [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
+
+## 默认配置
+
+默认配置详见 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)
+
+默认颜色配置详见 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua)
 
 ## 目录结构
 
@@ -188,6 +213,7 @@ require('adoyle-neovim-config').setup {
 │       └── themes/          // color schemas
 ├── snippets/          // code snippets
 ├── spell/             // spell check data
+│   └── en.utf-8.add
 ├── test/              // Unit tests
 └── temp/              // temporary files
     ├── session        // xolox/vim-session plugin

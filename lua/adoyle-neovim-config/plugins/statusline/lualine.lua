@@ -6,7 +6,7 @@ local M = {
 }
 
 local printf = vim.fn.printf
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config').config
 local colors = config.color.statusline
 local sec_c_bg = colors.sec_c_bg
 

@@ -4,7 +4,7 @@ local M = {
 	disable = false,
 }
 
-local color = require('adoyle-neovim-config.config').global.color
+local color = require('adoyle-neovim-config.config').config.color
 
 local chooseWin = {
 	't9md/vim-choosewin',

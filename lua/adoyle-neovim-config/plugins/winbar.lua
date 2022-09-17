@@ -1,4 +1,4 @@
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config').config
 
 local M = {
 	'SmiteshP/nvim-navic',
@@ -11,6 +11,9 @@ function M.config()
 	for k, v in pairs(config.kindSymbolMap) do
 		icons[k] = v .. ' '
 	end
+
+	-- silence warning/error messages thrown by nvim-navic
+	vim.g.navic_silence = true
 
 	require('nvim-navic').setup {
 		icons = icons,

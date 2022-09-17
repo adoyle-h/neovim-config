@@ -6,7 +6,7 @@ local M = {
 }
 
 function M.config()
-	local color = require('adoyle-neovim-config.config').global.color
+	local color = require('adoyle-neovim-config.config').config.color
 
 	vim.g.interestingWordsGUIColors = color.highlightWords.gui
 	vim.g.interestingWordsTermColors = color.highlightWords.cterm

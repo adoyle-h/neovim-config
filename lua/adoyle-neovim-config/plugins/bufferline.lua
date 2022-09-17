@@ -25,7 +25,7 @@ local function keymaps()
 end
 
 function M.config()
-	local color = require('adoyle-neovim-config.config').global.color
+	local color = require('adoyle-neovim-config.config').config.color
 	local selectedBG = color.bufferline.selectedBG
 	local bufferBG = color.bufferline.bufferBG
 	local white = color.white

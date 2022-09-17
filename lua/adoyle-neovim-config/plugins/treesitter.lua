@@ -1,4 +1,4 @@
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config').config
 local util = require('adoyle-neovim-config.util')
 
 local M = {
@@ -26,7 +26,7 @@ local M = {
 
 
 local function configHighlights()
-	local color = require('adoyle-neovim-config.config').global.color
+	local color = require('adoyle-neovim-config.config').config.color
 
 	util.set_hl(color.treesitter)
 
@@ -92,17 +92,7 @@ function M.config()
 			},
 		},
 
-		rainbow = {
-			enable = true,
-			-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-			extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-			max_file_lines = nil, -- Do not enable for files with more than n lines, int
-			colors = { -- table of hex strings
-				'#005f87', '#d75f00', '#87ff5f', '#0087ff', '#00aa87', '#b2ffaf', '#ff5f00', '#003080',
-				'#ff00ff', '#8787ff', '#87875f',
-			},
-			termcolors = {} -- table of colour name strings
-		}
+		rainbow = config.tsRainbow,
 	}
 
 

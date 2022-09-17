@@ -1,7 +1,29 @@
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config').config
 local util = require('adoyle-neovim-config.util')
 
--- null-ls is an attempt to bridge that gap and simplify the process of creating, sharing, and setting up LSP sources using pure Lua.
+
+local M_NLSP = {
+	'tamago324/nlsp-settings.nvim',
+	disable = true,
+	requires = {},
+	config = function()
+		local nlspsettings = require('nlspsettings')
+
+		nlspsettings.setup {
+			-- For global settings,
+			config_home = vim.fn.stdpath('config') .. '/lsp-settings',
+			-- For local project, put settings file in {project}/.lsp-settings/{server_name}.yaml.
+			local_settings_dir = ".nlsp-settings",
+			local_settings_root_markers_fallback = { '.git' },
+			append_default_schemas = true,
+			loader = 'yaml',
+		}
+	end
+}
+
+
+-- null-ls is an attempt to bridge that gap and simplify the process of creating,
+-- sharing, and setting up LSP sources using pure Lua.
 local M_NullLS = {
 	'jose-elias-alvarez/null-ls.nvim',
 	disable = false,
@@ -10,26 +32,18 @@ local M_NullLS = {
 	},
 	config = function()
 		local null_ls = require('null-ls')
-		local sources = {
-			-- null_ls.builtins.code_actions.eslint_d,
-			-- null_ls.builtins.diagnostics.eslint_d,
-			-- null_ls.builtins.completion.spell,
-
-			-- null_ls.builtins.formatting.stylua,
-			-- null_ls.builtins.formatting.eslint_d,
-			-- null_ls.builtins.formatting.prettierd,
-		}
+		local sources = config.lsp.nullLS.sources(null_ls.builtins) or {}
 
 		local has_gitsigns = pcall(require, 'gitsigns')
 		if has_gitsigns then
 			table.insert(sources, null_ls.builtins.code_actions.gitsigns)
 		end
 
-		null_ls.setup({
+		null_ls.setup {
 			debounce = 150,
 			default_timeout = 3000,
 			sources = sources,
-		})
+		}
 
 
 		require('mason-null-ls').setup {
@@ -120,7 +134,7 @@ local M_Mason = {
 				check_outdated_packages_on_open = config.lsp.checkOutdatedPackagesOnOpen,
 
 				-- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
-				border = 'none',
+				border = 'single',
 
 				icons = {
 					-- The list icon to use for installed packages.
@@ -193,6 +207,7 @@ local M = {
 		M_MasonToolInstaller,
 		M_NullLS,
 		M_GotoPreview,
+		M_NLSP,
 		'williamboman/mason-lspconfig.nvim',
 
 		'neovim/nvim-lspconfig',
@@ -239,6 +254,10 @@ local function configKeyMaps()
 	keymap('n', 'gh', function() vim.lsp.buf.hover() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' })
 	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end,
 		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' })
+	keymap('n', 'gF', vim.lsp.buf.formatting, { noremap = true, silent = true, desc = ':h vim.lsp.buf.formatting' })
+	-- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+
+
 end
 
 local function configDiagnostic()
@@ -304,18 +323,29 @@ function M.config()
 	-- Use a loop to conveniently call 'setup' on multiple servers and
 	-- map buffer local keybindings when the language server attaches
 	for _, name in pairs(servers) do
-		local opts = {
+		local opts = config.lsp.setup[name] or {}
+		if type(opts) == 'function' then
+			opts = opts(lspconfig) or {}
+		end
+
+		opts = util.merge(opts, {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			flags = {
-				debounce_text_changes = 150, -- This will be the default in neovim 0.7+
+				debounce_text_changes = 150, -- This is default in neovim 0.7+
 			}
-		}
+		})
 
-		local fn = config.lsp.setup[name]
-		if fn then fn(opts) end
 		lspconfig[name].setup(opts)
 	end
+
+
+	require('lspconfig.ui.windows').default_options.border = config.lsp.defaultBorder
+	-- lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
+	--   autostart = false,
+	--   handlers = {
+	--   },
+	-- })
 end
 
 return M

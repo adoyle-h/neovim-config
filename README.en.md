@@ -1,6 +1,6 @@
 # ADoyle-Style Neovim Configuration
 
-Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flexible to customize and extend it.
+Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua package. It is high flexible to be customized and extended.
 
 ## TOC
 
@@ -18,6 +18,7 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
 - [Dependency](#dependency)
 - [Installation](#installation)
 - [API](#api)
+    - [setup(opts)](#setupopts)
 - [Configuration](#configuration)
 - [Files Structure](#files-structure)
 - [NOTE](#note)
@@ -29,11 +30,11 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
 
 ## Features
 
-- All in Lua
-- Support Neovim Native LSP
+- All in Lua.
+- Use many Neovim features: Native LSP, Float Window, Winbar.
 - Plugin manage framework based on [vim-plug][] and Lua. Support on-demand loading plugin.
-- Integrated many powerful Vim plugins。
-- Awesome UI and color schema. Dark Mode. True Color. Scrollbar.
+- Integrated total 111 powerful Vim/Nvim plugins。
+- Awesome UI and color schema. Dark Mode. Support True-Color, Scrollbar, Dashboard.
 - Configurable. See [./lua/config.lua](./lua/config.lua)
 - Configurable proxy for fast git download in China Mainland
 
@@ -106,6 +107,7 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
     # Create init.lua file
     cat <<EOF > "$NVIM_HOME"/init.lua
     vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
+
     require('adoyle-neovim-config').setup {
       config = {
         proxy = {
@@ -126,11 +128,17 @@ Neovim all-in-one configuration. It can be loaded as a plugin. It is enough flex
 
 ## API
 
+### setup(opts)
+
 ```lua
 local A = require('adoyle-neovim-config')
-print(vim.inspect(A))
 
-A.setup()
+A.setup {
+  config = {},
+}
+
+-- or
+-- A.setup()
 ```
 
 No more document. Just see [codes](./lua/adoyle-neovim-config/init.lua)
@@ -142,6 +150,13 @@ You can pass config when load as plugin.
 ```lua
 require('adoyle-neovim-config').setup {
   config = {
+		proxy = {
+			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
+			-- Otherwise, remove this option.
+			github = 'https://ghproxy.com/',
+		},
+
+
     plugins = { -- Override plugin default config
       ['plugins.profiling'] = {
         disable = false, -- Set false to enable the disabled plugin by default.
@@ -152,6 +167,7 @@ require('adoyle-neovim-config').setup {
       },
     },
   },
+
   plugins = function(A)
     -- A.Plug 'github/repo'
   end
@@ -188,6 +204,7 @@ Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-con
 │       └── themes/          // color schemas
 ├── snippets/          // code snippets
 ├── spell/             // spell check data
+│   └── en.utf-8.add
 ├── test/              // Unit tests
 └── temp/              // temporary files
     ├── session        // xolox/vim-session plugin

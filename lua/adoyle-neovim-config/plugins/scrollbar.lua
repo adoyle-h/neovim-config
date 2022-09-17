@@ -5,7 +5,7 @@ local M = {
 
 function M.config()
 	local has_hlslens = pcall(require, 'hlslens')
-	local config = require('adoyle-neovim-config.config').global
+	local config = require('adoyle-neovim-config.config').config
 
 	require('scrollbar').setup {
 		excluded_buftypes = {

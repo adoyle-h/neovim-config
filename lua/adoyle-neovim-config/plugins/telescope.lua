@@ -1,4 +1,4 @@
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config').config
 
 local M = {
 	'nvim-telescope/telescope.nvim',

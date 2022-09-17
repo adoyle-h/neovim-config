@@ -3,7 +3,7 @@
 
 local P = require('adoyle-neovim-config.vim-plug')
 local util = require('adoyle-neovim-config.util')
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config').config
 local Plug = P.Plug
 
 -- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
@@ -18,9 +18,9 @@ end
 Plug {
 	'nvim-lua/plenary.nvim',
 	config = function()
-		vim.api.nvim_create_user_command('PlenaryTest', function()
+		vim.api.nvim_create_user_command('TestLuaSpec', function()
 			require('plenary.test_harness').test_directory(vim.fn.expand("%:p"))
-		end, {})
+		end, { desc = 'Run unit test on current lua spec file' })
 	end
 }
 
@@ -92,7 +92,10 @@ Plug 'lambdalisue/suda.vim'
 Plug {
 	'kassio/neoterm',
 	desc = 'vim 内启动 shell',
-	on = { 'T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus', 'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle' },
+	on = {
+		'T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus',
+		'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle',
+	},
 }
 Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
 Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown 幻灯片' }

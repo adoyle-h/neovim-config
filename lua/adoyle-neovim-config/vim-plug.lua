@@ -66,7 +66,7 @@ local function usePlug(repo, opts)
 		end
 	end
 
-	local userPluginOpts = config.global.pluginOpts[repo]
+	local userPluginOpts = config.config.pluginOpts[repo]
 	opts = util.merge(opts, userPluginOpts)
 
 	if opts.disable == true then
@@ -119,7 +119,7 @@ function P.setup()
 	-- Use git proxy for fast downloading
 	vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
 
-	P.pluginDir = config.global.pluginDir
+	P.pluginDir = config.config.pluginDir
 end
 
 function P.start()

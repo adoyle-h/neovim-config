@@ -1,4 +1,4 @@
-local config = require('adoyle-neovim-config.config').global
+local config = require('adoyle-neovim-config.config').config
 
 -- Set default options for vim/nvim. Use :help 'option' to see the documentation for the given option.
 -- NOTE: Current Lua version is 5.1 util neovim 0.7
@@ -142,7 +142,7 @@ opt.fileencodings = config.fileencodings
 opt.fileformats = config.fileformats
 
 opt.spell = config.spell.check
-opt.spellfile = vim.fn.stdpath('config') .. 'nvim/spell/en.utf-8.add'
+opt.spellfile = vim.fn.stdpath('config') .. '/spell/en.utf-8.add'
 opt.spelllang = config.spell.lang
 opt.spellsuggest = config.spell.suggest
 

@@ -1,5 +1,6 @@
-lua/packer_compiled.lua
+/lua/packer_compiled.lua
+/spell
+/temp/*
 .DS_Store
 .netrwhist
-temp/*
 !**/*/.gitkeep
