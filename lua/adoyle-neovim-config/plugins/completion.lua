@@ -356,6 +356,8 @@ function M.config()
 		{ 'PmenuThumb', { bg = color.grey3 } }, -- cmp scrollbar thumb
 	}
 
+	require('snippy').setup { scopes = config.snippets.scopes }
+
 	cmp.setup({
 		mapping = configMapping(cmp),
 		formatting = configFormating(),

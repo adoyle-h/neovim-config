@@ -38,7 +38,8 @@ return {
 	},
 
 	-- Change lsp.setup(opts). Format: {['lsp_name'] = settings}
-	-- ":h lspconfig-all" for LSP configs provided by nvim-lspconfig
+	-- ":h lspconfig-all" or https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+	-- for LSP configs provided by nvim-lspconfig
 	setup = {
 		-- You can write LSP settings in lua. Or write it to lsp-settings/<lsp_name>.yaml file.
 		-- If have the same key, the value in the YAML file will take precedence.

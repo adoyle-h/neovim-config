@@ -232,18 +232,29 @@ require('adoyle-neovim-config').setup {
 
 ## LSP
 
+本项目使用 [nvim-lspconfig][] 和 [null-ls][] 来配置 LSP，管理 LSP 与 Nvim 的连接。
+使用 [mason.nvim][] 来安装与管理 lsp 和 null-ls 的第三方包。
+
 - 执行 `:Mason` 或者按 `<space>M` 查看 LSP 安装情况。
 - 执行 `:LspInfo` 查看当前文件使用的 LSP。
 - 执行 `:NullLsInfo` 查看当前文件使用的 LSP。
 
+[nvim-lspconfig][] 封装了一系列 LSP 客户端配置，能够开箱即用。它提供灵活的配置项便于用户自定义，详见[官方文档](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)。
+
+[null-ls][] 是一个虚拟 LSP 客户端，可以将 eslint、prettier 这类非 LSP 的普通命令行转化为 LSP。
+它提供统一灵活的配置项便于用户自定义，详见 [null-ls 官方配置文档](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md)。
+
+本项目框架配置默认只安装了 Lua LSP 和 Formatter。本项目配置安装了一系列 LSP。用户可以参考 [config/lsp](./lua/adoyle-neovim-config/config/lsp.lua) 和 [init.lua](./init.lua) 来定制自己的。
+
 ## 代码格式化
 
-基于 LSP 实现代码格式化，`nvim-lspconfig` 和 `null-ls` 提供 LSP 与文件 buffer 的关联。
-
+本项目基于 LSP 来格式化代码。
 使用 `lsp-format` 代替 `vim.lsp.buf.format`，提供更灵活的自定义配置。详见 [lsp-format 选项](https://github.com/lukas-reineke/lsp-format.nvim#special-format-options)。
 
-同一个文件可以使用多个 Formatter 格式化代码，并指定 Formatter 调用顺序。
-按默认配置 (`lsp.format` 与 `lsp.nullLS.sources`)，先使用 null-ls 指定顺序的 Formatter，后使用 lsp-format 指定顺序的 Formatter。
+同一个文件可以使用多个 Formatter 格式化代码。用户可以自定义 Formatter 调用顺序。
+
+Formatter 配置在 `lsp.format` 与 `lsp.nullLS.sources`。
+默认先使用 null-ls 指定顺序的 Formatter，后使用 lsp-format 指定顺序的 Formatter。
 
 ## 启动时间
 
@@ -283,3 +294,6 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 [Nerd Font]: https://github.com/ryanoasis/nerd-fonts
 [vim-plug]: https://github.com/junegunn/vim-plug
 [default-config]: ./lua/adoyle-neovim-config/config/default.lua
+[mason.nvim]: https://github.com/williamboman/mason.nvim
+[null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
+[nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig

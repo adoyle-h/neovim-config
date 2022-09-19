@@ -91,8 +91,13 @@ require('adoyle-neovim-config').setup {
 						diagnostics.eslint_d,
 
 						-- Formatters run in the order in which you register them.
-						formatting.eslint_d,
-						formatting.prettierd.with({ disabled_filetypes = { 'markdown' } }),
+						formatting.eslint_d.with { prefer_local = 'node_modules/.bin' },
+
+						formatting.prettierd.with {
+							disabled_filetypes = { 'markdown' },
+							prefer_local = 'node_modules/.bin',
+						},
+
 						formatting.lua_format,
 					}
 				end,

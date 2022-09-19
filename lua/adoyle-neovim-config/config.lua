@@ -26,7 +26,7 @@ function ConfigManager.setConfig(conf)
 end
 
 function ConfigManager.setup(opts)
-	ConfigManager.userSetup = opts
+	ConfigManager.userSetup = vim.deepcopy(opts)
 	ConfigManager.setConfig(opts.config)
 	return ConfigManager
 end
