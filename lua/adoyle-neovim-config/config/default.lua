@@ -1,6 +1,7 @@
 -- User should not change this file. Edit require('adoyle-neovim-config').setup({config}) in your init.lua.
-
 return function(color)
+	local defaultSymbol = require('adoyle-neovim-config.config.symbol')
+
 	return {
 		mapleader = ';', -- Set a map <leader> for more key combos
 
@@ -34,128 +35,11 @@ return function(color)
 			-- end,
 		},
 
-		lsp = {
-			-- a list of all tools you want to ensure are installed upon start;
-			-- Package Index: https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md
-			ensureInstalled = {
-				'lua-language-server', -- package name
-				-- { 'golangci-lint', version = '1.47.0' }, -- you can pin a tool to a particular version
-				-- { 'bash-language-server', auto_update = true }, -- you can turn off/on auto_update per tool
-			},
-
-			-- if set to true this will check each tool for updates. If updates
-			-- are available the tool will be updated. This setting does not
-			-- affect :MasonToolsUpdate or :MasonToolsInstall.
-			autoUpdate = false,
-
-			-- automatically install / update on startup. If set to false nothing
-			-- will happen on startup. You can use :MasonToolsInstall or
-			-- :MasonToolsUpdate to install tools and check for updates.
-			runOnStart = true,
-
-			-- Whether to automatically check for new versions when opening the :Mason window.
-			checkOutdatedPackagesOnOpen = false,
-
-			-- set a delay (in ms) before the installation starts. This is only
-			-- effective if run_on_start is set to true.
-			-- e.g.: 5000 = 5 second delay, 10000 = 10 second delay, etc...
-			startDelay = 2000, -- 2 second delay
-
-			defaultBorder = { -- or 'single' or 'rounded'
-				{ '╭', 'LspWindowBorder' },
-				{ '─', 'LspWindowBorder' },
-				{ '╮', 'LspWindowBorder' },
-				{ '│', 'LspWindowBorder' },
-				{ '╯', 'LspWindowBorder' },
-				{ '─', 'LspWindowBorder' },
-				{ '╰', 'LspWindowBorder' },
-				{ '│', 'LspWindowBorder' },
-			},
-
-			-- Change lsp.setup(opts). Format: {['lsp_name'] = function(opts)}
-			setup = {
-				tsserver = {
-					filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx' },
-				},
-
-				-- sumneko_lua = {
-				--   settings = {
-				--     Lua = {
-				--       diagnostics = {
-				--         globals = {}
-				--       }
-				--     }
-				--   }
-				-- },
-			},
-
-			nullLS = {
-				sources = function(builtins)
-					return {
-						builtins.completion.spell,
-					}
-				end,
-			},
-
-			format = { -- :h lsp-format
-				-- ":h lspconfig-all" for LSP configs provided by nvim-lspconfig
-				javascript = {
-					-- order: (table|nil) List of client names. Formatting is requested from clients
-					-- in the following order: first all clients that are not in the order list,
-					-- then the remaining clients in the order as they occur in the order list.
-					-- Use :LspInfo to see the clients.
-					order = { 'eslint_d', 'prettierd' },
-				},
-			},
-		},
+		lsp = require('adoyle-neovim-config.config.lsp'),
 
 		color = color,
 
-		highlights = {
-			-- function(c) return { 'MyCursor', { bg = color.blue } } end,
-			{ 'MyCursor', { bg = color.blue } },
-
-			{ 'DiffDelete', { fg = color.red, bg = color.darkRed } },
-			{ 'DiffChange', { bg = color.darkYellow, nocombine = true } },
-			{ 'DiffText', { bg = '#484800', nocombine = true } },
-
-			{ 'LspWindowBorder', { fg = color.cyan } },
-			{ 'DiagnosticBorder', { fg = color.cyan } },
-			-- Diagnostic Popup Window Background
-			{ 'NormalFloat', { bg = color.black } },
-			-- Diagnostic Popup Window Border
-			{ 'FloatBorder', { bg = color.black, fg = color.grey3 } },
-			{ 'MatchParen', { fg = color.orange, bg = color.black, underline = true } },
-			{ 'DiagnosticVirtualTextError', { fg = color.red } },
-
-			{ 'LspInfoTitle', { fg = color.lightGreen } }, -- Client name
-			{ 'LspInfoList', { fg = color.lightGreen } }, -- Server name list
-			{ 'LspInfoFiletype', { fg = color.purple } }, -- `filetypes` area
-			{ 'LspInfoTip', { link = 'Comment' } }, -- Tip
-			{ 'LspInfoBorder', { fg = color.blue } }, -- Window border
-		},
-
-		diagnosticBorder = { -- See the border property of ":h nvim_open_win"
-			{ '╭', 'DiagnosticBorder' },
-			{ '─', 'DiagnosticBorder' },
-			{ '╮', 'DiagnosticBorder' },
-			{ '│', 'DiagnosticBorder' },
-			{ '╯', 'DiagnosticBorder' },
-			{ '─', 'DiagnosticBorder' },
-			{ '╰', 'DiagnosticBorder' },
-			{ '│', 'DiagnosticBorder' },
-		},
-
-		-- diagnosticBorder = {
-		--   { '╔', 'DiagnosticBorder' },
-		--   { '═', 'DiagnosticBorder' },
-		--   { '╗', 'DiagnosticBorder' },
-		--   { '║', 'DiagnosticBorder' },
-		--   { '╝', 'DiagnosticBorder' },
-		--   { '═', 'DiagnosticBorder' },
-		--   { '╚', 'DiagnosticBorder' },
-		--   { '║', 'DiagnosticBorder' },
-		-- },
+		highlights = require('adoyle-neovim-config.config.highlight-group')(color),
 
 		ignoredFileTypesForSomePlugs = {
 			'TelescopePrompt',
@@ -187,6 +71,28 @@ return function(color)
 
 		history = 1000, --  how many entries may be stored in each of these histories. :h 'history'
 
+		diagnosticBorder = { -- See the border property of ":h nvim_open_win"
+			{ '╭', 'DiagnosticBorder' },
+			{ '─', 'DiagnosticBorder' },
+			{ '╮', 'DiagnosticBorder' },
+			{ '│', 'DiagnosticBorder' },
+			{ '╯', 'DiagnosticBorder' },
+			{ '─', 'DiagnosticBorder' },
+			{ '╰', 'DiagnosticBorder' },
+			{ '│', 'DiagnosticBorder' },
+		},
+
+		-- diagnosticBorder = {
+		--   { '╔', 'DiagnosticBorder' },
+		--   { '═', 'DiagnosticBorder' },
+		--   { '╗', 'DiagnosticBorder' },
+		--   { '║', 'DiagnosticBorder' },
+		--   { '╝', 'DiagnosticBorder' },
+		--   { '═', 'DiagnosticBorder' },
+		--   { '╚', 'DiagnosticBorder' },
+		--   { '║', 'DiagnosticBorder' },
+		-- },
+
 		fillchars = { -- window border. :h 'fcs'
 			vert = '│',
 			diff = '╱',
@@ -215,7 +121,9 @@ return function(color)
 		},
 
 		matchpairs = { -- Press % to jump from one to the other. :h 'matchpairs'
-			'(:)', '{:}', '[:]', '<:>', '“:”',
+			-- LuaFormatter off
+			'(:)', '{:}', '[:]', '「:」', '<:>', '“:”',
+			-- LuaFormatter on
 		},
 
 		systemClipboard = false, -- paste and copy in vim with system clipboard
@@ -246,56 +154,9 @@ return function(color)
 			},
 		},
 
-		symbolMap = {
-			DEBUG = "",
-			ERROR = "", -- 
-			INFO = "", -- 
-			TRACE = "",
-			WARN = "", -- 
-			HINT = '',
-			LOCK = '',
-			BRANCH = '',
-			INSTALLED = '',
-			UNINSTALLED = '',
-			PENDING = '',
-			MID_DOT = '•',
-		},
+		symbolMap = defaultSymbol.symbolMap,
 
-		kindSymbolMap = {
-			Array = '',
-			Boolean = '◩',
-			Class = 'ﴯ',
-			Collapsed = '',
-			Color = '',
-			Constant = '🄲',
-			Constructor = '',
-			Enum = '',
-			EnumMember = '',
-			Event = '',
-			Field = '', --'ﰠ',
-			File = '',
-			Folder = '',
-			Function = '',
-			Interface = '', -- ''
-			Keyword = '',
-			Method = '',
-			Module = '',
-			Namespace = '',
-			Null = '∅',
-			Number = '',
-			Object = '',
-			Operator = '',
-			Package = '',
-			Property = '',
-			Reference = '',
-			Snippet = '',
-			String = '',
-			Struct = 'פּ',
-			Text = '',
-			TypeParameter = '𝕋', -- ''
-			Unit = '塞',
-			Variable = '𝕍', -- '', '𝒗'
-		},
+		kindSymbolMap = defaultSymbol.kindSymbolMap,
 
 		codeContext = { -- show code context which parsed by treesitter
 			winbar = true, -- show context path in winbar
@@ -310,15 +171,19 @@ return function(color)
 				'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
 			},
 		},
+
 		tsRainbow = {
 			enable = true,
 			-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
 			extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
 			max_file_lines = nil, -- Do not enable for files with more than n lines, int
 			colors = { -- table of hex strings
-				'#005f87', '#d75f00', '#87ff5f', '#0087ff', '#00aa87', '#b2ffaf', '#ff5f00', '#003080',
-				'#ff00ff', '#8787ff', '#87875f',
+				-- LuaFormatter off
+				'#005f87', '#d75f00', '#12ff5f', '#0087ff', '#00aa87', '#b2ffaf', '#ff5f00',
+				'#6F3080', '#ff00ff', '#8787ff', '#87875f',
+				-- LuaFormatter on
 			},
+
 			termcolors = { -- table of colour name strings
 			},
 		},

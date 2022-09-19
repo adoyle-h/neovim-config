@@ -22,6 +22,8 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
 - [Configuration](#configuration)
 - [Files Structure](#files-structure)
 - [NOTE](#note)
+- [LSP](#lsp)
+- [Code Format](#code-format)
 - [Startup Time](#startup-time)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
@@ -33,7 +35,7 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
 - All in Lua.
 - Use many Neovim features: Native LSP, Float Window, Winbar.
 - Plugin manage framework based on [vim-plug][] and Lua. Support on-demand loading plugin.
-- Integrated total 111 powerful Vim/Nvim plugins。
+- Integrated total 106 powerful Vim/Nvim plugins。
 - Awesome UI and color schema. Dark Mode. Support True-Color, Scrollbar, Dashboard.
 - Configurable. See [./lua/config.lua](./lua/config.lua)
 - Configurable proxy for fast git download in China Mainland
@@ -123,7 +125,6 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
 2. Initialization
   - `:PlugInstall`. It maybe slow. Please be patient.
   - There no any Treesitter Parer installed by default. Invoke `:TSInstall all` to install them.
-  - There no any LSP installed by default. Invoke `:LspInstallInfo` to choose LSPs which you need.
 3. `nvim` to get started.
 
 ## API
@@ -184,26 +185,28 @@ Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-con
 .
 ├── README.md
 ├── autoload/
-│   └── plug.vim       // vim-plug
-├── init.lua           // neovim configuration entry point (directly use way)
+│   └── plug.vim       // vim-plug source code
+├── init.lua           // Neovim configuration entry point (directly use way)
+├── lsp-settings       // Global LSP settings
 ├── lua
 │   └── adoyle-neovim-config
 │       ├── config/          // Keymaps
-│       │   ├── color.lua  // default color config
+│       │   ├── color.lua    // Default color config
 │       │   └── default.lua  // Default config
 │       ├── config.lua       // Config loader
 │       ├── fix-lua.lua
 │       ├── init.lua         // The lua required entry point (plugin way)
 │       ├── plugins.lua      // Plugin loading list
 │       ├── util.lua         // utility functions
+│       ├── util_spec.lua    // unit test for util.lua
 │       ├── vim-options.lua
 │       ├── extend.lua       // General user functions and commands
 │       ├── vim-plug.lua     // Plugin manage framework based on vim-plug
 │       ├── keymap/          // Keymaps
 │       ├── plugins/         // Available plugins written in lua
 │       └── themes/          // color schemas
-├── snippets/          // code snippets
-├── spell/             // spell check data
+├── snippets/          // Code Snippets
+├── spell/             // Spell check data (git ignored)
 │   └── en.utf-8.add
 ├── test/              // Unit tests
 └── temp/              // temporary files
@@ -217,6 +220,14 @@ All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plug
 ## NOTE
 
 `$VIMRUNTIME/filetype.vim` will not run, please put filetype detection in [./lua/plugins/filetype.lua](./lua/plugins/filetype.lua).
+
+## LSP
+
+- Call `:Mason` or press `<space>M` to view LSP installations.
+- Call `:LspInfo` to show LSP for current file.
+- Call `:NullLsInfo` to show LSP for current file.
+
+## Code Format
 
 ## Startup Time
 

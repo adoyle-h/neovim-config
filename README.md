@@ -25,6 +25,8 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - [默认配置](#默认配置)
 - [目录结构](#目录结构)
 - [注意](#注意)
+- [LSP](#lsp)
+- [代码格式化](#代码格式化)
 - [启动时间](#启动时间)
 - [建议，Bug，做贡献](#建议bug做贡献)
 - [版权声明](#版权声明)
@@ -36,7 +38,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - 用 Lua 管理所有配置。
 - 充分使用 Neovim 特性：Native LSP、Float Window、Winbar。
 - 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载。
-- 集成了 111 个 Vim/Nvim 插件。
+- 集成了 106 个 Vim/Nvim 插件。
 - 帅气的界面和配色。暗黑模式。支持真彩色、滚动条、Dashboard。
 - 可配置，详见[默认配置][default-config]。
 - 支持配置 github 代理，在中国大陆可加快插件下载速度。
@@ -124,7 +126,6 @@ Click [./README.en.md](./README.en.md) to read English documents.
 2. 初始化
   - `:PlugInstall` 安装 vim 插件。可能会比较慢，请耐心等待。
   - `:TSInstall all` 默认未安装 Treesitter Parser。执行此命令，一键安装所有。
-  - `:LspInstallInfo` 默认未安装任何 LSP。执行此命令，选择你需要的 LSP，并按回车安装。
 3. 执行 `nvim` 开始。
 
 ## API
@@ -193,26 +194,28 @@ require('adoyle-neovim-config').setup {
 .
 ├── README.md
 ├── autoload/
-│   └── plug.vim       // vim-plug
-├── init.lua           // neovim configuration entry point (directly use way)
+│   └── plug.vim       // vim-plug source code
+├── init.lua           // Neovim configuration entry point (directly use way)
+├── lsp-settings       // Global LSP settings
 ├── lua
 │   └── adoyle-neovim-config
 │       ├── config/          // Keymaps
-│       │   ├── color.lua  // default color config
+│       │   ├── color.lua    // Default color config
 │       │   └── default.lua  // Default config
 │       ├── config.lua       // Config loader
 │       ├── fix-lua.lua
 │       ├── init.lua         // The lua required entry point (plugin way)
 │       ├── plugins.lua      // Plugin loading list
 │       ├── util.lua         // utility functions
+│       ├── util_spec.lua    // unit test for util.lua
 │       ├── vim-options.lua
 │       ├── extend.lua       // General user functions and commands
 │       ├── vim-plug.lua     // Plugin manage framework based on vim-plug
 │       ├── keymap/          // Keymaps
 │       ├── plugins/         // Available plugins written in lua
 │       └── themes/          // color schemas
-├── snippets/          // code snippets
-├── spell/             // spell check data
+├── snippets/          // Code Snippets
+├── spell/             // Spell check data (git ignored)
 │   └── en.utf-8.add
 ├── test/              // Unit tests
 └── temp/              // temporary files
@@ -226,6 +229,21 @@ require('adoyle-neovim-config').setup {
 ## 注意
 
 `$VIMRUNTIME/filetype.vim` 不会被调用，文件类型设置请见 [./lua/plugins/filetype.lua](./lua/plugins/filetype.lua)。
+
+## LSP
+
+- 执行 `:Mason` 或者按 `<space>M` 查看 LSP 安装情况。
+- 执行 `:LspInfo` 查看当前文件使用的 LSP。
+- 执行 `:NullLsInfo` 查看当前文件使用的 LSP。
+
+## 代码格式化
+
+基于 LSP 实现代码格式化，`nvim-lspconfig` 和 `null-ls` 提供 LSP 与文件 buffer 的关联。
+
+使用 `lsp-format` 代替 `vim.lsp.buf.format`，提供更灵活的自定义配置。详见 [lsp-format 选项](https://github.com/lukas-reineke/lsp-format.nvim#special-format-options)。
+
+同一个文件可以使用多个 Formatter 格式化代码，并指定 Formatter 调用顺序。
+按默认配置 (`lsp.format` 与 `lsp.nullLS.sources`)，先使用 null-ls 指定顺序的 Formatter，后使用 lsp-format 指定顺序的 Formatter。
 
 ## 启动时间
 

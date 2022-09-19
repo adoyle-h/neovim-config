@@ -1,5 +1,4 @@
 -- This file is loaded by neovim. See `:h init.lua`
-
 require('adoyle-neovim-config').setup {
 	-- This user config will override default config. Below config is an example just for my personal usage.
 	config = {
@@ -12,9 +11,7 @@ require('adoyle-neovim-config').setup {
 		},
 
 		pluginOpts = { -- Override plugin default config
-			['plugins.profiling'] = {
-				disable = false,
-			},
+			['plugins.profiling'] = { disable = false },
 		},
 
 		-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
@@ -59,13 +56,14 @@ require('adoyle-neovim-config').setup {
 				'lelwel', -- rust
 				'lemminx', -- XML Language Server
 				'lua-language-server',
+				'luaformatter', -- #formatter Create .lua-format file in project, https://github.com/Koihik/LuaFormatter#style-configure-fil
 				'marksman', -- markdown
 				'prettierd', -- #null-ls
 				'pyright',
 				'python-lsp-server',
 				'shellcheck',
 				'shfmt', -- #Formatter A shell formatter (sh/bash/mksh)
-				'sqlfluff', --#Linter SQLFluff is a dialect-flexible and configurable SQL linter
+				'sqlfluff', -- #Linter SQLFluff is a dialect-flexible and configurable SQL linter
 				'sqls', -- #LSP
 				'taplo', -- #LSP TOML
 				'texlab', -- LTeX Language Server
@@ -77,6 +75,12 @@ require('adoyle-neovim-config').setup {
 			},
 
 			nullLS = {
+				debug = false,
+
+				-- Available null-ls sources list
+				-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+				-- How to config null-ls sources:
+				-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
 				sources = function(builtins)
 					local code_actions = builtins.code_actions
 					local diagnostics = builtins.diagnostics
@@ -85,8 +89,11 @@ require('adoyle-neovim-config').setup {
 					return {
 						code_actions.eslint_d,
 						diagnostics.eslint_d,
+
+						-- Formatters run in the order in which you register them.
 						formatting.eslint_d,
-						formatting.prettierd,
+						formatting.prettierd.with({ disabled_filetypes = { 'markdown' } }),
+						formatting.lua_format,
 					}
 				end,
 			},

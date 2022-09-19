@@ -40,9 +40,7 @@ local functionsColors = {
 	diffChangeBG = color.darkYellow,
 	diffText = '#363537',
 
-	menu = {
-		selectBG = '#012867',
-	},
+	menu = { selectBG = '#012867' },
 
 	selection = color.darkOrange,
 
@@ -51,29 +49,24 @@ local functionsColors = {
 	scrollbarBG = color.grey2,
 	contextBG = color.darkCyan,
 
-	outline = {
-		lineBG = '#3f1f00',
-	},
+	outline = { lineBG = '#3f1f00' },
 
-	bufferline = {
-		bufferBG = '#12151a',
-		selectedBG = '#1b2430',
-	},
+	bufferline = { bufferBG = '#12151a', selectedBG = '#1b2430' },
 
 	statusline = {
-		black    = color.black,
-		white    = '#d9d7ce',
+		black = color.black,
+		white = '#d9d7ce',
 		sec_y_bg = '#272d38',
-		grey     = '#282b2e',
-		green    = '#bbe67e',
-		blue     = '#689afd',
-		red      = color.red,
+		grey = '#282b2e',
+		green = '#bbe67e',
+		blue = '#689afd',
+		red = color.red,
 		sec_c_fg = '#607080',
 		sec_c_bg = '#12151a',
-		orange   = '#D75F00',
-		purple   = '#765ADA',
-		yellow   = '#C7B000',
-		cyan     = '#9ac3de',
+		orange = '#D75F00',
+		purple = '#765ADA',
+		yellow = '#C7B000',
+		cyan = '#9ac3de',
 	},
 
 	-- Use :TSCaptureUnderCursor to get highlight group of text
@@ -99,11 +92,13 @@ local functionsColors = {
 	},
 
 	highlightWords = {
+		-- LuaFormatter off
 		gui = {
 			'#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF', '#C9853E', '#4083F8',
 			'#5F9B2F', '#8255FF', '#D25B9F', '#406661', '#95956E', '#284184', '#6C7B95', '#835858',
 		},
 		cterm = {},
+		-- LuaFormatter on
 	},
 }
 

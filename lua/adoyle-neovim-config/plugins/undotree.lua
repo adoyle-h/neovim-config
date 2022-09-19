@@ -6,7 +6,7 @@ local M = {
 }
 
 function M.config()
-	local dir = vim.fn.stdpath('config') .. '/temp/undodir/'
+	local dir = vim.fn.stdpath('data') .. '/undodir/'
 
 	if vim.fn.has('persistent_undo') then
 		vim.opt.undodir = dir

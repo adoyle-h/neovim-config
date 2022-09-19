@@ -1,64 +1,66 @@
 local config = require('adoyle-neovim-config.config').config
 local util = require('adoyle-neovim-config.util')
 
-
 local M_NLSP = {
 	'tamago324/nlsp-settings.nvim',
-	disable = true,
+	disable = false,
 	requires = {},
 	config = function()
-		local nlspsettings = require('nlspsettings')
-
-		nlspsettings.setup {
+		require('nlspsettings').setup {
 			-- For global settings,
 			config_home = vim.fn.stdpath('config') .. '/lsp-settings',
 			-- For local project, put settings file in {project}/.lsp-settings/{server_name}.yaml.
-			local_settings_dir = ".nlsp-settings",
+			local_settings_dir = '.nlsp-settings',
 			local_settings_root_markers_fallback = { '.git' },
 			append_default_schemas = true,
 			loader = 'yaml',
 		}
-	end
+	end,
 }
-
 
 -- null-ls is an attempt to bridge that gap and simplify the process of creating,
 -- sharing, and setting up LSP sources using pure Lua.
 local M_NullLS = {
 	'jose-elias-alvarez/null-ls.nvim',
 	disable = false,
-	requires = {
-		"jayp0521/mason-null-ls.nvim",
-	},
+	requires = { 'jayp0521/mason-null-ls.nvim' },
 	config = function()
 		local null_ls = require('null-ls')
-		local sources = config.lsp.nullLS.sources(null_ls.builtins) or {}
+		local nullLSConfig = config.lsp.nullLS
+		local sources = nullLSConfig.sources(null_ls.builtins) or {}
 
 		local has_gitsigns = pcall(require, 'gitsigns')
-		if has_gitsigns then
-			table.insert(sources, null_ls.builtins.code_actions.gitsigns)
-		end
+		if has_gitsigns then table.insert(sources, null_ls.builtins.code_actions.gitsigns) end
+
+		local lspFormat = require('lsp-format')
 
 		null_ls.setup {
+			debug = nullLSConfig.debug,
 			debounce = 150,
 			default_timeout = 3000,
 			sources = sources,
+			on_attach = function(client, bufnr)
+				if client.supports_method('textDocument/formatting') then
+					-- If null-ls client is a formatter, register the client to lsp-format.
+					-- So we can use lsp-format to trigger null-ls formatter when execute ":w".
+					lspFormat.on_attach(client, bufnr)
+				end
+			end,
 		}
 
-
-		require('mason-null-ls').setup {
-			automatic_installation = false,
-		}
-
-		require('mason-null-ls').check_install(true)
+		local masonNullLS = require('mason-null-ls')
+		masonNullLS.setup { automatic_installation = false }
+		masonNullLS.check_install(true)
 
 		vim.api.nvim_create_autocmd('User', {
 			pattern = 'MasonNullLsUpdateCompleted',
 			callback = function()
-				vim.schedule(function() print 'mason-null-ls has finished' end)
+				vim.schedule(function()
+					print 'mason-null-ls has finished'
+				end)
 			end,
 		})
-	end
+	end,
 }
 
 local M_GotoPreview = {
@@ -66,26 +68,26 @@ local M_GotoPreview = {
 	disable = false,
 	config = function()
 		require('goto-preview').setup {
-			width = 100; -- Width of the floating window
-			height = 15; -- Height of the floating window
-			border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }; -- Border characters of the floating window
-			default_mappings = false; -- Bind default mappings
-			debug = false; -- Print debug information
-			opacity = nil; -- 0-100 opacity level of the floating window where 100 is fully transparent.
-			resizing_mappings = false; -- Binds arrow keys to resizing the floating window.
+			width = 100, -- Width of the floating window
+			height = 15, -- Height of the floating window
+			border = { '┌', '─', '┐', '│', '┘', '─', '└', '│' }, -- Border characters of the floating window
+			default_mappings = false, -- Bind default mappings
+			debug = false, -- Print debug information
+			opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
+			resizing_mappings = false, -- Binds arrow keys to resizing the floating window.
 			post_open_hook = function()
 				vim.wo.cc = '';
-			end; -- A function taking two arguments, a buffer and a window to be ran as a hook.
+			end, -- A function taking two arguments, a buffer and a window to be ran as a hook.
 
 			-- references = { -- Configure the telescope UI for slowing the references cycling window.
 			--   telescope = telescope.themes.get_dropdown({ hide_preview = false })
 			-- };
 
 			-- These two configs can also be passed down to the goto-preview definition and implementation calls for one off "peak" functionality.
-			focus_on_open = true; -- Focus the floating window when opening it.
-			dismiss_on_move = false; -- Dismiss the floating window when moving the cursor.
+			focus_on_open = true, -- Focus the floating window when opening it.
+			dismiss_on_move = false, -- Dismiss the floating window when moving the cursor.
 			force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
-			bufhidden = "wipe", -- the bufhidden option to set on the floating window. See :h bufhidden
+			bufhidden = 'wipe', -- the bufhidden option to set on the floating window. See :h bufhidden
 		}
 
 		vim.cmd [[
@@ -95,10 +97,8 @@ local M_GotoPreview = {
 			nnoremap gr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 		]]
 
-		vim.api.nvim_create_user_command('CleanPreviews', function()
-			require('goto-preview').close_all_win()
-		end, {})
-	end
+		vim.api.nvim_create_user_command('CleanPreviews', require('goto-preview').close_all_win, {})
+	end,
 }
 
 local M_MasonToolInstaller = {
@@ -115,11 +115,12 @@ local M_MasonToolInstaller = {
 		vim.api.nvim_create_autocmd('User', {
 			pattern = 'MasonToolsUpdateCompleted',
 			callback = function()
-				vim.schedule(function() print 'mason-tool-installer has finished' end)
+				vim.schedule(function()
+					print 'mason-tool-installer has finished'
+				end)
 			end,
 		})
-
-	end
+	end,
 }
 
 local M_Mason = {
@@ -163,7 +164,7 @@ local M_Mason = {
 					-- Keymap to cancel a package installation
 					cancel_installation = '<C-c>',
 					-- Keymap to apply language filter
-					apply_language_filter = '<C-f>',
+					apply_language_filter = '<M-f>',
 				},
 			},
 
@@ -194,8 +195,7 @@ local M_Mason = {
 			},
 		}
 
-
-	end
+	end,
 }
 
 local M = {
@@ -208,29 +208,35 @@ local M = {
 		M_NullLS,
 		M_GotoPreview,
 		M_NLSP,
-		'williamboman/mason-lspconfig.nvim',
 
+		'williamboman/mason-lspconfig.nvim',
 		'neovim/nvim-lspconfig',
 		'lukas-reineke/lsp-format.nvim',
-
 		{
 			'j-hui/fidget.nvim',
 			desc = 'nvim-lsp loading progress',
 			config = function()
 				require('fidget').setup {}
-			end
+			end,
 		},
-
 		{
 			'antoinemadec/FixCursorHold.nvim',
-			config = function() vim.g.cursorhold_updatetime = 100 end,
+			config = function()
+				vim.g.cursorhold_updatetime = 100
+			end,
 		},
 	},
 }
 
 local function configUI()
 	local symbolMap = config.symbolMap
-	local signs = { Error = symbolMap.ERROR, Warn = symbolMap.WARN, Hint = symbolMap.HINT, Info = symbolMap.INFO }
+	local signs = {
+		Error = symbolMap.ERROR,
+		Warn = symbolMap.WARN,
+		Hint = symbolMap.HINT,
+		Info = symbolMap.INFO,
+	}
+
 	for type, icon in pairs(signs) do
 		local hl = 'DiagnosticSign' .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -241,23 +247,39 @@ local function configKeyMaps()
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 	local keymap = vim.keymap.set
 
-	keymap('n', '[d', function() vim.diagnostic.goto_prev() end,
-		{ noremap = true, silent = true, desc = ':h vim.diagnostic.goto_prev' })
-	keymap('n', ']d', function() vim.diagnostic.goto_next() end,
-		{ noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' })
+	keymap('n', '<space>M', ':Mason<CR>', { noremap = true, silent = true })
+
+	keymap('n', '[d', function()
+		vim.diagnostic.goto_prev()
+	end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_prev' })
+
+	keymap('n', ']d', function()
+		vim.diagnostic.goto_next()
+	end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' })
+
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	keymap('n', 'gD', function() vim.lsp.buf.declaration() end,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' })
-	keymap('n', 'gR', function() vim.lsp.buf.rename() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.rename' })
-	keymap('n', 'gc', function() vim.lsp.buf.code_action() end,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' })
-	keymap('n', 'gh', function() vim.lsp.buf.hover() end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' })
-	keymap('n', 'gs', function() vim.lsp.buf.signature_help() end,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' })
-	keymap('n', 'gF', vim.lsp.buf.formatting, { noremap = true, silent = true, desc = ':h vim.lsp.buf.formatting' })
-	-- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+	keymap('n', 'gD', function()
+		vim.lsp.buf.declaration()
+	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' })
 
+	keymap('n', 'gR', function()
+		vim.lsp.buf.rename()
+	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.rename' })
 
+	keymap('n', 'gc', function()
+		vim.lsp.buf.code_action()
+	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' })
+
+	keymap('n', 'gh', function()
+		vim.lsp.buf.hover()
+	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' })
+
+	keymap('n', 'gs', function()
+		vim.lsp.buf.signature_help()
+	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' })
+
+	keymap('n', 'gF', vim.lsp.buf.format,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.format' })
 end
 
 local function configDiagnostic()
@@ -287,7 +309,7 @@ local function configDiagnostic()
 				prefix = ' ',
 				scope = 'cursor',
 			})
-		end
+		end,
 	})
 end
 
@@ -312,40 +334,37 @@ function M.config()
 	end
 
 	local masonLspconfig = require('mason-lspconfig')
-	masonLspconfig.setup {
-		automatic_installation = false,
-	}
+	masonLspconfig.setup { automatic_installation = false }
 
-	local servers = masonLspconfig.get_installed_servers()
+	local servers = masonLspconfig.get_installed_servers() -- It not includes null-ls
 	local lspconfig = require('lspconfig')
-	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol
+		                                                                 .make_client_capabilities())
 
 	-- Use a loop to conveniently call 'setup' on multiple servers and
 	-- map buffer local keybindings when the language server attaches
 	for _, name in pairs(servers) do
 		local opts = config.lsp.setup[name] or {}
-		if type(opts) == 'function' then
-			opts = opts(lspconfig) or {}
-		end
+		if type(opts) == 'function' then opts = opts(lspconfig) or {} end
 
 		opts = util.merge(opts, {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			flags = {
 				debounce_text_changes = 150, -- This is default in neovim 0.7+
-			}
+			},
 		})
 
 		lspconfig[name].setup(opts)
 	end
 
+	-- set default border
+	local border = config.lsp.defaultBorder
+	require('lspconfig.ui.windows').default_options.border = border -- This line maybe not work
+	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help,
+		{ border = border })
 
-	require('lspconfig.ui.windows').default_options.border = config.lsp.defaultBorder
-	-- lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
-	--   autostart = false,
-	--   handlers = {
-	--   },
-	-- })
 end
 
 return M

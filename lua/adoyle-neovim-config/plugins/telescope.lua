@@ -132,6 +132,8 @@ function M.config()
 		defaults = {
 			prompt_prefix = ' ',
 
+			scroll_strategy = 'limit',
+
 			-- Defines the command that will be used for `live_grep` and `grep_string` pickers.
 			-- Hint: Make sure that color is currently set to `never` because we do not yet interpret color codes
 			-- Hint 2: Make sure that these options are in your changes arguments:
