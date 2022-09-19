@@ -3,6 +3,8 @@ return function(color)
 		-- function(c) return { 'MyCursor', { bg = color.blue } } end,
 		{ 'MyCursor', { bg = color.blue } },
 
+		{ 'NvimWindowFloating', { fg = color.blue, bg = color.black } },
+
 		{ 'DiffDelete', { fg = color.red, bg = color.darkRed } },
 		{ 'DiffChange', { bg = color.darkYellow, nocombine = true } },
 		{ 'DiffText', { bg = '#484800', nocombine = true } },

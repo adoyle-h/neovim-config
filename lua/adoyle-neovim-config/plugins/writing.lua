@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'For better writing experience',
-	disable = false,
-}
+local M = { nil, desc = 'For better writing experience', disable = false }
 
 local function goyoEnter()
 	vim.opt.showmode = false
@@ -33,15 +29,15 @@ local function configGoyo()
 	vim.g.goyo_height = '90%' -- (default: 85%)
 	vim.g.goyo_linenr = 1 -- (default: 0)
 
-	vim.api.nvim_create_autocmd({'User'}, {
-		pattern = {'GoyoEnter'},
+	vim.api.nvim_create_autocmd({ 'User' }, {
+		pattern = { 'GoyoEnter' },
 		group = GoyoGroup,
 		callback = goyoEnter,
 		-- nested = true,
 	})
 
-	vim.api.nvim_create_autocmd({'User'}, {
-		pattern = {'GoyoLeave'},
+	vim.api.nvim_create_autocmd({ 'User' }, {
+		pattern = { 'GoyoLeave' },
 		group = GoyoGroup,
 		callback = goyoLeave,
 		-- nested = true,

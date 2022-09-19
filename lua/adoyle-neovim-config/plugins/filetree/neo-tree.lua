@@ -10,7 +10,7 @@ local M = {
 			's1n7ax/nvim-window-picker',
 			tag = 'v1.*',
 			config = function()
-				require 'window-picker'.setup({
+				require'window-picker'.setup({
 					autoselect_one = true,
 					include_current = false,
 					filter_rules = {
@@ -26,8 +26,8 @@ local M = {
 					other_win_hl_color = '#14482F',
 				})
 			end,
-		}
-	}
+		},
+	},
 }
 
 local function configKeymaps()
@@ -98,35 +98,28 @@ function M.config()
 				-- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
 				-- then these will never be used.
 				default = '',
-				highlight = 'NeoTreeFileIcon'
+				highlight = 'NeoTreeFileIcon',
 			},
 
-			modified = {
-				symbol = '',
-				highlight = 'NeoTreeModified',
-			},
+			modified = { symbol = '', highlight = 'NeoTreeModified' },
 
-			name = {
-				trailing_slash = false,
-				use_git_status_colors = true,
-				highlight = 'NeoTreeFileName',
-			},
+			name = { trailing_slash = false, use_git_status_colors = true, highlight = 'NeoTreeFileName' },
 
 			git_status = {
 				symbols = {
 					-- Change type
-					added     = '✚', -- or '✚', but this is redundant info if you use git_status_colors on the name
-					modified  = '', -- or '', but this is redundant info if you use git_status_colors on the name
-					deleted   = '', -- this can only be used in the git_status source
+					added = '✚', -- or '✚', but this is redundant info if you use git_status_colors on the name
+					modified = '', -- or '', but this is redundant info if you use git_status_colors on the name
+					deleted = '', -- this can only be used in the git_status source
 					-- deleted   = '✖', -- this can only be used in the git_status source
-					renamed   = '', -- this can only be used in the git_status source
+					renamed = '', -- this can only be used in the git_status source
 					-- Status type
 					untracked = '',
-					ignored   = '',
-					unstaged  = '*',
-					staged    = '',
-					conflict  = '',
-				}
+					ignored = '',
+					unstaged = '*',
+					staged = '',
+					conflict = '',
+				},
 			},
 		},
 
@@ -134,10 +127,7 @@ function M.config()
 			position = 'left',
 			width = 34,
 
-			mapping_options = {
-				noremap = true,
-				nowait = true,
-			},
+			mapping_options = { noremap = true, nowait = true },
 
 			mappings = {
 				['?'] = 'show_help',
@@ -167,7 +157,7 @@ function M.config()
 				['w'] = false,
 				['<space>'] = false,
 				['<bs>'] = false,
-				--['P'] = 'toggle_preview', -- enter preview mode, which shows the current node without focusing
+				-- ['P'] = 'toggle_preview', -- enter preview mode, which shows the current node without focusing
 				['z'] = 'close_all_nodes',
 				['Z'] = 'expand_all_nodes',
 				['d'] = 'delete',
@@ -179,30 +169,30 @@ function M.config()
 					'add',
 					-- some commands may take optional config options, see `:h neo-tree-mappings` for details
 					config = {
-						show_path = 'relative' -- 'none', 'relative', 'absolute'
-					}
+						show_path = 'relative', -- 'none', 'relative', 'absolute'
+					},
 				},
 				['A'] = {
 					'add_directory',
 					config = {
-						show_path = 'relative' -- 'none', 'relative', 'absolute'
-					}
+						show_path = 'relative', -- 'none', 'relative', 'absolute'
+					},
 				},
 				['c'] = {
 					'copy',
 					config = {
-						show_path = 'relative' -- 'none', 'relative', 'absolute'
-					}
+						show_path = 'relative', -- 'none', 'relative', 'absolute'
+					},
 				},
 				['m'] = {
 					'move',
 					config = {
-						show_path = 'relative' -- 'none', 'relative', 'absolute'
-					}
+						show_path = 'relative', -- 'none', 'relative', 'absolute'
+					},
 				},
 				['<'] = 'prev_source',
 				['>'] = 'next_source',
-			}
+			},
 		},
 
 		nesting_rules = {},
@@ -213,16 +203,13 @@ function M.config()
 				hide_dotfiles = false,
 				hide_gitignored = true,
 				hide_hidden = true, -- only works on Windows for hidden files/directories
-				hide_by_name = {
-					'node_modules',
-					'.git',
-				},
+				hide_by_name = { 'node_modules', '.git' },
 				hide_by_pattern = { -- uses glob style patterns
-					--'*.meta',
-					--'*/src/*/tsconfig.json',
+					-- '*.meta',
+					-- '*/src/*/tsconfig.json',
 				},
 				always_show = { -- remains visible even if other settings would normally hide it
-					--'.gitignored',
+					-- '.gitignored',
 				},
 				never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
 					'.DS_Store',
@@ -250,8 +237,8 @@ function M.config()
 					['<c-x>'] = 'clear_filter',
 					['[g'] = 'prev_git_modified',
 					[']g'] = 'next_git_modified',
-				}
-			}
+				},
+			},
 		},
 
 		buffers = {
@@ -259,11 +246,7 @@ function M.config()
 			-- time the current file is changed while the tree is open.
 			group_empty_dirs = true, -- when true, empty folders will be grouped together
 			show_unloaded = true,
-			window = {
-				mappings = {
-					['d'] = 'buffer_delete',
-				}
-			},
+			window = { mappings = { ['d'] = 'buffer_delete' } },
 		},
 
 		git_status = {
@@ -274,8 +257,8 @@ function M.config()
 					['u'] = 'git_unstage_file',
 					['a'] = 'git_add_file',
 					['r'] = 'git_revert_file',
-				}
-			}
+				},
+			},
 		},
 
 		source_selector = {
@@ -283,10 +266,10 @@ function M.config()
 			statusline = false, -- toggle to show selector on statusline
 			show_scrolled_off_parent_node = false, -- boolean
 			tab_labels = {
-				filesystem = "  Files ", -- string | nil
-				buffers = " ﬘ Buffers ", -- string | nil
-				git_status = "  Git ", -- string | nil
-				diagnostics = " 裂Diagnostics ", -- string | nil
+				filesystem = '  Files ', -- string | nil
+				buffers = ' ﬘ Buffers ', -- string | nil
+				git_status = '  Git ', -- string | nil
+				diagnostics = ' 裂Diagnostics ', -- string | nil
 			},
 		},
 	}

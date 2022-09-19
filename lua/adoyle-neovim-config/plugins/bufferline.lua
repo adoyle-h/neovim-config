@@ -2,9 +2,7 @@ local M = {
 	'akinsho/bufferline.nvim',
 	tag = 'v2.*',
 	disable = false,
-	requires = {
-		'tiagovla/scope.nvim',
-	},
+	requires = { 'tiagovla/scope.nvim' },
 }
 
 local function keymaps()
@@ -48,7 +46,7 @@ function M.config()
 
 			indicator = {
 				icon = '▎', -- this should be omitted if indicator style is not 'icon'
-				style = 'icon' -- 'icon'| 'underline' | 'none',
+				style = 'icon', -- 'icon'| 'underline' | 'none',
 			},
 			show_buffer_icons = false, -- disable filetype icons for buffers
 			show_buffer_close_icons = true,
@@ -86,7 +84,7 @@ function M.config()
 					text_align = 'center', -- 'left' | 'center' | 'right'
 					highlight = 'BufferLineInfoSelected',
 					separator = true,
-				}
+				},
 
 			},
 
@@ -103,101 +101,41 @@ function M.config()
 				bg = bufferBG,
 			},
 
-			tab = {
-				fg = grey,
-				bg = bufferBG,
-			},
+			tab = { fg = grey, bg = bufferBG },
 
-			tab_selected = {
-				fg = white,
-				bg = selectedBG,
-			},
+			tab_selected = { fg = white, bg = selectedBG },
 
-			tab_close = {
-				fg = grey,
-				bg = bufferBG,
-			},
+			tab_close = { fg = grey, bg = bufferBG },
 
-			modified = {
-				fg = yellow,
-				bg = bufferBG,
-			},
+			modified = { fg = yellow, bg = bufferBG },
 
-			modified_visible = {
-				fg = yellow,
-				bg = selectedBG,
-			},
+			modified_visible = { fg = yellow, bg = selectedBG },
 
-			modified_selected = {
-				fg = yellow,
-				bg = selectedBG,
-			},
+			modified_selected = { fg = yellow, bg = selectedBG },
 
-			duplicate_selected = {
-				fg = white,
-				bg = selectedBG,
-				italic = true,
-			},
+			duplicate_selected = { fg = white, bg = selectedBG, italic = true },
 
-			duplicate_visible = {
-				fg = grey,
-				bg = selectedBG,
-				italic = true
-			},
+			duplicate_visible = { fg = grey, bg = selectedBG, italic = true },
 
-			duplicate = {
-				fg = grey,
-				bg = bufferBG,
-				italic = true
-			},
+			duplicate = { fg = grey, bg = bufferBG, italic = true },
 
-			buffer_selected = {
-				fg = white,
-				bg = selectedBG,
-				bold = false,
-				italic = false,
-			},
+			buffer_selected = { fg = white, bg = selectedBG, bold = false, italic = false },
 
-			numbers = {
-				fg = grey,
-				bg = bufferBG,
-			},
+			numbers = { fg = grey, bg = bufferBG },
 
-			numbers_selected = {
-				fg = white,
-				bg = selectedBG,
-				bold = false,
-				italic = false,
-			},
+			numbers_selected = { fg = white, bg = selectedBG, bold = false, italic = false },
 
-			indicator_selected = {
-				fg = blue,
-				bg = selectedBG,
-			},
+			indicator_selected = { fg = blue, bg = selectedBG },
 
-			close_button = {
-				bg = bufferBG,
-			},
+			close_button = { bg = bufferBG },
 
-			close_button_selected = {
-				fg = blue,
-				bg = selectedBG,
-			},
+			close_button_selected = { fg = blue, bg = selectedBG },
 
-			close_button_visible = {
-				fg = blue,
-				bg = selectedBG,
-			},
+			close_button_visible = { fg = blue, bg = selectedBG },
 
-			buffer_visible = {
-				fg = white,
-				bg = selectedBG,
-			},
+			buffer_visible = { fg = white, bg = selectedBG },
 
-			numbers_visible = {
-				fg = white,
-				bg = selectedBG,
-			},
+			numbers_visible = { fg = white, bg = selectedBG },
 
 		},
 	}

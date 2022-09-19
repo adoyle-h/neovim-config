@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'Indent Keymaps',
-	disable = false,
-}
+local M = { nil, desc = 'Indent Keymaps', disable = false }
 
 local function indentLevel(lnum)
 	return vim.fn.indent(lnum) / vim.bo.shiftwidth
@@ -13,11 +9,14 @@ function M.config()
 
 	keymap('n', '<', '<<', { noremap = true, silent = true, desc = 'unindent line' })
 	keymap('n', '>', '>>', { noremap = true, silent = true, desc = 'indent line' })
-	keymap('v', '<', '<gv', { noremap = true, silent = true, desc = 'unindent line while keep visual selected' })
-	keymap('v', '>', '>gv', { noremap = true, silent = true, desc = 'indent line while keep visual selected' })
+	keymap('v', '<', '<gv',
+		{ noremap = true, silent = true, desc = 'unindent line while keep visual selected' })
+	keymap('v', '>', '>gv',
+		{ noremap = true, silent = true, desc = 'indent line while keep visual selected' })
 
 	keymap('n', '<Tab>', 'za', {
-		noremap = true, silent = true,
+		noremap = true,
+		silent = true,
 		desc = 'When cursor on a closed fold: open it. When cursor on an open fold, close it.',
 	})
 
@@ -29,8 +28,9 @@ function M.config()
 			vim.wo.fdl = l
 		end
 	end, {
-		noremap = true, silent = true,
-		desc = 'Similar to <Tab>, but effect all paragraphs in same fold level.'
+		noremap = true,
+		silent = true,
+		desc = 'Similar to <Tab>, but effect all paragraphs in same fold level.',
 	})
 
 end

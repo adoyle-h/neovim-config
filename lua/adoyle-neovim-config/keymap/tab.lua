@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'Tab Keymaps',
-	disable = false,
-}
+local M = { nil, desc = 'Tab Keymaps', disable = false }
 
 function M.config()
 	vim.g.lasttab = 1
@@ -10,7 +6,7 @@ function M.config()
 	vim.api.nvim_create_autocmd({ 'TabLeave' }, {
 		callback = function()
 			vim.g.lasttab = vim.fn.tabpagenr()
-		end
+		end,
 		-- nested = true,
 	})
 

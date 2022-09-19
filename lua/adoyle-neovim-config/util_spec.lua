@@ -47,8 +47,12 @@ describe('util.merge', function()
 	end)
 
 	it('function override', function()
-		local f1 = function() return 1 end
-		local f2 = function() return 2 end
+		local f1 = function()
+			return 1
+		end
+		local f2 = function()
+			return 2
+		end
 		local r = util.merge({ a = { b = { f = f1 } } }, { a = { b = { f = f2 } } })
 
 		assert.equals(r.a.b.f, f2)

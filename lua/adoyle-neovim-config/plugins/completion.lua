@@ -53,22 +53,15 @@ local function configFuncSignature()
 		shadow_blend = 36, -- if you using shadow as border use this set the opacity
 		shadow_guibg = config.color.black, -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
 		timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
-		toggle_key = nil -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
+		toggle_key = nil, -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
 	}
 end
 
 -- You can specify multiple source arrays. The sources are grouped in the order you specify,
 -- and the groups are displayed as a fallback, like chain completion.
 local sources = {
-	{
-		{ name = 'nvim_lsp' },
-		{ name = 'snippy' },
-		{ name = 'buffer' },
-		{ name = 'path' },
-	},
-	{
-		{ name = 'spell' },
-	},
+	{ { name = 'nvim_lsp' }, { name = 'snippy' }, { name = 'buffer' }, { name = 'path' } },
+	{ { name = 'spell' } },
 }
 
 local function configFormating()
@@ -88,7 +81,7 @@ local function configFormating()
 				npm = 'NPM',
 				neorg = 'ORG',
 				tabnine = 'TABN',
-				snippy = 'SNIP'
+				snippy = 'SNIP',
 			})[srcName] or srcName
 
 			local MAX_LABEL_WIDTH = 30
@@ -105,7 +98,8 @@ end
 
 local function has_words_before()
 	local line, col = table.unpack(api.nvim_win_get_cursor(0))
-	return col ~= 0 and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+	return col ~= 0 and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') ==
+		       nil
 end
 
 local function feedkey(key, mode)
@@ -114,7 +108,9 @@ end
 
 local function configMapping(cmp)
 	local snippy = require('snippy')
-	local useFallback = function(fallback) fallback() end
+	local useFallback = function(fallback)
+		fallback()
+	end
 
 	-- SelectBehavior : { Insert = "insert", Select = "select" }
 	-- :lua print(vim.inspect(require('cmp').SelectBehavior))
@@ -192,18 +188,13 @@ local function configMapping(cmp)
 		end,
 	}
 
-	local selectPrevOrHistoryPrev = {
-		c = useFallback,
-	}
+	local selectPrevOrHistoryPrev = { c = useFallback }
 	selectPrevOrHistoryPrev.i = selectPrev.i
 	selectPrevOrHistoryPrev.s = selectPrev.s
 
-	local selectNextOrHistoryNext = {
-		c = useFallback,
-	}
+	local selectNextOrHistoryNext = { c = useFallback }
 	selectNextOrHistoryNext.i = selectNext.i
 	selectNextOrHistoryNext.s = selectNext.s
-
 
 	local selectPageUp = cmp.mapping(function()
 		local i = 8
@@ -271,29 +262,19 @@ local function configCmdLineSources(cmp)
 		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 		cmp.setup.cmdline(cmd_type, {
 			-- mapping = cmp.mapping.preset.cmdline(),
-			sources = {
-				{ name = 'buffer' },
-				{ name = 'path' },
-			}
+			sources = { { name = 'buffer' }, { name = 'path' } },
 		})
 	end
 
 	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(':', {
 		-- mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({
-			{ name = 'path' },
-			{ name = 'cmdline' },
-		})
+		sources = cmp.config.sources({ { name = 'path' }, { name = 'cmdline' } }),
 	})
 
 	-- Set configuration for specific filetype.
 	cmp.setup.filetype('gitcommit', {
-		sources = cmp.config.sources({
-			{ name = 'git' },
-			{ name = 'buffer' },
-			{ name = 'path' },
-		})
+		sources = cmp.config.sources({ { name = 'git' }, { name = 'buffer' }, { name = 'path' } }),
 	})
 end
 
@@ -333,11 +314,16 @@ local M = {
 				'hrsh7th/cmp-path', -- path source for nvim-cmp
 				'f3fora/cmp-spell',
 				'hrsh7th/cmp-cmdline',
-				{ 'ray-x/cmp-treesitter', config = function() addSource({ name = 'treesitter' }) end },
+				{
+					'ray-x/cmp-treesitter',
+					config = function()
+						addSource({ name = 'treesitter' })
+					end,
+				},
 				'David-Kunz/cmp-npm',
 				'petertriho/cmp-git',
 				{ 'tzachar/cmp-tabnine', run = './install.sh', config = configTabnine, disable = false },
-			}
+			},
 		},
 
 		{
@@ -347,7 +333,7 @@ local M = {
 				'honza/vim-snippets',
 				'dcampos/nvim-snippy',
 				'dcampos/cmp-snippy',
-			}
+			},
 		},
 	},
 }
@@ -384,11 +370,11 @@ function M.config()
 		window = {
 			-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/window.lua
 			completion = cmp.config.window.bordered({
-				winhighlight = 'Normal:Normal,FloatBorder:CmpFloatBorder,CursorLine:MenuSelectLine,Search:None'
+				winhighlight = 'Normal:Normal,FloatBorder:CmpFloatBorder,CursorLine:MenuSelectLine,Search:None',
 			}),
 
 			documentation = cmp.config.window.bordered({
-				winhighlight = 'Normal:Normal,FloatBorder:CmpFloatBorder,CursorLine:MenuSelectLine,Search:None'
+				winhighlight = 'Normal:Normal,FloatBorder:CmpFloatBorder,CursorLine:MenuSelectLine,Search:None',
 			}),
 		},
 	})

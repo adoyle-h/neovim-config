@@ -6,10 +6,7 @@ local M = {
 	disable = false,
 	run = ':TSUpdate',
 	requires = {
-		{
-			'nvim-treesitter/playground',
-			desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor',
-		},
+		{ 'nvim-treesitter/playground', desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor' },
 
 		{
 			'nvim-treesitter/nvim-treesitter-context',
@@ -17,13 +14,9 @@ local M = {
 			disable = not config.codeContext.float,
 		},
 
-		{
-			'p00f/nvim-ts-rainbow',
-			desc = 'Rainbow brackets',
-		},
-	}
+		{ 'p00f/nvim-ts-rainbow', desc = 'Rainbow brackets' },
+	},
 }
-
 
 local function configHighlights()
 	local color = require('adoyle-neovim-config.config').config.color
@@ -41,13 +34,11 @@ function M.config()
 
 	local c = config.treesitter
 
-	require("nvim-treesitter.install").prefer_git = true
+	require('nvim-treesitter.install').prefer_git = true
 	if config.proxy.github then
 		for _, treesitterConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub(
-				'https://github.com/',
-				util.proxyGithub 'https://github.com/'
-			)
+			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub('https://github.com/',
+				util.proxyGithub 'https://github.com/')
 		end
 	end
 
@@ -94,7 +85,6 @@ function M.config()
 
 		rainbow = config.tsRainbow,
 	}
-
 
 	-- doc: https://github.com/nvim-treesitter/nvim-treesitter-context
 	local has_ts_context, ts_context = pcall(require, 'treesitter-context')

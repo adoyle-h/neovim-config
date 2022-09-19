@@ -1,9 +1,4 @@
-local M = {
-	'nvim-lualine/lualine.nvim',
-	desc = 'lualine.nvim',
-	disable = false,
-	requires = {},
-}
+local M = { 'nvim-lualine/lualine.nvim', desc = 'lualine.nvim', disable = false, requires = {} }
 
 local printf = vim.fn.printf
 local config = require('adoyle-neovim-config.config').config
@@ -25,17 +20,11 @@ local function theme()
 			z = { fg = black, bg = green },
 		},
 
-		insert = {
-			a = { fg = black, bg = colors.blue, gui = 'bold' },
-		},
+		insert = { a = { fg = black, bg = colors.blue, gui = 'bold' } },
 
-		visual = {
-			a = { fg = black, bg = colors.orange, gui = 'bold' },
-		},
+		visual = { a = { fg = black, bg = colors.orange, gui = 'bold' } },
 
-		replace = {
-			a = { fg = black, bg = colors.purple, gui = 'bold' },
-		},
+		replace = { a = { fg = black, bg = colors.purple, gui = 'bold' } },
 
 		inactive = {
 			c = { fg = white, bg = black },
@@ -46,53 +35,50 @@ local function theme()
 end
 
 local modeMap = {
-	['n']     = 'N', -- 'NORMAL'
-	['no']    = 'O-PENDING',
-	['nov']   = 'O-PENDING',
-	['noV']   = 'O-PENDING',
+	['n'] = 'N', -- 'NORMAL'
+	['no'] = 'O-PENDING',
+	['nov'] = 'O-PENDING',
+	['noV'] = 'O-PENDING',
 	['no\22'] = 'O-PENDING',
-	['niI']   = 'NORMAL',
-	['niR']   = 'NORMAL',
-	['niV']   = 'NORMAL',
-	['nt']    = 'NORMAL',
-	['ntT']   = 'NORMAL',
-	['v']     = 'V', -- 'VISUAL'
-	['vs']    = 'VISUAL',
-	['V']     = 'V-LINE',
-	['Vs']    = 'V-LINE',
-	['\22']   = 'V-BLOCK',
-	['\22s']  = 'V-BLOCK',
-	['^V']    = 'V-BLOCK',
+	['niI'] = 'NORMAL',
+	['niR'] = 'NORMAL',
+	['niV'] = 'NORMAL',
+	['nt'] = 'NORMAL',
+	['ntT'] = 'NORMAL',
+	['v'] = 'V', -- 'VISUAL'
+	['vs'] = 'VISUAL',
+	['V'] = 'V-LINE',
+	['Vs'] = 'V-LINE',
+	['\22'] = 'V-BLOCK',
+	['\22s'] = 'V-BLOCK',
+	['^V'] = 'V-BLOCK',
 	['multi'] = 'Multi',
-	['s']     = 'SELECT',
-	['S']     = 'S-LINE',
-	['\19']   = 'S-BLOCK',
-	['i']     = 'I', -- 'INSERT',
-	['ic']    = 'INSERT',
-	['ix']    = 'INSERT',
-	['R']     = 'R', -- 'REPLACE'
-	['Rc']    = 'REPLACE',
-	['Rx']    = 'REPLACE',
-	['Rv']    = 'V-REPLACE',
-	['Rvc']   = 'V-REPLACE',
-	['Rvx']   = 'V-REPLACE',
-	['c']     = 'COMMAND',
-	['cv']    = 'EX',
-	['ce']    = 'EX',
-	['r']     = 'REPLACE',
-	['rm']    = 'MORE',
-	['r?']    = 'CONFIRM',
-	['!']     = 'SHELL',
-	['t']     = 'TERMINAL',
+	['s'] = 'SELECT',
+	['S'] = 'S-LINE',
+	['\19'] = 'S-BLOCK',
+	['i'] = 'I', -- 'INSERT',
+	['ic'] = 'INSERT',
+	['ix'] = 'INSERT',
+	['R'] = 'R', -- 'REPLACE'
+	['Rc'] = 'REPLACE',
+	['Rx'] = 'REPLACE',
+	['Rv'] = 'V-REPLACE',
+	['Rvc'] = 'V-REPLACE',
+	['Rvx'] = 'V-REPLACE',
+	['c'] = 'COMMAND',
+	['cv'] = 'EX',
+	['ce'] = 'EX',
+	['r'] = 'REPLACE',
+	['rm'] = 'MORE',
+	['r?'] = 'CONFIRM',
+	['!'] = 'SHELL',
+	['t'] = 'TERMINAL',
 }
-
 
 local function getMode()
 	---@return string current mode name
 	local mode_code = vim.api.nvim_get_mode().mode
-	if modeMap[mode_code] == nil then
-		return mode_code
-	end
+	if modeMap[mode_code] == nil then return mode_code end
 	return modeMap[mode_code]
 end
 
@@ -108,9 +94,7 @@ local function mixLine()
 		mixed = mixed_same_line > 0
 	end
 	if not mixed then return '' end
-	if mixed_same_line ~= nil and mixed_same_line > 0 then
-		return 'MIX:' .. mixed_same_line
-	end
+	if mixed_same_line ~= nil and mixed_same_line > 0 then return 'MIX:' .. mixed_same_line end
 	local space_indent_cnt = vim.fn.searchcount({ pattern = space_pat, max_count = 1e3 }).total
 	local tab_indent_cnt = vim.fn.searchcount({ pattern = tab_pat, max_count = 1e3 }).total
 	if space_indent_cnt > tab_indent_cnt then
@@ -160,9 +144,9 @@ function M.config()
 		diagnostics_color = {
 			-- Same values as the general color option can be used here.
 			error = { fg = colors.red, bg = sec_c_bg },
-			warn  = { fg = colors.yellow, bg = sec_c_bg },
-			info  = { fg = colors.blue, bg = sec_c_bg },
-			hint  = { fg = colors.cyan, bg = sec_c_bg },
+			warn = { fg = colors.yellow, bg = sec_c_bg },
+			info = { fg = colors.blue, bg = sec_c_bg },
+			hint = { fg = colors.cyan, bg = sec_c_bg },
 		},
 
 		symbols = {
@@ -185,20 +169,13 @@ function M.config()
 			component_separators = { left = '│', right = '│' },
 			section_separators = { left = '', right = '' },
 
-			disabled_filetypes = {
-				statusline = {},
-				winbar = {},
-			},
+			disabled_filetypes = { statusline = {}, winbar = {} },
 
 			ignore_focus = {},
 			always_divide_middle = true,
 			globalstatus = true,
 
-			refresh = {
-				statusline = 1000,
-				tabline = 1000,
-				winbar = 1000,
-			}
+			refresh = { statusline = 1000, tabline = 1000, winbar = 1000 },
 		},
 
 		sections = {
@@ -223,19 +200,15 @@ function M.config()
 						readonly = ' ' .. symbolMap.LOCK, -- Text to show when the file is non-modifiable or readonly.
 						unnamed = '[No Name]', -- Text to show for unnamed buffers.
 						newfile = '[New]', -- Text to show for new created file before first writting
-					}
-				}
+					},
+				},
 			},
 
-			lualine_x = {
-				diagnostics, my_sections, 'filesize',
-			},
+			lualine_x = { diagnostics, my_sections, 'filesize' },
 
 			lualine_y = { 'filetype' },
 
-			lualine_z = {
-				'encoding', 'fileformat', mixLine, paste,
-			},
+			lualine_z = { 'encoding', 'fileformat', mixLine, paste },
 
 		},
 
@@ -245,7 +218,7 @@ function M.config()
 			lualine_c = {},
 			lualine_x = {},
 			lualine_y = {},
-			lualine_z = {}
+			lualine_z = {},
 		},
 
 		winbar = {
@@ -259,7 +232,7 @@ function M.config()
 		inactive_winbar = {},
 
 		tabline = {},
-		extensions = {}
+		extensions = {},
 	}
 
 	local has_navic, navic = pcall(require, 'nvim-navic')

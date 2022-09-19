@@ -1,9 +1,6 @@
 local M = {
 	'nishigori/increment-activator',
-	on = {
-		'<Plug>(increment-activator-increment)',
-		'<Plug>(increment-activator-decrement)',
-	},
+	on = { '<Plug>(increment-activator-increment)', '<Plug>(increment-activator-decrement)' },
 	desc = '自增/自减',
 	disable = false,
 	requires = {},
@@ -13,6 +10,7 @@ function M.config()
 	vim.g.increment_activator_no_default_key_mappings = 1
 	vim.g.increment_activator_filetype_candidates = {
 		['_'] = {
+			-- LuaFormatter off
 			{
 				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
 				'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -29,6 +27,7 @@ function M.config()
 			{'todo', 'done'},
 			{'low', 'normal', 'high'},
 			{'LOW', 'NORMAL', 'HIGH'},
+			-- LuaFormatter on
 		},
 	}
 

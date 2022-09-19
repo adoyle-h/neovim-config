@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'Personal utility functions and commands',
-	disable = false,
-}
+local M = { nil, desc = 'Personal utility functions and commands', disable = false }
 
 function M.config()
 	local command = vim.api.nvim_create_user_command

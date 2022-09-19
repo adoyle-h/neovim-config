@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'Emacs Editline Keymap',
-	disable = false,
-}
+local M = { nil, desc = 'Emacs Editline Keymap', disable = false }
 
 function M.config()
 	local opts = { noremap = true, silent = true }

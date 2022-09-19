@@ -1,32 +1,22 @@
-local M = {
-	'stevearc/aerial.nvim',
-	desc = 'Outline - aerial',
-	disable = false,
-	requires = {},
-}
+local M = { 'stevearc/aerial.nvim', desc = 'Outline - aerial', disable = false, requires = {} }
 
 function M.config()
 	local config = require('adoyle-neovim-config.config').config
 	local util = require('adoyle-neovim-config.util')
 	local keymap = vim.keymap.set
 
-	keymap('n', '<space>o', '<cmd>AerialToggle<CR>', {
-		noremap = true, silent = true, desc = 'Toggle the aerial window',
-	})
+	keymap('n', '<space>o', '<cmd>AerialToggle<CR>',
+		{ noremap = true, silent = true, desc = 'Toggle the aerial window' })
 
-	local icons = { Interface = config.symbolMap.MID_DOT, }
-	for k, v in pairs(config.kindSymbolMap) do
-		if icons[k] == nil then
-			icons[k] = v
-		end
-	end
+	local icons = { Interface = config.symbolMap.MID_DOT }
+	for k, v in pairs(config.kindSymbolMap) do if icons[k] == nil then icons[k] = v end end
 
 	require('aerial').setup {
 		-- Priority list of preferred backends for aerial.
 		-- This can be a filetype map (see :help aerial-filetype-map)
 		backends = {
 			-- "_" will be used as the default if the filetype is not present.
-			['_']    = { 'lsp', 'treesitter' },
+			['_'] = { 'lsp', 'treesitter' },
 			markdown = { 'markdown' },
 		},
 
@@ -40,13 +30,13 @@ function M.config()
 
 		guides = {
 			-- When the child item has a sibling below it
-			mid_item = "├─ ",
+			mid_item = '├─ ',
 			-- When the child item is the last in the list
-			last_item = "└─ ",
+			last_item = '└─ ',
 			-- When there are nested child guides to the right
-			nested_top = "│ ",
+			nested_top = '│ ',
 			-- Raw indentation
-			whitespace = "  ",
+			whitespace = '  ',
 		},
 
 		filter_kind = false,
@@ -83,9 +73,7 @@ function M.config()
 		icons = icons,
 	}
 
-	util.set_hl {
-		{ 'AerialLine', { bg = config.color.outline.lineBG, bold = true } },
-	}
+	util.set_hl { { 'AerialLine', { bg = config.color.outline.lineBG, bold = true } } }
 end
 
 return M

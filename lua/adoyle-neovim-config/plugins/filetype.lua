@@ -1,9 +1,4 @@
-local M = {
-	'nathom/filetype.nvim',
-	desc = 'filetype detection',
-	disable = false,
-	requires = {},
-}
+local M = { 'nathom/filetype.nvim', desc = 'filetype detection', disable = false, requires = {} }
 
 function M.config()
 	-- use lua filetype detection instead of vim filetype detection
@@ -20,10 +15,7 @@ function M.config()
 			},
 
 			-- Set the filetype based on filename
-			literal = {
-				bash_profile = 'sh',
-				profile = 'sh',
-			},
+			literal = { bash_profile = 'sh', profile = 'sh' },
 
 			complex = {
 				-- Set the filetype of any full filename matching the regex to gitconfig

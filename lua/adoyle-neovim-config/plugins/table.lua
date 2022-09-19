@@ -19,7 +19,7 @@ local function changeTableMode()
 		b.table_mode_corner = '+'
 		b.table_mode_separator = '|'
 		b.table_mode_fillchar = '-'
-		b.table_mode_corner_corner = "+"
+		b.table_mode_corner_corner = '+'
 		b.table_mode_align_char = ':'
 		b.table_mode_mode = 'Normal'
 	end

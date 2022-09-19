@@ -5,15 +5,9 @@ describe('CM.config', function()
 		config = {
 			colorcolumn = { 80, 100 },
 
-			proxy = {
-				github = 'https://ghproxy.com/',
-			},
+			proxy = { github = 'https://ghproxy.com/' },
 
-			pluginOpts = {
-				['plugins.profiling'] = {
-					disable = false,
-				},
-			},
+			pluginOpts = { ['plugins.profiling'] = { disable = false } },
 
 			plugins = {},
 
@@ -42,9 +36,7 @@ describe('CM.config', function()
 	local config = CM.config
 
 	it('config.proxy', function()
-		assert.are.same(config.proxy, {
-			github = 'https://ghproxy.com/',
-		})
+		assert.are.same(config.proxy, { github = 'https://ghproxy.com/' })
 	end)
 
 	it('config.lsp.ensureInstalled', function()

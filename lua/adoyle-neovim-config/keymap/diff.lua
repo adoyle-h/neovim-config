@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'Diff Keymaps',
-	disable = false,
-}
+local M = { nil, desc = 'Diff Keymaps', disable = false }
 
 function M.config()
 	if not vim.fn.has('diff') then return end

@@ -3,8 +3,15 @@ local util = require('adoyle-neovim-config.util')
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-	print "Installing packer.nvim ..."
-	PACKER_BOOTSTRAP = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+	print 'Installing packer.nvim ...'
+	PACKER_BOOTSTRAP = fn.system({
+		'git',
+		'clone',
+		'--depth',
+		'1',
+		'https://github.com/wbthomason/packer.nvim',
+		install_path,
+	})
 end
 
 -- Only required if you have packer configured as `opt`
@@ -20,9 +27,7 @@ packer.startup({
 
 		-- Automatically set up your configuration after cloning packer.nvim
 		-- Put this at the end after all plugins
-		if PACKER_BOOTSTRAP then
-			packer.sync()
-		end
+		if PACKER_BOOTSTRAP then packer.sync() end
 	end,
 
 	config = {
@@ -45,11 +50,7 @@ packer.startup({
 		},
 	},
 
-	rock = {
-		'luafilesystem',
-	},
+	rock = { 'luafilesystem' },
 })
 
-if fn.empty(fn.glob(compile_path)) == 0 then
-	require('packer_compiled')
-end
+if fn.empty(fn.glob(compile_path)) == 0 then require('packer_compiled') end

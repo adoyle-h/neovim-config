@@ -1,9 +1,6 @@
 local config = require('adoyle-neovim-config.config').config
 
-local M = {
-	'olimorris/onedarkpro.nvim',
-	disable = false,
-}
+local M = { 'olimorris/onedarkpro.nvim', disable = false }
 
 function M.config()
 	local o = require('onedarkpro')
@@ -38,9 +35,9 @@ function M.config()
 		},
 
 		highlights = { -- Override default highlight groups
-			TelescopeMatching = { fg = "${orange}" },
+			TelescopeMatching = { fg = '${orange}' },
 			Search = { style = 'none' },
-			QuickFixLine = { bg = color.darkYellow, style = 'bold' }
+			QuickFixLine = { bg = color.darkYellow, style = 'bold' },
 		},
 
 		ft_highlights = {}, -- Override default highlight groups for specific filetypes
@@ -53,12 +50,12 @@ function M.config()
 		},
 
 		styles = {
-			strings = "NONE", -- Style that is applied to strings
+			strings = 'NONE', -- Style that is applied to strings
 			comments = 'italic', -- Style that is applied to comments
-			keywords = "NONE", -- Style that is applied to keywords
-			functions = "NONE", -- Style that is applied to functions
-			variables = "NONE", -- Style that is applied to variables
-			virtual_text = "NONE", -- Style that is applied to virtual text
+			keywords = 'NONE', -- Style that is applied to keywords
+			functions = 'NONE', -- Style that is applied to functions
+			variables = 'NONE', -- Style that is applied to variables
+			virtual_text = 'NONE', -- Style that is applied to virtual text
 		},
 
 		options = {
@@ -70,7 +67,7 @@ function M.config()
 			transparency = false, -- Use a transparent background?
 			terminal_colors = false, -- Use the theme's colors for Neovim's :terminal?
 			window_unfocussed_color = false, -- When the window is out of focus, change the normal background?
-		}
+		},
 	})
 
 	o.load()

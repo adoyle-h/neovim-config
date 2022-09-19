@@ -45,7 +45,6 @@ function M.config()
 		end
 	end
 
-
 	local marginTopPercent = 0.12
 	local headerPadding = fn.max({ 2, fn.floor(fn.winheight(0) * marginTopPercent) })
 

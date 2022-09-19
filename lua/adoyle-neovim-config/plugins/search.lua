@@ -1,7 +1,4 @@
-local M = {
-	nil,
-	disable = false,
-}
+local M = { nil, disable = false }
 
 M.requires = {
 	{

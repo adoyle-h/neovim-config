@@ -99,9 +99,7 @@ local function configMapping()
 	-- keymap('n', 'gt', ':Telescope lsp_type_definitions<cr>', opts)
 
 	local has_notify = pcall(require, 'notify')
-	if has_notify then
-		keymap('n', '<space>n', ':Telescope notify<cr>', opts)
-	end
+	if has_notify then keymap('n', '<space>n', ':Telescope notify<cr>', opts) end
 
 	return {
 		i = {
@@ -115,10 +113,7 @@ local function configMapping()
 			['<C-f>'] = 'results_scrolling_down',
 		},
 
-		n = {
-			['<C-b>'] = 'results_scrolling_up',
-			['<C-f>'] = 'results_scrolling_down',
-		},
+		n = { ['<C-b>'] = 'results_scrolling_up', ['<C-f>'] = 'results_scrolling_down' },
 	}
 end
 
@@ -153,7 +148,7 @@ function M.config()
 				shorten = {
 					len = 2, -- shorten into 2 letters
 					exclude = { 1, -2, -1 }, -- exclude the first, the last and last second words in path
-				}
+				},
 			},
 
 			-- :h telescope.layout
@@ -161,31 +156,16 @@ function M.config()
 				bottom_pane = {
 					height = 25,
 					-- prompt_position valid values: top or bottom
-					prompt_position = 'top'
-				},
-
-				center = {
-					height = 0.4,
 					prompt_position = 'top',
-					width = 0.8
 				},
 
-				cursor = {
-					height = 0.4,
-					width = 0.8
-				},
+				center = { height = 0.4, prompt_position = 'top', width = 0.8 },
 
-				horizontal = {
-					height = 0.9,
-					prompt_position = 'bottom',
-					width = 0.9
-				},
+				cursor = { height = 0.4, width = 0.8 },
 
-				vertical = {
-					height = 0.9,
-					prompt_position = 'bottom',
-					width = 0.8
-				},
+				horizontal = { height = 0.9, prompt_position = 'bottom', width = 0.9 },
+
+				vertical = { height = 0.9, prompt_position = 'bottom', width = 0.8 },
 			},
 
 			mappings = configMapping(),
@@ -196,19 +176,12 @@ function M.config()
 				hidden = true,
 				theme = 'dropdown',
 				path_display = {},
-				layout_config = {
-					width = 0.8,
-				},
+				layout_config = { width = 0.8 },
 			},
 
-			oldfiles = {
-				layout_strategy = 'vertical',
-				path_display = {},
-			},
+			oldfiles = { layout_strategy = 'vertical', path_display = {} },
 
-			git_files = {
-				path_display = {},
-			},
+			git_files = { path_display = {} },
 
 			highlights = {
 				theme = 'dropdown',
@@ -217,47 +190,32 @@ function M.config()
 						['<CR>'] = function(prompt_bufnr)
 							local entry = action_state.get_selected_entry(prompt_bufnr)
 							actions.close(prompt_bufnr)
-							local text = api.nvim_replace_termcodes(vim.fn.printf(':hi %s ', entry.value), true, false, true)
+							local text = api.nvim_replace_termcodes(vim.fn.printf(':hi %s ', entry.value), true, false,
+								true)
 							api.nvim_feedkeys(text, 't', true)
-						end
+						end,
 					},
 				},
 			},
 
-			buffers = {
-				theme = 'dropdown',
-			},
+			buffers = { theme = 'dropdown' },
 
 			live_grep = {
 				theme = 'dropdown',
 
-				layout_config = {
-					anchor = 'S',
-					prompt_position = 'bottom',
-					width = 0.8,
-				},
+				layout_config = { anchor = 'S', prompt_position = 'bottom', width = 0.8 },
 			},
 
 			current_buffer_fuzzy_find = {
 				theme = 'dropdown',
-				layout_config = {
-					anchor = 'S',
-					prompt_position = 'bottom',
-					width = 0.8
-				}
+				layout_config = { anchor = 'S', prompt_position = 'bottom', width = 0.8 },
 			},
 
-			spell_suggest = {
-				layout_strategy = 'cursor',
-			},
+			spell_suggest = { layout_strategy = 'cursor' },
 
 			lsp_references = {
 				theme = 'dropdown',
-				layout_config = {
-					anchor = 'S',
-					prompt_position = 'bottom',
-					width = 0.8
-				},
+				layout_config = { anchor = 'S', prompt_position = 'bottom', width = 0.8 },
 
 				preview = {
 					filetype_hook = function(filepath, bufnr, opts)
@@ -269,14 +227,7 @@ function M.config()
 
 		},
 
-		extensions = {
-			['ui-select'] = {
-				layout_config = {
-					width = 0.4,
-					height = 16,
-				},
-			},
-		},
+		extensions = { ['ui-select'] = { layout_config = { width = 0.4, height = 16 } } },
 	}
 
 	telescope.load_extension('ui-select')

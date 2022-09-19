@@ -2,9 +2,7 @@ local M = {
 	'vim-airline/vim-airline',
 	desc = 'vim-airline',
 	disable = false,
-	requires = {
-		'vim-airline/vim-airline-themes',
-	},
+	requires = { 'vim-airline/vim-airline-themes' },
 }
 
 local function initAirline()
@@ -88,38 +86,31 @@ function M.config()
 	vim.g.airline_powerline_fonts = 1
 
 	vim.g.airline_mode_map = {
-		n      = 'N',
-		i      = 'I',
-		c      = 'C',
-		R      = 'R',
-		s      = 'S',
-		t      = 'T',
-		v      = 'V',
-		V      = 'V-LINE',
+		n = 'N',
+		i = 'I',
+		c = 'C',
+		R = 'R',
+		s = 'S',
+		t = 'T',
+		v = 'V',
+		V = 'V-LINE',
 		['^V'] = 'V-BLOCK',
-		multi  = 'M',
+		multi = 'M',
 		['S '] = 'S-LINE',
 		['^S'] = 'S-BLOCK',
-		ni     = '(INSERT)',
-		ic     = 'INSERT COMPL',
-		no     = 'OP PENDING',
-		Rv     = 'V REPLACE',
-		ix     = 'INSERT COMPL',
+		ni = '(INSERT)',
+		ic = 'INSERT COMPL',
+		no = 'OP PENDING',
+		Rv = 'V REPLACE',
+		ix = 'INSERT COMPL',
 		['__'] = '------',
 	}
 
 	-- vim-airline symbols
-	vim.g.airline_symbols = {
-		paste = 'Ƥ',
-		spell = 'Ȿ',
-		branch = '',
-		crypt = '🔒',
-	}
+	vim.g.airline_symbols = { paste = 'Ƥ', spell = 'Ȿ', branch = '', crypt = '🔒' }
 
-	vim.api.nvim_create_autocmd({ 'User' }, {
-		pattern = { 'AirlineAfterInit' },
-		callback = initAirline
-	})
+	vim.api.nvim_create_autocmd({ 'User' },
+		{ pattern = { 'AirlineAfterInit' }, callback = initAirline })
 
 	configAirlineExtensions()
 end

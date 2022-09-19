@@ -1,10 +1,4 @@
-local M = {
-	nil,
-	desc = 'Shortcuts for fast moving',
-	disable = false,
-}
-
-local color = require('adoyle-neovim-config.config').config.color
+local M = { nil, desc = 'Shortcuts for fast moving', disable = false }
 
 local chooseWin = {
 	't9md/vim-choosewin',
@@ -18,44 +12,34 @@ local chooseWin = {
 		vim.g.choosewin_tabline_replace = 0 -- don't replace tabline
 		vim.g.choosewin_overlay_shade = 0
 		vim.g.choosewin_blink_on_land = 0 -- don't blink at land
-		vim.g.choosewin_color_overlay = {
-			cterm = { 33, 33 }
-		}
-		vim.g.choosewin_color_overlay_current = {
-			cterm = { 196, 196 }
-		}
+		vim.g.choosewin_color_overlay = { cterm = { 33, 33 } }
+		vim.g.choosewin_color_overlay_current = { cterm = { 196, 196 } }
 		vim.g.choosewin_label_padding = 5
 		vim.g.choosewin_color_bg = 234
-		vim.g.choosewin_color_other = {
-			cterm = { vim.g.choosewin_color_bg, 0 }
-		}
-		vim.g.choosewin_color_label = {
-			cterm = { vim.g.choosewin_color_bg, 33 }
-		}
-		vim.g.choosewin_color_label_current = {
-			cterm = { vim.g.choosewin_color_bg, 196 }
-		}
+		vim.g.choosewin_color_other = { cterm = { vim.g.choosewin_color_bg, 0 } }
+		vim.g.choosewin_color_label = { cterm = { vim.g.choosewin_color_bg, 33 } }
+		vim.g.choosewin_color_label_current = { cterm = { vim.g.choosewin_color_bg, 196 } }
 		vim.g.choosewin_label = 'QWEASDZXC'
 		vim.g.choosewin_tablabel = '1234567890'
 		vim.g.choosewin_keymap = {
-			['0']    = '<NOP>',
-			['[']    = 'tab_prev',
-			[']']    = 'tab_next',
-			['$']    = '<NOP>',
-			x        = '<NOP>',
-			[';']    = '<NOP>',
-			['-']    = 'previous',
-			s        = 'swap',
-			S        = 'swap_stay',
+			['0'] = '<NOP>',
+			['['] = 'tab_prev',
+			[']'] = 'tab_next',
+			['$'] = '<NOP>',
+			x = '<NOP>',
+			[';'] = '<NOP>',
+			['-'] = 'previous',
+			s = 'swap',
+			S = 'swap_stay',
 			['<CR>'] = 'win_land',
-			h        = 'tab_first',
-			k        = 'tab_prev',
-			j        = 'tab_next',
-			l        = 'tab_last',
+			h = 'tab_first',
+			k = 'tab_prev',
+			j = 'tab_next',
+			l = 'tab_last',
 		}
 
 		vim.cmd 'nmap - <Plug>(choosewin)'
-	end
+	end,
 }
 
 local windowSelector = {
@@ -64,14 +48,15 @@ local windowSelector = {
 		require('nvim-window').setup({
 			-- The characters available for hinting windows.
 			chars = {
+				-- LuaFormatter off
 				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
 				'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+				-- LuaFormatter on
 			},
 
 			-- A group to use for overwriting the Normal highlight group in the floating
 			-- window. This can be used to change the background color.
 			normal_hl = 'NvimWindowFloating',
-
 
 			-- The highlight group to apply to the line that contains the hint characters.
 			-- This is used to make them stand out more.
@@ -84,9 +69,7 @@ local windowSelector = {
 		vim.keymap.set({ 'n' }, '-', function()
 			require('nvim-window').pick()
 		end, { noremap = true, silent = true })
-
-		vim.cmd.hi { 'NvimWindowFloating', 'guifg=' .. color.blue, 'guibg=' .. color.black }
-	end
+	end,
 }
 
 local camelCaseMotion = {
@@ -103,7 +86,7 @@ local camelCaseMotion = {
 			noremap E e
 			noremap gE ge
 		]]
-	end
+	end,
 }
 
 local easyMotion = {
@@ -115,7 +98,7 @@ local easyMotion = {
 			map f <Plug>(easymotion-prefix)
 			map f. <Plug>(easymotion-repeat)
 		]]
-	end
+	end,
 }
 
 local fastMove = {
@@ -132,7 +115,7 @@ local fastMove = {
 		})
 		vim.api.nvim_set_keymap('n', 'j', '<Plug>(accelerated_jk_gj)', {})
 		vim.api.nvim_set_keymap('n', 'k', '<Plug>(accelerated_jk_gk)', {})
-	end
+	end,
 }
 
 M.requires = {

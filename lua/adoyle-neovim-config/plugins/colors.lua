@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'color settings',
-	disable = false,
-}
+local M = { nil, desc = 'color settings', disable = false }
 
 local util = require('adoyle-neovim-config.util')
 local config = require('adoyle-neovim-config.config').config
@@ -13,8 +9,14 @@ M.requires = {
 
 	{
 		'guns/xterm-color-table.vim',
-		on = { 'XtermColorTable', 'SXtermColorTable', 'VXtermColorTable', 'TXtermColorTable', 'EXtermColorTable',
-			'OXtermColorTable' },
+		on = {
+			'XtermColorTable',
+			'SXtermColorTable',
+			'VXtermColorTable',
+			'TXtermColorTable',
+			'EXtermColorTable',
+			'OXtermColorTable',
+		},
 		desc = 'List xterm colors',
 		disable = false,
 	},

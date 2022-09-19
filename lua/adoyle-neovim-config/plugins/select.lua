@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'The fast cursor selection',
-	disable = false,
-}
+local M = { nil, desc = 'The fast cursor selection', disable = false }
 
 M.requires = {
 	{
@@ -16,7 +12,7 @@ M.requires = {
 			" This selects the previous closest text object.
 			vmap <leader>V <Plug>(wildfire-water)
 			]]
-		end
+		end,
 	},
 
 	{
@@ -27,7 +23,7 @@ M.requires = {
 				['Find Under'] = '<M-n>', -- replace C-n
 				['Find Subword Under'] = '<M-n>', -- replace visual C-n
 			}
-		end
+		end,
 	},
 }
 

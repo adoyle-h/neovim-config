@@ -41,13 +41,14 @@ function M.config()
 		callback = function()
 			vim.wo.number = false
 			vim.wo.rnu = false
-		end
+		end,
 	})
 
 	-- Config keymaps
 	local keymap = vim.keymap.set
 
-	keymap('t', 'jk', '<C-\\><C-n>', { noremap = true, silent = true, desc = 'Exit from terminal mode' })
+	keymap('t', 'jk', '<C-\\><C-n>',
+		{ noremap = true, silent = true, desc = 'Exit from terminal mode' })
 
 	keymap('n', '<leader>tt', function()
 		local cmd = vim.fn.input { prompt = 'New Terminal: ', default = 'bash' }
@@ -55,7 +56,9 @@ function M.config()
 	end, { noremap = true, silent = true, desc = 'Create terminal window' })
 
 	keymap('n', '<leader>ts', send, { noremap = true, silent = true, desc = 'Send text to terminal' })
-	keymap('x', '<leader>ts', function() send(true) end, { noremap = true, silent = true, desc = 'Send text to terminal' })
+	keymap('x', '<leader>ts', function()
+		send(true)
+	end, { noremap = true, silent = true, desc = 'Send text to terminal' })
 
 end
 

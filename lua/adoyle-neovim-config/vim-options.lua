@@ -31,7 +31,8 @@ vim.cmd [[
 opt.shell = vim.env.SHELL
 
 -- 默认的状态栏显示的内容。vim-airline 会覆盖这个配置，当禁用 airline 时此行生效。
-opt.statusline = '%F%m%r%h%w [FORMAT=%{&ff}] [TYPE=%Y] [POS=%l,%v][%p%%] %{strftime(\"%d/%m/%y - %H:%M\")}'
+opt.statusline =
+	'%F%m%r%h%w [FORMAT=%{&ff}] [TYPE=%Y] [POS=%l,%v][%p%%] %{strftime(\"%d/%m/%y - %H:%M\")}'
 
 -- Set the default listing style:
 -- = 0: thin listing (one file per line)
@@ -79,7 +80,9 @@ opt.list = false -- 不显示制表符
 
 -- set ignore file extension of wildmenu, won't list when using filename completion
 opt.wildignore = opt.wildignore + {
-	'*.a', '*.o', '.DS_Store', '.git', '.hg', '.svn', '*~', '*.swp', '*.tmp', '*/.sass-cache/*', '*.scssc'
+	-- LuaFormatter off
+	'*.a', '*.o', '.DS_Store', '.git', '.hg', '.svn', '*~', '*.swp', '*.tmp', '*/.sass-cache/*', '*.scssc',
+	-- LuaFormatter on
 }
 opt.wildmode = { 'list', 'full' } -- Command <Tab> completion, list matches, then longest common part, then all.
 
@@ -123,7 +126,6 @@ opt.inccommand = 'split' -- neovim feature: live preview
 opt.errorbells = false
 opt.visualbell = true
 
-
 opt.history = config.history
 opt.cmdheight = config.cmdheight
 opt.colorcolumn = config.colorcolumn
@@ -146,9 +148,7 @@ opt.spellfile = vim.fn.stdpath('config') .. '/spell/en.utf-8.add'
 opt.spelllang = config.spell.lang
 opt.spellsuggest = config.spell.suggest
 
-if config.systemClipboard then
-	opt.clipboard = opt.clipboard + { 'unnamed' }
-end
+if config.systemClipboard then opt.clipboard = opt.clipboard + { 'unnamed' } end
 
 if config.linenumber then
 	opt.number = true -- show line number

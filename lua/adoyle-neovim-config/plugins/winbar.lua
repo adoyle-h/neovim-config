@@ -8,9 +8,7 @@ local M = {
 
 function M.config()
 	local icons = {}
-	for k, v in pairs(config.kindSymbolMap) do
-		icons[k] = v .. ' '
-	end
+	for k, v in pairs(config.kindSymbolMap) do icons[k] = v .. ' ' end
 
 	-- silence warning/error messages thrown by nvim-navic
 	vim.g.navic_silence = true

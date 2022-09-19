@@ -1,8 +1,4 @@
-local M = {
-	'lukas-reineke/indent-blankline.nvim',
-	desc = 'Show indent line',
-	disable = false,
-}
+local M = { 'lukas-reineke/indent-blankline.nvim', desc = 'Show indent line', disable = false }
 
 function M.config()
 	local config = require('adoyle-neovim-config.config').config.indentLine

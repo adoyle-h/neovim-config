@@ -1,8 +1,4 @@
-local M = {
-  'MattesGroeger/vim-bookmarks',
-	desc = '书签',
-	disable = false,
-}
+local M = { 'MattesGroeger/vim-bookmarks', desc = '书签', disable = false }
 
 function M.config()
 	vim.g.bookmark_no_default_key_mappings = 1

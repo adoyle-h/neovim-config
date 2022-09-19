@@ -9,12 +9,12 @@ local M = {
 local maps = {
 	js = function()
 		-- vim.cmd 'set isk-=.'
-		vim.opt_local.isk:remove { '.' }
+		vim.opt_local.isk:remove{ '.' }
 	end,
 
 	jsx = function()
 		-- vim.cmd 'set isk-=.'
-		vim.opt_local.isk:remove { '.' }
+		vim.opt_local.isk:remove{ '.' }
 	end,
 
 	crontab = function()

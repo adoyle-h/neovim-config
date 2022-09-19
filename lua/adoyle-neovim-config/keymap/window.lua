@@ -1,8 +1,4 @@
-local M = {
-	nil,
-	desc = 'Window Keymaps',
-	disable = false,
-}
+local M = { nil, desc = 'Window Keymaps', disable = false }
 
 function M.config()
 	local keymap = vim.keymap.set
@@ -11,13 +7,17 @@ function M.config()
 	keymap('n', '<leader>e', ':e<CR>', { noremap = true, desc = 'refresh current window' })
 	keymap('n', '<C-W>t', '<C-W>T', { noremap = true, desc = 'put current buffer to new tab' })
 
-	keymap('n', '<C-W><', '<C-W>1<<C-W>', { remap = true, desc = 'adjust window border to left (1 space)' })
-	keymap('n', '<C-W>>', '<C-W>1><C-W>', { remap = true, desc = 'adjust window border to right (1 space)' })
+	keymap('n', '<C-W><', '<C-W>1<<C-W>',
+		{ remap = true, desc = 'adjust window border to left (1 space)' })
+	keymap('n', '<C-W>>', '<C-W>1><C-W>',
+		{ remap = true, desc = 'adjust window border to right (1 space)' })
 	keymap('n', '<C-W>+', '<C-W>1+<C-W>', { remap = true, desc = 'increment window height (1 space)' })
 	keymap('n', '<C-W>-', '<C-W>1-<C-W>', { remap = true, desc = 'decrement window height (1 space)' })
 
-	keymap('n', '<C-W>H', '<C-W>5<<C-W>', { remap = true, desc = 'adjust window border to left (5 spaces)' })
-	keymap('n', '<C-W>L', '<C-W>5><C-W>', { remap = true, desc = 'adjust window border to right (5 spaces)' })
+	keymap('n', '<C-W>H', '<C-W>5<<C-W>',
+		{ remap = true, desc = 'adjust window border to left (5 spaces)' })
+	keymap('n', '<C-W>L', '<C-W>5><C-W>',
+		{ remap = true, desc = 'adjust window border to right (5 spaces)' })
 	keymap('n', '<C-W>J', '<C-W>3+<C-W>', { remap = true, desc = 'increment window height (3 spaces)' })
 	keymap('n', '<C-W>K', '<C-W>3-<C-W>', { remap = true, desc = 'decrement window height (3 spaces)' })
 

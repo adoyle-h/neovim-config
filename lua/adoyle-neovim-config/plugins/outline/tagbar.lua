@@ -1,9 +1,4 @@
-local M = {
-	'majutsushi/tagbar',
-	desc = 'Outline - tagbar',
-	disable = false,
-	requires = {},
-}
+local M = { 'majutsushi/tagbar', desc = 'Outline - tagbar', disable = false, requires = {} }
 
 function M.config()
 	vim.g.tagbar_autofocus = 1
@@ -25,14 +20,8 @@ function M.config()
 			'f:functions',
 		},
 		sro = '.',
-		kind2scope = {
-			t = 'ctype',
-			n = 'ntype',
-		},
-		scope2kind = {
-			ctype = 't',
-			ntype = 'n',
-		},
+		kind2scope = { t = 'ctype', n = 'ntype' },
+		scope2kind = { ctype = 't', ntype = 'n' },
 		ctagsbin = 'gotags',
 		ctagsargs = '-sort -silent',
 	}

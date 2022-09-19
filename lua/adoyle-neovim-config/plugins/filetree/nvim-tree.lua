@@ -1,9 +1,4 @@
-local M = {
-	'kyazdani42/nvim-tree.lua',
-	disable = false,
-	on = {},
-	requires = {}
-}
+local M = { 'kyazdani42/nvim-tree.lua', disable = false, on = {}, requires = {} }
 
 local function configKeymaps()
 	vim.cmd [[
@@ -20,9 +15,7 @@ local function fixNotify()
 
 	local has_notify, notify = pcall(require, 'notify')
 	if has_notify then
-		notify = notify.instance {
-			level = vim.log.levels.WARN,
-		}
+		notify = notify.instance { level = vim.log.levels.WARN }
 	else
 		notify = function(msg, level, title)
 			vim.notify(vim.fn.printf('[%s] %s', title, msg), level)
@@ -69,39 +62,33 @@ function M.config()
 				},
 			},
 
-			float = {
-				enable = false,
-			},
+			float = { enable = false },
 		},
 
 		renderer = {
 			group_empty = true,
 
 			icons = {
-				symlink_arrow = " ➜ ",
+				symlink_arrow = ' ➜ ',
 
 				glyphs = {
 					git = {
-						unstaged = "",
-						staged = "",
-						unmerged = "",
-						renamed = "➜",
-						untracked = "",
-						deleted = "",
-						ignored = "◌",
+						unstaged = '',
+						staged = '',
+						unmerged = '',
+						renamed = '➜',
+						untracked = '',
+						deleted = '',
+						ignored = '◌',
 					},
 				},
 			},
 
 		},
 
-		filters = {
-			dotfiles = true,
-		},
+		filters = { dotfiles = true },
 
-		actions = {
-			use_system_clipboard = true,
-		},
+		actions = { use_system_clipboard = true },
 
 	})
 

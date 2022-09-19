@@ -1,7 +1,4 @@
-local M = {
-	'marko-cerovac/material.nvim',
-	disable = false,
-}
+local M = { 'marko-cerovac/material.nvim', disable = false }
 
 function M.config()
 	vim.g.material_style = 'darker'
@@ -22,28 +19,28 @@ function M.config()
 			keywords = false, -- Enable italic keywords
 			functions = false, -- Enable italic functions
 			strings = false, -- Enable italic strings
-			variables = false -- Enable italic variables
+			variables = false, -- Enable italic variables
 		},
 
 		contrast_filetypes = { -- Specify which filetypes get the contrasted (darker) background
-			"terminal", -- Darker terminal background
-			"packer", -- Darker packer background
-			"qf" -- Darker qf list background
+			'terminal', -- Darker terminal background
+			'packer', -- Darker packer background
+			'qf', -- Darker qf list background
 		},
 
 		high_visibility = {
 			lighter = false, -- Enable higher contrast text for lighter style
-			darker = false -- Enable higher contrast text for darker style
+			darker = false, -- Enable higher contrast text for darker style
 		},
 
 		disable = {
 			borders = false, -- Disable borders between verticaly split windows
 			background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
 			term_colors = false, -- Prevent the theme from setting terminal colors
-			eob_lines = false -- Hide the end-of-buffer lines
+			eob_lines = false, -- Hide the end-of-buffer lines
 		},
 
-		lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+		lualine_style = 'default', -- Lualine style ( can be 'stealth' or 'default' )
 
 		async_loading = true, -- Load parts of the theme asyncronously for faster startup (turned on by default)
 

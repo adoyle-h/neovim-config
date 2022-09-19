@@ -14,11 +14,7 @@ local M = {
 		--   disable = false,
 		-- },
 
-		{
-			'sindrets/diffview.nvim',
-			desc = 'Git Diff',
-			disable = false,
-		},
+		{ 'sindrets/diffview.nvim', desc = 'Git Diff', disable = false },
 
 		{
 			'gregsexton/gitv',

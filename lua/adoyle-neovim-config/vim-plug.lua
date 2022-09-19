@@ -1,46 +1,32 @@
 -- The packer.nvim is terrible. Use vim-plug! https://github.com/junegunn/vim-plug
-
 local util = require('adoyle-neovim-config.util')
 local config = require('adoyle-neovim-config.config')
 
 local fn = vim.fn
 local loadPlug = vim.fn['plug#']
 
-local plugOptsKeys = {
-	cmd = 'on',
-	run = 'do',
-}
+local plugOptsKeys = { cmd = 'on', run = 'do' }
 
-local P = {
-	pluginDir = nil,
-	plugs = {},
-	unloadRepos = {},
-}
+local P = { pluginDir = nil, plugs = {}, unloadRepos = {} }
 
 local UNLOAD = 'UNLOAD'
 
 local function parsePlugOpts(plugin)
 	local opts = util.merge({}, plugin)
 
-	for alias, key in pairs(plugOptsKeys) do
-		if plugin[alias] ~= nil then
-			opts[key] = plugin[alias]
-		end
-	end
+	for alias, key in pairs(plugOptsKeys) do if plugin[alias] ~= nil then opts[key] = plugin[alias] end end
 
 	return opts
 end
 
 local function endsWith(str, suffix)
-	return str:sub(- #suffix) == suffix
+	return str:sub(-#suffix) == suffix
 end
 
 local function getPlugFolderName(repo)
 	local s = fn.split(repo, '/')
 	local name = s[#s]
-	if endsWith(name, '.git') then
-		name = name:sub(0, -5)
-	end
+	if endsWith(name, '.git') then name = name:sub(0, -5) end
 	return name
 end
 
@@ -75,11 +61,7 @@ local function usePlug(repo, opts)
 	end
 
 	-- load dependencies first
-	if opts.requires then
-		for _, dep in pairs(opts.requires) do
-			usePlug(dep)
-		end
-	end
+	if opts.requires then for _, dep in pairs(opts.requires) do usePlug(dep) end end
 
 	-- handle current plugin
 	local plugOpts = parsePlugOpts(opts)
@@ -113,7 +95,8 @@ local function usePlug(repo, opts)
 end
 
 function P.setup()
-	vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { noremap = false, desc = 'Show Plugin Status' })
+	vim.keymap.set('n', '<SPACE>P', '<cmd>:PlugStatus<CR>',
+		{ noremap = false, desc = 'Show Plugin Status' })
 
 	vim.g.plug_timeout = 30
 	-- Use git proxy for fast downloading
@@ -130,9 +113,7 @@ function P.fin()
 	vim.call('plug#end')
 
 	local has_notify, notify = pcall(require, 'notify')
-	if not has_notify then
-		notify = print
-	end
+	if not has_notify then notify = print end
 
 	for _, M in pairs(P.plugs) do
 		local unloadRequired = false
@@ -145,11 +126,11 @@ function P.fin()
 		end
 
 		if unloadRequired then
-			notify(fn.printf('Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.', M.repo, unloadRequired.repo), 'warn')
+			notify(fn.printf(
+				'Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.',
+				M.repo, unloadRequired.repo), 'warn')
 		else
-			if type(M.config) == 'function' then
-				M.config()
-			end
+			if type(M.config) == 'function' then M.config() end
 		end
 	end
 
