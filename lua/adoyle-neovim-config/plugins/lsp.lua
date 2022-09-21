@@ -34,10 +34,7 @@ local M_NullLS = {
 
 		local lspFormat = require('lsp-format')
 
-		null_ls.setup {
-			debug = nullLSConfig.debug,
-			debounce = 150,
-			default_timeout = 3000,
+		local opts = util.merge(nullLSConfig, {
 			sources = sources,
 			on_attach = function(client, bufnr)
 				if client.supports_method('textDocument/formatting') then
@@ -46,11 +43,11 @@ local M_NullLS = {
 					lspFormat.on_attach(client, bufnr)
 				end
 			end,
-		}
+		})
 
-		local masonNullLS = require('mason-null-ls')
-		masonNullLS.setup { automatic_installation = false }
-		masonNullLS.check_install(true)
+		null_ls.setup(opts)
+
+		require('mason-null-ls').setup { automatic_installation = false }
 
 		vim.api.nvim_create_autocmd('User', {
 			pattern = 'MasonNullLsUpdateCompleted',
@@ -220,7 +217,9 @@ local M = {
 			end,
 		},
 		{
+			-- This plugin is not needed after https://github.com/neovim/neovim/pull/20198
 			'antoinemadec/FixCursorHold.nvim',
+			disable = false,
 			config = function()
 				vim.g.cursorhold_updatetime = 100
 			end,
@@ -247,7 +246,7 @@ local function configKeyMaps()
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 	local keymap = vim.keymap.set
 
-	keymap('n', '<space>M', ':Mason<CR>', { noremap = true, silent = true })
+	keymap('n', '<M-m>', ':Mason<CR>', { noremap = true, silent = true })
 
 	keymap('n', '[d', function()
 		vim.diagnostic.goto_prev()
@@ -336,10 +335,12 @@ function M.config()
 	local masonLspconfig = require('mason-lspconfig')
 	masonLspconfig.setup { automatic_installation = false }
 
-	local servers = masonLspconfig.get_installed_servers() -- It not includes null-ls
+	-- It only list LSP packages. Not includes DAP/Linter/Formatter packages and null-ls.
+	local servers = masonLspconfig.get_installed_servers()
 	local lspconfig = require('lspconfig')
 	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol
 		                                                                 .make_client_capabilities())
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 	-- Use a loop to conveniently call 'setup' on multiple servers and
 	-- map buffer local keybindings when the language server attaches

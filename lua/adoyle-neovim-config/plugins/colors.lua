@@ -30,8 +30,9 @@ local function configCursorLine()
 	vim.opt.cursorcolumn = false
 	vim.opt.cursorline = true -- highlight current line
 
-	vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, { command = 'set cursorline' })
-	vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, { command = 'set nocursorline' })
+	-- The cursor line will be invisible at neo-tree filter mode. So do not create these autocmds.
+	-- vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, { command = 'set cursorline' })
+	-- vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, { command = 'set nocursorline' })
 
 	util.set_hl {
 		{ 'CursorLine', { bg = color.cursorLineBG } },

@@ -15,7 +15,8 @@ snippet SCRIPT_DIR "[shell] Add SCRIPT_DIR variable" b
   readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
 
 snippet script_dir "[shell] Add SCRIPT_DIR variable" b
-  readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+  readonly SCRIPT_PATH=$( if [[ "$OSTYPE" == "darwin"* ]]; then echo "$PWD"/"$(readlink "\$0")"; else realpath "\$0"; fi )
+  readonly SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 snippet sh-vars "[shell] Add magic shell variables" b
   readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"

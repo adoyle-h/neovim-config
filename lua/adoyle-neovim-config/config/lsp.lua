@@ -63,8 +63,14 @@ return {
 		-- },
 	},
 
+	-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/CONFIG.md#options
 	nullLS = {
 		debug = false,
+		debounce = 150,
+		default_timeout = 3000,
+
+		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/CONFIG.md#diagnostics_format-string
+		diagnostics_format = '[#{c}] #{m}',
 
 		-- Available null-ls sources list
 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md

@@ -235,7 +235,7 @@ require('adoyle-neovim-config').setup {
 本项目使用 [nvim-lspconfig][] 和 [null-ls][] 来配置 LSP，管理 LSP 与 Nvim 的连接。
 使用 [mason.nvim][] 来安装与管理 lsp 和 null-ls 的第三方包。
 
-- 执行 `:Mason` 或者按 `<space>M` 查看 LSP 安装情况。
+- 执行 `:Mason` 或者按 `<Alt-m>` 查看 LSP 安装情况。
 - 执行 `:LspInfo` 查看当前文件使用的 LSP。
 - 执行 `:NullLsInfo` 查看当前文件使用的 LSP。
 

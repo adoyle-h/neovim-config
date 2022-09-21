@@ -47,6 +47,7 @@ return function(color)
 			'aerial',
 			'Mundo',
 			'mason',
+			'man',
 		},
 
 		colorcolumn = {}, -- highlight columns. See ":h 'cc'"
@@ -124,7 +125,8 @@ return function(color)
 
 		systemClipboard = false, -- paste and copy in vim with system clipboard
 
-		guicursor = { -- :h 'guicursor'. But nvim has many bug on guicursor
+		guicursor = { -- :h 'guicursor'. If your guicursor not changed, see ":h tui-cursor-shape" and ":h tui-cursor-tmux"
+			-- 'a:block-MyCursor',
 			'n-v-c-sm:block-MyCursor', -- block cursor with colors from the "MyCursor" highlight group
 			'i-ci-ve:ver25-MyCursor',
 			'r-cr-o:hor20',
@@ -191,6 +193,21 @@ return function(color)
 				-- Higher priority will override the lower. See ":h snippy-usage-priority"
 				-- https://github.com/dcampos/nvim-snippy/blob/1860215584d4835d87f75896f07007b3b3c06df4/lua/snippy/util.lua#L44-L58
 				sh = { '_', 'sh' }, -- Load _.snippets and sh.snippets for "sh" filetype
+			},
+		},
+
+		webDevicons = {
+			override = {
+				-- Each icon must have "name" property
+				['.gitattributes'] = { icon = '', color = '#FA4F28', name = 'GitAttributes' },
+				['.gitconfig'] = { icon = '', color = '#FA4F28', name = 'GitConfig' },
+				['.gitignore'] = { icon = '', color = '#FA4F28', name = 'GitIgnore' },
+				['.gitlab-ci.yml'] = { icon = '', color = '#FC6D26', name = 'GitlabCI' },
+				['.gitmodules'] = { icon = '', color = '#FA4F28', name = 'GitModules' },
+				['.lua-format'] = { icon = '', color = '#28A2D4', name = 'LuaFormatter' },
+				['.editorconfig'] = { icon = '', color = '#BEC0C4', name = 'EditorConfig' },
+				['.eslintrc.yml'] = { icon = '', color = '#8080F2', name = 'EslintRC' },
+				['.prettierignore'] = { icon = '', color = '#C794C8', name = 'PrettierIgnore' },
 			},
 		},
 	}

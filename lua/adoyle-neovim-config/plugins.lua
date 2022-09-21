@@ -28,7 +28,7 @@ Load 'plugins.notify'
 Plug {
 	'kyazdani42/nvim-web-devicons',
 	config = function()
-		require('nvim-web-devicons').setup {}
+		require('nvim-web-devicons').setup { override = config.webDevicons.override }
 	end,
 }
 
@@ -36,7 +36,6 @@ Plug {
 
 -- UI
 Load 'plugins.colors'
--- Load 'plugins.statusline.airline'
 Load 'plugins.statusline.lualine'
 Load 'plugins.bufferline'
 Load 'plugins.brackets'
@@ -54,7 +53,6 @@ Load 'plugins.completion'
 Load 'plugins.bookmark'
 Load 'plugins.comment'
 Load 'plugins.outline.aerial'
--- Load 'plugins.filetree.nvim-tree'
 Load 'plugins.filetree.neo-tree'
 Load 'plugins.format'
 Load 'plugins.git'
@@ -86,8 +84,9 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle' } -- UNIX 命令封装。 :h eunuch
 Plug 'chrisbra/Recover.vim' -- 崩溃后打开 swap 文件 diff
 Plug { 'tyru/capture.vim', on = 'Capture' } -- :Capture <命令> 将结果输出到新的 buffer 中
-Plug { 'neomutt/neomutt.vim', disbale = true, desc = 'neomutt' }
--- This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim. https://github.com/neovim/neovim/issues/1716
+
+-- This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim.
+-- https://github.com/neovim/neovim/issues/1716
 Plug 'lambdalisue/suda.vim'
 Plug {
 	'kassio/neoterm',

@@ -32,6 +32,8 @@ local function configMapping()
 
 	keymap('n', '<space>;', ':Telescope builtin<cr>', opts)
 
+	keymap('n', '<space>M', ':Telescope man_pages<cr>', opts)
+
 	keymap('n', '<space>f', ':Telescope find_files<cr>', opts)
 	keymap('v', '<space>f', function()
 		local text = util.getVisualSelection()
@@ -212,6 +214,8 @@ function M.config()
 			},
 
 			spell_suggest = { layout_strategy = 'cursor' },
+
+			diagnostics = { theme = 'dropdown', layout_config = { width = 0.8 } },
 
 			lsp_references = {
 				theme = 'dropdown',

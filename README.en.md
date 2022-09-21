@@ -223,7 +223,7 @@ All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plug
 
 ## LSP
 
-- Call `:Mason` or press `<space>M` to view LSP installations.
+- Call `:Mason` or press `<Alt-m>` to view LSP installations.
 - Call `:LspInfo` to show LSP for current file.
 - Call `:NullLsInfo` to show LSP for current file.
 

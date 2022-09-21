@@ -2,7 +2,7 @@
 require('adoyle-neovim-config').setup {
 	-- This user config will override default config. Below config is an example just for my personal usage.
 	config = {
-		colorcolumn = { 80, 100 }, -- highlight columns. See ":h 'cc'"
+		colorcolumn = { 81, 101 }, -- highlight columns. See ":h 'cc'"
 
 		proxy = {
 			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
@@ -88,15 +88,24 @@ require('adoyle-neovim-config').setup {
 
 					return {
 						code_actions.eslint_d,
+						code_actions.shellcheck,
+
 						diagnostics.eslint_d,
+						diagnostics.shellcheck,
 
 						-- Formatters run in the order in which you register them.
-						formatting.eslint_d.with { prefer_local = 'node_modules/.bin' },
-
-						formatting.prettierd.with {
-							disabled_filetypes = { 'markdown' },
+						formatting.eslint_d.with {
+							-- eslint_d is a daemon so that it will cache eslint and eslint-plugins.
+							-- You may need to run "eslint_d restart" or kill eslint_d process to update cache while in trouble.
+							-- See https://github.com/mantoni/eslint_d.js#what-if-eslint-or-a-plugin-is-updated
+							-- The eslint_d filepath is ~/.local/share/nvim/mason/bin/eslint_d
 							prefer_local = 'node_modules/.bin',
 						},
+
+						-- formatting.prettierd.with {
+						--     disabled_filetypes = { 'markdown' },
+						--     prefer_local = 'node_modules/.bin',
+						-- },
 
 						formatting.lua_format,
 					}
