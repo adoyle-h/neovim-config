@@ -1,10 +1,14 @@
-local M = { 'f-person/git-blame.nvim', desc = 'Git Blame', disable = false }
+local M = {
+	'f-person/git-blame.nvim',
+	desc = 'Git Blame',
+	disable = true,
+	keymaps = { { 'n', '<leader>gb', ':GitBlameToggle<CR>', { silent = true, noremap = true } } },
+}
 
 function M.config()
 	local config = require('adoyle-neovim-config.config').config
 	local color = config.color
 
-	vim.keymap.set('n', '<leader>gb', ':GitBlameToggle<CR>', { silent = true, noremap = true })
 	vim.g.gitblame_enabled = false
 	vim.g.gitblame_message_template = '  <date> <author>: <summary>'
 	vim.g.gitblame_date_format = '%Y/%m/%d %H:%M:%S'

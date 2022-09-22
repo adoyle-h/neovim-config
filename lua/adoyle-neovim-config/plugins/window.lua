@@ -18,16 +18,17 @@ local Maximize = {
 	'anuvyklack/windows.nvim',
 	requires = { 'anuvyklack/middleclass', 'anuvyklack/animation.nvim' },
 	desc = 'Auto scale width of window. And maximize window',
+	disable = false,
 	config = function()
-		require('windows').setup(config.window.resize)
-
-		vim.keymap.set('n', '<C-w>z', ':WindowsMaximize<CR>', { silent = true })
+		require('windows').setup(config.window.maximize)
 	end,
+	keymaps = { { 'n', '<C-w>z', ':WindowsMaximize<CR>', { silent = true } } },
 }
 
 local Resize = {
 	'simeji/winresizer',
 	disable = true,
+	desc = 'Resize window layout',
 	config = function()
 		vim.g.winresizer_vert_resize = 5
 		vim.g.winresizer_horiz_resize = 3
@@ -35,11 +36,6 @@ local Resize = {
 	end,
 }
 
-local M = {
-	nil,
-	desc = 'Resize window layout',
-	disable = false,
-	requires = { Shade, Maximize, Resize },
-}
+local M = { nil, disable = false, requires = { Shade, Maximize, Resize } }
 
 return M

@@ -72,9 +72,10 @@ local M_GotoPreview = {
 			debug = false, -- Print debug information
 			opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
 			resizing_mappings = false, -- Binds arrow keys to resizing the floating window.
-			post_open_hook = function()
+
+			post_open_hook = function() -- A function taking two arguments, a buffer and a window to be ran as a hook.
 				vim.wo.cc = '';
-			end, -- A function taking two arguments, a buffer and a window to be ran as a hook.
+			end,
 
 			-- references = { -- Configure the telescope UI for slowing the references cycling window.
 			--   telescope = telescope.themes.get_dropdown({ hide_preview = false })
@@ -86,15 +87,45 @@ local M_GotoPreview = {
 			force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
 			bufhidden = 'wipe', -- the bufhidden option to set on the floating window. See :h bufhidden
 		}
+	end,
 
-		vim.cmd [[
-			nnoremap gd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
-			nnoremap gt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
-			nnoremap gi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
-			nnoremap gr <cmd>lua require('goto-preview').goto_preview_references()<CR>
-		]]
+	commands = function()
+		return {
+			{ 'CleanPreviews', require('goto-preview').close_all_win, { desc = 'close all preview windows' } },
+		}
+	end,
 
-		vim.api.nvim_create_user_command('CleanPreviews', require('goto-preview').close_all_win, {})
+	keymaps = function()
+		local preview = require('goto-preview')
+		return {
+			{
+				'n',
+				'gd',
+				preview.goto_preview_definition,
+				{ noremap = true, desc = 'goto_preview_definition' },
+			},
+
+			{
+				'n',
+				'gt',
+				preview.goto_preview_type_definition,
+				{ noremap = true, desc = 'goto_preview_type_definition' },
+			},
+
+			{
+				'n',
+				'gi',
+				preview.goto_preview_implementation,
+				{ noremap = true, desc = 'goto_preview_implementation' },
+			},
+
+			{
+				'n',
+				'gr',
+				preview.goto_preview_references,
+				{ noremap = true, desc = 'goto_preview_references' },
+			},
+		}
 	end,
 }
 
@@ -242,45 +273,6 @@ local function configUI()
 	end
 end
 
-local function configKeyMaps()
-	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-	local keymap = vim.keymap.set
-
-	keymap('n', '<M-m>', ':Mason<CR>', { noremap = true, silent = true })
-
-	keymap('n', '[d', function()
-		vim.diagnostic.goto_prev()
-	end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_prev' })
-
-	keymap('n', ']d', function()
-		vim.diagnostic.goto_next()
-	end, { noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' })
-
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	keymap('n', 'gD', function()
-		vim.lsp.buf.declaration()
-	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' })
-
-	keymap('n', 'gR', function()
-		vim.lsp.buf.rename()
-	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.rename' })
-
-	keymap('n', 'gc', function()
-		vim.lsp.buf.code_action()
-	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' })
-
-	keymap('n', 'gh', function()
-		vim.lsp.buf.hover()
-	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' })
-
-	keymap('n', 'gs', function()
-		vim.lsp.buf.signature_help()
-	end, { noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' })
-
-	keymap('n', 'gF', vim.lsp.buf.format,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.format' })
-end
-
 local function configDiagnostic()
 	vim.diagnostic.config {
 		virtual_text = false,
@@ -314,7 +306,6 @@ end
 
 function M.config()
 	configDiagnostic()
-	configKeyMaps()
 	configUI()
 
 	local lspFormat = require('lsp-format')
@@ -367,5 +358,77 @@ function M.config()
 		{ border = border })
 
 end
+
+M.keymaps = {
+	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+
+	{ 'n', '<M-m>', ':Mason<CR>', { noremap = true, silent = true } },
+
+	{
+		'n',
+		'[d',
+		function()
+			vim.diagnostic.goto_prev()
+		end,
+		{ noremap = true, silent = true, desc = ':h vim.diagnostic.goto_prev' },
+	},
+
+	{
+		'n',
+		']d',
+		function()
+			vim.diagnostic.goto_next()
+		end,
+		{ noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' },
+	},
+
+	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	{
+		'n',
+		'gD',
+		function()
+			vim.lsp.buf.declaration()
+		end,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' },
+	},
+
+	{
+		'n',
+		'gR',
+		function()
+			vim.lsp.buf.rename()
+		end,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.rename' },
+	},
+
+	{
+		'n',
+		'gc',
+		function()
+			vim.lsp.buf.code_action()
+		end,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' },
+	},
+
+	{
+		'n',
+		'gh',
+		function()
+			vim.lsp.buf.hover()
+		end,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' },
+	},
+
+	{
+		'n',
+		'gs',
+		function()
+			vim.lsp.buf.signature_help()
+		end,
+		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' },
+	},
+
+	{ 'n', 'gF', vim.lsp.buf.format, { noremap = true, silent = true, desc = ':h vim.lsp.buf.format' } },
+}
 
 return M

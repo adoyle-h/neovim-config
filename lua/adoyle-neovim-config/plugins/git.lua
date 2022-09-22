@@ -4,15 +4,7 @@ local M = {
 	disable = false,
 
 	requires = {
-		-- require 'adoyle-neovim-config.plugins.git.blame',
-		-- require 'adoyle-neovim-config.plugins.git.gutter',
 		require 'adoyle-neovim-config.plugins.git.sign',
-
-		-- {
-		--   'tpope/vim-fugitive',
-		--   desc = 'git 命令 in vim',
-		--   disable = false,
-		-- },
 
 		{ 'sindrets/diffview.nvim', desc = 'Git Diff', disable = false },
 
@@ -33,6 +25,11 @@ local M = {
 				}
 			end,
 		},
+
+		-- disabled plugins
+		{ 'tpope/vim-fugitive', desc = 'git 命令 in vim', disable = true },
+		require 'adoyle-neovim-config.plugins.git.blame',
+		require 'adoyle-neovim-config.plugins.git.gutter',
 	},
 }
 

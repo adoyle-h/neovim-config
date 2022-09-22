@@ -34,13 +34,20 @@ function M.config()
 	g.table_mode_motion_left_map = '[['
 	g.table_mode_motion_right_map = ']]'
 	g.table_mode_map_prefix = '<leader>T'
-
-	vim.keymap.set('n', '<leader>Tm', function()
-		vim.b.table_mode_mode = 'GFM'
-		vim.cmd.TableModeToggle()
-	end, { noremap = true, desc = 'Toggle TableMode' })
-
-	vim.keymap.set('n', '<leader>Tc', changeTableMode, { noremap = true, desc = 'Change TableMode' })
 end
+
+M.keymaps = {
+	{
+		'n',
+		'<leader>Tm',
+		function()
+			vim.b.table_mode_mode = 'GFM'
+			vim.cmd.TableModeToggle()
+		end,
+		{ noremap = true, desc = 'Toggle TableMode' },
+	},
+
+	{ 'n', '<leader>Tc', changeTableMode, { noremap = true, desc = 'Change TableMode' } },
+}
 
 return M

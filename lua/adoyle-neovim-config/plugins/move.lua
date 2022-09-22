@@ -46,6 +46,7 @@ local chooseWin = {
 
 local windowSelector = {
 	'https://gitlab.com/yorickpeterse/nvim-window.git',
+	disable = false,
 	config = function()
 		require('nvim-window').setup({
 			-- The characters available for hinting windows.
@@ -68,7 +69,10 @@ local windowSelector = {
 			border = 'rounded', -- ':h nvim_open_win'
 		})
 
-		vim.keymap.set({ 'n' }, '-', require('nvim-window').pick, { noremap = true, silent = true })
+	end,
+
+	keymaps = function()
+		return { { 'n', '-', require('nvim-window').pick, { noremap = true, silent = true } } }
 	end,
 }
 

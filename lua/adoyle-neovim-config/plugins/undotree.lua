@@ -3,6 +3,7 @@ local M = {
 	desc = '显示修改历史树',
 	on = 'UndotreeToggle',
 	disable = false,
+	keymaps = { { 'n', '<space>u', ':MundoToggle<CR>', { noremap = true } } },
 }
 
 function M.config()
@@ -17,9 +18,6 @@ function M.config()
 	vim.g.mundo_preview_height = 15
 	vim.g.mundo_right = 1
 	vim.g.mundo_auto_preview = 1
-
-	local keymap = vim.keymap.set
-	keymap('n', '<space>u', ':MundoToggle<CR>', { noremap = true })
 end
 
 return M

@@ -1,6 +1,6 @@
-local M = { nil, desc = 'Tab Keymaps', disable = true }
+local M = { nil, disable = true }
 
-function M.config()
+M.config = function()
 	vim.g.lasttab = 1
 
 	vim.api.nvim_create_autocmd({ 'TabLeave' }, {
@@ -9,28 +9,32 @@ function M.config()
 		end,
 		-- nested = true,
 	})
-
-	vim.cmd [[
-		noremap <C-T>t- :execute "tabn ".g:lasttab<CR>
-		noremap <C-T>k :tabprev<CR>
-		noremap <C-T>j :tabnext<CR>
-		noremap <C-T>h :tabmove -<CR>
-		noremap <C-T>l :tabmove +<CR>
-		noremap <C-T>n :tabnew<CR>
-		noremap <C-T>x :tabclose<CR>
-
-		" switch tab in normal mode
-		noremap <leader>1 1gt
-		noremap <leader>2 2gt
-		noremap <leader>3 3gt
-		noremap <leader>4 4gt
-		noremap <leader>5 5gt
-		noremap <leader>6 6gt
-		noremap <leader>7 7gt
-		noremap <leader>8 8gt
-		noremap <leader>9 9gt
-		noremap <leader>0 :tablast<CR>
-	]]
 end
+
+local opts = { noremap = true }
+
+M.keymaps = {
+
+	{ 'n', '<C-T>t-', ':execute "tabn ".g:lasttab<CR>', opts },
+	{ 'n', '<C-T>k', ':tabprev<CR>', opts },
+	{ 'n', '<C-T>j', ':tabnext<CR>', opts },
+	{ 'n', '<C-T>h', ':tabmove -<CR>', opts },
+	{ 'n', '<C-T>l', ':tabmove +<CR>', opts },
+	{ 'n', '<C-T>n', ':tabnew<CR>', opts },
+	{ 'n', '<C-T>x', ':tabclose<CR>', opts },
+
+	-- switch tab in normal mode
+	{ 'n', '<leader>1', '1gt', opts },
+	{ 'n', '<leader>2', '2gt', opts },
+	{ 'n', '<leader>3', '3gt', opts },
+	{ 'n', '<leader>4', '4gt', opts },
+	{ 'n', '<leader>5', '5gt', opts },
+	{ 'n', '<leader>6', '6gt', opts },
+	{ 'n', '<leader>7', '7gt', opts },
+	{ 'n', '<leader>8', '8gt', opts },
+	{ 'n', '<leader>9', '9gt', opts },
+	{ 'n', '<leader>0', ':tablast<CR>', opts },
+
+}
 
 return M

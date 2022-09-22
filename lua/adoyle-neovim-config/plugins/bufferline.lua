@@ -5,29 +5,28 @@ local M = {
 	requires = { 'tiagovla/scope.nvim' },
 }
 
-local function keymaps()
-	vim.cmd [[
-		nnoremap <silent><C-T>j :BufferLineCyclePrev<CR>
-		nnoremap <silent><C-T>k :BufferLineCycleNext<CR>
-    nnoremap <silent><C-T>l :BufferLineMoveNext<CR>
-    nnoremap <silent><C-T>h :BufferLineMovePrev<CR>
-		nnoremap <silent><C-T>n :tabnew<CR>
-		nnoremap <silent><C-T>x :tabclose<CR>
+local opts = { noremap = true, silent = true }
 
-		nnoremap <silent>[b :BufferLineCyclePrev<CR>
-		nnoremap <silent>]b :BufferLineCycleNext<CR>
-		nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
-		nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
-		nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
-		nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
-		nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
-		nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
-		nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
-		nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
-		nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
-		nnoremap <silent><leader>0 <Cmd>BufferLineGoToBuffer -1<CR>
-	]]
-end
+M.keymaps = {
+	{ 'n', '<C-T>j', ':BufferLineCyclePrev<CR>', opts },
+	{ 'n', '<C-T>k', ':BufferLineCycleNext<CR>', opts },
+	{ 'n', '<C-T>l', ':BufferLineMoveNext<CR>', opts },
+	{ 'n', '<C-T>h', ':BufferLineMovePrev<CR>', opts },
+	{ 'n', '<C-T>n', ':tabnew<CR>', opts },
+	{ 'n', '<C-T>x', ':tabclose<CR>', opts },
+	{ 'n', '[b', ':BufferLineCyclePrev<CR>', opts },
+	{ 'n', ']b', ':BufferLineCycleNext<CR>', opts },
+	{ 'n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', opts },
+	{ 'n', '<leader>2', '<Cmd>BufferLineGoToBuffer 2<CR>', opts },
+	{ 'n', '<leader>3', '<Cmd>BufferLineGoToBuffer 3<CR>', opts },
+	{ 'n', '<leader>4', '<Cmd>BufferLineGoToBuffer 4<CR>', opts },
+	{ 'n', '<leader>5', '<Cmd>BufferLineGoToBuffer 5<CR>', opts },
+	{ 'n', '<leader>6', '<Cmd>BufferLineGoToBuffer 6<CR>', opts },
+	{ 'n', '<leader>7', '<Cmd>BufferLineGoToBuffer 7<CR>', opts },
+	{ 'n', '<leader>8', '<Cmd>BufferLineGoToBuffer 8<CR>', opts },
+	{ 'n', '<leader>9', '<Cmd>BufferLineGoToBuffer 9<CR>', opts },
+	{ 'n', '<leader>0', '<Cmd>BufferLineGoToBuffer -1<CR>', opts },
+}
 
 function M.config()
 	local color = require('adoyle-neovim-config.config').config.color
@@ -146,8 +145,6 @@ function M.config()
 
 		},
 	}
-
-	keymaps()
 end
 
 return M

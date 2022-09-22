@@ -6,7 +6,9 @@ return {
 		keys = { brightness_up = '<C-Up>', brightness_down = '<C-Down>', toggle = '<Leader>sd' },
 	},
 
-	resize = { -- :h windows.nvim
+	resize = {},
+
+	maximize = { -- :h windows.nvim
 		autowidth = { --
 			enable = true,
 

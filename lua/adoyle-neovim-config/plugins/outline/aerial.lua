@@ -1,12 +1,20 @@
 local M = { 'stevearc/aerial.nvim', desc = 'Outline - aerial', disable = false, requires = {} }
 
-function M.config()
-	local config = require('adoyle-neovim-config.config').config
-	local util = require('adoyle-neovim-config.util')
-	local keymap = vim.keymap.set
+local config = require('adoyle-neovim-config.config').config
 
-	keymap('n', '<space>o', '<cmd>AerialToggle<CR>',
-		{ noremap = true, silent = true, desc = 'Toggle the aerial window' })
+M.highlights = { { 'AerialLine', { bg = config.color.outline.lineBG, bold = true } } }
+
+M.keymaps = {
+	{
+		'n',
+		'<space>o',
+		'<cmd>AerialToggle<CR>',
+		{ noremap = true, silent = true, desc = 'Toggle the aerial window' },
+	},
+}
+
+function M.config()
+	local util = require('adoyle-neovim-config.util')
 
 	local icons = { Interface = config.symbolMap.MID_DOT }
 	for k, v in pairs(config.kindSymbolMap) do if icons[k] == nil then icons[k] = v end end
@@ -71,6 +79,10 @@ function M.config()
 		-- },
 
 		icons = icons,
+
+		on_attach = function(bufnr)
+			require('aerial').tree_set_collapse_level(bufnr, 0)
+		end,
 	}
 
 	util.set_hl { { 'AerialLine', { bg = config.color.outline.lineBG, bold = true } } }

@@ -1,4 +1,4 @@
-local M = { 'airblade/vim-gitgutter', desc = '侧边栏 Git 状态', disable = false }
+local M = { 'airblade/vim-gitgutter', desc = '侧边栏 Git 状态', disable = true }
 
 local function configKeymaps()
 	vim.cmd [[
