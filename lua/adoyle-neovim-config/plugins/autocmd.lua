@@ -1,36 +1,14 @@
-local M = {
-	nil,
-	desc = 'Set autocmd callbacks',
-	disable = false,
-	-- requires = {},
-	-- ['for'] = '',
-}
-
-local maps = {
-	js = function()
-		-- vim.cmd 'set isk-=.'
-		vim.opt_local.isk:remove{ '.' }
-	end,
-
-	jsx = function()
-		-- vim.cmd 'set isk-=.'
-		vim.opt_local.isk:remove{ '.' }
-	end,
-
-	crontab = function()
-		vim.opt_local.backup = false
-		vim.opt_local.writebackup = false
-	end,
-}
+local M = { nil, desc = 'Set autocmd callbacks', disable = false }
 
 function M.config()
+	local maps = require('adoyle-neovim-config.config').config.autocmd.maps
+
 	vim.api.nvim_create_autocmd({ 'FileType' }, {
 		callback = function(args)
 			local fn = maps[args.match]
 			if fn then fn() end
 		end,
 	})
-
 end
 
 return M

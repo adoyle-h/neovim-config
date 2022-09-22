@@ -105,6 +105,10 @@ function M.config()
 
 			-- Text object
 			-- map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+
+			vim.api.nvim_create_user_command('GitBlameToggle', function()
+				gs.toggle_current_line_blame()
+			end, {})
 		end,
 	}
 end

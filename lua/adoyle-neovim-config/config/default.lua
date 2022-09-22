@@ -210,5 +210,30 @@ return function(color)
 				['.prettierignore'] = { icon = '', color = '#C794C8', name = 'PrettierIgnore' },
 			},
 		},
+
+		filetree = {
+			hideByName = { 'node_modules', '.git' },
+
+			alwaysShow = { -- remains visible even if other settings would normally hide it
+				-- '.gitignored',
+			},
+
+			neverShow = { -- remains hidden even if visible is toggled to true, this overrides always_show
+				'.DS_Store',
+				'thumbs.db',
+			},
+		},
+
+		move = {
+			accelerated = { -- :h accelerated-jk
+				mode = 'time_driven',
+				enable_deceleration = false,
+				acceleration_limit = 200,
+				acceleration_table = { 5, 10, 12, 20, 30 },
+			},
+		},
+
+		autocmd = require('adoyle-neovim-config.config.autocmd'),
+
 	}
 end

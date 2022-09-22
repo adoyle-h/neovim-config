@@ -44,6 +44,7 @@ Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
 
 -- Functions
+Load 'plugins.autocmd'
 Load 'plugins.keymap'
 Load 'plugins.filetype'
 Load 'plugins.treesitter'
@@ -74,7 +75,6 @@ Load 'plugins.funny'
 Load 'plugins.cheat'
 Load 'plugins.writing'
 Load 'plugins.abbreviation'
-Load 'plugins.autocmd'
 Load 'plugins.utils'
 Load 'plugins.terminal'
 Load 'plugins.dashboard' -- put dashboard after filetree

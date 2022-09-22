@@ -1,8 +1,10 @@
 local M = { nil, desc = 'Shortcuts for fast moving', disable = false }
 
+local config = require('adoyle-neovim-config.config').config
+
 local chooseWin = {
 	't9md/vim-choosewin',
-	desc = 'window/tab 切换',
+	desc = 'window/tab selector',
 	disable = true, -- Because it does not support gui
 
 	config = function()
@@ -50,7 +52,7 @@ local windowSelector = {
 			chars = {
 				-- LuaFormatter off
 				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-				'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+				'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 				-- LuaFormatter on
 			},
 
@@ -66,9 +68,7 @@ local windowSelector = {
 			border = 'rounded', -- ':h nvim_open_win'
 		})
 
-		vim.keymap.set({ 'n' }, '-', function()
-			require('nvim-window').pick()
-		end, { noremap = true, silent = true })
+		vim.keymap.set({ 'n' }, '-', require('nvim-window').pick, { noremap = true, silent = true })
 	end,
 }
 
@@ -104,23 +104,18 @@ local easyMotion = {
 local fastMove = {
 	'rainbowhxch/accelerated-jk.nvim',
 	disable = false,
-	desc = 'j/k 移动自动加速',
+	desc = 'accelerates j/k movement steps while j or k key is repeating',
 
 	config = function()
-		require('accelerated-jk').setup({
-			mode = 'time_driven',
-			enable_deceleration = false,
-			acceleration_limit = 200,
-			acceleration_table = { 5, 10, 12, 20, 30 },
-		})
+		require('accelerated-jk').setup(config.move.accelerated)
 		vim.api.nvim_set_keymap('n', 'j', '<Plug>(accelerated_jk_gj)', {})
 		vim.api.nvim_set_keymap('n', 'k', '<Plug>(accelerated_jk_gk)', {})
 	end,
 }
 
 M.requires = {
-	{ 'matze/vim-move', desc = '移动选定段落 <A-k> <A-j>' },
-	{ 'adoyle-h/vim-emacscommandline', desc = 'Emacs 快捷键' },
+	{ 'matze/vim-move', desc = 'Use <A-k> <A-j> to move lines under cursor' },
+	{ 'adoyle-h/vim-emacscommandline', desc = 'Emacs Shortcuts' },
 	easyMotion,
 	windowSelector,
 	chooseWin,

@@ -1,8 +1,6 @@
 local M = { nil, desc = 'color settings', disable = false }
 
-local util = require('adoyle-neovim-config.util')
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
 
 M.requires = {
 	require('adoyle-neovim-config.themes.' .. config.theme),
@@ -33,21 +31,20 @@ local function configCursorLine()
 	-- The cursor line will be invisible at neo-tree filter mode. So do not create these autocmds.
 	-- vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, { command = 'set cursorline' })
 	-- vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, { command = 'set nocursorline' })
-
-	util.set_hl {
-		{ 'CursorLine', { bg = color.cursorLineBG } },
-		{ 'CursorLineNr', { bg = color.cursorLineBG, fg = color.cursorLineNrFG } },
-	}
 end
 
 function M.config()
 	configCursorLine()
 
+	local color = config.color
 	local set_hl = vim.api.nvim_set_hl
-	-- set highlight groups
-	for _, hi in pairs(config.highlights) do
-		if type(hi) == 'function' then hi = hi(color) end
-		set_hl(0, hi[1], hi[2])
+
+	-- Set highlight groups
+	for _, group in pairs(config.highlights) do
+		for _, hl in pairs(group) do
+			if type(hl) == 'function' then hl = hl(color) end
+			set_hl(0, hl[1], hl[2])
+		end
 	end
 end
 

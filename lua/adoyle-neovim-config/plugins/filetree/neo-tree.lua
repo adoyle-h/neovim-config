@@ -34,26 +34,19 @@ local function configKeymaps()
 	vim.cmd [[
 		noremap <space>m :Neotree toggle<CR>
 		noremap <silent> <leader>nm :Neotree toggle<CR>
-		noremap <space>b :Neotree toggle show buffers float<CR>
-		noremap <silent> <leader>nb :Neotree toggle show buffers float<CR>
-		noremap <space>g :Neotree toggle show git_status float<CR>
-		noremap <silent> <leader>ng :Neotree toggle show git_status float<CR>
+		noremap <space>b :Neotree toggle show buffers<CR>
+		noremap <silent> <leader>nb :Neotree toggle show buffers<CR>
+		noremap <space>g :Neotree toggle show git_status<CR>
+		noremap <silent> <leader>ng :Neotree toggle show git_status<CR>
 		noremap <silent> <leader>nf :Neotree reveal<CR>
 	]]
 end
 
-local function configHighLights()
-	local color = require('adoyle-neovim-config.config').config.color
-	local util = require('adoyle-neovim-config.util')
-
-	util.set_hl {
-		{ 'NeoTreeFileIcon', { fg = color.white } },
-		{ 'NeoTreeGitUnstaged', { fg = color.yellow } },
-	}
-end
-
 function M.config()
-	configHighLights()
+	local config = require('adoyle-neovim-config.config').config
+	local ftConf = config.filetree
+	local symbols = config.symbolMap
+
 	require('neo-tree').setup {
 		log_level = 'warn',
 		close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
@@ -62,13 +55,6 @@ function M.config()
 		enable_diagnostics = true,
 		sort_case_insensitive = false, -- used when sorting files and directories in the tree
 		sort_function = nil, -- use a custom function for sorting files and directories in the tree
-		-- sort_function = function (a,b)
-		--       if a.type == b.type then
-		--           return a.path > b.path
-		--       else
-		--           return a.type > b.type
-		--       end
-		--   end , -- this sorts files and directories descendantly
 
 		default_component_configs = {
 			container = {
@@ -107,18 +93,15 @@ function M.config()
 
 			git_status = {
 				symbols = {
-					-- Change type
-					added = '✚', -- or '✚', but this is redundant info if you use git_status_colors on the name
-					modified = '', -- or '', but this is redundant info if you use git_status_colors on the name
-					deleted = '', -- this can only be used in the git_status source
-					-- deleted   = '✖', -- this can only be used in the git_status source
-					renamed = '', -- this can only be used in the git_status source
-					-- Status type
-					untracked = '',
-					ignored = '',
-					unstaged = '*',
-					staged = '',
-					conflict = '',
+					added = symbols.ADDED,
+					modified = symbols.MODIFIED,
+					deleted = symbols.DELETED,
+					renamed = symbols.RENAMED,
+					untracked = symbols.GIT_UNTRACKED,
+					ignored = symbols.GIT_IGNORED,
+					unstaged = symbols.GIT_UNSTAGED,
+					staged = symbols.GIT_STAGED,
+					conflict = symbols.GIT_CONFLICT,
 				},
 			},
 		},
@@ -128,7 +111,6 @@ function M.config()
 			width = 34,
 
 			mapping_options = { noremap = true, nowait = true },
-
 			mappings = {
 				['?'] = 'show_help',
 				['q'] = 'close_window',
@@ -142,7 +124,7 @@ function M.config()
 
 					-- :h feature-list
 					if vim.fn.has('mac') then
-						vim.api.nvim_command('!open -R ' .. path)
+						vim.api.nvim_command('!open -R ' .. path) -- Open it in Finder
 					elseif vim.fn.has('linux') then
 						vim.api.nvim_command(string.format('!xdg-open "%s"', path))
 					end
@@ -203,19 +185,15 @@ function M.config()
 				hide_dotfiles = false,
 				hide_gitignored = true,
 				hide_hidden = true, -- only works on Windows for hidden files/directories
-				hide_by_name = { 'node_modules', '.git' },
+				hide_by_name = ftConf.hideByName,
 				hide_by_pattern = { -- uses glob style patterns
 					-- '*.meta',
 					-- '*/src/*/tsconfig.json',
 				},
-				always_show = { -- remains visible even if other settings would normally hide it
-					-- '.gitignored',
-				},
-				never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-					'.DS_Store',
-					'thumbs.db',
-				},
+				always_show = ftConf.alwaysShow,
+				never_show = ftConf.neverShow,
 			},
+
 			follow_current_file = false, -- This will find and focus the file in the active buffer every
 			-- time the current file is changed while the tree is open.
 			group_empty_dirs = false, -- when true, empty folders will be grouped together
@@ -225,6 +203,7 @@ function M.config()
 			-- window like netrw would, regardless of window.position
 			-- 'disabled',    -- netrw left alone, neo-tree does not handle opening dirs
 			use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
+
 			-- instead of relying on nvim autocmd events.
 			window = {
 				mappings = {
@@ -246,7 +225,7 @@ function M.config()
 			-- time the current file is changed while the tree is open.
 			group_empty_dirs = true, -- when true, empty folders will be grouped together
 			show_unloaded = true,
-			window = { mappings = { ['d'] = 'buffer_delete' } },
+			window = { position = 'float', mappings = { ['d'] = 'buffer_delete' } },
 		},
 
 		git_status = {

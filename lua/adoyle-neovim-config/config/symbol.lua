@@ -12,6 +12,15 @@ return {
 		UNINSTALLED = '',
 		PENDING = '',
 		MID_DOT = '•',
+		RENAMED = '',
+		DELETED = '', -- '✖'
+		ADDED = '✚', -- '✚'
+		MODIFIED = '',
+		GIT_UNTRACKED = '',
+		GIT_STAGED = '',
+		GIT_IGNORED = '',
+		GIT_UNSTAGED = '*',
+		GIT_CONFLICT = '',
 	},
 
 	kindSymbolMap = {

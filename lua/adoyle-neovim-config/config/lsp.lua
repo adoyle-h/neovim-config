@@ -72,6 +72,10 @@ return {
 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/CONFIG.md#diagnostics_format-string
 		diagnostics_format = '[#{c}] #{m}',
 
+		should_attach = function(bufnr)
+			return not vim.api.nvim_buf_get_name(bufnr):match('^git://')
+		end,
+
 		-- Available null-ls sources list
 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 		-- How to config null-ls sources:
