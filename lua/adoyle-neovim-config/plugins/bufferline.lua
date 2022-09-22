@@ -7,6 +7,13 @@ local M = {
 
 local function keymaps()
 	vim.cmd [[
+		nnoremap <silent><C-T>j :BufferLineCyclePrev<CR>
+		nnoremap <silent><C-T>k :BufferLineCycleNext<CR>
+    nnoremap <silent><C-T>l :BufferLineMoveNext<CR>
+    nnoremap <silent><C-T>h :BufferLineMovePrev<CR>
+		nnoremap <silent><C-T>n :tabnew<CR>
+		nnoremap <silent><C-T>x :tabclose<CR>
+
 		nnoremap <silent>[b :BufferLineCyclePrev<CR>
 		nnoremap <silent>]b :BufferLineCycleNext<CR>
 		nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>

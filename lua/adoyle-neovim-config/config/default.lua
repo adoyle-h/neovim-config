@@ -1,14 +1,13 @@
 -- User should not change this file. Edit require('adoyle-neovim-config').setup({config}) in your init.lua.
 return function(color)
-	local defaultSymbol = require('adoyle-neovim-config.config.symbol')
+	local symbol = require('adoyle-neovim-config.config.symbol')
 
 	return {
-		mapleader = ';', -- Set a map <leader> for more key combos
+		color = color,
 
-		proxy = {
-			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/')
-			github = '', -- emptry string or proxy url
-		},
+		highlights = require('adoyle-neovim-config.config.highlight-group')(color),
+
+		vim = require('adoyle-neovim-config.config.vim-options'),
 
 		theme = 'onedarkpro',
 
@@ -31,11 +30,12 @@ return function(color)
 			-- end,
 		},
 
+		proxy = {
+			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/')
+			github = '', -- emptry string or proxy url
+		},
+
 		lsp = require('adoyle-neovim-config.config.lsp'),
-
-		color = color,
-
-		highlights = require('adoyle-neovim-config.config.highlight-group')(color),
 
 		ignoredFileTypesForSomePlugs = {
 			'TelescopePrompt',
@@ -49,24 +49,6 @@ return function(color)
 			'mason',
 			'man',
 		},
-
-		colorcolumn = {}, -- highlight columns. See ":h 'cc'"
-
-		synmaxcol = 300, -- Syntax coloring lines that are too long just slows down the world
-
-		updatetime = 5000, -- auto save the swap every <updatetime> seconds
-
-		updatecount = 100, -- auto save the swap every <updatecount> characters
-
-		foldenable = true, -- auto fold code
-
-		linenumber = true, -- show linenumber. :h 'linenumber'
-
-		signcolumn = 'auto:2',
-
-		cmdheight = 2, -- cmd line height. :h 'cmdheight'
-
-		history = 1000, --  how many entries may be stored in each of these histories. :h 'history'
 
 		diagnosticBorder = { -- See the border property of ":h nvim_open_win"
 			{ '╭', 'DiagnosticBorder' },
@@ -90,52 +72,6 @@ return function(color)
 		--   { '║', 'DiagnosticBorder' },
 		-- },
 
-		fillchars = { -- window border. :h 'fcs'
-			vert = '│',
-			diff = '╱',
-		},
-
-		-- listchars = 'tab:——,space:·,eol:¬,trail:·,extends:⇢,precedes:⇠,nbsp:+', -- 高亮空格、Tab、换行符等
-		listchars = { -- :h 'listchars'
-			tab = '——',
-			space = '·',
-			eol = '¬', -- show at the end of each line
-			lead = '·', -- show for leading spaces
-			trail = '·', -- trailing spaces
-			extends = '⇢', -- show in last column
-			precedes = '⇠', -- show in the first visible
-			nbsp = '+', -- show for a non-breakable space character
-		},
-
-		linebreakChar = '↪', -- :h 'showbreak'
-
-		langmenu = 'zh_CN.UTF-8', -- :h 'langmenu'
-
-		spell = {
-			check = false,
-			lang = { 'en', 'cjk' }, -- :h 'spelllang'
-			suggest = { 'best', 6 }, -- :h 'spellsuggest'
-		},
-
-		matchpairs = { -- Press % to jump from one to the other. :h 'matchpairs'
-			-- LuaFormatter off
-			'(:)', '{:}', '[:]', '「:」', '<:>', '“:”',
-			-- LuaFormatter on
-		},
-
-		systemClipboard = false, -- paste and copy in vim with system clipboard
-
-		guicursor = { -- :h 'guicursor'. If your guicursor not changed, see ":h tui-cursor-shape" and ":h tui-cursor-tmux"
-			-- 'a:block-MyCursor',
-			'n-v-c-sm:block-MyCursor', -- block cursor with colors from the "MyCursor" highlight group
-			'i-ci-ve:ver25-MyCursor',
-			'r-cr-o:hor20',
-		},
-
-		fileencodings = { 'utf-8', 'gb2312', 'gbk', 'ucs-bom', 'default', 'latin1' },
-
-		fileformats = { 'unix', 'dos', 'mac' },
-
 		treesitter = {
 			ensure_installed = {}, -- A list of parser names, or "all"
 			sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -152,9 +88,9 @@ return function(color)
 			},
 		},
 
-		symbolMap = defaultSymbol.symbolMap,
+		symbolMap = symbol.symbolMap,
 
-		kindSymbolMap = defaultSymbol.kindSymbolMap,
+		kindSymbolMap = symbol.kindSymbolMap,
 
 		codeContext = { -- show code context which parsed by treesitter
 			winbar = true, -- show context path in winbar
@@ -233,7 +169,8 @@ return function(color)
 			},
 		},
 
-		autocmd = require('adoyle-neovim-config.config.autocmd'),
+		window = require('adoyle-neovim-config.config.window'),
 
+		autocmd = require('adoyle-neovim-config.config.autocmd'),
 	}
 end

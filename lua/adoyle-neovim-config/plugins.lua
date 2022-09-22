@@ -23,7 +23,17 @@ Plug {
 	end,
 }
 
+Plug 'MunifTanjim/nui.nvim'
+
 Load 'plugins.notify'
+
+Plug {
+	'vigoux/notifier.nvim',
+	disable = true,
+	config = function()
+		require'notifier'.setup {}
+	end,
+}
 
 Plug {
 	'kyazdani42/nvim-web-devicons',
@@ -70,7 +80,7 @@ Load 'plugins.telescope'
 Load 'plugins.todo'
 Load 'plugins.trailing'
 Load 'plugins.undotree'
-Load 'plugins.window-resize'
+Load 'plugins.window'
 Load 'plugins.funny'
 Load 'plugins.cheat'
 Load 'plugins.writing'

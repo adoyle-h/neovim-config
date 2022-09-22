@@ -9,11 +9,10 @@ M.requires = {
 			local color = require('adoyle-neovim-config.config').config.color
 			local mainColor = color.orange
 			local bgColor = color.grey2
-			local black = color.black
 
 			util.set_hl {
-				{ 'Search', { bg = black, fg = mainColor, underline = true } },
-				{ 'IncSearch', { bg = black, fg = mainColor, underline = true } },
+				{ 'Search', { bg = 'none', fg = mainColor, underline = true } },
+				{ 'IncSearch', { bg = 'none', fg = mainColor, underline = true } },
 				-- 1. HlSearchLensNear: highlight the nearest virtual text
 				{ 'HlSearchLensNear', { bg = bgColor, fg = mainColor } },
 				-- 2. HlSearchLens: highlight virtual text except for the nearest one

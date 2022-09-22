@@ -2,7 +2,11 @@
 require('adoyle-neovim-config').setup {
 	-- This user config will override default config. Below config is an example just for my personal usage.
 	config = {
-		colorcolumn = { 81, 101 }, -- highlight columns. See ":h 'cc'"
+		vim = {
+			opt = {
+				colorcolumn = { 81, 101 }, -- highlight columns. See ":h 'cc'"
+			},
+		},
 
 		proxy = {
 			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
