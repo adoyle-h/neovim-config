@@ -14,13 +14,19 @@ local Load = function(path)
 end
 
 ------- Basic required plugins -------
+Load 'plugins.vim-options'
+
 Plug {
 	'nvim-lua/plenary.nvim',
-	config = function()
-		vim.api.nvim_create_user_command('TestLuaSpec', function()
-			require('plenary.test_harness').test_directory(vim.fn.expand('%:p'))
-		end, { desc = 'Run unit test on current lua spec file' })
-	end,
+	commands = {
+		{
+			'TestLuaSpec',
+			function()
+				require('plenary.test_harness').test_directory(vim.fn.expand('%:p'))
+			end,
+			{ desc = 'Run unit test on current lua spec file' },
+		},
+	},
 }
 
 Plug 'MunifTanjim/nui.nvim'
@@ -60,6 +66,7 @@ Load 'plugins.filetype'
 Load 'plugins.treesitter'
 Load 'plugins.lsp'
 Load 'plugins.completion'
+Load 'plugins.general'
 
 Load 'plugins.bookmark'
 Load 'plugins.comment'
@@ -85,27 +92,31 @@ Load 'plugins.funny'
 Load 'plugins.cheat'
 Load 'plugins.writing'
 Load 'plugins.abbreviation'
-Load 'plugins.utils'
 Load 'plugins.terminal'
 Load 'plugins.dashboard' -- Put this plugin after filetree plugin
 Load 'plugins.winbar'
 
 Plug 'chrisbra/vim-diff-enhanced'
-Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle' } -- UNIX commands. See :h eunuch
+Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h eunuch' }
 
--- Show difference between the hidden swap file and the regular saved file. Very useful.
-Plug 'chrisbra/Recover.vim'
+Plug {
+	'chrisbra/Recover.vim',
+	desc = 'Show difference between the hidden swap file and the regular saved file. Very useful.',
+}
 
--- ":Capture <Ex-Command>" to pipe Ex command output to new buffer
--- ":Capture mes" print messages
--- ":Capture echo globpath(&rtp, 'doc/*.txt')"
-Plug { 'tyru/capture.vim', on = 'Capture' }
+Plug {
+	'tyru/capture.vim',
+	on = 'Capture',
+	-- ":Capture mes" print messages
+	-- ":Capture echo globpath(&rtp, 'doc/*.txt')"
+	desc = '":Capture <Ex-Command>" to pipe Ex command output to new buffer',
+}
 
 -- This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim.
 -- https://github.com/neovim/neovim/issues/1716
 Plug 'lambdalisue/suda.vim'
-Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
-Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown 幻灯片' }
-Plug 'mechatroner/rainbow_csv' -- for .csv file
+Plug { 'tpope/vim-repeat', desc = 'Enable repeating other supported plugins with the . command' }
+Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown presentation' }
+Plug { 'mechatroner/rainbow_csv', desc = 'For .csv file' }
 
 Plug 'ryanoasis/vim-devicons' -- devicons should be put at last!!

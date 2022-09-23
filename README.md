@@ -209,14 +209,12 @@ require('adoyle-neovim-config').setup {
 │       ├── fix-lua.lua
 │       ├── init.lua         // The lua required entry point (plugin way)
 │       ├── plugins.lua      // Plugin loading list
-│       ├── util.lua         // utility functions
-│       ├── util_spec.lua    // unit test for util.lua
-│       ├── vim-options.lua
-│       ├── extend.lua       // General user functions and commands
+│       ├── util.lua         // Utility functions
+│       ├── util_spec.lua    // Unit test for util.lua
 │       ├── vim-plug.lua     // Plugin manage framework based on vim-plug
 │       ├── keymap/          // Keymaps
 │       ├── plugins/         // Available plugins written in lua
-│       └── themes/          // color schemas
+│       └── themes/          // Color schemas
 ├── snippets/          // Code Snippets
 ├── spell/             // Spell check data (git ignored)
 │   └── en.utf-8.add

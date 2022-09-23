@@ -24,8 +24,6 @@ M.setup = function(opts)
 	CM.setup(opts)
 
 	require('adoyle-neovim-config.fix-lua')
-	require('adoyle-neovim-config.vim-options')
-	require('adoyle-neovim-config.extend')
 
 	P.setup()
 	P.start()

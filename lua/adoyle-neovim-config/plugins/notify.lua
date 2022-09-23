@@ -1,4 +1,21 @@
-local M = { 'rcarriga/nvim-notify', desc = 'An awesome notify library!', disable = false }
+local M = {
+	'rcarriga/nvim-notify',
+	desc = 'An awesome notify library!',
+	disable = false,
+	commands = {
+		{
+			'Notify',
+			function(opts)
+				local args = opts.fargs
+				vim.notify(args[1], args[2] or 'info')
+			end,
+			{
+				nargs = '+',
+				desc = 'Send message to notification window. Usage: :Notify <message> [info|warn|error]',
+			},
+		},
+	},
+}
 
 function M.config()
 	local config = require('adoyle-neovim-config.config').config
@@ -23,14 +40,6 @@ function M.config()
 		timeout = 2000,
 		top_down = true,
 	}
-
-	vim.api.nvim_create_user_command('Notify', function(opts)
-		local args = opts.fargs
-		vim.notify(args[1], args[2] or 'info')
-	end, {
-		nargs = '+',
-		desc = 'Send message to notification window. Usage: :Notify <message> [info|warn|error]',
-	})
 end
 
 return M
