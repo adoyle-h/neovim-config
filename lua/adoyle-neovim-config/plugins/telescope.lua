@@ -149,7 +149,7 @@ end
 
 M.keymaps = function()
 	local tb = require('telescope.builtin')
-	local opts = { noremap = true, silent = true }
+	local opts = { silent = true }
 
 	local map = {
 
@@ -166,7 +166,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.find_files({ default_text = text })
 			end,
-			{ noremap = true, silent = true, desc = 'Find files with selection' },
+			{ silent = true, desc = 'Find files with selection' },
 		},
 
 		{ 'n', '<space>?', ':Telescope current_buffer_fuzzy_find<cr>', opts },
@@ -177,7 +177,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.current_buffer_fuzzy_find({ default_text = text })
 			end,
-			{ noremap = true, silent = true, desc = 'Search in current file with selection' },
+			{ silent = true, desc = 'Search in current file with selection' },
 		},
 
 		{ 'n', '<space>/', ':Telescope live_grep<cr>', opts },
@@ -188,7 +188,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.live_grep({ default_text = text })
 			end,
-			{ noremap = true, silent = true, desc = 'Global search content with selection' },
+			{ silent = true, desc = 'Global search content with selection' },
 		},
 
 		{ 'n', '<space>p', ':Telescope commands<cr>', opts },
@@ -199,7 +199,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.commands({ default_text = text })
 			end,
-			{ noremap = true, silent = true, desc = 'List commands with selection' },
+			{ silent = true, desc = 'List commands with selection' },
 		},
 
 		-- Press '<Enter>' to execute command immediately.
@@ -213,7 +213,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.command_history({ default_text = text })
 			end,
-			{ noremap = true, silent = true, desc = 'List command history with selection' },
+			{ silent = true, desc = 'List command history with selection' },
 		},
 
 		{ 'n', '<space>h', ':Telescope help_tags<cr>', opts },
@@ -224,7 +224,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.help_tags({ default_text = text })
 			end,
-			{ noremap = true, silent = true, desc = 'List help documents with selection' },
+			{ silent = true, desc = 'List help documents with selection' },
 		},
 
 		{ 'n', '<space>H', ':Telescope highlights<cr>', opts },
@@ -235,7 +235,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.highlights({ default_text = text })
 			end,
-			{ noremap = true, silent = true, desc = 'List highlights with selection' },
+			{ silent = true, desc = 'List highlights with selection' },
 		},
 
 		{ 'n', '<space>k', ':Telescope keymaps<cr>', opts },
@@ -246,7 +246,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.keymaps({ default_text = text })
 			end,
-			{ noremap = true, silent = true, desc = 'List keymaps with selection' },
+			{ silent = true, desc = 'List keymaps with selection' },
 		},
 
 		-- {'n', '<space>b', ':Telescope buffers<cr>', opts}, -- Use :Neotree buffers instead.

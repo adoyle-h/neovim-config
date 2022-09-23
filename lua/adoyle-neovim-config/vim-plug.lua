@@ -107,8 +107,7 @@ local function usePlug(repo, opts)
 end
 
 function P.setup()
-	set_keymap('n', '<SPACE>P', '<cmd>:PlugStatus<CR>',
-		{ noremap = false, desc = 'Show Plugin Status' })
+	set_keymap('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { desc = 'Show Plugin Status' })
 
 	vim.g.plug_timeout = 30
 	-- Use git proxy for fast downloading

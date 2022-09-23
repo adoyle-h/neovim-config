@@ -3,6 +3,13 @@ local M = {
 	desc = 'highlight any words under cursor',
 	disable = false,
 	requires = {},
+	keymaps = {
+		{ 'n', '<leader>k', ':call InterestingWords("n")<CR>', { silent = true } },
+		{ 'v', '<leader>k', '<Plug>InterestingWords', { silent = true } },
+		{ 'n', '<leader>K', '<Plug>InterestingWordsClear', { silent = true } },
+		{ 'n', '[k', '<Plug>InterestingWordsBackward', { silent = true } },
+		{ 'n', ']k', '<Plug>InterestingWordsForeward', { silent = true } },
+	},
 }
 
 function M.config()
@@ -11,14 +18,6 @@ function M.config()
 	vim.g.interestingWordsGUIColors = color.highlightWords.gui
 	vim.g.interestingWordsTermColors = color.highlightWords.cterm
 	vim.g.interestingWordsRandomiseColors = 0
-
-	vim.cmd [[
-		nnoremap <silent> <leader>k :call InterestingWords('n')<CR>
-		vmap <silent> <leader>k <Plug>InterestingWords
-		nmap <silent> <leader>K <Plug>InterestingWordsClear
-		nmap [k <Plug>InterestingWordsBackward
-		nmap ]k <Plug>InterestingWordsForeward
-	]]
 end
 
 return M

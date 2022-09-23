@@ -5,12 +5,7 @@ local config = require('adoyle-neovim-config.config').config
 M.highlights = { { 'AerialLine', { bg = config.color.outline.lineBG, bold = true } } }
 
 M.keymaps = {
-	{
-		'n',
-		'<space>o',
-		'<cmd>AerialToggle<CR>',
-		{ noremap = true, silent = true, desc = 'Toggle the aerial window' },
-	},
+	{ 'n', '<space>o', ':AerialToggle<CR>', { silent = true, desc = 'Toggle the aerial window' } },
 }
 
 function M.config()

@@ -28,6 +28,9 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - [LSP](#lsp)
 - [代码格式化](#代码格式化)
 - [启动时间](#启动时间)
+- [插件](#插件)
+    - [创建插件](#创建插件)
+    - [使用插件](#使用插件)
 - [建议，Bug，做贡献](#建议bug做贡献)
 - [版权声明](#版权声明)
 
@@ -38,7 +41,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - 用 Lua 管理所有配置。
 - 充分使用 Neovim 特性：Native LSP、Float Window、Winbar。
 - 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载。
-- 集成了 106 个 Vim/Nvim 插件。
+- 集成了 109 个 Vim/Nvim 插件。
 - 帅气的界面和配色。暗黑模式。支持真彩色、滚动条、Dashboard。
 - 可配置，详见[默认配置][default-config]。
 - 支持配置 github 代理，在中国大陆可加快插件下载速度。
@@ -273,6 +276,79 @@ syntax.vim             4.67    1.37 █
 done waiting for UI    4.39    1.29 ▉
 loading after plugin   4.38    1.29 ▉
 reading ShaDa          3.68    1.08 ▊
+```
+
+## 插件
+
+### 创建插件
+
+举个例子，创建文件 `my-plugin.lua`.
+
+```lua
+return {
+  'repo/name', -- string or nil. It must be first
+	desc = 'Plugin Description', -- string or nil.
+	disable = false, -- boolean or nil. If true, this Plugin will not be loaded
+  tag = '', -- string or nil. tag of the repository to use
+  branch = '', -- string or nil. branch of the repository to use
+  commit = '', -- string or nil. commit of the repository to use
+  rtp = '', -- string or nil. Subdirectory that contains Vim plugin
+  on = {'command'} -- string[] or nil. On-demand loading: Commands or <Plug>-mappings
+  for = {'lua'} -- string[] or nil. On-demand loading: File types
+  frozon = false, -- boolean or nil. Do not update unless explicitly specified
+
+	config = function() -- Put plugin.setup() in here
+    require('name').setup {}
+  end,
+
+  -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
+  highlights = {
+    { 'TelescopeResultsBorder', { fg = 'white', bg = 'none' } },
+  }
+  -- or function
+  highlights = function()
+    return {
+      { 'TelescopeResultsBorder', { fg = 'white', bg = 'none' } },
+    },
+  end
+
+  -- Parameters refer to ":h nvim_set_keymap"
+  keymaps = {
+    { 'n', '<leader>k', ':echo hello<CR>' },
+  },
+  -- or function
+  keymaps = function()
+    return {
+      { 'n', '<leader>k', ':echo hello<CR>' },
+    },
+  end
+
+  -- Parameters refer to ":h nvim_create_user_command"
+  commands = {
+    { 'CleanPreviews', function require('goto-preview').close_all_win end, {} },
+  },
+  -- or function
+	commands = function()
+		return {
+			{ 'CleanPreviews', require('goto-preview').close_all_win, {} },
+		}
+	end,
+
+}
+```
+
+### 使用插件
+
+编辑你的 init.lua 文件
+
+```lua
+require('adoyle-neovim-config').setup {
+	config = {
+		plugins = {
+      require('my-plugin'),
+    },
+  },
+}
 ```
 
 ## 建议，Bug，做贡献

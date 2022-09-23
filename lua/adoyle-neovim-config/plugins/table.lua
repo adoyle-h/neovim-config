@@ -44,10 +44,10 @@ M.keymaps = {
 			vim.b.table_mode_mode = 'GFM'
 			vim.cmd.TableModeToggle()
 		end,
-		{ noremap = true, desc = 'Toggle TableMode' },
+		{ desc = 'Toggle TableMode' },
 	},
 
-	{ 'n', '<leader>Tc', changeTableMode, { noremap = true, desc = 'Change TableMode' } },
+	{ 'n', '<leader>Tc', changeTableMode, { desc = 'Change TableMode' } },
 }
 
 return M

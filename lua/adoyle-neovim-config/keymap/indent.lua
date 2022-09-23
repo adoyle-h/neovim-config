@@ -45,11 +45,7 @@ M.keymaps = {
 				vim.wo.fdl = l
 			end
 		end,
-		{
-			noremap = true,
-			silent = true,
-			desc = 'Similar to <Tab>, but effect all paragraphs in same fold level.',
-		},
+		{ silent = true, desc = 'Similar to <Tab>, but effect all paragraphs in same fold level.' },
 	},
 
 }

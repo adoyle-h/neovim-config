@@ -27,12 +27,14 @@ local Maximize = {
 
 local Resize = {
 	'simeji/winresizer',
-	disable = true,
+	disable = false,
 	desc = 'Resize window layout',
 	config = function()
-		vim.g.winresizer_vert_resize = 5
-		vim.g.winresizer_horiz_resize = 3
-		vim.g.winresizer_start_key = '<C-W><C-W>'
+		local c = config.window.resize
+		vim.g.winresizer_gui_enable = 1
+		vim.g.winresizer_vert_resize = c.vert
+		vim.g.winresizer_horiz_resize = c.horiz
+		vim.g.winresizer_start_key = c.trigger
 	end,
 }
 

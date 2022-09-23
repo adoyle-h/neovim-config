@@ -1,4 +1,10 @@
-local M = { 'majutsushi/tagbar', desc = 'Outline - tagbar', disable = false, requires = {} }
+local M = {
+	'majutsushi/tagbar',
+	desc = 'Outline - tagbar',
+	disable = false,
+	requires = {},
+	keymaps = { { 'n', '<leader>tb', ':TagbarToggle fj<CR>' } },
+}
 
 function M.config()
 	vim.g.tagbar_autofocus = 1
@@ -25,10 +31,6 @@ function M.config()
 		ctagsbin = 'gotags',
 		ctagsargs = '-sort -silent',
 	}
-
-	vim.cmd [[
-		noremap <leader>tb :TagbarToggle fj<CR>
-	]]
 end
 
 return M

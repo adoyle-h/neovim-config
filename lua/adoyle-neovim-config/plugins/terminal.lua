@@ -1,8 +1,22 @@
+local Term = {
+	'kassio/neoterm',
+	desc = 'provide an easier way to interact with neovim\'s terminal.',
+	on = {
+		-- LuaFormatter off
+		'T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus',
+		'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle',
+		-- LuaFormatter on
+	},
+	config = function()
+		vim.g.neoterm_default_mod = 'belowright' -- :h mods
+	end,
+}
+
 local M = {
 	nil,
 	desc = 'The settings of nvim embeded terminal. See :h terminal',
 	disable = false,
-	requires = {},
+	requires = { Term },
 }
 
 local util = require('adoyle-neovim-config.util')
@@ -11,7 +25,7 @@ local function trim(s)
 	return (string.gsub(s, '^%s*(.-)%s*$', '%1'))
 end
 
-local function send(v)
+local function send(isSelected)
 	local term_buf_id = -1
 
 	for _, buf_id in pairs(vim.fn.tabpagebuflist()) do
@@ -21,7 +35,7 @@ local function send(v)
 			term_buf_id = buf_id
 			local text = ''
 
-			if v then
+			if isSelected then
 				-- Get selected lines
 				text = util.getVisualSelection(true)
 			else
@@ -56,10 +70,10 @@ M.keymaps = {
 			local cmd = vim.fn.input { prompt = 'New Terminal: ', default = 'bash' }
 			vim.cmd.vsplit('term://' .. cmd)
 		end,
-		{ noremap = true, silent = true, desc = 'Create terminal window' },
+		{ silent = true, desc = 'Create terminal window' },
 	},
 
-	{ 'n', '<leader>ts', send, { noremap = true, silent = true, desc = 'Send text to terminal' } },
+	{ 'n', '<leader>ts', send, { silent = true, desc = 'Send text to terminal' } },
 
 	{
 		'x',
@@ -67,7 +81,7 @@ M.keymaps = {
 		function()
 			send(true)
 		end,
-		{ noremap = true, silent = true, desc = 'Send text to terminal' },
+		{ silent = true, desc = 'Send text to terminal' },
 	},
 
 }

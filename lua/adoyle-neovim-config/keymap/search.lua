@@ -46,18 +46,13 @@ M.keymaps = {
 		},
 	},
 
-	{
-		'n',
-		'<leader>C',
-		':let @/ = ""<CR>',
-		{ noremap = true, silent = true, desc = 'Clear highlighted search' },
-	},
+	{ 'n', '<leader>C', ':let @/ = ""<CR>', { silent = true, desc = 'Clear highlighted search' } },
 
 	{
 		'n',
 		'<leader>h',
 		':set hlsearch! hlsearch?<CR>',
-		{ noremap = true, silent = true, desc = 'Toggle highlighted search' },
+		{ silent = true, desc = 'Toggle highlighted search' },
 	},
 }
 

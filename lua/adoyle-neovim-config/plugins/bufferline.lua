@@ -8,14 +8,14 @@ local M = {
 local opts = { noremap = true, silent = true }
 
 M.keymaps = {
+	{ 'n', '[b', ':BufferLineCyclePrev<CR>', opts },
+	{ 'n', ']b', ':BufferLineCycleNext<CR>', opts },
 	{ 'n', '<C-T>j', ':BufferLineCyclePrev<CR>', opts },
 	{ 'n', '<C-T>k', ':BufferLineCycleNext<CR>', opts },
 	{ 'n', '<C-T>l', ':BufferLineMoveNext<CR>', opts },
 	{ 'n', '<C-T>h', ':BufferLineMovePrev<CR>', opts },
 	{ 'n', '<C-T>n', ':tabnew<CR>', opts },
 	{ 'n', '<C-T>x', ':tabclose<CR>', opts },
-	{ 'n', '[b', ':BufferLineCyclePrev<CR>', opts },
-	{ 'n', ']b', ':BufferLineCycleNext<CR>', opts },
 	{ 'n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', opts },
 	{ 'n', '<leader>2', '<Cmd>BufferLineGoToBuffer 2<CR>', opts },
 	{ 'n', '<leader>3', '<Cmd>BufferLineGoToBuffer 3<CR>', opts },

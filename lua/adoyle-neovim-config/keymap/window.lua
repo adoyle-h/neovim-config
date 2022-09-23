@@ -1,8 +1,8 @@
 local M = { nil, disable = false, desc = 'window keymaps' }
 
 M.keymaps = {
-	{ 'n', '<leader>w', ':w<CR>', { noremap = true, desc = 'save current buffer' } },
-	{ 'n', '<leader>e', ':e<CR>', { noremap = true, desc = 'refresh current window' } },
+	{ 'n', '<leader>w', ':w<CR>', { desc = 'save current buffer' } },
+	{ 'n', '<leader>e', ':e<CR>', { desc = 'refresh current window' } },
 	{ 'n', '<C-W>t', '<C-W>T', { noremap = true, desc = 'put current buffer to new tab' } },
 
 	{ 'n', '<C-W><', '<C-W>1<<C-W>', { remap = true, desc = 'adjust window border to left (1 space)' } },
@@ -31,12 +31,12 @@ M.keymaps = {
 	{ 'n', '<C-W><C-J>', '<C-W>J', { noremap = true, desc = 'move current buffer to bottom' } },
 	{ 'n', '<C-W><C-K>', '<C-W>K', { noremap = true, desc = 'move current buffer to top' } },
 
-	{ 'n', '<C-W>\\', ':new<CR>', { noremap = true, desc = 'create new buffer horizontally' } },
-	{ 'n', '<C-W>|', ':vnew<CR>', { noremap = true, desc = 'create new buffer vertically' } },
-	{ 'n', '<C-W>N', ':vnew<CR>', { noremap = true, desc = 'create new buffer vertically' } },
+	{ 'n', '<C-W>\\', ':new<CR>', { desc = 'create new buffer horizontally' } },
+	{ 'n', '<C-W>|', ':vnew<CR>', { desc = 'create new buffer vertically' } },
+	{ 'n', '<C-W>N', ':vnew<CR>', { desc = 'create new buffer vertically' } },
 
-	{ 'n', '<C-W>o', '<C-W>w<C-W>', { noremap = true, desc = '' } },
-	{ 'n', '<C-W>O', '<C-W>W<C-W>', { noremap = true, desc = '' } },
+	{ 'n', '<C-W>o', '<C-W>w<C-W>', { remap = true, desc = 'next buffer in window' } },
+	{ 'n', '<C-W>O', '<C-W>W<C-W>', { remap = true, desc = 'previous buffer in window' } },
 }
 
 return M

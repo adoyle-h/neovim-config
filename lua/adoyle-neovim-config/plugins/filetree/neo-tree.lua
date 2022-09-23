@@ -1,45 +1,14 @@
-local M = {
-	'nvim-neo-tree/neo-tree.nvim',
-	branch = 'v2.x',
-	disable = false,
-	on = {},
-	requires = {
-		{
-			-- only needed if you want to use the commands with "_with_window_picker" suffix
-			's1n7ax/nvim-window-picker',
-			tag = 'v1.*',
-			config = function()
-				require'window-picker'.setup({
-					autoselect_one = true,
-					include_current = false,
-					filter_rules = {
-						-- filter using buffer options
-						bo = {
-							-- if the file type is one of following, the window will be ignored
-							filetype = { 'neo-tree', 'neo-tree-popup', 'notify', 'quickfix' },
+local M = { 'nvim-neo-tree/neo-tree.nvim', branch = 'v2.x', disable = false }
 
-							-- if the buffer type is one of following, the window will be ignored
-							buftype = { 'terminal' },
-						},
-					},
-					other_win_hl_color = '#14482F',
-				})
-			end,
-		},
-	},
+M.keymaps = {
+	{ 'n', '<space>b', ':Neotree toggle show buffers<CR>' },
+	{ 'n', '<space>g', ':Neotree toggle show git_status<CR>' },
+	{ 'n', '<space>m', ':Neotree toggle<CR>' },
+	{ 'n', '<leader>nm', ':Neotree toggle<CR>', { silent = true } },
+	{ 'n', '<leader>nb', ':Neotree toggle show buffers<CR>', { silent = true } },
+	{ 'n', '<leader>ng', ':Neotree toggle show git_status<CR>', { silent = true } },
+	{ 'n', '<leader>nf', ':Neotree reveal<CR>', { silent = true } },
 }
-
-local function configKeymaps()
-	vim.cmd [[
-		noremap <space>m :Neotree toggle<CR>
-		noremap <silent> <leader>nm :Neotree toggle<CR>
-		noremap <space>b :Neotree toggle show buffers<CR>
-		noremap <silent> <leader>nb :Neotree toggle show buffers<CR>
-		noremap <space>g :Neotree toggle show git_status<CR>
-		noremap <silent> <leader>ng :Neotree toggle show git_status<CR>
-		noremap <silent> <leader>nf :Neotree reveal<CR>
-	]]
-end
 
 function M.config()
 	local config = require('adoyle-neovim-config.config').config
@@ -114,6 +83,8 @@ function M.config()
 				['?'] = 'show_help',
 				['q'] = 'close_window',
 				['<C-r>'] = 'refresh',
+				['R'] = 'refresh',
+				['r'] = 'rename',
 				['<2-LeftMouse>'] = 'open',
 				['<cr>'] = 'open',
 				['o'] = 'open',
@@ -131,21 +102,17 @@ function M.config()
 				['C'] = 'close_node',
 				['s'] = 'open_split',
 				['v'] = 'open_vsplit',
-				-- ['S'] = 'split_with_window_picker',
-				-- ['s'] = 'vsplit_with_window_picker',
 				['t'] = 'open_tabnew',
-				-- ['w'] = 'open_with_window_picker',
 				['w'] = false,
 				['<space>'] = false,
 				['<bs>'] = false,
-				-- ['P'] = 'toggle_preview', -- enter preview mode, which shows the current node without focusing
 				['z'] = 'close_all_nodes',
 				['Z'] = 'expand_all_nodes',
 				['d'] = 'delete',
-				['r'] = 'rename',
 				['y'] = 'copy_to_clipboard',
 				['x'] = 'cut_to_clipboard',
 				['p'] = 'paste_from_clipboard',
+				['P'] = 'toggle_preview',
 				['a'] = {
 					'add',
 					-- some commands may take optional config options, see `:h neo-tree-mappings` for details
@@ -251,8 +218,6 @@ function M.config()
 			},
 		},
 	}
-
-	configKeymaps()
 end
 
 return M

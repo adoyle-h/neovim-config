@@ -25,6 +25,9 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
 - [LSP](#lsp)
 - [Code Format](#code-format)
 - [Startup Time](#startup-time)
+- [Plugin](#plugin)
+    - [Create Plugin](#create-plugin)
+    - [Using Plugin](#using-plugin)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
 
@@ -35,7 +38,7 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
 - All in Lua.
 - Use many Neovim features: Native LSP, Float Window, Winbar.
 - Plugin manage framework based on [vim-plug][] and Lua. Support on-demand loading plugin.
-- Integrated total 106 powerful Vim/Nvim plugins。
+- Integrated total 109 powerful Vim/Nvim plugins。
 - Awesome UI and color schema. Dark Mode. Support True-Color, Scrollbar, Dashboard.
 - Configurable. See [./lua/config.lua](./lua/config.lua)
 - Configurable proxy for fast git download in China Mainland
@@ -246,6 +249,79 @@ syntax.vim             4.67    1.37 █
 done waiting for UI    4.39    1.29 ▉
 loading after plugin   4.38    1.29 ▉
 reading ShaDa          3.68    1.08 ▊
+```
+
+## Plugin
+
+### Create Plugin
+
+For example, create a file `my-plugin.lua`.
+
+```lua
+return {
+  'repo/name', -- string or nil. It must be first
+	desc = 'Plugin Description', -- string or nil.
+	disable = false, -- boolean or nil. If true, this Plugin will not be loaded
+  tag = '', -- string or nil. tag of the repository to use
+  branch = '', -- string or nil. branch of the repository to use
+  commit = '', -- string or nil. commit of the repository to use
+  rtp = '', -- string or nil. Subdirectory that contains Vim plugin
+  on = {'command'} -- string[] or nil. On-demand loading: Commands or <Plug>-mappings
+  for = {'lua'} -- string[] or nil. On-demand loading: File types
+  frozon = false, -- boolean or nil. Do not update unless explicitly specified
+
+	config = function() -- Put plugin.setup() in here
+    require('name').setup {}
+  end,
+
+  -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
+  highlights = {
+    { 'TelescopeResultsBorder', { fg = 'white', bg = 'none' } },
+  }
+  -- or function
+  highlights = function()
+    return {
+      { 'TelescopeResultsBorder', { fg = 'white', bg = 'none' } },
+    },
+  end
+
+  -- Parameters refer to ":h nvim_set_keymap"
+  keymaps = {
+    { 'n', '<leader>k', ':echo hello<CR>' },
+  },
+  -- or function
+  keymaps = function()
+    return {
+      { 'n', '<leader>k', ':echo hello<CR>' },
+    },
+  end
+
+  -- Parameters refer to ":h nvim_create_user_command"
+  commands = {
+    { 'CleanPreviews', function require('goto-preview').close_all_win end, {} },
+  },
+  -- or function
+	commands = function()
+		return {
+			{ 'CleanPreviews', require('goto-preview').close_all_win, {} },
+		}
+	end,
+
+}
+```
+
+### Using Plugin
+
+Edit your `init.lua` file.
+
+```lua
+require('adoyle-neovim-config').setup {
+	config = {
+		plugins = {
+      require('my-plugin'),
+    },
+  },
+}
 ```
 
 ## Suggestion, Bug Reporting, Contributing

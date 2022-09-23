@@ -43,13 +43,11 @@ local M = {
 	},
 }
 
-local function configKeymaps()
-	vim.cmd [[
-		noremap <silent> <leader>nm :NERDTreeMirrorToggle<CR>
-		noremap <silent> <leader>nf :NERDTreeTabsFind<CR>
-		noremap <space>m :NERDTreeMirrorToggle<CR>
-	]]
-end
+M.keymaps = {
+	{ 'n', '<leader>nm', ':NERDTreeMirrorToggle<CR>', { silent = true } },
+	{ 'n', '<leader>nf', ':NERDTreeTabsFind<CR>', { silent = true } },
+	{ 'n', '<space>m', ':NERDTreeMirrorToggle<CR>' },
+}
 
 function M.config()
 	vim.g.NERDTreeShowBookmarks = 1
@@ -111,7 +109,6 @@ function M.config()
 		Unknown = '',
 	}
 
-	configKeymaps()
 end
 
 return M

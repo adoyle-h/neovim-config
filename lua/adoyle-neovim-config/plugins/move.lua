@@ -72,25 +72,23 @@ local windowSelector = {
 	end,
 
 	keymaps = function()
-		return { { 'n', '-', require('nvim-window').pick, { noremap = true, silent = true } } }
+		return { { 'n', '-', require('nvim-window').pick, { silent = true } } }
 	end,
 }
 
 local camelCaseMotion = {
 	'bkad/CamelCaseMotion',
 	disable = false,
-	config = function()
-		vim.cmd [[
-			map <silent> w <Plug>CamelCaseMotion_w
-			map <silent> b <Plug>CamelCaseMotion_b
-			map <silent> e <Plug>CamelCaseMotion_e
-			map <silent> ge <Plug>CamelCaseMotion_ge
-			noremap W w
-			noremap B b
-			noremap E e
-			noremap gE ge
-		]]
-	end,
+	keymaps = {
+		{ '', 'w', '<Plug>CamelCaseMotion_w', { silent = true } },
+		{ '', 'b', '<Plug>CamelCaseMotion_b', { silent = true } },
+		{ '', 'e', '<Plug>CamelCaseMotion_e', { silent = true } },
+		{ '', 'ge', '<Plug>CamelCaseMotion_ge', { silent = true } },
+		{ 'n', 'W', 'w', { noremap = true } },
+		{ 'n', 'B', 'b', { noremap = true } },
+		{ 'n', 'E', 'e', { noremap = true } },
+		{ 'n', 'gE', 'ge', { noremap = true } },
+	},
 }
 
 local easyMotion = {
@@ -98,28 +96,28 @@ local easyMotion = {
 	disable = false,
 	config = function()
 		vim.g.EasyMotion_smartcase = 1
-		vim.cmd [[
-			map f <Plug>(easymotion-prefix)
-			map f. <Plug>(easymotion-repeat)
-		]]
 	end,
+	keymaps = {
+		{ '', 'f', '<Plug>(easymotion-prefix)', { silent = true } },
+		{ '', 'f.', '<Plug>(easymotion-repeat)', { silent = true } },
+	},
 }
 
 local fastMove = {
 	'rainbowhxch/accelerated-jk.nvim',
 	disable = false,
 	desc = 'accelerates j/k movement steps while j or k key is repeating',
-
 	config = function()
 		require('accelerated-jk').setup(config.move.accelerated)
-		vim.api.nvim_set_keymap('n', 'j', '<Plug>(accelerated_jk_gj)', {})
-		vim.api.nvim_set_keymap('n', 'k', '<Plug>(accelerated_jk_gk)', {})
 	end,
+	keymaps = {
+		{ 'n', 'j', '<Plug>(accelerated_jk_gj)', { desc = 'move cursor down' } },
+		{ 'n', 'k', '<Plug>(accelerated_jk_gk)', { desc = 'move cursor up' } },
+	},
 }
 
 M.requires = {
 	{ 'matze/vim-move', desc = 'Use <A-k> <A-j> to move lines under cursor' },
-	{ 'adoyle-h/vim-emacscommandline', desc = 'Emacs Shortcuts' },
 	easyMotion,
 	windowSelector,
 	chooseWin,

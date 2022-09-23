@@ -3,7 +3,7 @@ local M = {
 	desc = '显示修改历史树',
 	on = 'UndotreeToggle',
 	disable = false,
-	keymaps = { { 'n', '<space>u', ':MundoToggle<CR>', { noremap = true } } },
+	keymaps = { { 'n', '<space>u', ':MundoToggle<CR>' } },
 }
 
 function M.config()

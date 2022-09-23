@@ -6,11 +6,11 @@ return {
 		keys = { brightness_up = '<C-Up>', brightness_down = '<C-Down>', toggle = '<Leader>sd' },
 	},
 
-	resize = {},
+	resize = { vert = 5, horiz = 3, trigger = '<C-W><C-W>' },
 
 	maximize = { -- :h windows.nvim
 		autowidth = { --
-			enable = true,
+			enable = false,
 
 			-- 0 < n < 1  The value between 0 to 1 will be considered as the fraction of the totall Vim window width.
 
@@ -29,7 +29,7 @@ return {
 
 		ignore = { --
 			buftype = { 'quickfix' },
-			filetype = { 'neo-tree', 'aerial', 'undotree', 'NvimTree' },
+			filetype = { 'neo-tree', 'aerial', 'undotree', 'NvimTree' }, -- @TODO aerial not ignore
 		},
 
 		animation = { --

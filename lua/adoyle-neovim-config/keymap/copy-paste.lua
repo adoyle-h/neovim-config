@@ -15,12 +15,7 @@ M.keymaps = {
 
 	{ { 'n', 'x' }, '<leader>P', '"*p', { noremap = true, desc = 'paste from system clipboard' } },
 
-	{
-		{ 'n', 'x' },
-		'<M-p>',
-		':set paste!<CR>',
-		{ noremap = true, silent = false, desc = 'toggle paste mode' },
-	},
+	{ { 'n', 'x' }, '<M-p>', ':set paste!<CR>', { silent = false, desc = 'toggle paste mode' } },
 
 }
 

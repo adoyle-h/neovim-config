@@ -23,19 +23,9 @@ M.keymaps = {
 		{ noremap = true, silent = true, desc = 'insert a space at left position of cursor' },
 	},
 
-	{
-		'n',
-		'<C-k>',
-		':put! =\'\'<CR>j',
-		{ noremap = true, silent = true, desc = 'add a blank line before current line' },
-	},
+	{ 'n', '<C-k>', ':put! =\'\'<CR>j', { silent = true, desc = 'add a blank before current line' } },
 
-	{
-		'n',
-		'<C-j>',
-		':put =\'\'<CR>k',
-		{ noremap = true, silent = true, desc = 'add a blank line after current line' },
-	},
+	{ 'n', '<C-j>', ':put =\'\'<CR>k', { silent = true, desc = 'add a blank after current line' } },
 
 	{
 		'n',

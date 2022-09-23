@@ -2,7 +2,7 @@ local M = {
 	'f-person/git-blame.nvim',
 	desc = 'Git Blame',
 	disable = true,
-	keymaps = { { 'n', '<leader>gb', ':GitBlameToggle<CR>', { silent = true, noremap = true } } },
+	keymaps = { { 'n', '<leader>gb', ':GitBlameToggle<CR>', { silent = true } } },
 }
 
 function M.config()

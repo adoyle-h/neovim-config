@@ -10,6 +10,8 @@ M.requires = {
 	require('adoyle-neovim-config.keymap.copy-paste'),
 	require('adoyle-neovim-config.keymap.space'),
 	require('adoyle-neovim-config.keymap.indent'),
+	require('adoyle-neovim-config.keymap.toggle'),
+	require('adoyle-neovim-config.keymap.jump'),
 }
 
 return M

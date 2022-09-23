@@ -87,27 +87,23 @@ Load 'plugins.writing'
 Load 'plugins.abbreviation'
 Load 'plugins.utils'
 Load 'plugins.terminal'
-Load 'plugins.dashboard' -- put dashboard after filetree
+Load 'plugins.dashboard' -- Put this plugin after filetree plugin
 Load 'plugins.winbar'
 
 Plug 'chrisbra/vim-diff-enhanced'
-Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle' } -- UNIX 命令封装。 :h eunuch
-Plug 'chrisbra/Recover.vim' -- 崩溃后打开 swap 文件 diff
-Plug { 'tyru/capture.vim', on = 'Capture' } -- :Capture <命令> 将结果输出到新的 buffer 中
+Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle' } -- UNIX commands. See :h eunuch
+
+-- Show difference between the hidden swap file and the regular saved file. Very useful.
+Plug 'chrisbra/Recover.vim'
+
+-- ":Capture <Ex-Command>" to pipe Ex command output to new buffer
+-- ":Capture mes" print messages
+-- ":Capture echo globpath(&rtp, 'doc/*.txt')"
+Plug { 'tyru/capture.vim', on = 'Capture' }
 
 -- This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim.
 -- https://github.com/neovim/neovim/issues/1716
 Plug 'lambdalisue/suda.vim'
-Plug {
-	'kassio/neoterm',
-	desc = 'vim 内启动 shell',
-	on = {
-		-- LuaFormatter off
-		'T', 'Tnew', 'Tmap', 'Tpos', 'TTestSetTerm', 'TTestLib', 'TTestClearStatus',
-		'TREPLSetTerm', 'TREPLSendFile', 'TREPLSendLine', 'TREPLSendSelection', 'Topen', 'Ttoggle',
-		-- LuaFormatter on
-	},
-}
 Plug 'tpope/vim-repeat' -- enables repeating other supported plugins with the . command
 Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown 幻灯片' }
 Plug 'mechatroner/rainbow_csv' -- for .csv file

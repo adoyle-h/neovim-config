@@ -112,6 +112,10 @@ local function paste()
 	end
 end
 
+local function bufferNumber()
+	return 'buf:' .. vim.api.nvim_get_current_buf()
+end
+
 local function location()
 	local row, col = table.unpack(vim.api.nvim_win_get_cursor(0))
 	local total = vim.api.nvim_buf_line_count(0)
@@ -124,7 +128,7 @@ local function spaces()
 end
 
 local function my_sections()
-	return printf('%s %s', location(), spaces())
+	return printf('%s %s %s', location(), spaces(), bufferNumber())
 end
 
 function M.config()

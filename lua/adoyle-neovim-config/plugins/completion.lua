@@ -240,8 +240,8 @@ local function configMapping(cmp)
 
 	return cmp.mapping.preset.insert {
 		['<CR>'] = confirm,
-		['<Down>'] = selectNextOrHistoryNext,
-		['<Up>'] = selectPrevOrHistoryPrev,
+		['<Down>'] = selectNext,
+		['<Up>'] = selectPrev,
 		['<C-n>'] = selectNextOrHistoryNext,
 		['<C-p>'] = selectPrevOrHistoryPrev,
 

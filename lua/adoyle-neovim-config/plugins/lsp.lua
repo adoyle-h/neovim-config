@@ -98,33 +98,10 @@ local M_GotoPreview = {
 	keymaps = function()
 		local preview = require('goto-preview')
 		return {
-			{
-				'n',
-				'gd',
-				preview.goto_preview_definition,
-				{ noremap = true, desc = 'goto_preview_definition' },
-			},
-
-			{
-				'n',
-				'gt',
-				preview.goto_preview_type_definition,
-				{ noremap = true, desc = 'goto_preview_type_definition' },
-			},
-
-			{
-				'n',
-				'gi',
-				preview.goto_preview_implementation,
-				{ noremap = true, desc = 'goto_preview_implementation' },
-			},
-
-			{
-				'n',
-				'gr',
-				preview.goto_preview_references,
-				{ noremap = true, desc = 'goto_preview_references' },
-			},
+			{ 'n', 'gd', preview.goto_preview_definition, { desc = 'goto_preview_definition' } },
+			{ 'n', 'gt', preview.goto_preview_type_definition, { desc = 'goto_preview_type_definition' } },
+			{ 'n', 'gi', preview.goto_preview_implementation, { desc = 'goto_preview_implementation' } },
+			{ 'n', 'gr', preview.goto_preview_references, { desc = 'goto_preview_references' } },
 		}
 	end,
 }
@@ -362,7 +339,7 @@ end
 M.keymaps = {
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 
-	{ 'n', '<M-m>', ':Mason<CR>', { noremap = true, silent = true } },
+	{ 'n', '<M-m>', ':Mason<CR>', { silent = true } },
 
 	{
 		'n',
@@ -370,7 +347,7 @@ M.keymaps = {
 		function()
 			vim.diagnostic.goto_prev()
 		end,
-		{ noremap = true, silent = true, desc = ':h vim.diagnostic.goto_prev' },
+		{ silent = true, desc = ':h vim.diagnostic.goto_prev' },
 	},
 
 	{
@@ -379,7 +356,7 @@ M.keymaps = {
 		function()
 			vim.diagnostic.goto_next()
 		end,
-		{ noremap = true, silent = true, desc = ':h vim.diagnostic.goto_next' },
+		{ silent = true, desc = ':h vim.diagnostic.goto_next' },
 	},
 
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -389,7 +366,7 @@ M.keymaps = {
 		function()
 			vim.lsp.buf.declaration()
 		end,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.declaration' },
+		{ silent = true, desc = ':h vim.lsp.buf.declaration' },
 	},
 
 	{
@@ -398,7 +375,7 @@ M.keymaps = {
 		function()
 			vim.lsp.buf.rename()
 		end,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.rename' },
+		{ silent = true, desc = ':h vim.lsp.buf.rename' },
 	},
 
 	{
@@ -407,7 +384,7 @@ M.keymaps = {
 		function()
 			vim.lsp.buf.code_action()
 		end,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.code_action' },
+		{ silent = true, desc = ':h vim.lsp.buf.code_action' },
 	},
 
 	{
@@ -416,7 +393,7 @@ M.keymaps = {
 		function()
 			vim.lsp.buf.hover()
 		end,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.hover' },
+		{ silent = true, desc = ':h vim.lsp.buf.hover' },
 	},
 
 	{
@@ -425,10 +402,10 @@ M.keymaps = {
 		function()
 			vim.lsp.buf.signature_help()
 		end,
-		{ noremap = true, silent = true, desc = ':h vim.lsp.buf.signature_help' },
+		{ silent = true, desc = ':h vim.lsp.buf.signature_help' },
 	},
 
-	{ 'n', 'gF', vim.lsp.buf.format, { noremap = true, silent = true, desc = ':h vim.lsp.buf.format' } },
+	{ 'n', 'gF', vim.lsp.buf.format, { silent = true, desc = ':h vim.lsp.buf.format' } },
 }
 
 return M

@@ -1,12 +1,10 @@
 local M = { 'kyazdani42/nvim-tree.lua', disable = false, on = {}, requires = {} }
 
-local function configKeymaps()
-	vim.cmd [[
-		noremap <silent> <leader>nm :NvimTreeToggle<CR>
-		noremap <silent> <leader>nf :NvimTreeFindFile<CR>
-		noremap <space>m :NvimTreeToggle<CR>
-	]]
-end
+M.keymaps = {
+	{ 'n', '<leader>nm', ':NvimTreeToggle<CR>', { silent = true } },
+	{ 'n', '<leader>nf', ':NvimTreeFindFile<CR>', { silent = true } },
+	{ 'n', '<space>m', ':NvimTreeToggle<CR>' },
+}
 
 -- Temp Fix: too many notifications.
 -- https://github.com/kyazdani42/nvim-tree.lua/issues/1502
@@ -93,8 +91,6 @@ function M.config()
 	})
 
 	vim.cmd.hi { 'NvimTreeNormal', 'guibg=#18191' }
-
-	configKeymaps()
 end
 
 return M
