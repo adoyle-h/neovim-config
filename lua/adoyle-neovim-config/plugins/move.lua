@@ -90,18 +90,6 @@ local camelCaseMotion = {
 	},
 }
 
-local easyMotion = {
-	'easymotion/vim-easymotion',
-	disable = false,
-	config = function()
-		vim.g.EasyMotion_smartcase = 1
-	end,
-	keymaps = {
-		{ '', 'f', '<Plug>(easymotion-prefix)', { silent = true } },
-		{ '', 'f.', '<Plug>(easymotion-repeat)', { silent = true } },
-	},
-}
-
 local fastMove = {
 	'rainbowhxch/accelerated-jk.nvim',
 	disable = false,
@@ -115,9 +103,42 @@ local fastMove = {
 	},
 }
 
+local hop = {
+	'phaazon/hop.nvim',
+	branch = 'v2', -- optional but strongly recommended
+
+	config = function()
+		require('hop').setup(config.move.hop)
+	end,
+
+	keymaps = function()
+		-- local HintDirection = require('hop.hint').HintDirection
+		local HintPosition = require('hop.hint').HintPosition
+		local hop = require('hop')
+
+		return {
+			{ '', 'fw', hop.hint_words, {} },
+
+			{
+				'',
+				'fe',
+				function()
+					hop.hint_words { hint_position = HintPosition.END }
+				end,
+				{},
+			},
+
+			{ '', 'fc', hop.hint_char1, {} },
+			{ '', 'f1', hop.hint_char1, {} },
+			{ '', 'f2', hop.hint_char2, {} },
+			{ '', 'fl', hop.hint_lines_skip_whitespace, {} },
+		}
+	end,
+}
+
 M.requires = {
-	{ 'matze/vim-move', desc = 'Use <A-k> <A-j> to move lines under cursor' },
-	easyMotion,
+	{ 'matze/vim-move', desc = 'Use <A-h>/<A-j>/<A-k>/<A-l> to move char/line/block under cursor' },
+	hop,
 	windowSelector,
 	chooseWin,
 	camelCaseMotion,

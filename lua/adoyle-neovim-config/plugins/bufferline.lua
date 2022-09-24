@@ -54,6 +54,7 @@ function M.config()
 				icon = '▎', -- this should be omitted if indicator style is not 'icon'
 				style = 'icon', -- 'icon'| 'underline' | 'none',
 			},
+
 			show_buffer_icons = false, -- disable filetype icons for buffers
 			show_buffer_close_icons = true,
 			show_close_icon = false,
@@ -64,8 +65,8 @@ function M.config()
 			right_trunc_marker = '',
 			color_icons = true,
 			separator_style = { '', '' }, -- 'slant' | 'thick' | 'thin' | { 'any', 'any' },
-
-			diagnostics = false, -- false | 'nvim_lsp' | 'coc',
+			max_name_length = 30,
+			truncate_names = true,
 
 			offsets = {
 				{
@@ -93,6 +94,41 @@ function M.config()
 				},
 
 			},
+
+			diagnostics = false, -- false | 'nvim_lsp' | 'coc',
+
+			-- custom_areas = { -- BUG: highlights are out-of-order
+			--   right = function()
+			--     local result = {}
+			--     local seve = vim.diagnostic.severity
+			--     local error = #vim.diagnostic.get(0, { severity = seve.ERROR })
+			--     local warn = #vim.diagnostic.get(0, { severity = seve.WARN })
+			--     local info = #vim.diagnostic.get(0, { severity = seve.INFO })
+			--     local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
+
+			--     local config = require('adoyle-neovim-config.config').config
+			--     local color = config.color
+			--     local symbolMap = config.symbolMap
+			--     local printf = vim.fn.printf
+
+			--     if error ~= 0 then
+			--       table.insert(result, { text = printf('%s %s ', symbolMap.ERROR, error), fg = color.red })
+			--     end
+
+			--     if warn ~= 0 then
+			--       table.insert(result, { text = printf('%s %s ', symbolMap.WARN, warn), fg = color.yellow })
+			--     end
+
+			--     if hint ~= 0 then
+			--       table.insert(result, { text = printf('%s %s ', symbolMap.HINT, hint), fg = color.cyan })
+			--     end
+
+			--     if info ~= 0 then
+			--       table.insert(result, { text = printf('%s %s ', symbolMap.INFO, info), fg = color.blue })
+			--     end
+			--     return result
+			--   end,
+			-- },
 
 		},
 

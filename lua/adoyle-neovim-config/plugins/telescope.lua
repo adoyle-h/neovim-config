@@ -139,12 +139,23 @@ function M.config()
 
 		},
 
-		extensions = { ['ui-select'] = { layout_config = { width = 0.4, height = 16 } } },
+		extensions = {
+			['ui-select'] = { layout_config = { width = 0.4, height = 16 } },
+
+			aerial = {
+				-- Display symbols as <root>.<parent>.<symbol>
+				show_nesting = true,
+			},
+		},
 	}
 
 	telescope.load_extension('ui-select')
-	telescope.load_extension('notify')
 
+	local has_notify = pcall(require, 'notify')
+	if has_notify then telescope.load_extension('notify') end
+
+	local has_aerial = pcall(require, 'aerial')
+	if has_aerial then telescope.load_extension('aerial') end
 end
 
 M.keymaps = function()

@@ -235,21 +235,6 @@ local M = {
 	},
 }
 
-local function configUI()
-	local symbolMap = config.symbolMap
-	local signs = {
-		Error = symbolMap.ERROR,
-		Warn = symbolMap.WARN,
-		Hint = symbolMap.HINT,
-		Info = symbolMap.INFO,
-	}
-
-	for type, icon in pairs(signs) do
-		local hl = 'DiagnosticSign' .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-	end
-end
-
 local function configDiagnostic()
 	vim.diagnostic.config {
 		virtual_text = false,
@@ -283,7 +268,6 @@ end
 
 function M.config()
 	configDiagnostic()
-	configUI()
 
 	local lspFormat = require('lsp-format')
 	lspFormat.setup(config.lsp.format)
@@ -334,6 +318,25 @@ function M.config()
 	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help,
 		{ border = border })
 
+end
+
+M.signs = function()
+	local symbolMap = config.symbolMap
+	local map = {
+		Error = symbolMap.ERROR,
+		Warn = symbolMap.WARN,
+		Hint = symbolMap.HINT,
+		Info = symbolMap.INFO,
+	}
+
+	local signs = {}
+
+	for type, icon in pairs(map) do
+		local hl = 'DiagnosticSign' .. type
+		table.insert(signs, { hl, { text = icon, texthl = hl, numhl = hl } })
+	end
+
+	return signs
 end
 
 M.keymaps = {

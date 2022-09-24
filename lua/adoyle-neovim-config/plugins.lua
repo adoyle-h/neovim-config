@@ -65,6 +65,7 @@ Load 'plugins.keymap'
 Load 'plugins.filetype'
 Load 'plugins.treesitter'
 Load 'plugins.lsp'
+Load 'plugins.dap'
 Load 'plugins.completion'
 Load 'plugins.general'
 
@@ -89,12 +90,11 @@ Load 'plugins.trailing'
 Load 'plugins.undotree'
 Load 'plugins.window'
 Load 'plugins.funny'
-Load 'plugins.cheat'
-Load 'plugins.writing'
 Load 'plugins.abbreviation'
 Load 'plugins.terminal'
 Load 'plugins.dashboard' -- Put this plugin after filetree plugin
 Load 'plugins.winbar'
+Load 'plugins.zen'
 
 Plug 'chrisbra/vim-diff-enhanced'
 Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h eunuch' }

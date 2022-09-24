@@ -1,9 +1,8 @@
-local config = require('adoyle-neovim-config.config').config
-
 local M = { 'olimorris/onedarkpro.nvim', disable = false }
 
 function M.config()
 	local o = require('onedarkpro')
+	local config = require('adoyle-neovim-config.config').config
 	local color = config.color;
 
 	o.setup({
@@ -43,10 +42,11 @@ function M.config()
 		ft_highlights = {}, -- Override default highlight groups for specific filetypes
 
 		plugins = { -- Override which plugins highlight groups are loaded
+			-- All plugins list in https://github.com/olimorris/onedarkpro.nvim/tree/main/lua/onedarkpro/plugins
 			native_lsp = true,
 			treesitter = false,
 			telescope = true,
-			-- All plugins list in https://github.com/olimorris/onedarkpro.nvim/tree/main/lua/onedarkpro/plugins
+			hop = false,
 		},
 
 		styles = {

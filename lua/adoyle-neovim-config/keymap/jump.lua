@@ -1,6 +1,6 @@
 local M = { nil, disable = false, desc = 'Jump Keymaps' }
 
-M.Keymaps = {
+M.keymaps = {
 	{
 		'n',
 		'g]',

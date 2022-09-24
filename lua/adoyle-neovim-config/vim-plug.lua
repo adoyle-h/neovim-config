@@ -7,6 +7,7 @@ local loadPlug = vim.fn['plug#']
 local set_keymap = vim.keymap.set
 local set_hl = vim.api.nvim_set_hl
 local set_cmd = vim.api.nvim_create_user_command
+local sign_define = vim.fn.sign_define
 
 local plugOptsKeys = { cmd = 'on', run = 'do' }
 
@@ -120,6 +121,31 @@ function P.start()
 	vim.call('plug#begin', P.pluginDir)
 end
 
+local function propSet(list, func)
+	if list then
+		if type(list) == 'function' then list = list() end
+
+		for _, args in pairs(list) do --
+			func(table.unpack(args))
+		end
+	end
+end
+
+local function defaultRedef(args)
+	return args
+end
+
+local function propSet2(list, func, redef)
+	redef = redef or defaultRedef
+	if list then
+		if type(list) == 'function' then list = list() end
+
+		for _, args in pairs(list) do --
+			func(table.unpack(redef(args)))
+		end
+	end
+end
+
 function P.fin()
 	vim.call('plug#end')
 
@@ -145,9 +171,7 @@ function P.fin()
 		else
 			if type(M.config) == 'function' then M.config() end
 
-			local list
-
-			list = M.highlights
+			local list = M.highlights
 			if list then
 				for _, hl in pairs(list) do
 					if type(hl) == 'function' then hl = hl(color) end
@@ -155,24 +179,9 @@ function P.fin()
 				end
 			end
 
-			list = M.keymaps
-			if list then
-				if type(list) == 'function' then list = list() end
-
-				for _, args in pairs(list) do --
-					-- print(args[1], args[2])
-					set_keymap(table.unpack(args))
-				end
-			end
-
-			list = M.commands
-			if list then
-				if type(list) == 'function' then list = list() end
-
-				for _, args in pairs(list) do --
-					set_cmd(table.unpack(args))
-				end
-			end
+			propSet(M.keymaps, set_keymap)
+			propSet(M.commands, set_cmd)
+			propSet(M.signs, sign_define)
 		end
 	end
 

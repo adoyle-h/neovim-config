@@ -1,16 +1,7 @@
 local M = { nil, disable = false, desc = 'General Keymaps' }
 
 M.keymaps = {
-	{
-		'n',
-		'<F1>',
-		'<Esc>',
-		{
-			noremap = true,
-			silent = true,
-			desc = 'Prevent <F1> key from opening system help window. You can use ":h" to open vim help window',
-		},
-	},
+	{ 'n', '<F1>', ':h<CR>', { noremap = true, silent = true, desc = 'Open vim help document' } },
 
 	{ 'n', 'Q', '<NOP>', { noremap = true, silent = true, desc = 'disable Ex mode' } },
 
