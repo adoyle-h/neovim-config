@@ -117,7 +117,7 @@ local hop = {
 		local hop = require('hop')
 
 		return {
-			{ '', 'fw', hop.hint_words, {} },
+			{ '', 'fw', hop.hint_words, { desc = 'cursor jumps to the start of word' } },
 
 			{
 				'',
@@ -125,15 +125,17 @@ local hop = {
 				function()
 					hop.hint_words { hint_position = HintPosition.END }
 				end,
-				{},
+				{ desc = 'cursor jumps to the end of word' },
 			},
 
-			{ '', 'fc', hop.hint_char1, {} },
-			{ '', 'f1', hop.hint_char1, {} },
-			{ '', 'f2', hop.hint_char2, {} },
-			{ '', 'fl', hop.hint_lines_skip_whitespace, {} },
+			{ '', 'fc', hop.hint_char1, { desc = 'cursor jumps to char which user type' } },
+			{ '', 'f1', hop.hint_char1, { desc = 'cursor jumps to char which user type' } },
+			{ '', 'f2', hop.hint_char2, { desc = 'cursor jumps to chars prefixed which user type' } },
+			{ '', 'fl', hop.hint_lines_skip_whitespace, { desc = 'cursor jumps to line' } },
 		}
 	end,
+
+	highlights = { { 'HopNextKey', { fg = config.color.green, bold = true } } },
 }
 
 M.requires = {

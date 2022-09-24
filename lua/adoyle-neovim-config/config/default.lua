@@ -1,6 +1,7 @@
 -- User should not change this file. Edit require('adoyle-neovim-config').setup({config}) in your init.lua.
 return function(color)
 	local symbol = require('adoyle-neovim-config.config.symbol')
+	local ignore = require('adoyle-neovim-config.config.ignore')
 
 	return {
 		color = color,
@@ -148,7 +149,7 @@ return function(color)
 		},
 
 		filetree = {
-			hideByName = { 'node_modules', '.git' },
+			hideByName = ignore.names,
 
 			alwaysShow = { -- remains visible even if other settings would normally hide it
 				-- '.gitignored',
@@ -159,6 +160,17 @@ return function(color)
 				'thumbs.db',
 			},
 		},
+
+		search = {
+			ctrlsf = {
+				ignoreDir = ignore.names, --
+				context = '-C 3',
+				autoClose = 0,
+				followSymlinks = 0,
+			},
+		},
+
+		telescope = require('adoyle-neovim-config.config.telescope'),
 
 		move = require('adoyle-neovim-config.config.move'),
 

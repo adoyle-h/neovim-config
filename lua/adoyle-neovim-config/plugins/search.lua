@@ -1,6 +1,7 @@
 local M = { nil, disable = false }
 
-local color = require('adoyle-neovim-config.config').config.color
+local config = require('adoyle-neovim-config.config').config
+local color = config.color
 local mainColor = color.orange
 local bgColor = color.grey2
 
@@ -35,10 +36,11 @@ M.requires = {
 		},
 
 		config = function()
-			vim.g.ctrlsf_auto_close = 0
-			vim.g.ctrlsf_ignore_dir = { 'bower_components', 'node_modules', 'vendor' }
-			vim.g.ctrlsf_context = '-C 3'
-			vim.g.ctrlsf_follow_symlinks = 0
+			local conf = config.search.ctrlsf
+			vim.g.ctrlsf_auto_close = conf.autoClose
+			vim.g.ctrlsf_ignore_dir = conf.ignoreDir
+			vim.g.ctrlsf_context = conf.content
+			vim.g.ctrlsf_follow_symlinks = conf.followSymlinks
 		end,
 	},
 
