@@ -5,6 +5,13 @@ local EasyAlign = {
 	disable = false,
 	on = { '<Plug>(EasyAlign)', 'EasyAlign' },
 
+	keymaps = {
+		{ 'n', '<leader>A', '<Plug>(EasyAlign)' },
+		{ 'x', '<leader>A', '<Plug>(EasyAlign)' },
+		{ 'n', '<leader>a', '<Plug>(LiveEasyAlign)' },
+		{ 'x', '<leader>a', '<Plug>(LiveEasyAlign)' },
+	},
+
 	config = function()
 		vim.g.easy_align_delimiters = {
 			['>'] = { pattern = '>>|=>|>' },
@@ -17,13 +24,6 @@ local EasyAlign = {
 
 			['d'] = { pattern = ' (S+s*[;=])@=', left_margin = 0, right_margin = 0 },
 		}
-
-		vim.cmd [[
-			nmap <leader>A <Plug>(EasyAlign)
-			xmap <leader>A <Plug>(EasyAlign)
-			nmap <leader>a <Plug>(LiveEasyAlign)
-			xmap <leader>a <Plug>(LiveEasyAlign)
-		]]
 	end,
 }
 

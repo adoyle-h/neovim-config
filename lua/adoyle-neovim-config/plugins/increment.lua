@@ -1,9 +1,12 @@
 local M = {
 	'nishigori/increment-activator',
-	on = { '<Plug>(increment-activator-increment)', '<Plug>(increment-activator-decrement)' },
-	desc = '自增/自减',
+	desc = 'increment and decrement',
 	disable = false,
-	requires = {},
+	on = { '<Plug>(increment-activator-increment)', '<Plug>(increment-activator-decrement)' },
+	keymaps = {
+		{ 'n', '<leader>ii', '<Plug>(increment-activator-increment)<leader>i' },
+		{ 'n', '<leader>id', '<Plug>(increment-activator-decrement)<leader>i' },
+	},
 }
 
 function M.config()
@@ -30,11 +33,6 @@ function M.config()
 			-- LuaFormatter on
 		},
 	}
-
-	vim.cmd [[
-		nmap <leader>ii <Plug>(increment-activator-increment)<leader>i
-		nmap <leader>id <Plug>(increment-activator-decrement)<leader>i
-	]]
 end
 
 return M

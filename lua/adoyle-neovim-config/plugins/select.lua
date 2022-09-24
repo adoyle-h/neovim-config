@@ -3,16 +3,11 @@ local M = { nil, desc = 'The fast cursor selection', disable = false }
 M.requires = {
 	{
 		'gcmt/wildfire.vim',
-		desc = '在 normal 模式下快速选中括号内文字。可增量扩充或反选',
-		config = function()
-			vim.cmd [[
-			" This selects the next closest text object.
-			map <leader>v <Plug>(wildfire-fuel)
-
-			" This selects the previous closest text object.
-			vmap <leader>V <Plug>(wildfire-water)
-			]]
-		end,
+		desc = 'Select the text object',
+		keymaps = {
+			{ '', '<leader>v', '<Plug>(wildfire-fuel)', desc = 'select the next closest text object.' },
+			{ '', '<leader>V', '<Plug>(wildfire-water)', desc = 'select the previous closest text object.' },
+		},
 	},
 
 	{

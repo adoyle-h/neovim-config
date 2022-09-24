@@ -21,6 +21,8 @@ return {
 		GIT_IGNORED = '',
 		GIT_UNSTAGED = '*',
 		GIT_CONFLICT = '',
+		BOOKMARK = '笠',
+		BOOKMARK_ANNOTATION = 'ﰠ',
 	},
 
 	kindSymbolMap = {

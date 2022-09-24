@@ -8,6 +8,7 @@ M.requires = {
 	{
 		'kevinhwang91/nvim-hlslens',
 		disable = false,
+		desc = 'Highlight search floating',
 		highlights = {
 			{ 'Search', { bg = 'none', fg = mainColor, underline = true } },
 			{ 'IncSearch', { bg = 'none', fg = mainColor, underline = true } },
@@ -24,34 +25,38 @@ M.requires = {
 
 	{
 		'dyng/ctrlsf.vim',
-		desc = '项目内内容搜索',
+		desc = 'Search all contents in workspace',
 		on = { '<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', 'CtrlSF' },
 		disable = false,
+
+		keymaps = {
+			{ 'n', '<leader>f', '<Plug>CtrlSFPrompt' },
+			{ 'v', '<leader>f', '<Plug>CtrlSFVwordPath' },
+		},
+
 		config = function()
 			vim.g.ctrlsf_auto_close = 0
 			vim.g.ctrlsf_ignore_dir = { 'bower_components', 'node_modules', 'vendor' }
 			vim.g.ctrlsf_context = '-C 3'
 			vim.g.ctrlsf_follow_symlinks = 0
 		end,
-		keymaps = {
-			{ 'n', '<leader>f', '<Plug>CtrlSFPrompt' },
-			{ 'v', '<leader>f', '<Plug>CtrlSFVwordPath' },
-		},
 	},
 
 	{
 		'thinca/vim-visualstar',
-		desc = 'visual 模型下查找增强',
+		desc = 'Enable <C-n> search in visual mode',
 		disable = false,
-		config = function()
-			vim.g.visualstar_no_default_key_mappings = 0
-		end,
+
 		keymaps = {
 			{ 'x', '<C-n>', '<Plug>(visualstar-*)', { silent = true } },
 			{ 'x', '<C-p>', '<Plug>(visualstar-#)', { silent = true } },
 			{ 'x', 'g<C-n>', '<Plug>(visualstar-g*)', { silent = true } },
 			{ 'x', 'g<C-p>', '<Plug>(visualstar-g#)', { silent = true } },
 		},
+
+		config = function()
+			vim.g.visualstar_no_default_key_mappings = 0
+		end,
 	},
 
 }

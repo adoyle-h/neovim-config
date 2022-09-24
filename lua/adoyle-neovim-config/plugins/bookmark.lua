@@ -1,30 +1,34 @@
-local M = { 'MattesGroeger/vim-bookmarks', desc = '书签', disable = false }
+local M = { 'MattesGroeger/vim-bookmarks', desc = 'bookmark', disable = false }
+
+M.highlights = {
+	{ 'BookmarkSign', { ctermbg = 234, ctermfg = 27 } },
+	{ 'BookmarkLine', { ctermbg = 'NONE', ctermfg = 'NONE' } },
+	{ 'BookmarkAnnotationSign', { ctermbg = 234, ctermfg = 35 } },
+	{ 'BookmarkAnnotationLine', { ctermbg = 'NONE', ctermfg = 'NONE' } },
+}
+
+M.keymaps = {
+	{ 'n', '<Leader>bb', '<Plug>BookmarkToggle' },
+	{ 'n', '<Leader>ba', '<Plug>BookmarkAnnotate' },
+	{ 'n', '<Leader>bs', '<Plug>BookmarkShowAll' },
+	{ 'n', '<Leader>bl', '<Plug>BookmarkShowAll' },
+	{ 'n', '<Leader>bj', '<Plug>BookmarkNext<CR>k<Leader>b' },
+	{ 'n', '<Leader>bk', '<Plug>BookmarkPrev<CR>k<Leader>b' },
+	{ 'n', '<Leader>bc', '<Plug>BookmarkClear<CR>' },
+	{ 'n', '<Leader>bC', '<Plug>BookmarkClearAll' },
+	{ 'n', '<Leader>bK', '<Plug>BookmarkMoveUp<CR>k<Leader>b' },
+	{ 'n', '<Leader>bJ', '<Plug>BookmarkMoveDown<CR>k<Leader>b' },
+	{ 'n', '<Leader>bt', '<Plug>BookmarkMoveToLine' },
+}
 
 function M.config()
+	local symbolMap = require('adoyle-neovim-config.config').config.symbolMap
+
 	vim.g.bookmark_no_default_key_mappings = 1
-	vim.g.bookmark_sign = '笠'
-	vim.g.bookmark_annotation_sign = 'ﰠ'
+	vim.g.bookmark_sign = symbolMap.BOOKMARK
+	vim.g.bookmark_annotation_sign = symbolMap.BOOKMARK_ANNOTATION
 	vim.g.bookmark_highlight_lines = 1
 	vim.g.bookmark_location_list = 1
-
-	vim.cmd [[
-		hi BookmarkSign ctermbg=234 ctermfg=27
-		hi BookmarkLine ctermbg=NONE ctermfg=NONE
-		hi BookmarkAnnotationSign ctermbg=234 ctermfg=35
-		hi BookmarkAnnotationLine ctermbg=NONE ctermfg=NONE
-
-		nmap <Leader>bb <Plug>BookmarkToggle
-		nmap <Leader>ba <Plug>BookmarkAnnotate
-		nmap <Leader>bs <Plug>BookmarkShowAll
-		nmap <Leader>bl <Plug>BookmarkShowAll
-		nmap <Leader>bj <Plug>BookmarkNext<CR>k<Leader>b
-		nmap <Leader>bk <Plug>BookmarkPrev<CR>k<Leader>b
-		nmap <Leader>bc <Plug>BookmarkClear<CR>
-		nmap <Leader>bC <Plug>BookmarkClearAll
-		nmap <Leader>bK <Plug>BookmarkMoveUp<CR>k<Leader>b
-		nmap <Leader>bJ <Plug>BookmarkMoveDown<CR>k<Leader>b
-		nmap <Leader>bt <Plug>BookmarkMoveToLine
-	]]
 end
 
 return M

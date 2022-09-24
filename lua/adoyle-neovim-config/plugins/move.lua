@@ -6,6 +6,7 @@ local chooseWin = {
 	't9md/vim-choosewin',
 	desc = 'window/tab selector',
 	disable = true, -- Because it does not support gui
+	keymaps = { { 'n', '-', '<Plug>(choosewin)', { desc = 'choose window', silent = true } } },
 
 	config = function()
 		-- tmux-like overlay
@@ -39,8 +40,6 @@ local chooseWin = {
 			j = 'tab_next',
 			l = 'tab_last',
 		}
-
-		vim.cmd 'nmap - <Plug>(choosewin)'
 	end,
 }
 
@@ -72,7 +71,7 @@ local windowSelector = {
 	end,
 
 	keymaps = function()
-		return { { 'n', '-', require('nvim-window').pick, { silent = true } } }
+		return { { 'n', '-', require('nvim-window').pick, { desc = 'choose window', silent = true } } }
 	end,
 }
 

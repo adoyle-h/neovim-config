@@ -17,10 +17,10 @@ M.commands = {
 		'FixLineBreak',
 		function()
 			vim.cmd [[
-			e ++ff=dos
-			set ff=unix
-			w
-		]]
+				e ++ff=dos
+				set ff=unix
+				w
+			]]
 		end,
 		{},
 	},
@@ -29,10 +29,10 @@ M.commands = {
 		'ProfileStart',
 		function()
 			vim.cmd [[
-			profile start profile.log
-			profile func *
-			profile file *
-		]]
+				profile start profile.log
+				profile func *
+				profile file *
+			]]
 		end,
 		{ desc = 'ProfileStart/ProfileEnd' },
 	},

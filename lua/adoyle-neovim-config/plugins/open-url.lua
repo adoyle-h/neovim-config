@@ -3,20 +3,16 @@ local M = {
 	on = { '<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)' },
 	desc = 'Open url from text with browser',
 	disable = false,
-	-- requires = {},
-	-- ['for'] = '',
+	config = function()
+		vim.g.netrw_nogx = 1 -- disable netrw's gx mapping
+	end,
+
+	keymaps = {
+		{ 'n', 'gx', '<Plug>(openbrowser-smart-search)' },
+		{ 'v', 'gx', '<Plug>(openbrowser-smart-search)' },
+		{ 'n', 'gX', '<Plug>(openbrowser-open)' },
+		{ 'v', 'gX', '<Plug>(openbrowser-open)' },
+	},
 }
-
-function M.config()
-	-- disable netrw's gx mapping
-	vim.g.netrw_nogx = 1
-
-	vim.cmd [[
-		nmap gx <Plug>(openbrowser-smart-search)
-		vmap gx <Plug>(openbrowser-smart-search)
-		nmap gX <Plug>(openbrowser-open)
-		vmap gX <Plug>(openbrowser-open)
-	]]
-end
 
 return M
