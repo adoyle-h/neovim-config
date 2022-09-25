@@ -9,8 +9,6 @@ M.keymaps = {
 }
 
 function M.config()
-	local util = require('adoyle-neovim-config.util')
-
 	local icons = { Interface = config.symbolMap.MID_DOT }
 	for k, v in pairs(config.kindSymbolMap) do if icons[k] == nil then icons[k] = v end end
 
@@ -79,8 +77,6 @@ function M.config()
 			require('aerial').tree_set_collapse_level(bufnr, 0)
 		end,
 	}
-
-	util.set_hl { { 'AerialLine', { bg = config.color.outline.lineBG, bold = true } } }
 end
 
 return M

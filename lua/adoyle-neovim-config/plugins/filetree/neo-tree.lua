@@ -1,3 +1,5 @@
+local config = require('adoyle-neovim-config.config').config
+
 local M = { 'nvim-neo-tree/neo-tree.nvim', branch = 'v2.x', disable = false }
 
 M.keymaps = {
@@ -10,9 +12,24 @@ M.keymaps = {
 	{ 'n', '<leader>nf', ':Neotree reveal<CR>', { silent = true } },
 }
 
+M.defaultConfig = {
+	'filetree',
+	{
+		hideByName = config.ignore.fileSearch.names,
+
+		alwaysShow = { -- remains visible even if other settings would normally hide it
+			-- '.gitignored',
+		},
+
+		neverShow = { -- remains hidden even if visible is toggled to true, this overrides always_show
+			'.DS_Store',
+			'thumbs.db',
+		},
+	},
+}
+
 function M.config()
-	local config = require('adoyle-neovim-config.config').config
-	local ftConf = config.filetree
+	local conf = config.filetree
 	local symbols = config.symbolMap
 
 	require('neo-tree').setup {
@@ -151,13 +168,13 @@ function M.config()
 				hide_dotfiles = false,
 				hide_gitignored = true,
 				hide_hidden = true, -- only works on Windows for hidden files/directories
-				hide_by_name = ftConf.hideByName,
+				hide_by_name = conf.hideByName,
 				hide_by_pattern = { -- uses glob style patterns
 					-- '*.meta',
 					-- '*/src/*/tsconfig.json',
 				},
-				always_show = ftConf.alwaysShow,
-				never_show = ftConf.neverShow,
+				always_show = conf.alwaysShow,
+				never_show = conf.neverShow,
 			},
 
 			follow_current_file = false, -- This will find and focus the file in the active buffer every

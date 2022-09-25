@@ -2,7 +2,7 @@ local config = require('adoyle-neovim-config.config').config
 
 local M = {
 	'johnfrankmorgan/whitespace.nvim',
-	desc = '高亮尾空格',
+	desc = 'highlight trailing spaces',
 	disable = false,
 	highlights = { { 'TrailingWhitespace', { bg = config.color.grey3 } } },
 	commands = {
@@ -11,7 +11,7 @@ local M = {
 			function()
 				require('whitespace-nvim').trim()
 			end,
-			{},
+			{ desc = 'Remove trailing spaces' },
 		},
 	},
 }
@@ -21,7 +21,7 @@ function M.config()
 		highlight = 'TrailingWhitespace',
 
 		-- `ignored_filetypes` configures which filetypes to ignore when displaying trailing whitespace
-		ignored_filetypes = config.ignoredFileTypesForSomePlugs,
+		ignored_filetypes = config.ignore.fileTypesForSomePlugs,
 	})
 end
 

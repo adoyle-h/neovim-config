@@ -15,7 +15,7 @@ function M.config()
 	vim.cmd(vim.fn.printf('hi GitBlameVirtualText guifg=%s guibg=%s gui=italic', color.grey,
 		color.cursorLineBG))
 	vim.g.gitblame_highlight_group = 'GitBlameVirtualText'
-	vim.g.gitblame_ignored_filetypes = config.ignoredFileTypesForSomePlugs
+	vim.g.gitblame_ignored_filetypes = config.ignore.fileTypesForSomePlugs
 end
 
 return M

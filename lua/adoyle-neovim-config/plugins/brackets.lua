@@ -1,4 +1,5 @@
-local M = { nil, disable = false }
+local M = { nil, desc = '' }
+local config = require('adoyle-neovim-config.config').config
 
 M.requires = {
 	{
@@ -13,8 +14,9 @@ M.requires = {
 	{
 		'alvan/vim-closetag',
 		desc = '',
+		defaultConfig = { { 'brackets', 'closetag' }, { filenames = '*.html,*.xml,*.xhtml,*.htm,*.jsx' } },
 		config = function()
-			vim.g.closetag_filenames = '*.html,*.xml,*.xhtml,*.htm,*.jsx'
+			vim.g.closetag_filenames = config.brackets.closetag.filenames
 		end,
 	},
 

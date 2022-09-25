@@ -1,6 +1,29 @@
 local config = require('adoyle-neovim-config.config').config
 local util = require('adoyle-neovim-config.util')
 
+local Rainbow = {
+	'p00f/nvim-ts-rainbow',
+	desc = 'Rainbow brackets',
+	defaultConfig = {
+		'tsRainbow',
+		{
+			enable = true,
+			-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+			extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+			max_file_lines = nil, -- Do not enable for files with more than n lines, int
+			colors = { -- table of hex strings
+				-- LuaFormatter off
+				'#005f87', '#d75f00', '#12ff5f', '#0087ff', '#00aa87', '#b2ffaf', '#ff5f00',
+				'#6F3080', '#ff00ff', '#8787ff', '#87875f',
+				-- LuaFormatter on
+			},
+
+			termcolors = { -- table of colour name strings
+			},
+		},
+	},
+}
+
 local M = {
 	'nvim-treesitter/nvim-treesitter',
 	disable = false,
@@ -14,25 +37,40 @@ local M = {
 			disable = not config.codeContext.float,
 		},
 
-		{ 'p00f/nvim-ts-rainbow', desc = 'Rainbow brackets' },
+		Rainbow,
+	},
+
+	highlights = function(color)
+		util.set_hl(color.treesitter)
+
+		return {
+			{ 'TreesitterContext', { bg = color.contextBG, italic = true, bold = true } },
+			{ 'TreesitterContextLineNumber', { bg = color.contextBG, italic = true, bold = true } },
+		}
+	end,
+}
+
+M.defaultConfig = {
+	'treesitter',
+	{
+		ensure_installed = {}, -- A list of parser names, or "all"
+		sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
+		ignore_install = { 'rasi', 'r', 'd', 'v', 'slint' }, -- List of parsers to ignore installing (for "all")
+
+		highlight = {
+			enable = true, -- `false` will disable the whole extension
+
+			-- list of language that will be disabled.
+			-- NOTE: these are the names of the parsers and not the filetype.
+			-- (for example if you want to disable highlighting for the `tex` filetype,
+			-- you need to include `latex` in this list as this is the name of the parser)
+			disable = { 'markdown' },
+		},
 	},
 }
 
-local function configHighlights()
-	local color = require('adoyle-neovim-config.config').config.color
-
-	util.set_hl(color.treesitter)
-
-	util.set_hl {
-		{ 'TreesitterContext', { bg = color.contextBG, italic = true, bold = true } },
-		{ 'TreesitterContextLineNumber', { bg = color.contextBG, italic = true, bold = true } },
-	}
-end
-
 function M.config()
-	configHighlights()
-
-	local c = config.treesitter
+	local conf = config.treesitter
 
 	require('nvim-treesitter.install').prefer_git = true
 	if config.proxy.github then
@@ -48,14 +86,14 @@ function M.config()
 	]]
 
 	require('nvim-treesitter.configs').setup {
-		ensure_installed = c.ensure_installed,
-		sync_install = c.sync_install,
-		ignore_install = c.ignore_install,
+		ensure_installed = conf.ensure_installed,
+		sync_install = conf.sync_install,
+		ignore_install = conf.ignore_install,
 
 		highlight = {
 			-- `false` will disable the whole extension
-			enable = c.highlight.enable,
-			disable = c.highlight.disable,
+			enable = conf.highlight.enable,
+			disable = conf.highlight.disable,
 
 			-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 			-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).

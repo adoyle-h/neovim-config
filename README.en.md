@@ -1,12 +1,11 @@
 # ADoyle-Style Neovim Configuration
 
-Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua package. It is high flexible to be customized and extended.
+Neovim all-in-one configuration implemented with Lua. It is high flexible to be customized and extended.
 
 ## TOC
-
+## Features
 <!-- MarkdownTOC GFM -->
 
-- [Features](#features)
 - [Screenshots](#screenshots)
     - [Dashboard](#dashboard)
     - [Finder](#finder)
@@ -20,6 +19,9 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
 - [API](#api)
     - [setup(opts)](#setupopts)
 - [Configuration](#configuration)
+    - [User Config](#user-config)
+    - [Default Config](#default-config)
+    - [View Config](#view-config)
 - [Files Structure](#files-structure)
 - [NOTE](#note)
 - [LSP](#lsp)
@@ -33,11 +35,9 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
 
 <!-- /MarkdownTOC -->
 
-## Features
-
-- All in Lua.
+- All in Lua. All configs can be overrided.
 - Use many Neovim features: Native LSP, Float Window, Winbar.
-- Plugin manage framework based on [vim-plug][] and Lua. Support on-demand loading plugin.
+- Lua-wrapped plugin manage framework based on [vim-plug][]. Support on-demand loading plugins.
 - Integrated total 109 powerful Vim/Nvim plugins。
 - Awesome UI and color schema. Dark Mode. Support True-Color, Scrollbar, Dashboard.
 - Configurable. See [./lua/config.lua](./lua/config.lua)
@@ -91,7 +91,7 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
 
 1. You have two ways to use the project. Use the project directly, or load the project as an plugin for more customizations.
 
-  a. Directly Use
+  a. Directly use
 
     ```sh
     # Set your nvim config directory
@@ -99,7 +99,7 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
     git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
     ```
 
-  b. Load as Plugin
+  b. Load as plugin
 
     ```sh
     # Set your nvim config directory
@@ -113,16 +113,14 @@ Neovim all-in-one configuration implemented with Lua. It can be loaded as a Lua 
     cat <<EOF > "$NVIM_HOME"/init.lua
     vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
 
-    require('adoyle-neovim-config').setup {
-      config = {
-        proxy = {
-          -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
-          -- Otherwise, remove this option.
-          github = 'https://ghproxy.com/', -- emptry string or proxy url
-        },
-      },
-    }
+    require('adoyle-neovim-config').setup {}
     EOF
+    ```
+
+  c. Out of the box
+
+    ```sh
+    docker run -it <TODO>
     ```
 
 2. Initialization
@@ -149,6 +147,8 @@ No more document. Just see [codes](./lua/adoyle-neovim-config/init.lua)
 
 ## Configuration
 
+### User Config
+
 You can pass config when load as plugin.
 
 ```lua
@@ -170,17 +170,38 @@ require('adoyle-neovim-config').setup {
         disable = false,
       },
     },
-  },
 
-  plugins = function(A)
-    -- A.Plug 'github/repo'
-  end
+    plugins = {
+      function(A) -- A == require('adoyle-neovim-config')
+        -- A.Plug 'github/repo'
+      end,
+    },
+  },
 }
 ```
 
 See [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua) for details.
 
 Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
+
+### Default Config
+
+Parts of default config written in [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua), and other parts written in `defaultConfig` of each plugin.
+
+Parts of default highlights written in [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) and [./lua/adoyle-neovim-config/config/highlight-group.lua](./lua/adoyle-neovim-config/config/highlight-group.lua), and other parts written in `highlights` of each plugin.
+
+### View Config
+
+`:ShowConfig` to view final merged config.
+
+Because using [inspect.lua](https://github.com/kikito/inspect.lua) to print configuration,
+you may see tags such as `<table id>`. It is for preventing infinite loops.
+You can search `<28>{` to view its value for `<table 28>` in same buffer content.
+
+> inspect can handle tables with loops inside them. It will print <id> right before the table is printed out the first time, and replace the whole table with <table id> from then on, preventing infinite loops.
+
+For `<table>`, `<function>`, `<metatable>` tags, see [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use).
+
 
 ## Files Structure
 
@@ -268,7 +289,19 @@ return {
   for = {'lua'} -- string[] or nil. On-demand loading: File types
   frozon = false, -- boolean or nil. Do not update unless explicitly specified
 
-	config = function() -- Put plugin.setup() in here
+  defaultConfig = {
+    {'Plugin-Name'},
+    {},
+  },
+  -- or
+  defaultConfig = function()
+    return {
+      {'Plugin-Name'},
+      {},
+    }
+  end,
+
+	config = function()
     require('name').setup {}
   end,
 

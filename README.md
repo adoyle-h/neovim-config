@@ -1,6 +1,6 @@
 # ADoyle-Style Neovim Configuration
 
-Lua 编写的 Neovim 一体化配置。可作为 Lua 包加载。易配置，可扩展。
+用 Lua 编写的 Neovim 一体化配置。易配置，可扩展。
 
 Click [./README.en.md](./README.en.md) to read English documents.
 
@@ -21,8 +21,10 @@ Click [./README.en.md](./README.en.md) to read English documents.
 - [安装](#安装)
 - [API](#api)
     - [setup(opts)](#setupopts)
-- [用户配置](#用户配置)
-- [默认配置](#默认配置)
+- [配置](#配置)
+    - [用户配置](#用户配置)
+    - [默认配置](#默认配置)
+    - [查看配置](#查看配置)
 - [目录结构](#目录结构)
 - [注意](#注意)
 - [LSP](#lsp)
@@ -38,9 +40,9 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 特性
 
-- 用 Lua 管理所有配置。
+- 用 Lua 管理所有配置。配置可覆盖。
 - 充分使用 Neovim 特性：Native LSP、Float Window、Winbar。
-- 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载。
+- 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载插件。
 - 集成了 109 个 Vim/Nvim 插件。
 - 帅气的界面和配色。暗黑模式。支持真彩色、滚动条、Dashboard。
 - 可配置，详见[默认配置][default-config]。
@@ -80,7 +82,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ## 依赖
 
-- NVIM v0.8 (最新提交的版本)
+- NVIM v0.8 (最新的 commit 版本)
 - python3、pip3
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
@@ -100,7 +102,7 @@ Click [./README.en.md](./README.en.md) to read English documents.
     git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
     ```
 
-  b. 插件加载
+  b. 加载插件
 
     ```sh
     # 设置你的 nvim 目录
@@ -114,16 +116,14 @@ Click [./README.en.md](./README.en.md) to read English documents.
     cat <<EOF > "$NVIM_HOME"/init.lua
     vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
 
-    require('adoyle-neovim-config').setup {
-      config = {
-        proxy = {
-          -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
-          -- Otherwise, remove this option.
-          github = 'https://ghproxy.com/', -- emptry string or proxy url
-        }
-      },
-    }
+    require('adoyle-neovim-config').setup {}
     EOF
+    ```
+
+  c. 开箱即用
+
+    ```sh
+    docker run -it <TODO>
     ```
 
 2. 初始化
@@ -148,7 +148,9 @@ A.setup {
 
 没写文档，直接看[代码](./lua/adoyle-neovim-config/init.lua)
 
-## 用户配置
+## 配置
+
+### 用户配置
 
 当以插件加载时，你可以传入自定义配置。
 
@@ -172,7 +174,7 @@ require('adoyle-neovim-config').setup {
     },
 
     plugins = {
-      function(A)
+      function(A) -- A == require('adoyle-neovim-config')
         -- A.Plug 'github/repo'
       end,
     },
@@ -185,11 +187,22 @@ require('adoyle-neovim-config').setup {
 
 插件列表见 [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
 
-## 默认配置
+### 默认配置
 
-默认配置详见 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)
+部分默认配置写在 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)，部分写在插件的 `defaultConfig` 里。
 
-默认颜色配置详见 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua)
+部分默认颜色配置写在 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) 与 [./lua/adoyle-neovim-config/config/highlight-group.lua](./lua/adoyle-neovim-config/config/highlight-group.lua)，另一部分写在插件的 `highlights` 里。
+
+### 查看配置
+
+`:ShowConfig` 查看最终合并的配置。
+
+因为配置通过 [inspect.lua](https://github.com/kikito/inspect.lua) 打印的，
+会有例如 `<table id>` 这样的标记。这是为了避免重复，对于 `<table 28>` 搜索文件内对应的 `<28>{` 即可找到相应的值。
+
+> inspect can handle tables with loops inside them. It will print <id> right before the table is printed out the first time, and replace the whole table with <table id> from then on, preventing infinite loops.
+
+`<table>`, `<function>`, `<metatable>` 等标记，详见 [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use)。
 
 ## 目录结构
 
@@ -295,7 +308,19 @@ return {
   for = {'lua'} -- string[] or nil. On-demand loading: File types
   frozon = false, -- boolean or nil. Do not update unless explicitly specified
 
-	config = function() -- Put plugin.setup() in here
+  defaultConfig = {
+    {'Plugin-Name'},
+    {},
+  },
+  -- or
+  defaultConfig = function()
+    return {
+      {'Plugin-Name'},
+      {},
+    }
+  end,
+
+	config = function()
     require('name').setup {}
   end,
 

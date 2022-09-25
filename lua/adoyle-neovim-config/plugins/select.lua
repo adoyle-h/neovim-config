@@ -1,4 +1,5 @@
-local M = { nil, desc = 'The fast cursor selection', disable = false }
+local M = { nil, desc = 'The fast cursor selection with text-objects', disable = false }
+local config = require('adoyle-neovim-config.config').config
 
 M.requires = {
 	{
@@ -13,9 +14,12 @@ M.requires = {
 
 	{
 		'nvim-treesitter/nvim-treesitter-textobjects',
-		config = function()
-			require('nvim-treesitter.configs').setup {
-				textobjects = {
+		disable = config.pluginOpts['nvim-treesitter/nvim-treesitter'].disable,
+		defaultConfig = {
+			{ 'select', 'textobjects' },
+
+			{
+				{
 					select = {
 						enable = true,
 
@@ -43,7 +47,10 @@ M.requires = {
 						include_surrounding_whitespace = true,
 					},
 				},
-			}
+			},
+		},
+		config = function()
+			require('nvim-treesitter.configs').setup { textobjects = config.select.textobjects }
 		end,
 	},
 }

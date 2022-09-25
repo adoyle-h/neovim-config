@@ -35,6 +35,16 @@ M.requires = {
 			{ 'v', '<leader>f', '<Plug>CtrlSFVwordPath' },
 		},
 
+		defaultConfig = {
+			{ 'search', 'ctrlsf' },
+			{
+				ignoreDir = config.ignore.fileSearch.names, --
+				context = '-C 3',
+				autoClose = 0,
+				followSymlinks = 0,
+			},
+		},
+
 		config = function()
 			local conf = config.search.ctrlsf
 			vim.g.ctrlsf_auto_close = conf.autoClose

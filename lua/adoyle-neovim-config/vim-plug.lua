@@ -11,7 +11,7 @@ local sign_define = vim.fn.sign_define
 
 local plugOptsKeys = { cmd = 'on', run = 'do' }
 
-local P = { pluginDir = nil, plugs = {}, unloadRepos = {} }
+local P = { pluginDir = nil, plugs = {}, loadPlugs = {}, unloadRepos = {} }
 
 local UNLOAD = 'UNLOAD'
 
@@ -50,23 +50,36 @@ end
 -- @useage Plug({repo, opts...})
 -- The repo is a string. Example: 'nvim-lua/plenary.nvim'
 local function usePlug(repo, opts)
-	local type = type(repo)
+	local t = type(repo)
 
 	if not opts then
-		if type == 'string' then
+		if t == 'string' then
 			loadPlug(repo)
-			opts = {}
-		elseif type == 'table' then
+			opts = { id = #P.plugs }
+		elseif t == 'table' then
 			opts = repo
 			repo = table.remove(opts, 1)
+
+			if repo == nil then
+				repo = #P.plugs
+			elseif type(repo) ~= 'string' then
+				error('Invalid value of repo. Only nil or "string" can be repo name.')
+			elseif #repo == 0 then
+				error('Invalid value of repo. Cannot be empty string.')
+			end
+
+			opts.id = #P.plugs
 			opts.repo = repo
 		else
-			error(fn.printf('Invalid Plug Type: %s', type))
+			error(fn.printf('Invalid Plug Type: %s', t))
 		end
 	end
 
 	local userPluginOpts = CM.config.pluginOpts[repo]
 	opts = util.merge(opts, userPluginOpts)
+
+	table.insert(P.plugs, opts)
+	CM.config.pluginOpts[repo] = opts
 
 	if opts.disable == true then
 		-- disbale current and required plugs
@@ -85,7 +98,7 @@ local function usePlug(repo, opts)
 		plugOpts.setup()
 	end
 
-	if repo and #repo > 0 then
+	if type(repo) == 'string' then
 		if #plugOpts > 0 then
 			loadPlug(repo, plugOpts)
 		else
@@ -100,10 +113,10 @@ local function usePlug(repo, opts)
 			return
 		end
 
-		table.insert(P.plugs, plugOpts)
+		table.insert(P.loadPlugs, plugOpts)
 	else
-		-- repo equals '' or nil or false or []
-		table.insert(P.plugs, plugOpts)
+		-- repo equals number
+		table.insert(P.loadPlugs, plugOpts)
 	end
 end
 
@@ -146,6 +159,28 @@ local function propSet2(list, func, redef)
 	end
 end
 
+local function mergeConfig(node, plugDefaultConfig)
+	if type(plugDefaultConfig) == 'function' then plugDefaultConfig = plugDefaultConfig() end
+
+	if plugDefaultConfig then
+		local fields = plugDefaultConfig[1]
+		if type(fields) == 'string' then fields = { fields } end
+
+		for i, k in pairs(fields) do
+			if i < #fields then
+				if node[k] == nil then node[k] = {} end
+				node = node[k]
+			else
+				local merged = node[k] or {}
+				-- print(vim.inspect(plugDefaultConfig[1]))
+				for key, value in pairs(plugDefaultConfig[2]) do merged[key] = value end
+				node[k] = merged
+			end
+		end
+	end
+end
+P.mergeConfig = mergeConfig
+
 function P.fin()
 	vim.call('plug#end')
 
@@ -154,7 +189,7 @@ function P.fin()
 
 	local color = CM.config.color
 
-	for _, M in pairs(P.plugs) do
+	for _, M in pairs(P.loadPlugs) do
 		local unloadRequired = false
 		for _, requiredName in pairs(M.requires or {}) do
 			M2 = P.unloadRepos[requiredName]
@@ -169,12 +204,16 @@ function P.fin()
 				'Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.',
 				M.repo, unloadRequired.repo), 'warn')
 		else
+			mergeConfig(CM.config, M.defaultConfig)
+
 			if type(M.config) == 'function' then M.config() end
 
 			local list = M.highlights
 			if list then
+				if type(list) == 'function' then list = list(color) end
+
 				for _, hl in pairs(list) do
-					if type(hl) == 'function' then hl = hl(color) end
+					-- if type(hl) == 'function' then hl = hl(color) end
 					set_hl(0, hl[1], hl[2])
 				end
 			end
@@ -193,7 +232,7 @@ end
 P.Plug = usePlug
 
 vim.api.nvim_create_user_command('ListPlugs', function()
-	vim.notify(vim.inspect(P.plugs))
+	vim.notify(vim.inspect(P.loadPlugs))
 end, {})
 
 return P

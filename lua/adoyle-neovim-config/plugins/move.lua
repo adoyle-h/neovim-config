@@ -1,4 +1,4 @@
-local M = { nil, desc = 'Shortcuts for fast moving', disable = false }
+local M = { nil, desc = 'Shortcuts for fast moving' }
 
 local config = require('adoyle-neovim-config.config').config
 
@@ -45,9 +45,10 @@ local chooseWin = {
 
 local windowSelector = {
 	'https://gitlab.com/yorickpeterse/nvim-window.git',
-	disable = false,
-	config = function()
-		require('nvim-window').setup({
+
+	defaultConfig = {
+		{ 'move', 'selector' },
+		{
 			-- The characters available for hinting windows.
 			chars = {
 				-- LuaFormatter off
@@ -66,8 +67,11 @@ local windowSelector = {
 
 			-- The border style to use for the floating window.
 			border = 'rounded', -- ':h nvim_open_win'
-		})
+		},
+	},
 
+	config = function()
+		require('nvim-window').setup(config.move.selector)
 	end,
 
 	keymaps = function()
@@ -77,7 +81,6 @@ local windowSelector = {
 
 local camelCaseMotion = {
 	'bkad/CamelCaseMotion',
-	disable = false,
 	keymaps = {
 		{ '', 'w', '<Plug>CamelCaseMotion_w', { silent = true } },
 		{ '', 'b', '<Plug>CamelCaseMotion_b', { silent = true } },
@@ -92,11 +95,22 @@ local camelCaseMotion = {
 
 local fastMove = {
 	'rainbowhxch/accelerated-jk.nvim',
-	disable = false,
 	desc = 'accelerates j/k movement steps while j or k key is repeating',
+
+	defaultConfig = {
+		{ 'move', 'accelerated' },
+		{ -- :h accelerated-jk
+			mode = 'time_driven',
+			enable_deceleration = false,
+			acceleration_limit = 200,
+			acceleration_table = { 5, 10, 12, 20, 30 },
+		},
+	},
+
 	config = function()
 		require('accelerated-jk').setup(config.move.accelerated)
 	end,
+
 	keymaps = {
 		{ 'n', 'j', '<Plug>(accelerated_jk_gj)', { desc = 'move cursor down' } },
 		{ 'n', 'k', '<Plug>(accelerated_jk_gk)', { desc = 'move cursor up' } },
@@ -106,6 +120,16 @@ local fastMove = {
 local hop = {
 	'phaazon/hop.nvim',
 	branch = 'v2', -- optional but strongly recommended
+
+	defaultConfig = {
+		{ 'move', 'hop' },
+		{
+			keys = 'asdghklqwertyuiopzxcvbnmfj',
+			quit_key = '<Esc>',
+			multi_windows = false,
+			create_hl_autocmd = false,
+		},
+	},
 
 	config = function()
 		require('hop').setup(config.move.hop)

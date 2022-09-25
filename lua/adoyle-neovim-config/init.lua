@@ -4,7 +4,7 @@ local CM = require('adoyle-neovim-config.config')
 local util = require('adoyle-neovim-config.util')
 local P = require('adoyle-neovim-config.vim-plug')
 
--- @class ADoyleNeovimFramework
+-- @class ADoyleNeovimConfig
 -- @field util {table}
 --
 -- @field Plug {function}  Load plugin of vim-plug

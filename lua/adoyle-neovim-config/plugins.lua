@@ -15,38 +15,11 @@ end
 
 ------- Basic required plugins -------
 Load 'plugins.vim-options'
-
-Plug {
-	'nvim-lua/plenary.nvim',
-	commands = {
-		{
-			'TestLuaSpec',
-			function()
-				require('plenary.test_harness').test_directory(vim.fn.expand('%:p'))
-			end,
-			{ desc = 'Run unit test on current lua spec file' },
-		},
-	},
-}
-
+Load 'plugins.plenary'
+Load 'plugins.devicons' -- Devicons for nvim plugins
 Plug 'MunifTanjim/nui.nvim'
-
 Load 'plugins.notify'
-
-Plug {
-	'vigoux/notifier.nvim',
-	disable = true,
-	config = function()
-		require'notifier'.setup {}
-	end,
-}
-
-Plug {
-	'kyazdani42/nvim-web-devicons',
-	config = function()
-		require('nvim-web-devicons').setup { override = config.webDevicons.override }
-	end,
-}
+Load 'plugins.notifier'
 
 --------------------------------------
 
@@ -107,9 +80,11 @@ Plug {
 Plug {
 	'tyru/capture.vim',
 	on = 'Capture',
-	-- ":Capture mes" print messages
-	-- ":Capture echo globpath(&rtp, 'doc/*.txt')"
-	desc = '":Capture <Ex-Command>" to pipe Ex command output to new buffer',
+	desc = [[
+		":Capture <Ex-Command>" to pipe Ex command output to new buffer'.
+	  ":Capture mes" print messages.
+	  ":Capture echo globpath(&rtp, 'doc/*.txt')".
+	]],
 }
 
 -- This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim.
@@ -119,4 +94,4 @@ Plug { 'tpope/vim-repeat', desc = 'Enable repeating other supported plugins with
 Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown presentation' }
 Plug { 'mechatroner/rainbow_csv', desc = 'For .csv file' }
 
-Plug 'ryanoasis/vim-devicons' -- devicons should be put at last!!
+Plug 'ryanoasis/vim-devicons' -- Devicons for old vimscript plugins. It should be put at last!!
