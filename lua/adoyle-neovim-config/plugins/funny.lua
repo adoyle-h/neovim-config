@@ -1,7 +1,6 @@
 local M = {
 	nil,
 	desc = 'Funny Games',
-	disable = false,
 	requires = {
 		{ 'johngrib/vim-game-snake', on = 'VimGameSnake' },
 		{ 'koron/nyancat-vim', on = { 'Nyancat', 'Nyancat2' } },

@@ -2,7 +2,6 @@ local M = {
 	'xolox/vim-misc',
 	requires = { 'xolox/vim-session' },
 	desc = '会话管理',
-	disable = false,
 }
 
 function M.config()

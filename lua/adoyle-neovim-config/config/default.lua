@@ -23,10 +23,10 @@ return function(color)
 
 		-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
 		plugins = {
-			-- { 'psliwka/vim-smoothie', disable = false },
+			-- { 'psliwka/vim-smoothie' },
 
 			-- function(Plug)
-			--   Plug { 'psliwka/vim-smoothie', disable = false }
+			--   Plug { 'psliwka/vim-smoothie' }
 			-- end,
 		},
 

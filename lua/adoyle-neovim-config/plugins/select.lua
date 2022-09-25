@@ -1,4 +1,4 @@
-local M = { nil, desc = 'The fast cursor selection with text-objects', disable = false }
+local M = { nil, desc = 'The fast cursor selection with text-objects' }
 local config = require('adoyle-neovim-config.config').config
 
 M.requires = {

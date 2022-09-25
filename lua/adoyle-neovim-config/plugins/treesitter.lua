@@ -26,7 +26,6 @@ local Rainbow = {
 
 local M = {
 	'nvim-treesitter/nvim-treesitter',
-	disable = false,
 	run = ':TSUpdate',
 	requires = {
 		{ 'nvim-treesitter/playground', desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor' },

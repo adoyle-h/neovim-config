@@ -3,7 +3,6 @@ local util = require('adoyle-neovim-config.util')
 
 local M_NLSP = {
 	'tamago324/nlsp-settings.nvim',
-	disable = false,
 	requires = {},
 	config = function()
 		require('nlspsettings').setup {
@@ -22,7 +21,6 @@ local M_NLSP = {
 -- sharing, and setting up LSP sources using pure Lua.
 local M_NullLS = {
 	'jose-elias-alvarez/null-ls.nvim',
-	disable = false,
 	requires = { 'jayp0521/mason-null-ls.nvim' },
 	config = function()
 		local null_ls = require('null-ls')
@@ -62,7 +60,6 @@ local M_NullLS = {
 
 local M_GotoPreview = {
 	'rmagatti/goto-preview',
-	disable = false,
 	config = function()
 		require('goto-preview').setup {
 			width = 100, -- Width of the floating window
@@ -108,7 +105,6 @@ local M_GotoPreview = {
 
 local M_MasonToolInstaller = {
 	'WhoIsSethDaniel/mason-tool-installer.nvim',
-	disable = false,
 
 	defaultConfig = {
 		{ 'lsp' },
@@ -161,7 +157,6 @@ local M_MasonToolInstaller = {
 
 local M_Mason = {
 	'williamboman/mason.nvim', -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
-	disable = false,
 	defaultConfig = {
 		{ 'lsp' },
 		{
@@ -244,7 +239,6 @@ local M_Mason = {
 
 local M = {
 	nil,
-	disable = false,
 
 	requires = {
 		M_Mason,
@@ -266,7 +260,6 @@ local M = {
 		{
 			-- This plugin is not needed after https://github.com/neovim/neovim/pull/20198
 			'antoinemadec/FixCursorHold.nvim',
-			disable = false,
 			config = function()
 				vim.g.cursorhold_updatetime = 100
 			end,

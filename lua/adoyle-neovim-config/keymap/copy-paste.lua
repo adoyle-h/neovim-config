@@ -1,4 +1,4 @@
-local M = { nil, disable = false, desc = 'Copy&Paste' }
+local M = { nil, desc = 'Copy&Paste' }
 
 M.keymaps = {
 

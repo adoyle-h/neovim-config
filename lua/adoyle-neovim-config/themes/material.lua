@@ -1,4 +1,4 @@
-local M = { 'marko-cerovac/material.nvim', disable = false }
+local M = { 'marko-cerovac/material.nvim' }
 
 function M.config()
 	vim.g.material_style = 'darker'

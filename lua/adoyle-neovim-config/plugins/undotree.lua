@@ -2,7 +2,6 @@ local M = {
 	'simnalamburt/vim-mundo',
 	desc = '显示修改历史树',
 	on = 'UndotreeToggle',
-	disable = false,
 	keymaps = { { 'n', '<space>u', ':MundoToggle<CR>' } },
 }
 

@@ -1,4 +1,4 @@
-local M = { 'nvim-lualine/lualine.nvim', desc = 'lualine.nvim', disable = false, requires = {} }
+local M = { 'nvim-lualine/lualine.nvim', desc = 'lualine.nvim', requires = {} }
 
 local printf = vim.fn.printf
 local config = require('adoyle-neovim-config.config').config

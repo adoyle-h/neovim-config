@@ -1,7 +1,6 @@
 local M = {
 	'goolord/alpha-nvim',
 	desc = 'Dashboard',
-	disable = false,
 	-- requires = {},
 }
 

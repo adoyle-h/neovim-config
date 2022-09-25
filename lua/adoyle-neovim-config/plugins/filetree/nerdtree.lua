@@ -1,6 +1,5 @@
 local M = {
 	'scrooloose/nerdtree',
-	disable = false,
 	on = {
 		'NERDTreeMirrorToggle',
 		'NERDTreeTabsToggle',

@@ -1,4 +1,4 @@
-local M = { 'MattesGroeger/vim-bookmarks', desc = 'bookmark', disable = false }
+local M = { 'MattesGroeger/vim-bookmarks', desc = 'bookmark' }
 
 M.highlights = {
 	{ 'BookmarkSign', { ctermbg = 234, ctermfg = 27 } },

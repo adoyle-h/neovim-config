@@ -1,7 +1,6 @@
 local M = {
 	'nishigori/increment-activator',
 	desc = 'increment and decrement',
-	disable = false,
 	on = { '<Plug>(increment-activator-increment)', '<Plug>(increment-activator-decrement)' },
 	keymaps = {
 		{ 'n', '<leader>ii', '<Plug>(increment-activator-increment)<leader>i' },

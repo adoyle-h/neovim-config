@@ -1,4 +1,4 @@
-local M = { nil, desc = 'color settings', disable = false }
+local M = { nil, desc = 'color settings' }
 
 local config = require('adoyle-neovim-config.config').config
 
@@ -16,7 +16,6 @@ M.requires = {
 			'OXtermColorTable',
 		},
 		desc = 'List xterm colors',
-		disable = false,
 	},
 
 	require 'adoyle-neovim-config.plugins.color-inline',

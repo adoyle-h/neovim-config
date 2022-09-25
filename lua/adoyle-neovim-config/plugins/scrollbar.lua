@@ -1,4 +1,4 @@
-local M = { 'petertriho/nvim-scrollbar', disable = false }
+local M = { 'petertriho/nvim-scrollbar' }
 
 function M.config()
 	local has_hlslens = pcall(require, 'hlslens')

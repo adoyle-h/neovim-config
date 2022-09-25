@@ -15,7 +15,6 @@ local Term = {
 local M = {
 	nil,
 	desc = 'The settings of nvim embeded terminal. See :h terminal',
-	disable = false,
 	requires = { Term },
 }
 

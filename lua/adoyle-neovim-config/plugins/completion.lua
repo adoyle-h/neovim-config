@@ -312,7 +312,6 @@ end
 
 local M = {
 	'hrsh7th/nvim-cmp',
-	disable = false,
 
 	requires = {
 		LspSignature,
@@ -331,7 +330,7 @@ local M = {
 				},
 				'David-Kunz/cmp-npm',
 				'petertriho/cmp-git',
-				{ 'tzachar/cmp-tabnine', run = './install.sh', config = configTabnine, disable = false },
+				{ 'tzachar/cmp-tabnine', run = './install.sh', config = configTabnine },
 			},
 		},
 

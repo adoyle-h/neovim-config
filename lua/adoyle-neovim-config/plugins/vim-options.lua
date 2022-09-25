@@ -1,7 +1,6 @@
 local M = {
 	nil,
 	desc = 'Set vim/nvim options. Use :help "option" to see the documentation for the given option.',
-	disable = false,
 }
 
 M.config = function()

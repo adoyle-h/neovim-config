@@ -6,7 +6,7 @@ local M = {
 }
 
 M.requires = {
-	{ 'dstein64/vim-startuptime', desc = 'Launch vim-startuptime with :StartupTime', disable = false },
+	{ 'dstein64/vim-startuptime', desc = 'Launch vim-startuptime with :StartupTime' },
 }
 
 return M

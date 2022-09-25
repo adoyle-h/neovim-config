@@ -4,7 +4,6 @@ local util = require('adoyle-neovim-config.util')
 
 local M = {
 	'nvim-telescope/telescope.nvim',
-	disable = false,
 	requires = {
 		'nvim-telescope/telescope-ui-select.nvim', -- improve the default vim.ui interfaces, like lsp.buf.code_action
 	},

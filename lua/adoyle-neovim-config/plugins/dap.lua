@@ -1,4 +1,4 @@
-local M = { 'mfussenegger/nvim-dap', disable = false, requires = {} }
+local M = { 'mfussenegger/nvim-dap', requires = {} }
 
 M.signs = {
 	{ 'DapBreakpoint', { text = 'B' } },

@@ -1,4 +1,4 @@
-local M = { 'kyazdani42/nvim-tree.lua', disable = false, on = {}, requires = {} }
+local M = { 'kyazdani42/nvim-tree.lua' }
 
 M.keymaps = {
 	{ 'n', '<leader>nm', ':NvimTreeToggle<CR>', { silent = true } },

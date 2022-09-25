@@ -2,7 +2,6 @@ local M = {
 	'dhruvasagar/vim-table-mode',
 	desc = '格式化表格',
 	on = 'TableModeToggle',
-	disable = false,
 	requires = {},
 }
 

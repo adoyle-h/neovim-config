@@ -1,4 +1,4 @@
-local M = { nil, disable = false, desc = 'window keymaps' }
+local M = { nil, desc = 'window keymaps' }
 
 M.keymaps = {
 	{ 'n', '<leader>w', ':w<CR>', { desc = 'save current buffer' } },

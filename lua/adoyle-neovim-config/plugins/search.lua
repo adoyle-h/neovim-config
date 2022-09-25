@@ -1,4 +1,4 @@
-local M = { nil, disable = false }
+local M = { nil }
 
 local config = require('adoyle-neovim-config.config').config
 local color = config.color
@@ -8,7 +8,6 @@ local bgColor = color.grey2
 M.requires = {
 	{
 		'kevinhwang91/nvim-hlslens',
-		disable = false,
 		desc = 'Highlight search floating',
 		highlights = {
 			{ 'Search', { bg = 'none', fg = mainColor, underline = true } },
@@ -28,7 +27,6 @@ M.requires = {
 		'dyng/ctrlsf.vim',
 		desc = 'Search all contents in workspace',
 		on = { '<Plug>CtrlSFPrompt', '<Plug>CtrlSFVwordPath', 'CtrlSF' },
-		disable = false,
 
 		keymaps = {
 			{ 'n', '<leader>f', '<Plug>CtrlSFPrompt' },
@@ -57,7 +55,6 @@ M.requires = {
 	{
 		'thinca/vim-visualstar',
 		desc = 'Enable <C-n> search in visual mode',
-		disable = false,
 
 		keymaps = {
 			{ 'x', '<C-n>', '<Plug>(visualstar-*)', { silent = true } },

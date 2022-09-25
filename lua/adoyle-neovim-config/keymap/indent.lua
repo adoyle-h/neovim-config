@@ -1,4 +1,4 @@
-local M = { nil, disable = false, desc = 'indent keymaps' }
+local M = { nil, desc = 'indent keymaps' }
 
 local function indentLevel(lnum)
 	return vim.fn.indent(lnum) / vim.bo.shiftwidth

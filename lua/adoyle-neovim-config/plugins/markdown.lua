@@ -1,4 +1,4 @@
-local M = { nil, disable = false }
+local M = { nil }
 
 M.requires = {
 	{
@@ -19,7 +19,6 @@ M.requires = {
 
 	{
 		'adoyle-h/vim-MarkdownTOC',
-		disable = false,
 		desc = 'Table of Content generator',
 		['for'] = 'markdown',
 		branch = 'adoyle',

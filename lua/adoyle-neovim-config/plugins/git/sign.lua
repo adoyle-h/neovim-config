@@ -1,7 +1,6 @@
 local M = {
 	'lewis6991/gitsigns.nvim',
 	desc = 'Vim gutter sign and git blame float window',
-	disable = false,
 }
 
 function M.config()

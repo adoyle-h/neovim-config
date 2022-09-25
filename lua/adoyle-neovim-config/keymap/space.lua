@@ -1,4 +1,4 @@
-local M = { nil, disable = false, desc = 'Insert spaces or newline Keymap' }
+local M = { nil, desc = 'Insert spaces or newline Keymap' }
 
 M.keymaps = {
 

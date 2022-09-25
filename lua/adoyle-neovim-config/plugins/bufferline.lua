@@ -1,7 +1,6 @@
 local M = {
 	'akinsho/bufferline.nvim',
 	tag = 'v2.*',
-	disable = false,
 	requires = { 'tiagovla/scope.nvim' },
 }
 

@@ -1,7 +1,6 @@
 local M = {
 	'rcarriga/nvim-notify',
 	desc = 'An awesome notify library!',
-	disable = false,
 	commands = {
 		{
 			'Notify',

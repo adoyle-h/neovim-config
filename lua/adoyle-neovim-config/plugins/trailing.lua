@@ -3,7 +3,6 @@ local config = require('adoyle-neovim-config.config').config
 local M = {
 	'johnfrankmorgan/whitespace.nvim',
 	desc = 'highlight trailing spaces',
-	disable = false,
 	highlights = { { 'TrailingWhitespace', { bg = config.color.grey3 } } },
 	commands = {
 		{

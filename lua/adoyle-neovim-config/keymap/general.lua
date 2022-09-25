@@ -1,4 +1,4 @@
-local M = { nil, disable = false, desc = 'General Keymaps' }
+local M = { nil, desc = 'General Keymaps' }
 
 M.keymaps = {
 	{ 'n', '<F1>', ':h<CR>', { noremap = true, silent = true, desc = 'Open vim help document' } },

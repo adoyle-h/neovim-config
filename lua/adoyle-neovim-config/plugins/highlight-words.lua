@@ -1,7 +1,6 @@
 local M = {
 	'vasconcelloslf/vim-interestingwords',
 	desc = 'highlight any words under cursor',
-	disable = false,
 	requires = {},
 	keymaps = {
 		{ 'n', '<leader>k', ':call InterestingWords("n")<CR>', { silent = true } },

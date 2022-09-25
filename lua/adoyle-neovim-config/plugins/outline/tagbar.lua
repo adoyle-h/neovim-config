@@ -1,7 +1,6 @@
 local M = {
 	'majutsushi/tagbar',
 	desc = 'Outline - tagbar',
-	disable = false,
 	requires = {},
 	keymaps = { { 'n', '<leader>tb', ':TagbarToggle fj<CR>' } },
 }

@@ -1,4 +1,4 @@
-local M = { 'scrooloose/nerdcommenter', desc = '注释插件', disable = false }
+local M = { 'scrooloose/nerdcommenter', desc = '注释插件' }
 
 function M.config()
 	vim.g.NERDSpaceDelims = 1

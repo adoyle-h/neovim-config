@@ -1,4 +1,4 @@
-local M = { 'stevearc/aerial.nvim', desc = 'Outline - aerial', disable = false, requires = {} }
+local M = { 'stevearc/aerial.nvim', desc = 'Outline - aerial', requires = {} }
 
 local config = require('adoyle-neovim-config.config').config
 

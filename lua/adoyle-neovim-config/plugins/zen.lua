@@ -106,6 +106,5 @@ local ZenMode = {
 return {
 	nil,
 	desc = 'For better writing experience',
-	disable = false,
 	requires = { Twilight, ZenMode },
 }

@@ -1,4 +1,4 @@
-local M = { nil, desc = 'Load all keymap settings', disable = false }
+local M = { nil, desc = 'Load all keymap settings' }
 
 M.requires = {
 	require('adoyle-neovim-config.keymap.general'),

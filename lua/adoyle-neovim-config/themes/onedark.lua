@@ -1,6 +1,6 @@
 local config = require('adoyle-neovim-config.config').config
 
-local M = { 'navarasu/onedark.nvim', disable = false }
+local M = { 'navarasu/onedark.nvim' }
 
 function M.config()
 	local o = require('onedark')

@@ -1,4 +1,4 @@
-local M = { 'nathom/filetype.nvim', desc = 'filetype detection', disable = false, requires = {} }
+local M = { 'nathom/filetype.nvim', desc = 'filetype detection', requires = {} }
 
 function M.config()
 	-- use lua filetype detection instead of vim filetype detection

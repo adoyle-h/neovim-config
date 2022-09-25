@@ -1,6 +1,6 @@
 local config = require('adoyle-neovim-config.config').config
 
-local M = { 'nvim-neo-tree/neo-tree.nvim', branch = 'v2.x', disable = false }
+local M = { 'nvim-neo-tree/neo-tree.nvim', branch = 'v2.x' }
 
 M.keymaps = {
 	{ 'n', '<space>b', ':Neotree toggle show buffers<CR>' },

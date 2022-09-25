@@ -1,4 +1,4 @@
-local M = { 'olimorris/onedarkpro.nvim', disable = false }
+local M = { 'olimorris/onedarkpro.nvim' }
 
 function M.config()
 	local o = require('onedarkpro')

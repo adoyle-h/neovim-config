@@ -92,6 +92,6 @@ local Resize = {
 	end,
 }
 
-local M = { nil, disable = false, requires = { Shade, Maximize, Resize } }
+local M = { nil, requires = { Shade, Maximize, Resize } }
 
 return M

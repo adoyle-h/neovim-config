@@ -1,8 +1,7 @@
-local M = { nil, desc = 'Format Settings', disable = false }
+local M = { nil, desc = 'Format Settings' }
 
 local EasyAlign = {
 	'junegunn/vim-easy-align',
-	disable = false,
 	on = { '<Plug>(EasyAlign)', 'EasyAlign' },
 
 	keymaps = {

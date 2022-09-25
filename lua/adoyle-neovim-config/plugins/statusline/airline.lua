@@ -1,7 +1,6 @@
 local M = {
 	'vim-airline/vim-airline',
 	desc = 'vim-airline',
-	disable = false,
 	requires = { 'vim-airline/vim-airline-themes' },
 }
 
