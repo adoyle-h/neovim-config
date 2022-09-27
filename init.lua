@@ -14,19 +14,6 @@ require('adoyle-neovim-config').setup {
 			github = 'https://ghproxy.com/',
 		},
 
-		pluginOpts = { -- Override plugin default config
-			['plugins.profiling'] = { disable = false },
-		},
-
-		-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
-		plugins = {
-			-- { 'psliwka/vim-smoothie', disable = false },
-
-			-- function(Plug)
-			--   Plug { 'psliwka/vim-smoothie', disable = false }
-			-- end,
-		},
-
 		lsp = {
 			-- a list of all tools you want to ensure are installed upon start;
 			-- Package Index: https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md
@@ -77,45 +64,46 @@ require('adoyle-neovim-config').setup {
 				'yaml-language-server', -- #LSP
 				'yamlfmt', -- #Formatter
 			},
+		},
 
-			nullLS = {
-				debug = false,
+		nullLS = {
+			debug = false,
 
-				-- Available null-ls sources list
-				-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-				-- How to config null-ls sources:
-				-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
-				sources = function(builtins)
-					local code_actions = builtins.code_actions
-					local diagnostics = builtins.diagnostics
-					local formatting = builtins.formatting
+			-- Available null-ls sources list
+			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+			-- How to config null-ls sources:
+			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+			sources = function(builtins)
+				local code_actions = builtins.code_actions
+				local diagnostics = builtins.diagnostics
+				local formatting = builtins.formatting
 
-					return {
-						code_actions.eslint_d,
-						code_actions.shellcheck,
+				return {
+					code_actions.eslint_d,
+					code_actions.shellcheck,
 
-						diagnostics.eslint_d,
-						diagnostics.shellcheck,
+					diagnostics.eslint_d,
+					diagnostics.shellcheck,
 
-						-- Formatters run in the order in which you register them.
-						formatting.eslint_d.with {
-							-- eslint_d is a daemon so that it will cache eslint and eslint-plugins.
-							-- You may need to run "eslint_d restart" or kill eslint_d process to update cache while in trouble.
-							-- See https://github.com/mantoni/eslint_d.js#what-if-eslint-or-a-plugin-is-updated
-							-- The eslint_d filepath is ~/.local/share/nvim/mason/bin/eslint_d
-							prefer_local = 'node_modules/.bin',
-						},
+					-- Formatters run in the order in which you register them.
+					formatting.eslint_d.with {
+						-- eslint_d is a daemon so that it will cache eslint and eslint-plugins.
+						-- You may need to run "eslint_d restart" or kill eslint_d process to update cache while in trouble.
+						-- See https://github.com/mantoni/eslint_d.js#what-if-eslint-or-a-plugin-is-updated
+						-- The eslint_d filepath is ~/.local/share/nvim/mason/bin/eslint_d
+						prefer_local = 'node_modules/.bin',
+					},
 
-						-- formatting.prettierd.with {
-						--     disabled_filetypes = { 'markdown' },
-						--     prefer_local = 'node_modules/.bin',
-						-- },
+					-- formatting.prettierd.with {
+					--     disabled_filetypes = { 'markdown' },
+					--     prefer_local = 'node_modules/.bin',
+					-- },
 
-						formatting.lua_format,
-					}
-				end,
-			},
-
+					formatting.lua_format,
+				}
+			end,
 		},
 	},
+
+	pluginOpts = { ['folke/todo-comments.nvim'] = { disable = true } },
 }

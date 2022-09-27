@@ -16,13 +16,12 @@ local M = {
 	},
 }
 
-function M.config()
-	local config = require('adoyle-neovim-config.config').config
-	local symbolMap = config.symbolMap
+local config = require('adoyle-neovim-config.config').config
+local symbolMap = config.symbolMap
 
-	vim.notify = require('notify')
-
-	vim.notify.setup {
+M.defaultConfig = {
+	'notify',
+	{
 		background_colour = config.color.black,
 		fps = 30,
 		icons = {
@@ -38,7 +37,12 @@ function M.config()
 		stages = 'fade_in_slide_out',
 		timeout = 2000,
 		top_down = true,
-	}
+	},
+}
+
+function M.config()
+	vim.notify = require('notify')
+	vim.notify.setup(config.notify)
 end
 
 return M

@@ -1,10 +1,12 @@
 local M = { nil, desc = 'The fast cursor selection with text-objects' }
-local config = require('adoyle-neovim-config.config').config
+local CM = require('adoyle-neovim-config.config')
+local config = CM.config
 
 M.requires = {
 	{
 		'gcmt/wildfire.vim',
 		desc = 'Select the text-objects',
+
 		keymaps = {
 			{ '', '<leader>v', '<Plug>(wildfire-fuel)', desc = 'select the next closest text object.' },
 			{ '', '<leader>V', '<Plug>(wildfire-water)', desc = 'select the previous closest text object.' },
@@ -14,7 +16,8 @@ M.requires = {
 
 	{
 		'nvim-treesitter/nvim-treesitter-textobjects',
-		disable = config.pluginOpts['nvim-treesitter/nvim-treesitter'].disable,
+		disable = CM.pluginOpts['nvim-treesitter/nvim-treesitter'].disable,
+
 		defaultConfig = {
 			{ 'select', 'textobjects' },
 
@@ -49,6 +52,7 @@ M.requires = {
 				},
 			},
 		},
+
 		config = function()
 			require('nvim-treesitter.configs').setup { textobjects = config.select.textobjects }
 		end,

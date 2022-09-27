@@ -1,21 +1,31 @@
-local M = { 'petertriho/nvim-scrollbar' }
+local config = require('adoyle-neovim-config.config').config
 
-function M.config()
+local M = {
+	'petertriho/nvim-scrollbar',
+	config = function()
+		require('scrollbar').setup(config.scrollbar)
+	end,
+}
+
+M.defaultConfig = function()
+	local color = config.color
 	local has_hlslens = pcall(require, 'hlslens')
-	local config = require('adoyle-neovim-config.config').config
 
-	require('scrollbar').setup {
-		excluded_buftypes = { 'terminal' },
+	return {
+		'scrollbar',
+		{
+			excluded_buftypes = { 'terminal' },
 
-		excluded_filetypes = { 'prompt', 'TelescopePrompt' },
+			excluded_filetypes = { 'prompt', 'TelescopePrompt' },
 
-		handle = { color = config.color.scrollbarBG },
+			handle = { color = color.grey2 },
 
-		marks = { Search = { priority = 0, color = config.color.orange } },
+			marks = { Search = { priority = 0, color = color.orange } },
 
-		handlers = {
-			diagnostic = true,
-			search = has_hlslens, -- Requires hlslens to be loaded, will run require('scrollbar.handlers.search').setup() for you
+			handlers = {
+				diagnostic = true,
+				search = has_hlslens, -- will auto run require('scrollbar.handlers.search').setup()
+			},
 		},
 	}
 end

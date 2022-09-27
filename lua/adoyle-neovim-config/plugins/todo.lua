@@ -1,7 +1,15 @@
-local M = { 'folke/todo-comments.nvim', disable = true }
+local M = {
+	'folke/todo-comments.nvim',
 
-function M.config()
-	require('todo-comments').setup {
+	config = function()
+		local config = require('adoyle-neovim-config.config').config
+		require('todo-comments').setup(config.todo)
+	end,
+}
+
+M.defaultConfig = {
+	'todo',
+	{
 		signs = true, -- show icons in the signs column
 		sign_priority = 8, -- sign priority
 		-- keywords recognized as todo comments
@@ -49,7 +57,7 @@ function M.config()
 			pattern = [[\b(KEYWORDS):]], -- ripgrep regex
 			-- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
 		},
-	}
-end
+	},
+}
 
 return M

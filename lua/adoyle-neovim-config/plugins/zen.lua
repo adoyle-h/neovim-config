@@ -39,6 +39,12 @@ local Twilight = {
 local ZenMode = {
 	'folke/zen-mode.nvim',
 
+	config = function()
+		require('zen-mode').setup(config.zen.mode)
+	end,
+
+	keymaps = { { 'n', '<space>z', ':ZenMode<CR>' } },
+
 	defaultConfig = {
 		{ 'zen', 'mode' },
 		{
@@ -95,16 +101,6 @@ local ZenMode = {
 			end,
 		},
 	},
-
-	config = function()
-		require('zen-mode').setup(config.zen.mode)
-	end,
-
-	keymaps = { { 'n', '<space>z', ':ZenMode<CR>' } },
 }
 
-return {
-	nil,
-	desc = 'For better writing experience',
-	requires = { Twilight, ZenMode },
-}
+return { nil, desc = 'For better writing experience', requires = { Twilight, ZenMode } }

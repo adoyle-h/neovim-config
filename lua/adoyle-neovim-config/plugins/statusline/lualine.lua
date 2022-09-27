@@ -1,85 +1,19 @@
-local M = { 'nvim-lualine/lualine.nvim', desc = 'lualine.nvim', requires = {} }
-
-local printf = vim.fn.printf
 local config = require('adoyle-neovim-config.config').config
-local colors = config.color.statusline
-local sec_c_bg = colors.sec_c_bg
 
-local function theme()
-	local black = colors.black
-	local white = colors.white
-	local green = colors.green
-	local grey = colors.grey
-
-	return {
-		normal = {
-			a = { fg = black, bg = green, gui = 'bold' },
-			b = { fg = white, bg = grey },
-			c = { fg = colors.sec_c_fg, bg = sec_c_bg },
-			y = { fg = white, bg = colors.sec_y_bg },
-			z = { fg = black, bg = green },
-		},
-
-		insert = { a = { fg = black, bg = colors.blue, gui = 'bold' } },
-
-		visual = { a = { fg = black, bg = colors.orange, gui = 'bold' } },
-
-		replace = { a = { fg = black, bg = colors.purple, gui = 'bold' } },
-
-		inactive = {
-			c = { fg = white, bg = black },
-			a = { fg = white, bg = grey, gui = 'bold' },
-			b = { fg = white, bg = colors.sec_y_bg },
-		},
-	}
-end
-
-local modeMap = {
-	['n'] = 'N', -- 'NORMAL'
-	['no'] = 'O-PENDING',
-	['nov'] = 'O-PENDING',
-	['noV'] = 'O-PENDING',
-	['no\22'] = 'O-PENDING',
-	['niI'] = 'NORMAL',
-	['niR'] = 'NORMAL',
-	['niV'] = 'NORMAL',
-	['nt'] = 'NORMAL',
-	['ntT'] = 'NORMAL',
-	['v'] = 'V', -- 'VISUAL'
-	['vs'] = 'VISUAL',
-	['V'] = 'V-LINE',
-	['Vs'] = 'V-LINE',
-	['\22'] = 'V-BLOCK',
-	['\22s'] = 'V-BLOCK',
-	['^V'] = 'V-BLOCK',
-	['multi'] = 'Multi',
-	['s'] = 'SELECT',
-	['S'] = 'S-LINE',
-	['\19'] = 'S-BLOCK',
-	['i'] = 'I', -- 'INSERT',
-	['ic'] = 'INSERT',
-	['ix'] = 'INSERT',
-	['R'] = 'R', -- 'REPLACE'
-	['Rc'] = 'REPLACE',
-	['Rx'] = 'REPLACE',
-	['Rv'] = 'V-REPLACE',
-	['Rvc'] = 'V-REPLACE',
-	['Rvx'] = 'V-REPLACE',
-	['c'] = 'COMMAND',
-	['cv'] = 'EX',
-	['ce'] = 'EX',
-	['r'] = 'REPLACE',
-	['rm'] = 'MORE',
-	['r?'] = 'CONFIRM',
-	['!'] = 'SHELL',
-	['t'] = 'TERMINAL',
+local M = {
+	'nvim-lualine/lualine.nvim',
+	desc = 'lualine.nvim',
+	config = function()
+		require('lualine').setup(config.statusline.lualine)
+	end,
 }
 
+local printf = vim.fn.printf
+
+---@return string current mode name
 local function getMode()
-	---@return string current mode name
 	local mode_code = vim.api.nvim_get_mode().mode
-	if modeMap[mode_code] == nil then return mode_code end
-	return modeMap[mode_code]
+	return config.statusline.modeMap[mode_code] or mode_code
 end
 
 local function mixLine()
@@ -106,7 +40,7 @@ end
 
 local function paste()
 	if vim.o.paste then
-		return 'Ƥ'
+		return config.statusline.pasteSymbol
 	else
 		return ''
 	end
@@ -131,8 +65,58 @@ local function my_sections()
 	return printf('%s %s %s', location(), spaces(), bufferNumber())
 end
 
-function M.config()
+local function theme(colors)
+	local black = colors.black
+	local white = colors.white
+	local green = colors.green
+	local grey = colors.grey
+	local sec_c_bg = colors.sec_c_bg
+
+	return {
+		normal = {
+			a = { fg = black, bg = green, gui = 'bold' },
+			b = { fg = white, bg = grey },
+			c = { fg = colors.sec_c_fg, bg = sec_c_bg },
+			y = { fg = white, bg = colors.sec_y_bg },
+			z = { fg = black, bg = green },
+		},
+
+		insert = { a = { fg = black, bg = colors.blue, gui = 'bold' } },
+
+		visual = { a = { fg = black, bg = colors.orange, gui = 'bold' } },
+
+		replace = { a = { fg = black, bg = colors.purple, gui = 'bold' } },
+
+		inactive = {
+			c = { fg = white, bg = black },
+			a = { fg = white, bg = grey, gui = 'bold' },
+			b = { fg = white, bg = colors.sec_y_bg },
+		},
+	}
+end
+
+M.defaultConfig = function()
+	local color = config.color
+	local colors = vim.tbl_extend('keep', vim.tbl_get(config, 'statusline', 'colors') or {}, {
+		red = color.red,
+		black = color.black,
+		white = '#d9d7ce',
+		grey = '#282b2e',
+		green = '#bbe67e',
+		blue = '#689afd',
+		orange = '#D75F00',
+		purple = '#765ADA',
+		yellow = '#C7B000',
+		cyan = '#9ac3de',
+		sec_y_bg = '#272d38',
+		sec_c_fg = '#607080',
+		sec_c_bg = '#12151a',
+	})
+
+	local sec_c_bg = colors.sec_c_bg
+
 	local symbolMap = config.symbolMap
+
 	local diagnostics = {
 		'diagnostics',
 
@@ -168,7 +152,7 @@ function M.config()
 	local lualineConfig = {
 		options = {
 			icons_enabled = true,
-			theme = theme(),
+			theme = theme(colors),
 			-- component_separators = { left = '', right = '' },
 			component_separators = { left = '│', right = '│' },
 			section_separators = { left = '', right = '' },
@@ -248,7 +232,57 @@ function M.config()
 		})
 	end
 
-	require('lualine').setup(lualineConfig)
+	return {
+		'statusline',
+		{
+			colors = colors,
+
+			pasteSymbol = 'Ƥ',
+
+			modeMap = {
+				['n'] = 'N', -- 'NORMAL'
+				['no'] = 'O-PENDING',
+				['nov'] = 'O-PENDING',
+				['noV'] = 'O-PENDING',
+				['no\22'] = 'O-PENDING',
+				['niI'] = 'NORMAL',
+				['niR'] = 'NORMAL',
+				['niV'] = 'NORMAL',
+				['nt'] = 'NORMAL',
+				['ntT'] = 'NORMAL',
+				['v'] = 'V', -- 'VISUAL'
+				['vs'] = 'VISUAL',
+				['V'] = 'V-LINE',
+				['Vs'] = 'V-LINE',
+				['\22'] = 'V-BLOCK',
+				['\22s'] = 'V-BLOCK',
+				['^V'] = 'V-BLOCK',
+				['multi'] = 'Multi',
+				['s'] = 'SELECT',
+				['S'] = 'S-LINE',
+				['\19'] = 'S-BLOCK',
+				['i'] = 'I', -- 'INSERT',
+				['ic'] = 'INSERT',
+				['ix'] = 'INSERT',
+				['R'] = 'R', -- 'REPLACE'
+				['Rc'] = 'REPLACE',
+				['Rx'] = 'REPLACE',
+				['Rv'] = 'V-REPLACE',
+				['Rvc'] = 'V-REPLACE',
+				['Rvx'] = 'V-REPLACE',
+				['c'] = 'COMMAND',
+				['cv'] = 'EX',
+				['ce'] = 'EX',
+				['r'] = 'REPLACE',
+				['rm'] = 'MORE',
+				['r?'] = 'CONFIRM',
+				['!'] = 'SHELL',
+				['t'] = 'TERMINAL',
+			},
+
+			lualine = lualineConfig,
+		},
+	}
 end
 
 return M

@@ -5,30 +5,11 @@ return function(color)
 	return {
 		color = color,
 
-		highlights = require('adoyle-neovim-config.config.highlight-group')(color),
-
-		vim = require('adoyle-neovim-config.config.vim-options'),
-
 		theme = 'onedarkpro',
 
 		-- All plugins are downloaded in this directory
 		-- Default: ~/.local/share/nvim/plugins
 		pluginDir = vim.fn.stdpath('data') .. '/plugins',
-
-		pluginOpts = { -- Override plugin default config
-			-- ['plugins.profiling'] = {
-			--   disable = false, -- Set false to enable the disabled plugin by default.
-			-- },
-		},
-
-		-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
-		plugins = {
-			-- { 'psliwka/vim-smoothie' },
-
-			-- function(Plug)
-			--   Plug { 'psliwka/vim-smoothie' }
-			-- end,
-		},
 
 		proxy = {
 			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/')

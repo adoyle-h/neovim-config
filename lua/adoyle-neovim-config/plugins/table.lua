@@ -1,6 +1,6 @@
 local M = {
 	'dhruvasagar/vim-table-mode',
-	desc = '格式化表格',
+	desc = 'format table',
 	on = 'TableModeToggle',
 	requires = {},
 }
@@ -26,13 +26,25 @@ local function changeTableMode()
 	print('Table Mode: ' .. b.table_mode_mode)
 end
 
+M.defaultConfig = {
+	{ 'table' },
+	{
+		motion_up_map = '[{',
+		motion_down_map = ']}',
+		motion_left_map = '[[',
+		motion_right_map = ']]',
+		map_prefix = '<leader>T',
+	},
+}
+
 function M.config()
+	local conf = require('adoyle-neovim-config.config').config.table
 	local g = vim.g
-	g.table_mode_motion_up_map = '[{'
-	g.table_mode_motion_down_map = ']}'
-	g.table_mode_motion_left_map = '[['
-	g.table_mode_motion_right_map = ']]'
-	g.table_mode_map_prefix = '<leader>T'
+	g.table_mode_motion_up_map = conf.motion_up_map
+	g.table_mode_motion_down_map = conf.motion_down_map
+	g.table_mode_motion_left_map = conf.motion_left_map
+	g.table_mode_motion_right_map = conf.motion_right_map
+	g.table_mode_map_prefix = conf.map_prefix
 end
 
 M.keymaps = {

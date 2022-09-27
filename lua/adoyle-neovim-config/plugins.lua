@@ -2,13 +2,13 @@
 -- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 local P = require('adoyle-neovim-config.vim-plug')
 local util = require('adoyle-neovim-config.util')
-local config = require('adoyle-neovim-config.config').config
+local CM = require('adoyle-neovim-config.config')
 local Plug = P.Plug
 
 -- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
 local Load = function(path)
 	local opts = require('adoyle-neovim-config.' .. path)
-	local userPluginOpts = config.pluginOpts[path]
+	local userPluginOpts = CM.pluginOpts[path]
 	opts = util.merge(opts, userPluginOpts)
 	Plug(opts)
 end

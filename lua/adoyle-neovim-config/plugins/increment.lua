@@ -8,9 +8,9 @@ local M = {
 	},
 }
 
-function M.config()
-	vim.g.increment_activator_no_default_key_mappings = 1
-	vim.g.increment_activator_filetype_candidates = {
+M.defaultConfig = {
+	'increment',
+	{
 		['_'] = {
 			-- LuaFormatter off
 			{
@@ -31,7 +31,13 @@ function M.config()
 			{'LOW', 'NORMAL', 'HIGH'},
 			-- LuaFormatter on
 		},
-	}
+	},
+}
+
+function M.config()
+	local conf = require('adoyle-neovim-config.config').config.increment
+	vim.g.increment_activator_no_default_key_mappings = 1
+	vim.g.increment_activator_filetype_candidates = conf
 end
 
 return M

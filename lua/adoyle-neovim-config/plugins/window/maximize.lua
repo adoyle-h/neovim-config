@@ -1,42 +1,14 @@
-local config = require('adoyle-neovim-config.config').config
-
--- TO FIX:  Neovim not rendering the correct color when an underline is overlayed by a transparent floating window.
--- https://github.com/sunjon/Shade.nvim/issues/12
--- https://github.com/neovim/neovim/issues/14453
-local Shade = {
-	'sunjon/shade.nvim',
-	desc = 'Dim inactive windows',
-
-	defaultConfig = {
-		{ 'window', 'shade' },
-		{
-			overlay_opacity = 40,
-			opacity_step = 1,
-			keys = { --
-				brightness_up = '<C-Up>',
-				brightness_down = '<C-Down>',
-				toggle = '<Leader>sd',
-			},
-		},
-	},
-
-	config = function()
-		local shade = require('shade')
-		shade.setup(config.window.shade)
-		shade.toggle()
-	end,
-}
-
-local Maximize = {
+-- BUG: When open telescope window in maximize window, nvim will throw error
+return {
 	'anuvyklack/windows.nvim',
 	requires = { 'anuvyklack/middleclass', 'anuvyklack/animation.nvim' },
 	desc = 'Auto scale width of window. And maximize window',
 
 	defaultConfig = {
 		{ 'window', 'maximize' }, --
+
 		{ -- :h windows.nvim
 			autowidth = {
-				-- BUG: When open telescope window in maximize window, nvim will throw error
 				-- BUG: Aerial window will be autowidthed even when it is in ignore list
 				enable = false,
 
@@ -70,28 +42,9 @@ local Maximize = {
 	},
 
 	config = function()
+		local config = require('adoyle-neovim-config.config').config
 		require('windows').setup(config.window.maximize)
 	end,
 
 	keymaps = { { 'n', '<C-w>z', ':WindowsMaximize<CR>', { silent = true } } },
 }
-
-local Resize = {
-	'simeji/winresizer',
-	desc = 'Resize window layout',
-	defaultConfig = {
-		{ 'window', 'resize' }, --
-		{ vert = 5, horiz = 3, trigger = '<C-W><C-W>' },
-	},
-	config = function()
-		local c = config.window.resize
-		vim.g.winresizer_gui_enable = 1
-		vim.g.winresizer_vert_resize = c.vert
-		vim.g.winresizer_horiz_resize = c.horiz
-		vim.g.winresizer_start_key = c.trigger
-	end,
-}
-
-local M = { nil, requires = { Shade, Maximize, Resize } }
-
-return M

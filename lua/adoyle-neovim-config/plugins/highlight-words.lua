@@ -1,7 +1,22 @@
-local M = {
+return {
 	'vasconcelloslf/vim-interestingwords',
 	desc = 'highlight any words under cursor',
-	requires = {},
+
+	defaultConfig = {
+		{ 'highlightWords' },
+		{
+			-- LuaFormatter off
+			gui = {
+				'#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF', '#C9853E', '#4083F8',
+				'#5F9B2F', '#8255FF', '#D25B9F', '#406661', '#95956E', '#284184', '#6C7B95', '#835858',
+			},
+			cterm = {},
+			-- LuaFormatter on
+
+			randomiseColors = 0,
+		},
+	},
+
 	keymaps = {
 		{ 'n', '<leader>k', ':call InterestingWords("n")<CR>', { silent = true } },
 		{ 'v', '<leader>k', '<Plug>InterestingWords', { silent = true } },
@@ -9,14 +24,12 @@ local M = {
 		{ 'n', '[k', '<Plug>InterestingWordsBackward', { silent = true } },
 		{ 'n', ']k', '<Plug>InterestingWordsForeward', { silent = true } },
 	},
+
+	config = function()
+		local conf = require('adoyle-neovim-config.config').config.highlightWords
+
+		vim.g.interestingWordsGUIColors = conf.gui
+		vim.g.interestingWordsTermColors = conf.cterm
+		vim.g.interestingWordsRandomiseColors = conf.randomiseColors
+	end,
 }
-
-function M.config()
-	local color = require('adoyle-neovim-config.config').config.color
-
-	vim.g.interestingWordsGUIColors = color.highlightWords.gui
-	vim.g.interestingWordsTermColors = color.highlightWords.cterm
-	vim.g.interestingWordsRandomiseColors = 0
-end
-
-return M

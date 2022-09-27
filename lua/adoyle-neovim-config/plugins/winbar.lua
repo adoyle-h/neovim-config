@@ -6,21 +6,26 @@ local M = {
 	disable = not config.codeContext.winbar,
 }
 
-function M.config()
-	local icons = {}
-	for k, v in pairs(config.kindSymbolMap) do icons[k] = v .. ' ' end
+local icons = {}
+for k, v in pairs(config.kindSymbolMap) do icons[k] = v .. ' ' end
 
-	-- silence warning/error messages thrown by nvim-navic
-	vim.g.navic_silence = true
-
-	require('nvim-navic').setup {
+M.defaultConfig = {
+	'winbar',
+	{
 		icons = icons,
 
 		highlight = false,
 		separator = ' > ',
 		depth_limit = 0,
 		depth_limit_indicator = '..',
-	}
+	},
+}
+
+function M.config()
+	-- silence warning/error messages thrown by nvim-navic
+	vim.g.navic_silence = true
+
+	require('nvim-navic').setup(config.winbar)
 end
 
 return M

@@ -162,24 +162,25 @@ require('adoyle-neovim-config').setup {
 			-- Otherwise, remove this option.
 			github = 'https://ghproxy.com/',
 		},
+  },
 
-    pluginOpts = { -- 覆盖插件默认配置
-      ['plugins.profiling'] = {
-        disable = false, -- 设置成 false 来启动默认禁用的插件
-      },
-
-      ['psliwka/vim-smoothie'] = {
-        disable = false,
-      },
+  pluginOpts = { -- 覆盖插件默认配置
+    ['plugins.profiling'] = {
+      disable = false, -- 设置成 false 来启动默认禁用的插件
     },
 
-    plugins = {
-      function(A) -- A == require('adoyle-neovim-config')
-        -- A.Plug 'github/repo'
-      end,
+    ['psliwka/vim-smoothie'] = {
+      disable = false,
     },
   },
 
+  -- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
+  plugins = {
+    -- { 'psliwka/vim-smoothie' },
+    -- function(A) -- A == require('adoyle-neovim-config')
+    --   A.Plug 'github/repo'
+    -- end,
+  },
 }
 ```
 
@@ -191,7 +192,7 @@ require('adoyle-neovim-config').setup {
 
 部分默认配置写在 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)，部分写在插件的 `defaultConfig` 里。
 
-部分默认颜色配置写在 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) 与 [./lua/adoyle-neovim-config/config/highlight-group.lua](./lua/adoyle-neovim-config/config/highlight-group.lua)，另一部分写在插件的 `highlights` 里。
+部分默认颜色配置写在 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) 与 [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua)，另一部分写在插件的 `highlights` 里。
 
 ### 查看配置
 

@@ -1,10 +1,15 @@
 local M = {
 	'lewis6991/gitsigns.nvim',
 	desc = 'Vim gutter sign and git blame float window',
+	config = function()
+		local config = require('adoyle-neovim-config.config')
+		require('gitsigns').setup(config.gitsigns)
+	end,
 }
 
-function M.config()
-	require('gitsigns').setup {
+M.defaultConfig = {
+	'gitsigns',
+	{
 		signs = {
 			add = { hl = 'GitSignsAdd', text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
 			change = {
@@ -60,8 +65,9 @@ function M.config()
 		},
 		yadm = { enable = false },
 		-- on_attach = function(bufnr) end,
-	}
-end
+	},
+
+}
 
 M.keymaps = function()
 	local gs = require('gitsigns')

@@ -1,38 +1,18 @@
 local config = require('adoyle-neovim-config.config').config
+local color = config.color
+local symbols = config.symbolMap
 
-local M = { 'nvim-neo-tree/neo-tree.nvim', branch = 'v2.x' }
-
-M.keymaps = {
-	{ 'n', '<space>b', ':Neotree toggle show buffers<CR>' },
-	{ 'n', '<space>g', ':Neotree toggle show git_status<CR>' },
-	{ 'n', '<space>m', ':Neotree toggle<CR>' },
-	{ 'n', '<leader>nm', ':Neotree toggle<CR>', { silent = true } },
-	{ 'n', '<leader>nb', ':Neotree toggle show buffers<CR>', { silent = true } },
-	{ 'n', '<leader>ng', ':Neotree toggle show git_status<CR>', { silent = true } },
-	{ 'n', '<leader>nf', ':Neotree reveal<CR>', { silent = true } },
+local M = {
+	'nvim-neo-tree/neo-tree.nvim',
+	branch = 'v2.x',
+	config = function()
+		require('neo-tree').setup(config.neotree)
+	end,
 }
 
 M.defaultConfig = {
-	'filetree',
+	'neotree',
 	{
-		hideByName = config.ignore.fileSearch.names,
-
-		alwaysShow = { -- remains visible even if other settings would normally hide it
-			-- '.gitignored',
-		},
-
-		neverShow = { -- remains hidden even if visible is toggled to true, this overrides always_show
-			'.DS_Store',
-			'thumbs.db',
-		},
-	},
-}
-
-function M.config()
-	local conf = config.filetree
-	local symbols = config.symbolMap
-
-	require('neo-tree').setup {
 		log_level = 'warn',
 		close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
 		popup_border_style = 'rounded',
@@ -168,13 +148,18 @@ function M.config()
 				hide_dotfiles = false,
 				hide_gitignored = true,
 				hide_hidden = true, -- only works on Windows for hidden files/directories
-				hide_by_name = conf.hideByName,
+				hide_by_name = config.ignore.fileSearch.names,
 				hide_by_pattern = { -- uses glob style patterns
 					-- '*.meta',
 					-- '*/src/*/tsconfig.json',
 				},
-				always_show = conf.alwaysShow,
-				never_show = conf.neverShow,
+				always_show = { -- remains visible even if other settings would normally hide it
+					-- '.gitignored',
+				},
+				never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+					'.DS_Store',
+					'thumbs.db',
+				},
 			},
 
 			follow_current_file = false, -- This will find and focus the file in the active buffer every
@@ -234,7 +219,23 @@ function M.config()
 				diagnostics = ' 裂Diagnostics ', -- string | nil
 			},
 		},
-	}
-end
+	},
+}
+
+M.highlights = {
+	{ 'NeoTreeGitUntracked', { fg = color.green } },
+	{ 'NeoTreeFileIcon', { fg = color.white } },
+	{ 'NeoTreeGitUnstaged', { fg = color.yellow } },
+}
+
+M.keymaps = {
+	{ 'n', '<space>b', ':Neotree toggle show buffers<CR>' },
+	{ 'n', '<space>g', ':Neotree toggle show git_status<CR>' },
+	{ 'n', '<space>m', ':Neotree toggle<CR>' },
+	{ 'n', '<leader>nm', ':Neotree toggle<CR>', { silent = true } },
+	{ 'n', '<leader>nb', ':Neotree toggle show buffers<CR>', { silent = true } },
+	{ 'n', '<leader>ng', ':Neotree toggle show git_status<CR>', { silent = true } },
+	{ 'n', '<leader>nf', ':Neotree reveal<CR>', { silent = true } },
+}
 
 return M

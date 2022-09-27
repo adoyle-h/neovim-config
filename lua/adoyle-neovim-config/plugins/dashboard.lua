@@ -1,11 +1,6 @@
-local M = {
-	'goolord/alpha-nvim',
-	desc = 'Dashboard',
-	-- requires = {},
-}
+local M = { 'goolord/alpha-nvim', desc = 'Dashboard' }
 
-function M.config()
-	local alpha = require('alpha')
+M.defaultConfig = function()
 	local dashboard = require('alpha.themes.dashboard')
 	local section = dashboard.section
 	local fn = vim.fn
@@ -55,7 +50,12 @@ function M.config()
 		section.footer,
 	}
 
-	alpha.setup(config)
+	return { 'dashboard', config }
+end
+
+function M.config()
+	local config = require('adoyle-neovim-config.config').config
+	require('alpha').setup(config.dashboard)
 
 	vim.api.nvim_create_autocmd('User', {
 		pattern = { 'AlphaReady' },

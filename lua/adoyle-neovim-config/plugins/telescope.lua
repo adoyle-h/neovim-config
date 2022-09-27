@@ -1,13 +1,38 @@
-local config = require('adoyle-neovim-config.config').config
-local color = config.color
-local util = require('adoyle-neovim-config.util')
-
 local M = {
 	'nvim-telescope/telescope.nvim',
 	requires = {
 		'nvim-telescope/telescope-ui-select.nvim', -- improve the default vim.ui interfaces, like lsp.buf.code_action
 	},
 }
+
+local config = require('adoyle-neovim-config.config').config
+local color = config.color
+local util = require('adoyle-neovim-config.util')
+
+M.highlights = {
+	{ 'TelescopeResultsBorder', { fg = color.white, bg = 'none' } },
+	{ 'TelescopePreviewBorder', { fg = color.white, bg = 'none' } },
+	{ 'TelescopePromptBorder', { fg = color.white, bg = 'none' } },
+	{ 'TelescopeBorder', { fg = color.blue, bg = 'none' } },
+	{ 'TelescopePromptPrefix', { fg = color.blue, bg = 'none' } },
+	{ 'TelescopeSelection', { fg = 'none', bg = color.grey1 } },
+	{ 'TelescopeSelectionCaret', { fg = color.blue, bg = 'none' } },
+	{ 'TelescopeMatching', { fg = color.orange, bg = 'none', underline = true } },
+}
+
+function M.config()
+	local telescope = require('telescope')
+
+	telescope.setup(config.telescope)
+
+	telescope.load_extension('ui-select')
+
+	local has_notify = pcall(require, 'notify')
+	if has_notify then telescope.load_extension('notify') end
+
+	local has_aerial = pcall(require, 'aerial')
+	if has_aerial then telescope.load_extension('aerial') end
+end
 
 M.defaultConfig = function()
 	local action_state = require('telescope.actions.state')
@@ -151,20 +176,6 @@ M.defaultConfig = function()
 	}
 end
 
-function M.config()
-	local telescope = require('telescope')
-
-	telescope.setup(config.telescope)
-
-	telescope.load_extension('ui-select')
-
-	local has_notify = pcall(require, 'notify')
-	if has_notify then telescope.load_extension('notify') end
-
-	local has_aerial = pcall(require, 'aerial')
-	if has_aerial then telescope.load_extension('aerial') end
-end
-
 M.keymaps = function()
 	local tb = require('telescope.builtin')
 	local opts = { silent = true }
@@ -289,16 +300,5 @@ M.keymaps = function()
 
 	return map
 end
-
-M.highlights = {
-	{ 'TelescopeResultsBorder', { fg = color.white, bg = 'none' } },
-	{ 'TelescopePreviewBorder', { fg = color.white, bg = 'none' } },
-	{ 'TelescopePromptBorder', { fg = color.white, bg = 'none' } },
-	{ 'TelescopeBorder', { fg = color.blue, bg = 'none' } },
-	{ 'TelescopePromptPrefix', { fg = color.blue, bg = 'none' } },
-	{ 'TelescopeSelection', { fg = 'none', bg = color.grey1 } },
-	{ 'TelescopeSelectionCaret', { fg = color.blue, bg = 'none' } },
-	{ 'TelescopeMatching', { fg = color.orange, bg = 'none', underline = true } },
-}
 
 return M

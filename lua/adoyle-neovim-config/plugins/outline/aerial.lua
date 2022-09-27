@@ -2,17 +2,15 @@ local M = { 'stevearc/aerial.nvim', desc = 'Outline - aerial', requires = {} }
 
 local config = require('adoyle-neovim-config.config').config
 
-M.highlights = { { 'AerialLine', { bg = config.color.outline.lineBG, bold = true } } }
+M.highlights = { { 'AerialLine', { bg = '#3f1f00', bold = true } } }
 
 M.keymaps = {
 	{ 'n', '<space>o', ':AerialToggle<CR>', { silent = true, desc = 'Toggle the aerial window' } },
 }
 
-function M.config()
-	local icons = { Interface = config.symbolMap.MID_DOT }
-	for k, v in pairs(config.kindSymbolMap) do if icons[k] == nil then icons[k] = v end end
-
-	require('aerial').setup {
+M.defaultConfig = {
+	'aerial',
+	{
 		-- Priority list of preferred backends for aerial.
 		-- This can be a filetype map (see :help aerial-filetype-map)
 		backends = {
@@ -71,12 +69,20 @@ function M.config()
 		--   'Variable',
 		-- },
 
-		icons = icons,
+		icons = (function()
+			local icons = { Interface = config.symbolMap.MID_DOT }
+			for k, v in pairs(config.kindSymbolMap) do if icons[k] == nil then icons[k] = v end end
+			return icons
+		end)(),
 
 		on_attach = function(bufnr)
 			require('aerial').tree_set_collapse_level(bufnr, 0)
 		end,
-	}
+	},
+}
+
+function M.config()
+	require('aerial').setup(config.aerial)
 end
 
 return M

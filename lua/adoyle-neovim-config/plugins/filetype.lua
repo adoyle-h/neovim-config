@@ -1,11 +1,12 @@
-local M = { 'nathom/filetype.nvim', desc = 'filetype detection', requires = {} }
+local M = { 'nathom/filetype.nvim', desc = 'filetype detection' }
 
-function M.config()
-	-- use lua filetype detection instead of vim filetype detection
-	vim.g.do_filetype_lua = true
-	vim.g.did_load_filetypes = true
+M.defaultConfig = {
+	'filetype',
+	{
+		-- Use lua filetype detection instead of vim filetype detection
+		-- If true, neither the default `$VIMRUNTIME/filetype.lua` nor the legacy `$VIMRUNTIME/filetype.vim` will run.
+		disableNvimBuiltin = true,
 
-	require('filetype').setup({
 		overrides = {
 
 			-- Set the filetype based on file extension
@@ -55,9 +56,17 @@ function M.config()
 			--     vim.cmd("iabbrev $ $$")
 			--   end,
 			-- },
-
 		},
-	})
+
+	},
+}
+
+function M.config()
+	local conf = require('adoyle-neovim-config.config').config.filetype
+
+	vim.g.did_load_filetypes = conf.disableNvimBuiltin
+
+	require('filetype').setup({ overrides = conf.overrides })
 end
 
 return M

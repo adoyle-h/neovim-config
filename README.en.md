@@ -159,23 +159,24 @@ require('adoyle-neovim-config').setup {
 			-- Otherwise, remove this option.
 			github = 'https://ghproxy.com/',
 		},
+  },
 
-
-    plugins = { -- Override plugin default config
-      ['plugins.profiling'] = {
-        disable = false, -- Set false to enable the disabled plugin by default.
-      },
-
-      ['psliwka/vim-smoothie'] = {
-        disable = false,
-      },
+  pluginOpts = { -- Override plugin default config
+    ['plugins.profiling'] = {
+      disable = false, -- Set false to enable the disabled plugin by default.
     },
 
-    plugins = {
-      function(A) -- A == require('adoyle-neovim-config')
-        -- A.Plug 'github/repo'
-      end,
+    ['psliwka/vim-smoothie'] = {
+      disable = false,
     },
+  },
+
+	-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
+  plugins = {
+		-- { 'psliwka/vim-smoothie', disable = false },
+    -- function(A) -- A == require('adoyle-neovim-config')
+    --   A.Plug 'github/repo'
+    -- end,
   },
 }
 ```
@@ -188,7 +189,7 @@ Plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-con
 
 Parts of default config written in [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua), and other parts written in `defaultConfig` of each plugin.
 
-Parts of default highlights written in [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) and [./lua/adoyle-neovim-config/config/highlight-group.lua](./lua/adoyle-neovim-config/config/highlight-group.lua), and other parts written in `highlights` of each plugin.
+Parts of default highlights written in [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) and [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua), and other parts written in `highlights` of each plugin.
 
 ### View Config
 

@@ -75,11 +75,11 @@ local function usePlug(repo, opts)
 		end
 	end
 
-	local userPluginOpts = CM.config.pluginOpts[repo]
+	local userPluginOpts = CM.pluginOpts[repo]
 	opts = util.merge(opts, userPluginOpts)
 
 	table.insert(P.plugs, opts)
-	CM.config.pluginOpts[repo] = opts
+	CM.pluginOpts[repo] = opts
 
 	if opts.disable == true then
 		-- disbale current and required plugs
@@ -159,11 +159,19 @@ local function propSet2(list, func, redef)
 	end
 end
 
-local function mergeConfig(node, plugDefaultConfig)
-	if type(plugDefaultConfig) == 'function' then plugDefaultConfig = plugDefaultConfig() end
+local function mergePlugConfig(node, plug)
+	local defaultConfig = plug.defaultConfig
 
-	if plugDefaultConfig then
-		local fields = plugDefaultConfig[1]
+	if type(defaultConfig) == 'function' then defaultConfig = defaultConfig() end
+
+	if defaultConfig then
+		if type(defaultConfig) ~= 'table' then
+			error(vim.fn.printf(
+				'Plug defaultConfig must be a table, but current value is %s. Current Plugin=%s',
+				vim.inspect(defaultConfig), vim.inspect(plug)))
+		end
+
+		local fields = defaultConfig[1]
 		if type(fields) == 'string' then fields = { fields } end
 
 		for i, k in pairs(fields) do
@@ -172,22 +180,20 @@ local function mergeConfig(node, plugDefaultConfig)
 				node = node[k]
 			else
 				local merged = node[k] or {}
-				-- print(vim.inspect(plugDefaultConfig[1]))
-				for key, value in pairs(plugDefaultConfig[2]) do merged[key] = value end
+				-- print(vim.inspect(defaultConfig[1]))
+				for key, value in pairs(defaultConfig[2]) do merged[key] = value end
 				node[k] = merged
 			end
 		end
 	end
 end
-P.mergeConfig = mergeConfig
+P.mergeConfig = mergePlugConfig
 
 function P.fin()
 	vim.call('plug#end')
 
 	local has_notify, notify = pcall(require, 'notify')
 	if not has_notify then notify = print end
-
-	local color = CM.config.color
 
 	for _, M in pairs(P.loadPlugs) do
 		local unloadRequired = false
@@ -204,13 +210,13 @@ function P.fin()
 				'Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.',
 				M.repo, unloadRequired.repo), 'warn')
 		else
-			mergeConfig(CM.config, M.defaultConfig)
+			mergePlugConfig(CM.config, M)
 
 			if type(M.config) == 'function' then M.config() end
 
 			local list = M.highlights
 			if list then
-				if type(list) == 'function' then list = list(color) end
+				if type(list) == 'function' then list = list() end
 
 				for _, hl in pairs(list) do
 					-- if type(hl) == 'function' then hl = hl(color) end

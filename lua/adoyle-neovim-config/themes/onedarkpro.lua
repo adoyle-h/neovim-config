@@ -1,11 +1,11 @@
 local M = { 'olimorris/onedarkpro.nvim' }
 
-function M.config()
-	local o = require('onedarkpro')
-	local config = require('adoyle-neovim-config.config').config
-	local color = config.color;
+local config = require('adoyle-neovim-config.config').config
+local color = config.color;
 
-	o.setup({
+M.defaultConfig = {
+	'onedarkpro',
+	{
 		dark_theme = 'onedark', -- The default dark theme
 
 		colors = { -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
@@ -23,7 +23,7 @@ function M.config()
 			gray = color.grey,
 			highlight = color.yellow,
 
-			cursorline = color.cursorLineBG,
+			cursorline = color.darkBlue,
 			comment = color.grey,
 			selection = color.selection,
 
@@ -68,8 +68,12 @@ function M.config()
 			terminal_colors = false, -- Use the theme's colors for Neovim's :terminal?
 			window_unfocussed_color = false, -- When the window is out of focus, change the normal background?
 		},
-	})
+	},
+}
 
+function M.config()
+	local o = require('onedarkpro')
+	o.setup(config.onedarkpro)
 	o.load()
 end
 

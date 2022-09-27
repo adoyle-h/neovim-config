@@ -1,22 +1,34 @@
 local M = {
 	'simnalamburt/vim-mundo',
-	desc = '显示修改历史树',
+	desc = 'undo history tree',
 	on = 'UndotreeToggle',
 	keymaps = { { 'n', '<space>u', ':MundoToggle<CR>' } },
 }
 
+M.defaultConfig = {
+	'undotree',
+	{
+		undodir = vim.fn.stdpath('data') .. '/undodir/',
+		undofile = true,
+		width = 60,
+		preview_height = 15,
+		right = 1,
+		auto_preview = 1,
+	},
+}
+
 function M.config()
-	local dir = vim.fn.stdpath('data') .. '/undodir/'
+	local conf = require('adoyle-neovim-config.config').config.undotree
 
 	if vim.fn.has('persistent_undo') then
-		vim.opt.undodir = dir
-		vim.opt.undofile = true
+		vim.opt.undodir = conf.undodir
+		vim.opt.undofile = conf.undofile
 	end
 
-	vim.g.mundo_width = 60
-	vim.g.mundo_preview_height = 15
-	vim.g.mundo_right = 1
-	vim.g.mundo_auto_preview = 1
+	vim.g.mundo_width = conf.width
+	vim.g.mundo_preview_height = conf.preview_height
+	vim.g.mundo_right = conf.right
+	vim.g.mundo_auto_preview = conf.auto_preview
 end
 
 return M

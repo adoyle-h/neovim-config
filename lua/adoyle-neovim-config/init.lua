@@ -28,7 +28,15 @@ M.setup = function(opts)
 	P.setup()
 	P.start()
 	require('adoyle-neovim-config.plugins')
-	for _, plugin in pairs(CM.config.plugins) do
+
+	-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
+	-- plugins = {
+	--   { 'psliwka/vim-smoothie' },
+	--   function(Plug)
+	--     Plug { 'psliwka/vim-smoothie' }
+	--   end,
+	-- },
+	for _, plugin in pairs(CM.plugins) do
 		if type(plugin) == 'function' then
 			plugin(P.Plug)
 		else

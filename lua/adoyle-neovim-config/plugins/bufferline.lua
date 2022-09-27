@@ -1,8 +1,4 @@
-local M = {
-	'akinsho/bufferline.nvim',
-	tag = 'v2.*',
-	requires = { 'tiagovla/scope.nvim' },
-}
+local M = { 'akinsho/bufferline.nvim', tag = 'v2.*', requires = { 'tiagovla/scope.nvim' } }
 
 local config = require('adoyle-neovim-config.config').config
 local opts = { silent = true }
@@ -30,8 +26,8 @@ M.keymaps = {
 
 M.defaultConfig = function()
 	local color = config.color
-	local selectedBG = color.bufferline.selectedBG
-	local bufferBG = color.bufferline.bufferBG
+	local selectedBG = '#1b2430'
+	local bufferBG = '#12151a'
 	local white = color.white
 	local grey = color.grey
 	local blue = color.blue
