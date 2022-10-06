@@ -1,6 +1,5 @@
 local M = { 'akinsho/bufferline.nvim', tag = 'v2.*', requires = { 'tiagovla/scope.nvim' } }
 
-local config = require('adoyle-neovim-config.config').config
 local opts = { silent = true }
 
 M.keymaps = {
@@ -25,13 +24,14 @@ M.keymaps = {
 }
 
 M.defaultConfig = function()
-	local color = config.color
+	local config = require('adoyle-neovim-config.config').config
+	local colors = config.colors
 	local selectedBG = '#1b2430'
 	local bufferBG = '#12151a'
-	local white = color.white
-	local grey = color.grey
-	local blue = color.blue
-	local yellow = color.yellow
+	local white = colors.white
+	local grey = colors.grey
+	local blue = colors.blue
+	local yellow = colors.yellow
 
 	return {
 		'bufferline',
@@ -97,7 +97,7 @@ M.defaultConfig = function()
 				--     local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
 
 				--     local config = require('adoyle-neovim-config.config').config
-				--     local color = config.color
+				--     local color = config.colors
 				--     local symbolMap = config.symbolMap
 				--     local printf = vim.fn.printf
 
@@ -125,7 +125,7 @@ M.defaultConfig = function()
 			highlights = {
 				fill = { -- It's background
 					fg = grey,
-					bg = color.black,
+					bg = colors.black,
 				},
 
 				background = { -- unselected buffers
@@ -174,7 +174,7 @@ M.defaultConfig = function()
 	}
 end
 
-function M.config()
+function M.config(config)
 	local conf = config.bufferline
 
 	if conf.options.mode == 'buffers' then

@@ -7,8 +7,8 @@ return {
 		{ gui_enable = 1, vert = 5, horiz = 3, trigger = '<C-W><C-W>' },
 	},
 
-	config = function()
-		local conf = require('adoyle-neovim-config.config').config.window.resize
+	config = function(config)
+		local conf = config.window.resize
 
 		vim.g.winresizer_gui_enable = conf.gui_enable
 		vim.g.winresizer_vert_resize = conf.vert

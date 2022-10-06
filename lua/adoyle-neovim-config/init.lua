@@ -4,6 +4,8 @@ local CM = require('adoyle-neovim-config.config')
 local util = require('adoyle-neovim-config.util')
 local P = require('adoyle-neovim-config.vim-plug')
 
+require('adoyle-neovim-config.fix-lua')
+
 -- @class ADoyleNeovimConfig
 -- @field util {table}
 --
@@ -18,32 +20,22 @@ local P = require('adoyle-neovim-config.vim-plug')
 -- @field CM {ConfigManager}
 local M = { CM = CM, util = util, Plug = P.Plug, P = P }
 
--- @param [opts] {table}
--- @param [opts.config] {table}
+-- @param opts {table}
+-- @param opts.config {table}
+-- @param opts.plugins {table}
+-- @param opts.pluginConfigs {table}
 M.setup = function(opts)
-	CM.setup(opts)
+	CM.setup(opts.config or {})
 
-	require('adoyle-neovim-config.fix-lua')
-
-	P.setup()
+	P.setup { userPlugins = opts.plugins, userPluginConfigs = opts.pluginConfigs }
 	P.start()
+
 	require('adoyle-neovim-config.plugins')
 
-	-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
-	-- plugins = {
-	--   { 'psliwka/vim-smoothie' },
-	--   function(Plug)
-	--     Plug { 'psliwka/vim-smoothie' }
-	--   end,
-	-- },
-	for _, plugin in pairs(CM.plugins) do
-		if type(plugin) == 'function' then
-			plugin(P.Plug)
-		else
-			P.Plug(plugin)
-		end
-	end
+	-- Append user plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
+	for _, plugin in pairs(opts.plugins or {}) do P.Plug(plugin) end
 	P.fin()
+	P.run()
 end
 
 return M

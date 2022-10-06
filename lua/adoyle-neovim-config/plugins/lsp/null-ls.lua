@@ -35,12 +35,15 @@ M.defaultConfig = {
 function M.config()
 	local null_ls = require('null-ls')
 	local conf = config.nullLS
-	local sources = conf.sources(null_ls.builtins) or {}
+	local sources = conf.sources
+	if type(sources) == 'function' then sources = sources(null_ls.builtins) end
+	sources = sources or {}
 
-	local has_gitsigns = pcall(require, 'gitsigns')
-	if has_gitsigns then table.insert(sources, null_ls.builtins.code_actions.gitsigns) end
+	if pcall(require, 'gitsigns') then table.insert(sources, null_ls.builtins.code_actions.gitsigns) end
 
 	local lspFormat = require('lsp-format')
+
+	-- print(vim.inspect(sources))
 
 	local opts = util.merge(conf, {
 		sources = sources,

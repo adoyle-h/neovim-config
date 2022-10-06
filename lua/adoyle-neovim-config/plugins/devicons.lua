@@ -1,6 +1,10 @@
 return {
 	'kyazdani42/nvim-web-devicons',
 
+	config = function(config)
+		require('nvim-web-devicons').setup { override = config.devicons.override }
+	end,
+
 	defaultConfig = {
 		'devicons',
 		{
@@ -18,9 +22,4 @@ return {
 			},
 		},
 	},
-
-	config = function()
-		local config = require('adoyle-neovim-config.config').config
-		require('nvim-web-devicons').setup { override = config.devicons.override }
-	end,
 }

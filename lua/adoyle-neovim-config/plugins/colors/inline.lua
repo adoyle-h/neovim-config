@@ -1,6 +1,11 @@
 return {
 	'norcalli/nvim-colorizer.lua',
 
+	config = function(config)
+		local conf = config.colorizer
+		require('colorizer').setup(conf.filetypes, conf.options)
+	end,
+
 	defaultConfig = {
 		{ 'colorizer' },
 		{
@@ -19,9 +24,4 @@ return {
 			},
 		},
 	},
-
-	config = function()
-		local conf = require('adoyle-neovim-config.config').config.colorizer
-		require('colorizer').setup(conf.filetypes, conf.options)
-	end,
 }

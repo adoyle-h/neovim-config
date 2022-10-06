@@ -1,47 +1,43 @@
 local M = { nil, desc = 'Define highlight groups' }
 
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
+local colors = config.colors
 
 M.defaultConfig = {
 	'highlights',
 	{
-		-- The key naming of groups is meaningless. Just for user config override more accurately.
-		basic = {
-			-- function(c) return { 'MyCursor', { bg = color.blue } } end,
-			{ 'MyCursor', { bg = color.blue } },
-			-- { 'CursorLine', { bg = color.darkBlue } },
-			{ 'CursorLineNr', { bg = color.darkBlue, fg = color.blue } },
-			{ 'Visual', { bg = color.darkOrange } },
+		-- Or 'MyCursor' = function(colors) return { bg = colors.blue } end,
+		MyCursor = { bg = colors.blue },
+		Visual = { bg = colors.darkOrange },
+		CursorLineNr = { bg = colors.darkBlue, fg = colors.blue, bold = true },
+		QuickFixLine = { bg = colors.darkYellow, bold = true },
 
-		},
+		-- If highlights not work, you may set highlights in lua/adoyle-neovim-config/themes/onedarkpro.lua
 
-		diff = {
-			{ 'DiffDelete', { fg = color.red, bg = color.darkRed } },
-			{ 'DiffChange', { bg = color.darkYellow, nocombine = true } },
-			{ 'DiffText', { bg = '#484800', nocombine = true } },
-		},
+		DiffDelete = { fg = colors.red, bg = colors.darkRed },
+		DiffChange = { bg = colors.darkYellow, nocombine = true },
+		DiffText = { bg = '#484800', nocombine = true },
 
-		diagnostic = {
-			-- Diagnostic Popup Window Background
-			{ 'NormalFloat', { bg = color.black } },
-			-- Diagnostic Popup Window Border
-			{ 'FloatBorder', { bg = color.black, fg = color.grey3 } },
-			{ 'MatchParen', { fg = color.orange, bg = color.black, underline = true } },
-			{ 'DiagnosticVirtualTextError', { fg = color.red } },
-		},
+		-- Diagnostic Popup Window Background
+		NormalFloat = { bg = colors.black },
+		-- Diagnostic Popup Window Border
+		FloatBorder = { bg = colors.black, fg = colors.grey3 },
+		MatchParen = { fg = colors.orange, bg = colors.black, underline = true },
+		DiagnosticVirtualTextError = { fg = colors.red },
 	},
 }
 
 function M.config()
-	local set_hl = vim.api.nvim_set_hl
+	vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+		callback = function()
+			local set_hl = vim.api.nvim_set_hl
 
-	for _, group in pairs(config.highlights) do
-		for _, hl in pairs(group) do
-			if type(hl) == 'function' then hl = hl(color) end
-			set_hl(0, hl[1], hl[2])
-		end
-	end
+			for group, opts in pairs(config.highlights) do
+				if type(opts) == 'function' then opts = opts(colors) end
+				set_hl(0, group, opts)
+			end
+		end,
+	})
 end
 
 return M

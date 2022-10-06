@@ -96,10 +96,10 @@ local function theme(colors)
 end
 
 M.defaultConfig = function()
-	local color = config.color
+	local c = config.colors
 	local colors = vim.tbl_extend('keep', vim.tbl_get(config, 'statusline', 'colors') or {}, {
-		red = color.red,
-		black = color.black,
+		red = c.red,
+		black = c.black,
 		white = '#d9d7ce',
 		grey = '#282b2e',
 		green = '#bbe67e',
@@ -149,6 +149,25 @@ M.defaultConfig = function()
 		always_visible = false, -- Show diagnostics even if there are none.
 	}
 
+	local filename = {
+		'filename',
+		file_status = true, -- Displays file status (readonly status, modified status)
+		newfile_status = true, -- Display new file status (new file means no write after created)
+		path = 1, -- 0: Just the filename
+		-- 1: Relative path
+		-- 2: Absolute path
+		-- 3: Absolute path, with tilde as the home directory
+
+		shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+		-- for other components. (terrible name, any suggestions?)
+		symbols = {
+			modified = '[*]', -- Text to show when the file is modified.
+			readonly = ' ' .. symbolMap.LOCK, -- Text to show when the file is non-modifiable or readonly.
+			unnamed = '[No Name]', -- Text to show for unnamed buffers.
+			newfile = '[New]', -- Text to show for new created file before first writting
+		},
+	}
+
 	local lualineConfig = {
 		options = {
 			icons_enabled = true,
@@ -168,34 +187,10 @@ M.defaultConfig = function()
 
 		sections = {
 			lualine_a = { getMode },
-
 			lualine_b = { { 'branch', icon = symbolMap.BRANCH } },
-
-			lualine_c = {
-				{
-					'filename',
-					file_status = true, -- Displays file status (readonly status, modified status)
-					newfile_status = true, -- Display new file status (new file means no write after created)
-					path = 1, -- 0: Just the filename
-					-- 1: Relative path
-					-- 2: Absolute path
-					-- 3: Absolute path, with tilde as the home directory
-
-					shorting_target = 40, -- Shortens path to leave 40 spaces in the window
-					-- for other components. (terrible name, any suggestions?)
-					symbols = {
-						modified = '[*]', -- Text to show when the file is modified.
-						readonly = ' ' .. symbolMap.LOCK, -- Text to show when the file is non-modifiable or readonly.
-						unnamed = '[No Name]', -- Text to show for unnamed buffers.
-						newfile = '[New]', -- Text to show for new created file before first writting
-					},
-				},
-			},
-
-			lualine_x = { diagnostics, my_sections, 'filesize' },
-
+			lualine_c = { filename },
+			lualine_x = { my_sections, 'filesize' },
 			lualine_y = { 'filetype' },
-
 			lualine_z = { 'encoding', 'fileformat', mixLine, paste },
 
 		},
@@ -213,7 +208,7 @@ M.defaultConfig = function()
 			lualine_a = {},
 			lualine_b = {},
 			lualine_c = {},
-			lualine_x = {},
+			lualine_x = { diagnostics },
 			lualine_y = {},
 			lualine_z = {},
 		},
@@ -230,6 +225,13 @@ M.defaultConfig = function()
 			cond = navic.is_available,
 			color = { fg = colors.sec_c_fg, bg = colors.sec_c_bg, gui = 'underline' },
 		})
+	end
+
+	local has_auto_session, autoSessionLibrary = pcall(require, 'auto-session-library')
+	if has_auto_session then
+		table.insert(lualineConfig.sections.lualine_x, function()
+			return printf('#%s', autoSessionLibrary.current_session_name())
+		end)
 	end
 
 	return {

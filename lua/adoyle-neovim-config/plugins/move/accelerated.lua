@@ -12,8 +12,7 @@ return {
 		},
 	},
 
-	config = function()
-		local config = require('adoyle-neovim-config.config').config
+	config = function(config)
 		require('accelerated-jk').setup(config.move.accelerated)
 	end,
 

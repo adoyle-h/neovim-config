@@ -1,5 +1,5 @@
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
+local colors = config.colors
 
 local Twilight = {
 	'folke/twilight.nvim',
@@ -10,8 +10,8 @@ local Twilight = {
 			dimming = {
 				alpha = 0.25, -- amount of dimming
 				-- we try to get the foreground from the highlight groups or fallback color
-				color = { 'Normal', color.white },
-				term_bg = color.black, -- if guibg=NONE, this will be used to calculate text color
+				color = { 'Normal', colors.white },
+				term_bg = colors.black, -- if guibg=NONE, this will be used to calculate text color
 				inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
 			},
 

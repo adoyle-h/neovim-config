@@ -1,14 +1,15 @@
-local M = { nil, desc = 'Format Settings' }
+return {
+	nil,
+	desc = 'Format Settings',
 
-M.requires = {
-	require('adoyle-neovim-config.plugins.align'),
-	{ 'editorconfig/editorconfig-vim', desc = '.editorconfig support' },
-	{
-		'rhlobo/vim-super-retab',
-		on = { 'Space2Tab', 'Tab2Space' },
-		desc = 'Convert spaces to tabs, or tabs to spaces',
+	requires = {
+		require('adoyle-neovim-config.plugins.align'),
+		{ 'editorconfig/editorconfig-vim', desc = '.editorconfig support' },
+		{
+			'rhlobo/vim-super-retab',
+			on = { 'Space2Tab', 'Tab2Space' },
+			desc = 'Convert spaces to tabs, or tabs to spaces',
+		},
+		{ 'tpope/vim-sleuth', desc = 'Auto set shiftwidth expandtab based on text context' },
 	},
-	{ 'tpope/vim-sleuth', desc = 'Auto set shiftwidth expandtab based on text context' },
 }
-
-return M

@@ -1,8 +1,6 @@
 local M = {
 	'folke/todo-comments.nvim',
-
-	config = function()
-		local config = require('adoyle-neovim-config.config').config
+	config = function(config)
 		require('todo-comments').setup(config.todo)
 	end,
 }

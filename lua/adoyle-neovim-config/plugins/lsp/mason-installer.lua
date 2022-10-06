@@ -30,9 +30,7 @@ return {
 		},
 	},
 
-	config = function()
-		local config = require('adoyle-neovim-config.config').config
-
+	config = function(config)
 		require('mason-tool-installer').setup(config['mason-installer'])
 
 		vim.api.nvim_create_autocmd('User', {

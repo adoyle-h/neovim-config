@@ -2,6 +2,14 @@ return {
 	'vasconcelloslf/vim-interestingwords',
 	desc = 'highlight any words under cursor',
 
+	config = function()
+		local conf = require('adoyle-neovim-config.config').config.highlightWords
+
+		vim.g.interestingWordsGUIColors = conf.gui
+		vim.g.interestingWordsTermColors = conf.cterm
+		vim.g.interestingWordsRandomiseColors = conf.randomiseColors
+	end,
+
 	defaultConfig = {
 		{ 'highlightWords' },
 		{
@@ -24,12 +32,4 @@ return {
 		{ 'n', '[k', '<Plug>InterestingWordsBackward', { silent = true } },
 		{ 'n', ']k', '<Plug>InterestingWordsForeward', { silent = true } },
 	},
-
-	config = function()
-		local conf = require('adoyle-neovim-config.config').config.highlightWords
-
-		vim.g.interestingWordsGUIColors = conf.gui
-		vim.g.interestingWordsTermColors = conf.cterm
-		vim.g.interestingWordsRandomiseColors = conf.randomiseColors
-	end,
 }

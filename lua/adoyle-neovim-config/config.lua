@@ -2,20 +2,16 @@ local util = require('adoyle-neovim-config.util')
 
 -- @class ConfigManager
 -- @field config {table} The config for ConfigManager
--- @field userSetup {table} The opts of ConfigManager.setup(opts)
 local CM = { --
 	config = {},
-	userSetup = {},
-	plugins = {},
-	pluginOpts = {},
 }
 
-function CM.setConfig(conf)
+function CM.setup(conf)
 	local defaultConfigFn = require('adoyle-neovim-config.config.default')
 	local defaultColor = require('adoyle-neovim-config.config.color')
 
-	local color = util.merge(defaultColor, conf.color)
-	local defaultConfig = defaultConfigFn(color)
+	local colors = util.merge(defaultColor, conf.colors)
+	local defaultConfig = defaultConfigFn(colors)
 	local config = util.merge(defaultConfig, conf)
 
 	config._revision = CM.config._revision and (CM.config._revision + 1) or 1
@@ -27,14 +23,6 @@ function CM.setConfig(conf)
 	end
 
 	CM.config = config
-	return CM
-end
-
-function CM.setup(opts)
-	CM.userSetup = vim.deepcopy(opts)
-	CM.plugins = opts.plugins or {}
-	CM.pluginOpts = opts.pluginOpts or {}
-	CM.setConfig(opts.config)
 	return CM
 end
 

@@ -1,4 +1,4 @@
-local M = {
+return {
 	'tyru/open-browser.vim',
 	on = { '<Plug>(openbrowser-smart-search)', '<Plug>(openbrowser-open)' },
 	desc = 'Open url from text with browser',
@@ -13,5 +13,3 @@ local M = {
 		{ 'v', 'gX', '<Plug>(openbrowser-open)' },
 	},
 }
-
-return M

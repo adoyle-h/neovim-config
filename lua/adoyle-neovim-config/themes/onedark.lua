@@ -1,10 +1,8 @@
-local config = require('adoyle-neovim-config.config').config
-
 local M = { 'navarasu/onedark.nvim' }
 
-function M.config()
+function M.config(config)
 	local o = require('onedark')
-	local color = config.color;
+	local colors = config.colors;
 
 	o.setup {
 		-- Main options --
@@ -30,32 +28,32 @@ function M.config()
 
 		-- Custom Highlights --
 		colors = {
-			black = color.black,
-			bg0 = color.black,
-			bg1 = color.grey1,
-			bg2 = color.grey2,
-			bg3 = color.grey3,
-			bg_d = color.bg_d,
-			bg_blue = color.blueBG,
-			bg_yellow = color.yellowBG,
-			fg = color.white,
-			green = color.green,
-			orange = color.orange,
-			blue = color.blue,
-			cyan = color.cyan,
-			purple = color.purple,
-			yellow = color.yellow,
-			red = color.red,
-			grey = color.grey,
-			light_grey = color.lightGrey,
-			dark_cyan = color.darkCyan,
-			dark_red = color.darkRed,
-			dark_yellow = color.darkYellow,
-			dark_purple = color.darkPurple,
-			diff_add = color.diffAddBG,
-			diff_delete = color.diffDeleteBG,
-			diff_change = color.diffChangeBG,
-			diff_text = color.diffText,
+			black = colors.black,
+			bg0 = colors.black,
+			bg1 = colors.grey1,
+			bg2 = colors.grey2,
+			bg3 = colors.grey3,
+			bg_d = colors.bg_d,
+			bg_blue = colors.blueBG,
+			bg_yellow = colors.yellowBG,
+			fg = colors.white,
+			green = colors.green,
+			orange = colors.orange,
+			blue = colors.blue,
+			cyan = colors.cyan,
+			purple = colors.purple,
+			yellow = colors.yellow,
+			red = colors.red,
+			grey = colors.grey,
+			light_grey = colors.lightGrey,
+			dark_cyan = colors.darkCyan,
+			dark_red = colors.darkRed,
+			dark_yellow = colors.darkYellow,
+			dark_purple = colors.darkPurple,
+			diff_add = colors.diffAddBG,
+			diff_delete = colors.diffDeleteBG,
+			diff_change = colors.diffChangeBG,
+			diff_text = colors.diffText,
 		},
 
 		highlights = {}, -- Override highlight groups

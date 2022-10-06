@@ -1,9 +1,4 @@
-local M = {
-	'dhruvasagar/vim-table-mode',
-	desc = 'format table',
-	on = 'TableModeToggle',
-	requires = {},
-}
+local M = { 'dhruvasagar/vim-table-mode', desc = 'format table', on = 'TableModeToggle' }
 
 local function changeTableMode()
 	local b = vim.b
@@ -37,8 +32,8 @@ M.defaultConfig = {
 	},
 }
 
-function M.config()
-	local conf = require('adoyle-neovim-config.config').config.table
+function M.config(config)
+	local conf = config.table
 	local g = vim.g
 	g.table_mode_motion_up_map = conf.motion_up_map
 	g.table_mode_motion_down_map = conf.motion_down_map

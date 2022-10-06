@@ -1,12 +1,12 @@
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
+local colors = config.colors
 
 local M = {
 	'lukas-reineke/indent-blankline.nvim',
 	desc = 'Show indent line',
 	highlights = {
-		{ 'IndentBlanklineChar', { fg = color.grey1 } },
-		{ 'IndentBlanklineContextChar', { fg = color.purple } },
+		{ 'IndentBlanklineChar', { fg = colors.grey1 } },
+		{ 'IndentBlanklineContextChar', { fg = colors.purple } },
 	},
 }
 

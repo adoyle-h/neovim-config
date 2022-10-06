@@ -1,5 +1,5 @@
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
+local colors = config.colors
 
 local M = {
 	'nvim-treesitter/nvim-treesitter',
@@ -16,8 +16,8 @@ local M = {
 -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Colorschemes
 -- https://github.com/rockerBOO/awesome-neovim#tree-sitter-supported-colorscheme
 M.highlights = {
-	{ 'TSVariable', { fg = color.white } },
-	{ 'TSParameter', { fg = color.white } },
+	{ 'TSVariable', { fg = colors.white } },
+	{ 'TSParameter', { fg = colors.white } },
 	{ 'TSProperty', { fg = '#5098A3' } },
 	{ 'TSKeyword', { fg = '#9ED817' } },
 	{ 'TSFunction', { fg = '#3D84FF' } }, -- #4083F8
@@ -31,8 +31,8 @@ M.highlights = {
 	{ 'TSInclude', { fg = '#A486E1' } },
 	{ 'TSNamespace', { fg = '#8255FF' } },
 
-	{ 'TreesitterContext', { bg = color.darkCyan, italic = true, bold = true } },
-	{ 'TreesitterContextLineNumber', { bg = color.darkCyan, italic = true, bold = true } },
+	{ 'TreesitterContext', { bg = colors.darkCyan, italic = true, bold = true } },
+	{ 'TreesitterContextLineNumber', { bg = colors.darkCyan, italic = true, bold = true } },
 }
 
 M.defaultConfig = {

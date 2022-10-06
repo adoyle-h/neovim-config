@@ -1,12 +1,8 @@
-local M = {
+return {
 	nil,
 	desc = 'Profiling tools',
-	-- Enable it when need profiling.
-	disable = true,
+	disable = true, -- Enable it when need profiling.
+	requires = { --
+		{ 'dstein64/vim-startuptime', desc = 'Launch vim-startuptime with :StartupTime' },
+	},
 }
-
-M.requires = {
-	{ 'dstein64/vim-startuptime', desc = 'Launch vim-startuptime with :StartupTime' },
-}
-
-return M

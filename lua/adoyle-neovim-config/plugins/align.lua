@@ -10,6 +10,13 @@ return {
 		{ 'x', '<leader>a', '<Plug>(LiveEasyAlign)' },
 	},
 
+	config = function(config)
+		local conf = config.align
+
+		vim.g.easy_align_ignore_groups = conf.ignoreGroups
+		vim.g.easy_align_delimiters = conf.delimiters
+	end,
+
 	defaultConfig = {
 		'align',
 		{
@@ -28,11 +35,4 @@ return {
 
 		ignoreGroups = { 'Comment', 'String' },
 	},
-
-	config = function()
-		local conf = require('adoyle-neovim-config.config').config.align
-
-		vim.g.easy_align_ignore_groups = conf.ignoreGroups
-		vim.g.easy_align_delimiters = conf.delimiters
-	end,
 }

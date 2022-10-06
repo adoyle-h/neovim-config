@@ -21,8 +21,8 @@ M.keymaps = {
 	{ 'n', '<Leader>bt', '<Plug>BookmarkMoveToLine' },
 }
 
-function M.config()
-	local symbolMap = require('adoyle-neovim-config.config').config.symbolMap
+function M.config(config)
+	local symbolMap = config.symbolMap
 
 	vim.g.bookmark_no_default_key_mappings = 1
 	vim.g.bookmark_sign = symbolMap.BOOKMARK

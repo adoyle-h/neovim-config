@@ -1,11 +1,11 @@
--- BUG: When open telescope window in maximize window, nvim will throw error
+-- BUG: When open telescope window in maximize window, window will not keep maximized, and nvim may throw error
 return {
 	'anuvyklack/windows.nvim',
 	requires = { 'anuvyklack/middleclass', 'anuvyklack/animation.nvim' },
 	desc = 'Auto scale width of window. And maximize window',
 
 	defaultConfig = {
-		{ 'window', 'maximize' }, --
+		{ 'window', 'maximize' },
 
 		{ -- :h windows.nvim
 			autowidth = {
@@ -33,7 +33,7 @@ return {
 			},
 
 			animation = { --
-				enable = true,
+				enable = false,
 				duration = 150,
 				fps = 60,
 				easing = 'in_out_sine',
@@ -41,8 +41,7 @@ return {
 		},
 	},
 
-	config = function()
-		local config = require('adoyle-neovim-config.config').config
+	config = function(config)
 		require('windows').setup(config.window.maximize)
 	end,
 

@@ -1,6 +1,7 @@
-local M = {
+return {
 	'scrooloose/nerdcommenter',
 	desc = 'comment codes',
+
 	defaultConfig = {
 		'comment',
 		{
@@ -13,15 +14,13 @@ local M = {
 			},
 		},
 	},
+
+	config = function(config)
+		local conf = config.comment
+
+		vim.g.NERDSpaceDelims = conf.spaceDelims
+		vim.g.NERDRemoveExtraSpaces = conf.removeExtraSpaces
+		vim.g.NERDCommentWholeLinesInVMode = conf.commentWholeLinesInVMode
+		vim.g.NERDCustomDelimiters = conf.delimiters
+	end,
 }
-
-function M.config()
-	local conf = require('adoyle-neovim-config.config').config.comment
-
-	vim.g.NERDSpaceDelims = conf.spaceDelims
-	vim.g.NERDRemoveExtraSpaces = conf.removeExtraSpaces
-	vim.g.NERDCommentWholeLinesInVMode = conf.commentWholeLinesInVMode
-	vim.g.NERDCustomDelimiters = conf.delimiters
-end
-
-return M

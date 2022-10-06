@@ -42,5 +42,5 @@ return {
 		}
 	end,
 
-	highlights = { { 'HopNextKey', { fg = config.color.green, bold = true } } },
+	highlights = { { 'HopNextKey', { fg = config.colors.green, bold = true } } },
 }

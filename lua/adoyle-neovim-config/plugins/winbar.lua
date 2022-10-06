@@ -24,7 +24,6 @@ M.defaultConfig = {
 function M.config()
 	-- silence warning/error messages thrown by nvim-navic
 	vim.g.navic_silence = true
-
 	require('nvim-navic').setup(config.winbar)
 end
 

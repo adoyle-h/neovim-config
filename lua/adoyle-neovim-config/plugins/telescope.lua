@@ -6,18 +6,18 @@ local M = {
 }
 
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
+local colors = config.colors
 local util = require('adoyle-neovim-config.util')
 
 M.highlights = {
-	{ 'TelescopeResultsBorder', { fg = color.white, bg = 'none' } },
-	{ 'TelescopePreviewBorder', { fg = color.white, bg = 'none' } },
-	{ 'TelescopePromptBorder', { fg = color.white, bg = 'none' } },
-	{ 'TelescopeBorder', { fg = color.blue, bg = 'none' } },
-	{ 'TelescopePromptPrefix', { fg = color.blue, bg = 'none' } },
-	{ 'TelescopeSelection', { fg = 'none', bg = color.grey1 } },
-	{ 'TelescopeSelectionCaret', { fg = color.blue, bg = 'none' } },
-	{ 'TelescopeMatching', { fg = color.orange, bg = 'none', underline = true } },
+	{ 'TelescopeResultsBorder', { fg = colors.white, bg = 'none' } },
+	{ 'TelescopePreviewBorder', { fg = colors.white, bg = 'none' } },
+	{ 'TelescopePromptBorder', { fg = colors.white, bg = 'none' } },
+	{ 'TelescopeBorder', { fg = colors.blue, bg = 'none' } },
+	{ 'TelescopePromptPrefix', { fg = colors.blue, bg = 'none' } },
+	{ 'TelescopeSelection', { fg = 'none', bg = colors.darkBlue } },
+	{ 'TelescopeSelectionCaret', { fg = colors.blue, bg = 'none' } },
+	{ 'TelescopeMatching', { fg = colors.orange, bg = 'none', underline = true } },
 }
 
 function M.config()
@@ -27,11 +27,8 @@ function M.config()
 
 	telescope.load_extension('ui-select')
 
-	local has_notify = pcall(require, 'notify')
-	if has_notify then telescope.load_extension('notify') end
-
-	local has_aerial = pcall(require, 'aerial')
-	if has_aerial then telescope.load_extension('aerial') end
+	if pcall(require, 'notify') then telescope.load_extension('notify') end
+	if pcall(require, 'aerial') then telescope.load_extension('aerial') end
 end
 
 M.defaultConfig = function()
@@ -295,8 +292,9 @@ M.keymaps = function()
 
 	}
 
-	local has_notify = pcall(require, 'notify')
-	if has_notify then table.insert(map, { 'n', '<space>n', ':Telescope notify<cr>', opts }) end
+	if pcall(require, 'notify') then
+		table.insert(map, { 'n', '<space>n', ':Telescope notify<cr>', opts })
+	end
 
 	return map
 end

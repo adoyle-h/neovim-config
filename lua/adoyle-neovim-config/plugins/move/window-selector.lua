@@ -1,5 +1,5 @@
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
+local colors = config.colors
 
 return {
 	'https://gitlab.com/yorickpeterse/nvim-window.git',
@@ -28,7 +28,7 @@ return {
 		},
 	},
 
-	highlights = { { 'NvimWindowFloating', { fg = color.blue, bg = color.black } } },
+	highlights = { { 'NvimWindowFloating', { fg = colors.blue, bg = colors.black } } },
 
 	config = function()
 		require('nvim-window').setup(config.move.selector)

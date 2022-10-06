@@ -17,8 +17,8 @@ M.defaultConfig = {
 	},
 }
 
-function M.config()
-	local conf = require('adoyle-neovim-config.config').config.undotree
+function M.config(config)
+	local conf = config.undotree
 
 	if vim.fn.has('persistent_undo') then
 		vim.opt.undodir = conf.undodir

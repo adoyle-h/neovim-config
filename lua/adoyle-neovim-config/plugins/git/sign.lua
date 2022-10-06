@@ -1,8 +1,7 @@
 local M = {
 	'lewis6991/gitsigns.nvim',
 	desc = 'Vim gutter sign and git blame float window',
-	config = function()
-		local config = require('adoyle-neovim-config.config')
+	config = function(config)
 		require('gitsigns').setup(config.gitsigns)
 	end,
 }

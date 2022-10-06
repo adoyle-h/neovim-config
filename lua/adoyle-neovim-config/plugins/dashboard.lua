@@ -1,5 +1,24 @@
 local M = { 'goolord/alpha-nvim', desc = 'Dashboard' }
 
+function M.config(config)
+	require('alpha').setup(config.dashboard)
+
+	vim.api.nvim_create_autocmd('User', {
+		pattern = { 'AlphaReady' },
+		callback = function()
+			vim.opt.cursorline = true
+			vim.opt.showtabline = 0
+		end,
+	})
+
+	vim.api.nvim_create_autocmd('User', {
+		pattern = { 'AlphaClosed' },
+		callback = function()
+			vim.opt.showtabline = 2
+		end,
+	})
+end
+
 M.defaultConfig = function()
 	local dashboard = require('alpha.themes.dashboard')
 	local section = dashboard.section
@@ -51,26 +70,6 @@ M.defaultConfig = function()
 	}
 
 	return { 'dashboard', config }
-end
-
-function M.config()
-	local config = require('adoyle-neovim-config.config').config
-	require('alpha').setup(config.dashboard)
-
-	vim.api.nvim_create_autocmd('User', {
-		pattern = { 'AlphaReady' },
-		callback = function()
-			vim.opt.cursorline = true
-			vim.opt.showtabline = 0
-		end,
-	})
-
-	vim.api.nvim_create_autocmd('User', {
-		pattern = { 'AlphaClosed' },
-		callback = function()
-			vim.opt.showtabline = 2
-		end,
-	})
 end
 
 return M

@@ -1,4 +1,4 @@
-local M = {
+return {
 	nil,
 	desc = 'Funny Games',
 	requires = {
@@ -7,5 +7,3 @@ local M = {
 		{ 'uguu-org/vim-matrix-screensaver', on = 'Matrix' },
 	},
 }
-
-return M

@@ -1,6 +1,10 @@
 return {
 	'tamago324/nlsp-settings.nvim',
 
+	config = function(config)
+		require('nlspsettings').setup(config.nlsp)
+	end,
+
 	defaultConfig = {
 		'nlsp',
 		{
@@ -13,9 +17,4 @@ return {
 			loader = 'yaml',
 		},
 	},
-
-	config = function()
-		local config = require('adoyle-neovim-config.config').config
-		require('nlspsettings').setup(config.nlsp)
-	end,
 }

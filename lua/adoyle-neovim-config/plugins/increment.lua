@@ -6,6 +6,12 @@ local M = {
 		{ 'n', '<leader>ii', '<Plug>(increment-activator-increment)<leader>i' },
 		{ 'n', '<leader>id', '<Plug>(increment-activator-decrement)<leader>i' },
 	},
+
+	config = function(config)
+		local conf = config.increment
+		vim.g.increment_activator_no_default_key_mappings = 1
+		vim.g.increment_activator_filetype_candidates = conf
+	end,
 }
 
 M.defaultConfig = {
@@ -33,11 +39,5 @@ M.defaultConfig = {
 		},
 	},
 }
-
-function M.config()
-	local conf = require('adoyle-neovim-config.config').config.increment
-	vim.g.increment_activator_no_default_key_mappings = 1
-	vim.g.increment_activator_filetype_candidates = conf
-end
 
 return M

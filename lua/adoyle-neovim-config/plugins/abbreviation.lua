@@ -1,5 +1,6 @@
-local M = {
+return {
 	'tpope/vim-abolish',
+
 	desc = [[
 		Easily search for, substitute, and abbreviate multiple variants of a word.
 
@@ -15,13 +16,10 @@ local M = {
 			space case (cr<space>)
 	]],
 
-	defaultConfig = { 'abbreviation', { saveFile = vim.fn.stdpath('data') .. '/abbreviations.vim' } },
-
-	config = function()
-		local config = require('adoyle-neovim-config.config').config
+	config = function(config)
 		vim.g.abolish_save_file = config.abbreviation.saveFile
 	end,
 
-}
+	defaultConfig = { 'abbreviation', { saveFile = vim.fn.stdpath('data') .. '/abbreviations.vim' } },
 
-return M
+}

@@ -164,23 +164,16 @@ require('adoyle-neovim-config').setup {
 		},
   },
 
-  pluginOpts = { -- 覆盖插件默认配置
-    ['plugins.profiling'] = {
-      disable = false, -- 设置成 false 来启动默认禁用的插件
-    },
-
-    ['psliwka/vim-smoothie'] = {
-      disable = false,
-    },
-  },
-
-  -- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
+	-- Add your plugins or override plugin default options.
+  -- More examples in ./lua/adoyle-neovim-config/plugins.lua
   plugins = {
-    -- { 'psliwka/vim-smoothie' },
-    -- function(A) -- A == require('adoyle-neovim-config')
-    --   A.Plug 'github/repo'
-    -- end,
+    -- { 'plugins.profiling', disable = false },
+    -- { 'psliwka/vim-smoothie', disable = false },
   },
+
+	pluginConfigs = function()
+    return {}
+  end,
 }
 ```
 

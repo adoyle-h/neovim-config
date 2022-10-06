@@ -1,5 +1,5 @@
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
+local colors = config.colors
 local util = require('adoyle-neovim-config.util')
 
 local M = {
@@ -27,12 +27,12 @@ local M = {
 	},
 
 	highlights = {
-		{ 'LspWindowBorder', { fg = color.cyan } },
-		{ 'LspInfoTitle', { fg = color.lightGreen } }, -- Client name
-		{ 'LspInfoList', { fg = color.lightGreen } }, -- Server name list
-		{ 'LspInfoFiletype', { fg = color.purple } }, -- `filetypes` area
+		{ 'LspWindowBorder', { fg = colors.cyan } },
+		{ 'LspInfoTitle', { fg = colors.lightGreen } }, -- Client name
+		{ 'LspInfoList', { fg = colors.lightGreen } }, -- Server name list
+		{ 'LspInfoFiletype', { fg = colors.purple } }, -- `filetypes` area
 		{ 'LspInfoTip', { link = 'Comment' } }, -- Tip
-		{ 'LspInfoBorder', { fg = color.blue } }, -- Window border
+		{ 'LspInfoBorder', { fg = colors.blue } }, -- Window border
 	},
 }
 

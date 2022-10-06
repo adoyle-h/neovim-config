@@ -7,10 +7,6 @@ describe('CM.config', function()
 
 			proxy = { github = 'https://ghproxy.com/' },
 
-			pluginOpts = { ['plugins.profiling'] = { disable = false } },
-
-			plugins = {},
-
 			lsp = {
 				ensureInstalled = { 'css-lsp', 'yamlfmt' },
 

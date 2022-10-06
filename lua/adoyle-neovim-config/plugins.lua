@@ -1,17 +1,6 @@
--- NOTE: Current Lua version is 5.1 util neovim 0.7
--- Learn nvim-lua: https://github.com/nanotee/nvim-lua-guide
 local P = require('adoyle-neovim-config.vim-plug')
-local util = require('adoyle-neovim-config.util')
-local CM = require('adoyle-neovim-config.config')
 local Plug = P.Plug
-
--- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
-local Load = function(path)
-	local opts = require('adoyle-neovim-config.' .. path)
-	local userPluginOpts = CM.pluginOpts[path]
-	opts = util.merge(opts, userPluginOpts)
-	Plug(opts)
-end
+local Load = P.LoadPluginFile
 
 ------- Basic required plugins -------
 Load 'plugins.vim-options'
@@ -27,13 +16,13 @@ Load 'plugins.notifier'
 Load 'plugins.colors'
 Load 'plugins.statusline.lualine'
 Load 'plugins.bufferline'
+Load 'plugins.telescope'
 Load 'plugins.brackets'
 Load 'plugins.indent-line'
 Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
 
 -- Functions
-Load 'plugins.autocmd'
 Load 'plugins.keymap'
 Load 'plugins.filetype'
 Load 'plugins.treesitter'
@@ -57,7 +46,6 @@ Load 'plugins.profiling'
 Load 'plugins.session'
 Load 'plugins.select'
 Load 'plugins.table'
-Load 'plugins.telescope'
 Load 'plugins.todo'
 Load 'plugins.trailing'
 Load 'plugins.undotree'

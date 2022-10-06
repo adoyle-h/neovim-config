@@ -1,6 +1,7 @@
 local M = {
 	'rcarriga/nvim-notify',
 	desc = 'An awesome notify library!',
+
 	commands = {
 		{
 			'Notify',
@@ -22,7 +23,7 @@ local symbolMap = config.symbolMap
 M.defaultConfig = {
 	'notify',
 	{
-		background_colour = config.color.black,
+		background_colour = config.colors.black,
 		fps = 30,
 		icons = {
 			ERROR = symbolMap.ERROR,

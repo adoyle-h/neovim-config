@@ -1,5 +1,5 @@
 local config = require('adoyle-neovim-config.config').config
-local color = config.color
+local colors = config.colors
 local symbols = config.symbolMap
 
 local M = {
@@ -223,9 +223,9 @@ M.defaultConfig = {
 }
 
 M.highlights = {
-	{ 'NeoTreeGitUntracked', { fg = color.green } },
-	{ 'NeoTreeFileIcon', { fg = color.white } },
-	{ 'NeoTreeGitUnstaged', { fg = color.yellow } },
+	{ 'NeoTreeGitUntracked', { fg = colors.green } },
+	{ 'NeoTreeFileIcon', { fg = colors.white } },
+	{ 'NeoTreeGitUnstaged', { fg = colors.yellow } },
 }
 
 M.keymaps = {

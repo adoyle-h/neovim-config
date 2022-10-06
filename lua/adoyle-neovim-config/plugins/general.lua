@@ -3,21 +3,6 @@ local M = { nil, desc = 'General functions and commands' }
 local CM = require('adoyle-neovim-config.config')
 local api = vim.api
 
-local function omitPluginOptsList(list)
-	local pluginOpts = {}
-	for key, value in pairs(list) do
-		if type(value) == 'table' then
-			local opts = vim.tbl_extend('force', value, {})
-			opts.defaultConfig = nil
-
-			if opts.requires then opts.requires = omitPluginOptsList(opts.requires) end
-
-			pluginOpts[key] = opts
-		end
-	end
-	return pluginOpts
-end
-
 local function createConfigWindow()
 	vim.cmd.vsplit()
 	local win = api.nvim_get_current_win()
@@ -123,8 +108,6 @@ M.commands = {
 			write('-- config --')
 
 			local config = vim.tbl_extend('keep', CM.config, {})
-			-- local pluginOpts = omitPluginOptsList(CM.pluginOpts)
-
 			writeVal(config)
 
 			api.nvim_win_set_cursor(win, { 1, 0 })

@@ -161,23 +161,16 @@ require('adoyle-neovim-config').setup {
 		},
   },
 
-  pluginOpts = { -- Override plugin default config
-    ['plugins.profiling'] = {
-      disable = false, -- Set false to enable the disabled plugin by default.
-    },
-
-    ['psliwka/vim-smoothie'] = {
-      disable = false,
-    },
-  },
-
-	-- Add your plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
+	-- Add your plugins or override plugin default options.
+  -- More examples in ./lua/adoyle-neovim-config/plugins.lua
   plugins = {
-		-- { 'psliwka/vim-smoothie', disable = false },
-    -- function(A) -- A == require('adoyle-neovim-config')
-    --   A.Plug 'github/repo'
-    -- end,
+    -- { 'plugins.profiling', disable = false },
+    -- { 'psliwka/vim-smoothie', disable = false },
   },
+
+	pluginConfigs = function()
+    return {}
+  end,
 }
 ```
 

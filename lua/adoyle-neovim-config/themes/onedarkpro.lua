@@ -1,7 +1,13 @@
 local M = { 'olimorris/onedarkpro.nvim' }
 
 local config = require('adoyle-neovim-config.config').config
-local color = config.color;
+local colors = config.colors;
+
+function M.config()
+	local o = require('onedarkpro')
+	o.setup(config.onedarkpro)
+	o.load()
+end
 
 M.defaultConfig = {
 	'onedarkpro',
@@ -9,43 +15,42 @@ M.defaultConfig = {
 		dark_theme = 'onedark', -- The default dark theme
 
 		colors = { -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
-			bg = color.black,
-			fg = color.white,
-			red = color.red,
-			orange = color.orange,
-			yellow = color.yellow,
-			green = color.green,
-			cyan = color.cyan,
-			blue = color.blue,
-			purple = color.purple,
-			white = color.white,
-			black = color.black,
-			gray = color.grey,
-			highlight = color.yellow,
+			bg = colors.black,
+			fg = colors.white,
+			red = colors.red,
+			orange = colors.orange,
+			yellow = colors.yellow,
+			green = colors.green,
+			cyan = colors.cyan,
+			blue = colors.blue,
+			purple = colors.purple,
+			white = colors.white,
+			black = colors.black,
+			gray = colors.grey,
+			highlight = colors.yellow,
 
-			cursorline = color.darkBlue,
-			comment = color.grey,
-			selection = color.selection,
+			cursorline = colors.darkBlue,
+			comment = colors.grey,
+			selection = colors.selection,
 
-			diff_add = color.diffAddBG,
-			diff_delete = color.diffDeleteBG,
-			diff_text = color.diffText,
+			diff_add = colors.diffAddBG,
+			diff_delete = colors.diffDeleteBG,
+			diff_text = colors.diffText,
 			-- diff_change = color.diffChangeBG,
 		},
 
 		highlights = { -- Override default highlight groups
-			TelescopeMatching = { fg = '${orange}' },
 			Search = { style = 'none' },
-			QuickFixLine = { bg = color.darkYellow, style = 'bold' },
 		},
 
-		ft_highlights = {}, -- Override default highlight groups for specific filetypes
+		-- https://github.com/olimorris/onedarkpro.nvim#configuring-filetypes
+		filetypes = { all = false },
 
 		plugins = { -- Override which plugins highlight groups are loaded
 			-- All plugins list in https://github.com/olimorris/onedarkpro.nvim/tree/main/lua/onedarkpro/plugins
 			native_lsp = true,
 			treesitter = false,
-			telescope = true,
+			telescope = false,
 			hop = false,
 		},
 
@@ -70,11 +75,5 @@ M.defaultConfig = {
 		},
 	},
 }
-
-function M.config()
-	local o = require('onedarkpro')
-	o.setup(config.onedarkpro)
-	o.load()
-end
 
 return M

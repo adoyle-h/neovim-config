@@ -18,9 +18,7 @@ return {
 		},
 	},
 
-	config = function()
-		local config = require('adoyle-neovim-config.config').config
-
+	config = function(config)
 		local shade = require('shade')
 		shade.setup(config.window.shade)
 		shade.toggle()

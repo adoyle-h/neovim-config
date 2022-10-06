@@ -58,9 +58,15 @@ default.opt = {
 	termguicolors = true, -- Require true color
 	background = 'dark', -- Dark theme. DO NOT CHANGE THIS OPTION.
 
-	showcmd = true, -- 显示当前正在输入的命令
-	completeopt = { 'menu', 'preview' },
-	list = false, -- 不显示制表符
+	showcmd = true, -- Show (partial) command in the last line of the screen
+	list = false, -- Do not show listchars
+
+	completeopt = {
+		'menu', -- Use a popup menu to show the possible completions.
+		'menuone', -- Use the popup menu also when there is only one match.
+		'noselect', -- Do not select a match in the menu, force the user to select one from the menu.
+		'noinsert', -- Do not insert any text for a match until the user selects a match from the menu.
+	},
 
 	-- Window
 	winwidth = 10, --  min width of current window
@@ -79,11 +85,11 @@ default.opt = {
 	wildmode = { 'list', 'full' }, -- Command <Tab> completion, list matches, then longest common part, then all.
 
 	-- Edit
-	tabstop = 4, -- Tab 键的宽度，tabstop 和 shiftwidth 需要一致。这里设定的是默认值
-	shiftwidth = 4, -- 每一次缩进对应的空格数。这里设定的是默认值
-	softtabstop = 4, -- 按一次退格键删掉的空格数。这里设定的是默认值
-	shiftround = true, -- 缩进取整，round indent to a multiple of 'shiftwidth'
-	expandtab = true, -- 使用空格代替制表符
+	tabstop = 4, -- Default tab width. The tabstop should equal to shiftwidth
+	shiftwidth = 4, -- Default shift spaces width
+	softtabstop = 4, -- Number of spaces that a <Tab> counts for while performing editing operations.
+	shiftround = true, -- Round indent to multiple of 'shiftwidth'.
+	expandtab = true, -- Use the appropriate number of spaces to insert a <Tab>
 	smarttab = true,
 	iskeyword = opt.iskeyword - { '.' },
 
@@ -94,7 +100,7 @@ default.opt = {
 	scrolljump = 1, -- Lines to scroll when cursor leaves screen
 
 	-- Folding
-	foldcolumn = '0', -- 不显示左侧折叠栏
+	foldcolumn = '0', -- To disable foldcolumn
 	-- manual    手工折叠
 	-- indent    使用缩进表示折叠
 	-- expr      使用表达式定义折叠
@@ -107,7 +113,7 @@ default.opt = {
 	-- Mouse
 	mouse = 'nvc',
 	mousemodel = 'popup',
-	selection = 'exclusive', -- 可以在任何地方使用鼠标点击
+	selection = 'exclusive',
 
 	-- Searching
 	ignorecase = true, -- case insensitive searching
@@ -196,22 +202,18 @@ default.cmd = {
 	]],
 }
 
-local M = {
+return {
 	nil,
 	desc = 'Set vim/nvim options. Use :help "option" to see the documentation for the given option.',
 	defaultConfig = { 'vim', default },
+
+	config = function(config)
+		local o = vim.opt
+		local g = vim.g
+		local cmd = vim.cmd
+
+		for key, value in pairs(config.vim.g) do g[key] = value end
+		for key, value in pairs(config.vim.opt) do o[key] = value end
+		for _, value in pairs(config.vim.cmd) do cmd(value) end
+	end,
 }
-
-M.config = function()
-	local config = require('adoyle-neovim-config.config').config
-
-	local o = vim.opt
-	local g = vim.g
-	local cmd = vim.cmd
-
-	for key, value in pairs(config.vim.g) do g[key] = value end
-	for key, value in pairs(config.vim.opt) do o[key] = value end
-	for _, value in pairs(config.vim.cmd) do cmd(value) end
-end
-
-return M

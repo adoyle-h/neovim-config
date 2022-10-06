@@ -1,10 +1,10 @@
 local config = require('adoyle-neovim-config.config').config
 
-local M = {
+return {
 	'johnfrankmorgan/whitespace.nvim',
 	desc = 'highlight trailing spaces',
 
-	highlights = { { 'TrailingWhitespace', { bg = config.color.grey3 } } },
+	highlights = { { 'TrailingWhitespace', { bg = config.colors.grey3 } } },
 
 	commands = {
 		{
@@ -16,6 +16,10 @@ local M = {
 		},
 	},
 
+	config = function()
+		require('whitespace-nvim').setup(config.whitespace)
+	end,
+
 	defaultConfig = {
 		'whitespace',
 		{
@@ -25,10 +29,4 @@ local M = {
 			ignored_filetypes = config.ignore.fileTypesForSomePlugs,
 		},
 	},
-
-	config = function()
-		require('whitespace-nvim').setup(config.whitespace)
-	end,
 }
-
-return M
