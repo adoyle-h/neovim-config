@@ -1,9 +1,13 @@
 local M = {
 	'tzachar/cmp-tabnine',
 	run = './install.sh',
-	disable = true,
+
+	config = function(config)
+		require('cmp_tabnine.config'):setup(config.tabnine)
+	end,
+
 	defaultConfig = {
-		{ 'completion', 'tabnine' },
+		'tabnine',
 		{
 			max_lines = 1000,
 			max_num_results = 20,
@@ -17,10 +21,6 @@ local M = {
 			show_prediction_strength = true,
 		},
 	},
-
-	config = function(config)
-		require('cmp_tabnine.config'):setup(config.completion.tabnine)
-	end,
 }
 
 return M

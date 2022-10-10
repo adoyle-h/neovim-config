@@ -28,8 +28,30 @@ M.requires = {
 	},
 
 	{
+		'RRethy/nvim-treesitter-textsubjects',
+		-- disable = P.plugMap['nvim-treesitter/nvim-treesitter'].disable,
+		disable = true,
+		config = function(config)
+			require('nvim-treesitter.configs').setup { textsubjects = config.select.textsubjects }
+		end,
+
+		defaultConfig = {
+			{ 'select', 'textsubjects' },
+			{
+				enable = true,
+				prev_selection = ',', -- (Optional) keymap to select the previous selection
+				keymaps = {
+					['.'] = 'textsubjects-smart',
+					[';'] = 'textsubjects-container-outer',
+					['i;'] = 'textsubjects-container-inner',
+				},
+			},
+		},
+	},
+
+	{
 		'nvim-treesitter/nvim-treesitter-textobjects',
-		disable = P.plugs['nvim-treesitter/nvim-treesitter'].disable,
+		disable = P.plugMap['nvim-treesitter/nvim-treesitter'].disable,
 
 		config = function(config)
 			require('nvim-treesitter.configs').setup { textobjects = config.select.textobjects }

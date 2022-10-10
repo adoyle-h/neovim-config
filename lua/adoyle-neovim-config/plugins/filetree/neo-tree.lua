@@ -193,7 +193,8 @@ M.defaultConfig = {
 			-- time the current file is changed while the tree is open.
 			group_empty_dirs = true, -- when true, empty folders will be grouped together
 			show_unloaded = true,
-			window = { position = 'float', mappings = { ['d'] = 'buffer_delete' } },
+			window = { position = 'float',
+              mappings = { ['d'] = 'buffer_delete', ['<ESC>'] = 'close_window' } },
 		},
 
 		git_status = {
@@ -204,6 +205,8 @@ M.defaultConfig = {
 					['u'] = 'git_unstage_file',
 					['a'] = 'git_add_file',
 					['r'] = 'git_revert_file',
+					['gg'] = false,
+					['<ESC>'] = 'close_window',
 				},
 			},
 		},

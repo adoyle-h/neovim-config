@@ -20,10 +20,13 @@ return function(colors)
 		},
 
 		ignore = {
-			fileSearch = { names = { 'node_modules', '\\.git', 'vendor' } },
+			fileSearch = { --
+				names = { 'node_modules', '\\.git', 'vendor' },
+			},
 
 			fileTypesForSomePlugs = {
 				'TelescopePrompt',
+				'TelescopeResults',
 				'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
 				'lsp-installer',
 				'null-ls-info',

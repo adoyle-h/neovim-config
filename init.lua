@@ -5,16 +5,14 @@ require('adoyle-neovim-config').setup {
 			-- Otherwise, remove this option.
 			github = 'https://ghproxy.com/',
 		},
-
-		colors = {},
 	},
 
 	-- Add your plugins or override plugin default options.
+	-- More examples at ./lua/adoyle-neovim-config/plugins.lua
 	plugins = {
-		-- More examples at ./lua/adoyle-neovim-config/plugins.lua
 		{ 'olimorris/onedarkpro.nvim', disable = false },
 		{ 'folke/todo-comments.nvim', disable = true },
-		-- { 'stevearc/aerial.nvim', disable = true },
+		{ 'tzachar/cmp-tabnine', disable = true },
 	},
 
 	pluginConfigs = function()
@@ -32,6 +30,24 @@ require('adoyle-neovim-config').setup {
 				},
 			},
 
+			treesitter = {
+				prefer_git = false,
+				ensure_installed = {}, -- A list of parser names, or "all",
+				ignore_install = {
+					'agda',
+					'rasi',
+					'r',
+					'd',
+					'v',
+					'slint',
+					'c_sharp',
+					'phpdoc',
+					'ruby',
+					'php',
+					'jsonc',
+				}, -- List of parsers to ignore installing (for "all")
+			},
+
 			nullLS = {
 				-- Available null-ls sources list
 				-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
@@ -42,7 +58,7 @@ require('adoyle-neovim-config').setup {
 					codeActions.shellcheck,
 
 					diagnostics.eslint_d,
-					diagnostics.shellcheck,
+					-- diagnostics.shellcheck, -- It is duplicated with bashls
 
 					-- Formatters run in the order in which you register them.
 					formatting.eslint_d.with {

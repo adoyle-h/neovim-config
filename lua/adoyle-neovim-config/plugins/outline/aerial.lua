@@ -2,7 +2,19 @@ local M = { 'stevearc/aerial.nvim', desc = 'Outline - aerial', requires = {} }
 
 local config = require('adoyle-neovim-config.config').config
 
-M.highlights = { { 'AerialLine', { bg = '#3f1f00', bold = true } } }
+M.highlights = {
+	{ 'AerialLine', { bg = '#3E1A00' } },
+	{ 'AerialFunction', { fg = '#589CFF' } },
+	{ 'AerialFunctionIcon', { fg = '#589CFF' } },
+	{ 'AerialObject', { fg = '#8DDA00' } },
+	{ 'AerialObjectIcon', { fg = '#8DDA00' } },
+	{ 'AerialArray', { fg = '#1C9A7B' } },
+	{ 'AerialArrayIcon', { fg = '#1C9A7B' } },
+	{ 'AerialVariable', { fg = '#B0B51D' } },
+	{ 'AerialVariableIcon', { fg = '#B0B51D' } },
+	{ 'AerialConstant', { fg = '#F46400' } },
+	{ 'AerialConstantIcon', { fg = '#F46400' } },
+}
 
 M.keymaps = {
 	{ 'n', '<space>o', ':AerialToggle<CR>', { silent = true, desc = 'Toggle the aerial window' } },
@@ -24,6 +36,7 @@ M.defaultConfig = {
 		default_direction = 'right',
 
 		min_width = 20,
+		max_width = 50,
 
 		show_guides = true,
 
@@ -38,36 +51,36 @@ M.defaultConfig = {
 			whitespace = '  ',
 		},
 
-		filter_kind = false,
+		-- filter_kind = false,
 
-		-- filter_kind = {
-		--   'Array',
-		--   'Boolean',
-		--   'Class',
-		--   'Constant',
-		--   'Constructor',
-		--   'Enum',
-		--   'EnumMember',
-		--   'Event',
-		--   'Field',
-		--   'File',
-		--   'Function',
-		--   'Interface',
-		--   'Key',
-		--   'Method',
-		--   'Module',
-		--   'Namespace',
-		--   'Null',
-		--   'Number',
-		--   'Object',
-		--   'Operator',
-		--   'Package',
-		--   'Property',
-		--   'String',
-		--   'Struct',
-		--   'TypeParameter',
-		--   'Variable',
-		-- },
+		filter_kind = {
+			'Array',
+			'Boolean',
+			'Class',
+			'Constant',
+			'Constructor',
+			'Enum',
+			'EnumMember',
+			'Event',
+			'Field',
+			'File',
+			'Function',
+			'Interface',
+			'Key',
+			'Method',
+			'Module',
+			'Namespace',
+			'Null',
+			'Number',
+			'Object',
+			'Operator',
+			-- 'Package', -- @TODO Why "if" condition is a Package kind?
+			'Property',
+			'String',
+			'Struct',
+			'TypeParameter',
+			'Variable',
+		},
 
 		icons = (function()
 			local icons = { Interface = config.symbolMap.MID_DOT }

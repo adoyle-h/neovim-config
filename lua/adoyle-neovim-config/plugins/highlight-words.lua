@@ -1,6 +1,6 @@
 return {
 	'vasconcelloslf/vim-interestingwords',
-	desc = 'highlight any words under cursor',
+	desc = 'Highlight any words under cursor',
 
 	config = function()
 		local conf = require('adoyle-neovim-config.config').config.highlightWords

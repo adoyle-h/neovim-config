@@ -277,8 +277,8 @@ M.keymaps = function()
 
 		-- {'n', '<space>b', ':Telescope buffers<cr>', opts}, -- Use :Neotree buffers instead.
 		{ 'n', '<space>d', ':Telescope diagnostics<cr>', opts },
-		{ 'n', '<space>s', ':Telescope search_history<cr>', opts },
-		{ 'n', '<space>S', ':Telescope spell_suggest<cr>', opts },
+		{ 'n', '<space>S', ':Telescope search_history<cr>', opts },
+		{ 'n', '<M-s>', ':Telescope spell_suggest<cr>', opts },
 		{ 'n', '<space>j', ':Telescope jumplist<cr>', opts },
 		{ 'n', '<space>v', ':Telescope vim_options<cr>', opts },
 		{ 'n', '<space>y', ':Telescope registers<cr>', opts },

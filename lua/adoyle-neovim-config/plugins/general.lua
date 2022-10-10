@@ -3,12 +3,12 @@ local M = { nil, desc = 'General functions and commands' }
 local CM = require('adoyle-neovim-config.config')
 local api = vim.api
 
-local function createConfigWindow()
+local function createConfigWindow(bufName)
 	vim.cmd.vsplit()
 	local win = api.nvim_get_current_win()
 	local buf = api.nvim_create_buf(true, true)
 
-	api.nvim_buf_set_name(buf, '[ADoyle-Neovim-Config]')
+	api.nvim_buf_set_name(buf, bufName)
 	api.nvim_buf_set_option(buf, 'filetype', 'lua')
 	api.nvim_buf_set_option(buf, 'sw', 2)
 	api.nvim_buf_set_option(buf, 'ts', 2)
@@ -104,11 +104,24 @@ M.commands = {
 	{
 		'ShowConfig',
 		function()
-			local write, writeVal, win = createConfigWindow()
+			local write, writeVal, win = createConfigWindow('[ADoyle-Neovim-Configs]')
 			write('-- config --')
 
 			local config = vim.tbl_extend('keep', CM.config, {})
 			writeVal(config)
+
+			api.nvim_win_set_cursor(win, { 1, 0 })
+		end,
+		{ desc = 'Show the merged config of adoyle-neovim-config' },
+	},
+
+	{
+		'ShowPlugins',
+		function()
+			local write, writeVal, win = createConfigWindow('[ADoyle-Neovim-Plugins]')
+			local P = require('adoyle-neovim-config.vim-plug')
+			write('-- plugins --')
+			writeVal(P.plugs)
 
 			api.nvim_win_set_cursor(win, { 1, 0 })
 
@@ -117,7 +130,7 @@ M.commands = {
 			-- writeVal1(CM.userSetup)
 			-- api.nvim_win_set_cursor(win1, { 1, 0 })
 		end,
-		{ desc = 'Show the merged config of adoyle-neovim-config' },
+		{ desc = 'Show plugins of adoyle-neovim-config' },
 	},
 
 	{

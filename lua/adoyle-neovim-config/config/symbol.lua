@@ -23,6 +23,10 @@ return {
 		GIT_CONFLICT = '',
 		BOOKMARK = '笠',
 		BOOKMARK_ANNOTATION = 'ﰠ',
+		ARROW_UP = '↑',
+		ARROW_DOWN = '↓',
+		ARROW_LEFT = '←',
+		ARROW_RIGHT = '→',
 	},
 
 	kindSymbolMap = {

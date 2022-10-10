@@ -41,7 +41,6 @@ local functionsColors = {
 	diffText = '#363537',
 
 	menu = { selectBG = '#012867' },
-
 	selection = color.darkOrange,
 }
 

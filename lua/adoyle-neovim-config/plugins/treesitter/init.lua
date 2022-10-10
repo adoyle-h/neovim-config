@@ -2,9 +2,8 @@ local config = require('adoyle-neovim-config.config').config
 local colors = config.colors
 
 local M = {
-	'nvim-treesitter/nvim-treesitter',
-	run = ':TSUpdate',
 	requires = {
+		{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
 		require('adoyle-neovim-config.plugins.treesitter.context'),
 		require('adoyle-neovim-config.plugins.treesitter.rainbow'),
 		{ 'nvim-treesitter/playground', desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor' },
@@ -38,9 +37,12 @@ M.highlights = {
 M.defaultConfig = {
 	'treesitter',
 	{
+		prefer_git = false,
+
 		ensure_installed = {}, -- A list of parser names, or "all",
+		auto_install = false,
 		sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
-		ignore_install = { 'rasi', 'r', 'd', 'v', 'slint' }, -- List of parsers to ignore installing (for "all")
+		ignore_install = {}, -- List of parsers to ignore installing (for "all")
 
 		highlight = {
 			-- `false` will disable the whole extension
@@ -57,6 +59,16 @@ M.defaultConfig = {
 			-- Using this option may slow down your editor, and you may see some duplicate highlights.
 			-- Instead of true it can also be a list of languages
 			additional_vim_regex_highlighting = false,
+		},
+
+		incremental_selection = {
+			enable = true,
+			keymaps = {
+				init_selection = 'vn',
+				node_incremental = 'vn',
+				node_decremental = 'vN',
+				scope_incremental = 'vm',
+			},
 		},
 
 		playground = {
@@ -77,15 +89,14 @@ M.defaultConfig = {
 				show_help = '?',
 			},
 		},
-
-		rainbow = config.tsRainbow,
 	},
 }
 
 function M.config()
 	local util = require('adoyle-neovim-config.util')
 
-	require('nvim-treesitter.install').prefer_git = true
+	require('nvim-treesitter.install').prefer_git = config.treesitter.prefer_git
+
 	if config.proxy.github then
 		for _, treesitterConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
 			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub('https://github.com/',

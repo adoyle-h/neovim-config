@@ -113,10 +113,9 @@ M.defaultConfig = function()
 		sec_c_bg = '#12151a',
 	})
 
-	local sec_c_bg = colors.sec_c_bg
-
 	local symbolMap = config.symbolMap
 
+	local diagnosticBG = '#0D203A'
 	local diagnostics = {
 		'diagnostics',
 
@@ -131,10 +130,10 @@ M.defaultConfig = function()
 
 		diagnostics_color = {
 			-- Same values as the general color option can be used here.
-			error = { fg = colors.red, bg = sec_c_bg },
-			warn = { fg = colors.yellow, bg = sec_c_bg },
-			info = { fg = colors.blue, bg = sec_c_bg },
-			hint = { fg = colors.cyan, bg = sec_c_bg },
+			error = { fg = colors.red, bg = diagnosticBG },
+			warn = { fg = colors.yellow, bg = diagnosticBG },
+			info = { fg = colors.blue, bg = diagnosticBG },
+			hint = { fg = colors.cyan, bg = diagnosticBG },
 		},
 
 		symbols = {
@@ -192,7 +191,6 @@ M.defaultConfig = function()
 			lualine_x = { my_sections, 'filesize' },
 			lualine_y = { 'filetype' },
 			lualine_z = { 'encoding', 'fileformat', mixLine, paste },
-
 		},
 
 		inactive_sections = {
@@ -205,10 +203,10 @@ M.defaultConfig = function()
 		},
 
 		winbar = {
-			lualine_a = {},
+			lualine_a = { diagnostics },
 			lualine_b = {},
 			lualine_c = {},
-			lualine_x = { diagnostics },
+			lualine_x = {},
 			lualine_y = {},
 			lualine_z = {},
 		},

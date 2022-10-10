@@ -4,15 +4,15 @@ local config = require('adoyle-neovim-config.config').config
 local colors = config.colors;
 
 function M.config()
-	local o = require('onedarkpro')
-	o.setup(config.onedarkpro)
-	o.load()
+	require('onedarkpro').setup(config.onedarkpro)
+	vim.cmd('colorscheme onedarkpro')
 end
 
 M.defaultConfig = {
 	'onedarkpro',
 	{
 		dark_theme = 'onedark', -- The default dark theme
+		caching = false, -- Use caching for the theme?
 
 		colors = { -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
 			bg = colors.black,
@@ -39,19 +39,20 @@ M.defaultConfig = {
 			-- diff_change = color.diffChangeBG,
 		},
 
-		highlights = { -- Override default highlight groups
-			Search = { style = 'none' },
-		},
+		highlights = {}, -- Override default highlight groups
 
 		-- https://github.com/olimorris/onedarkpro.nvim#configuring-filetypes
 		filetypes = { all = false },
 
 		plugins = { -- Override which plugins highlight groups are loaded
-			-- All plugins list in https://github.com/olimorris/onedarkpro.nvim/tree/main/lua/onedarkpro/plugins
+			-- All plugins list in https://github.com/olimorris/onedarkpro.nvim#electric_plug-supported-plugins
+			all = false,
 			native_lsp = true,
-			treesitter = false,
-			telescope = false,
-			hop = false,
+			nvim_notify = true,
+			neo_tree = true,
+			nvim_cmp = true,
+			treesitter = true,
+			-- nvim_ts_rainbow = true,
 		},
 
 		styles = {

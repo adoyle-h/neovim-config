@@ -53,9 +53,11 @@ Load 'plugins.window'
 Load 'plugins.funny'
 Load 'plugins.abbreviation'
 Load 'plugins.terminal'
-Load 'plugins.dashboard' -- Put this plugin after filetree plugin
+Load 'plugins.dashboard' -- Put this plugin after filetree and session plugin
 Load 'plugins.winbar'
 Load 'plugins.zen'
+Load 'plugins.curl'
+Load 'plugins.escape'
 
 Plug 'chrisbra/vim-diff-enhanced'
 Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h eunuch' }

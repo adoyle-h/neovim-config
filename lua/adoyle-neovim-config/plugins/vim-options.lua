@@ -54,7 +54,7 @@ default.opt = {
 	formatoptions = opt.formatoptions + 'mB',
 	conceallevel = 2,
 	concealcursor = '',
-	sessionoptions = { 'buffers', 'curdir', 'resize', 'tabpages', 'winpos', 'winsize' },
+	sessionoptions = { 'curdir', 'folds', 'resize', 'tabpages', 'winpos', 'winsize' },
 	termguicolors = true, -- Require true color
 	background = 'dark', -- Dark theme. DO NOT CHANGE THIS OPTION.
 

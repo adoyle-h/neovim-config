@@ -9,7 +9,7 @@ local set_hl = vim.api.nvim_set_hl
 local set_cmd = vim.api.nvim_create_user_command
 local sign_define = vim.fn.sign_define
 
-local P = { count = 0, plugs = {}, userPlugins = {}, userPluginConfigs = nil }
+local P = { count = 0, plugs = {}, plugMap = {}, userPlugins = {}, userPluginConfigs = nil }
 
 local UNLOAD = 'UNLOAD'
 
@@ -107,11 +107,12 @@ local function usePlug(repo, opts)
 		return false
 	end
 
-	P.plugs[repo or opts.id] = opts
-	P.count = P.count + 1
-
-	-- Load dependencies first
+	-- Load dependent plugins first, then current plugin
 	for _, dep in pairs(opts.requires) do usePlug(dep) end
+
+	P.plugMap[repo or opts.id] = opts
+	table.insert(P.plugs, opts)
+	P.count = P.count + 1
 
 	-- Handle current plugin
 
@@ -204,7 +205,7 @@ local function mergePlugConfig(node, plug)
 		end
 	end
 end
-P.mergeConfig = mergePlugConfig
+P.mergeConfig = mergePlugConfig -- for unit test
 
 function P.fin()
 	for _, p in pairs(P.userPlugins) do if p then usePlug(p) end end
@@ -230,7 +231,7 @@ function P.run()
 				requiredName = required[1]
 			end
 
-			local reqP = P.plugs[requiredName]
+			local reqP = P.plugMap[requiredName]
 			if reqP then
 				if reqP.disable then
 					unloadRequired = reqP
@@ -290,7 +291,7 @@ P.Plug = usePlug
 -- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
 P.LoadPluginFile = function(path)
 	local opts = require('adoyle-neovim-config.' .. path)
-	local userPluginOpts = P.plugs[opts[1]]
+	local userPluginOpts = P.plugMap[opts[1]]
 	opts = util.merge(opts, userPluginOpts)
 	usePlug(opts)
 end

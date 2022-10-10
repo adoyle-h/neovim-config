@@ -238,25 +238,25 @@ local M = {
 		'hrsh7th/cmp-path', -- path source for nvim-cmp
 		'f3fora/cmp-spell',
 		'hrsh7th/cmp-cmdline',
+		'David-Kunz/cmp-npm',
+		'petertriho/cmp-git',
 		{
 			'ray-x/cmp-treesitter',
 			config = function()
 				addSource({ name = 'treesitter' })
 			end,
 		},
-		'David-Kunz/cmp-npm',
-		'petertriho/cmp-git',
 
 		require('adoyle-neovim-config.plugins.completion.tabnine'),
 		require('adoyle-neovim-config.plugins.completion.hover'),
 		require('adoyle-neovim-config.plugins.completion.snippet'),
 	},
-}
 
-M.highlights = {
-	{ 'MenuSelectLine', { bg = colors.menu.selectBG } },
-	{ 'CmpFloatBorder', { fg = colors.grey, bg = colors.black } },
-	{ 'PmenuThumb', { bg = colors.grey3 } }, -- cmp scrollbar thumb
+	highlights = {
+		{ 'MenuSelectLine', { bg = colors.menu.selectBG } },
+		{ 'CmpFloatBorder', { fg = colors.grey, bg = colors.black } },
+		{ 'PmenuThumb', { bg = colors.grey3 } }, -- cmp scrollbar thumb
+	},
 }
 
 function M.config()

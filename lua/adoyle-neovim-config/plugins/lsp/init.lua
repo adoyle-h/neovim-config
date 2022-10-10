@@ -137,7 +137,7 @@ M.keymaps = {
 
 	{
 		'n',
-		'gc',
+		'ga',
 		function()
 			vim.lsp.buf.code_action()
 		end,

@@ -10,11 +10,11 @@ return {
 	},
 
 	config = function(config)
-		require('snippy').setup(config.cmp.snippy)
+		require('snippy').setup(config.complete.snippy)
 	end,
 
 	defaultConfig = {
-		{ 'cmp', 'snippy' },
+		{ 'complete', 'snippy' },
 		{
 			-- :h snippy
 			scopes = {

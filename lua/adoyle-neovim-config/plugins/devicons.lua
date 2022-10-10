@@ -2,7 +2,7 @@ return {
 	'kyazdani42/nvim-web-devicons',
 
 	config = function(config)
-		require('nvim-web-devicons').setup { override = config.devicons.override }
+		require('nvim-web-devicons').setup(config.devicons)
 	end,
 
 	defaultConfig = {

@@ -60,7 +60,7 @@ end
 
 M.keymaps = {
 
-	{ 't', 'jk', '<C-\\><C-n>', { noremap = true, silent = true, desc = 'Exit from terminal mode' } },
+	{ 't', 'jk', '<C-\\><C-n>', { noremap = true, desc = 'Exit from terminal mode' } },
 
 	{
 		'n',
