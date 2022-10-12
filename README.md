@@ -325,12 +325,12 @@ return {
 
   -- Parameters refer to ":h nvim_create_user_command"
   commands = {
-    { 'CleanPreviews', function require('goto-preview').close_all_win end, {} },
+    { 'ClearPreviews', function require('goto-preview').close_all_win end, {} },
   },
   -- or function
 	commands = function(config)
 		return {
-			{ 'CleanPreviews', require('goto-preview').close_all_win, {} },
+			{ 'ClearPreviews', require('goto-preview').close_all_win, {} },
 		}
 	end,
 

@@ -20,6 +20,8 @@ M.keymaps = {
 	{ 'n', '<space>o', ':AerialToggle<CR>', { silent = true, desc = 'Toggle the outline window' } },
 }
 
+M.commands = { { 'AerialTelescope', ':Telescope aerial', {} } }
+
 M.defaultConfig = {
 	'aerial',
 	{
@@ -96,6 +98,19 @@ M.defaultConfig = {
 
 function M.config()
 	require('aerial').setup(config.aerial)
+
+	local has_t, telescope = pcall(require, 'telescope')
+	if has_t then
+		telescope.setup({
+			extensions = {
+				aerial = {
+					-- Display symbols as <root>.<parent>.<symbol>
+					show_nesting = true,
+				},
+			},
+		})
+		telescope.load_extension('aerial')
+	end
 end
 
 return M

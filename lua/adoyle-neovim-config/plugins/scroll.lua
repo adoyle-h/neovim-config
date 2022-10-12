@@ -26,12 +26,12 @@ return {
 				['zt'] = { 'zt', { '200' } },
 				['zz'] = { 'zz', { '200' } },
 				['zb'] = { 'zb', { '200' } },
-				-- ['G'] = { 'G', { '50', [['sine']] } }, -- @BUG ":<number>G" will not work. And cannot move cursorline to end of file.
+				-- ['G'] = { 'G', { '50', [['sine']] } }, -- @BUG ":<number>G" will not work.
 				-- ['gg'] = { 'gg', { '50', [['sine']] } }, -- Too slow when scroll large content
 			},
 
 			hide_cursor = true, -- Hide cursor while scrolling
-			stop_eof = true, -- Stop at <EOF> when scrolling downwards
+			stop_eof = false, -- Stop at <EOF> when scrolling downwards
 			respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
 			cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
 			easing_function = 'quadratic', -- Default easing function. Values: quadratic, cubic, quartic, quintic, circular, sine

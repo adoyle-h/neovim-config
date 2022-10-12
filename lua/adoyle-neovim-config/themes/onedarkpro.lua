@@ -39,7 +39,9 @@ M.defaultConfig = {
 			-- diff_change = color.diffChangeBG,
 		},
 
-		highlights = {}, -- Override default highlight groups
+		highlights = { -- Override default highlight groups
+			StatusLine = { bg = 'NONE', fg = 'NONE' }, -- Fix caret in statusline. https://github.com/nvim-lualine/lualine.nvim/discussions/866
+		},
 
 		-- https://github.com/olimorris/onedarkpro.nvim#configuring-filetypes
 		filetypes = { all = false },

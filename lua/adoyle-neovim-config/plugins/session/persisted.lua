@@ -3,6 +3,20 @@ return {
 
 	keymaps = { { 'n', '<space>s', ':Telescope persisted<CR>', { silent = true } } },
 
+	commands = function(config)
+		return {
+			{
+				'ClearSessions',
+				function()
+					local sessDir = config.persisted.save_dir
+					-- vim.cmd(vim.fn.printf('!find "%s" -type f -mtime +3d', sessDir))
+					vim.cmd(vim.fn.printf('!find "%s" -type f -mtime +30d -exec rm {} \\;', sessDir))
+				end,
+				{},
+			},
+		}
+	end,
+
 	config = function(config)
 		local opts = config.persisted
 

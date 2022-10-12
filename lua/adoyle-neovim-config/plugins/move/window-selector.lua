@@ -3,9 +3,10 @@ local colors = config.colors
 
 return {
 	'https://gitlab.com/yorickpeterse/nvim-window.git',
+	disable = true,
 
 	defaultConfig = {
-		{ 'move', 'selector' },
+		'window-selector',
 		{
 			-- The characters available for hinting windows.
 			chars = {
@@ -31,7 +32,7 @@ return {
 	highlights = { { 'NvimWindowFloating', { fg = colors.blue, bg = colors.black } } },
 
 	config = function()
-		require('nvim-window').setup(config.move.selector)
+		require('nvim-window').setup(config['window-selector'])
 	end,
 
 	keymaps = function()

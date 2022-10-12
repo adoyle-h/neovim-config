@@ -20,6 +20,8 @@ M.keymaps = {
 	{ 'n', '<M-g>', ':echo expand("%:p")<CR>', { silent = true, desc = 'show absolute file path' } },
 
 	{ 'i', '<M-CR>', '<ESC>o', { noremap = true, silent = true, desc = 'move cursor to next line' } },
+
+	{ 'i', '<C-c>', '<ESC>', { noremap = true, silent = true } }, -- Fix: https://github.com/neovim/neovim/issues/16416
 }
 
 return M

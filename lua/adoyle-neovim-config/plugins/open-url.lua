@@ -7,9 +7,7 @@ return {
 	end,
 
 	keymaps = {
-		{ 'n', 'gx', '<Plug>(openbrowser-smart-search)' },
-		{ 'v', 'gx', '<Plug>(openbrowser-smart-search)' },
-		{ 'n', 'gX', '<Plug>(openbrowser-open)' },
-		{ 'v', 'gX', '<Plug>(openbrowser-open)' },
+		{ { 'n', 'v' }, 'gx', '<Plug>(openbrowser-smart-search)' },
+		{ { 'n', 'v' }, 'gX', '<Plug>(openbrowser-open)' },
 	},
 }

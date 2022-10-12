@@ -97,8 +97,8 @@ M.defaultConfig = {
 					end
 				end,
 				['C'] = 'close_node',
-				['s'] = 'open_split',
-				['v'] = 'open_vsplit',
+				['s'] = 'split_with_window_picker',
+				['v'] = 'vsplit_with_window_picker',
 				['t'] = 'open_tabnew',
 				['w'] = false,
 				['<space>'] = false,
@@ -244,10 +244,10 @@ M.keymaps = {
 			local filepath = vim.fn.expand('%:p')
 
 			if filepath then
-				if vim.endswith(filepath, 'neo-tree filesystem [1]') then
+				if filepath:find('neo-tree filesystem [', nil, true) then
 					neotree.execute { action = 'close' }
 				else
-					neotree.execute { reveal = true }
+					neotree.execute { toggle = true, reveal = true }
 				end
 			else
 				neotree.execute { action = 'show' }

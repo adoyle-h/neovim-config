@@ -8,15 +8,16 @@ Load 'plugins.plenary'
 Load 'plugins.devicons' -- Devicons for nvim plugins
 Load 'plugins.notify'
 Load 'plugins.notifier'
+Load 'plugins.treesitter'
 Plug 'MunifTanjim/nui.nvim'
 
 --------------------------------------
 
 -- UI
 Load 'plugins.colors'
+Load 'plugins.telescope'
 Load 'plugins.statusline.lualine'
 Load 'plugins.bufferline'
-Load 'plugins.telescope'
 Load 'plugins.indent-line'
 Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
@@ -25,7 +26,6 @@ Load 'plugins.scroll'
 -- Functions
 Load 'plugins.keymap'
 Load 'plugins.filetype'
-Load 'plugins.treesitter'
 Load 'plugins.lsp'
 Load 'plugins.dap'
 Load 'plugins.completion'
@@ -35,13 +35,13 @@ Load 'plugins.bookmark'
 Load 'plugins.mark'
 Load 'plugins.comment'
 Load 'plugins.outline.aerial'
-Load 'plugins.filetree.neo-tree'
 Load 'plugins.format'
 Load 'plugins.git'
 Load 'plugins.highlight-words'
 Load 'plugins.increment'
 Load 'plugins.markdown'
 Load 'plugins.move'
+Load 'plugins.filetree.neo-tree' -- neo-tree must put after move plugin
 Load 'plugins.open-url'
 Load 'plugins.profiling'
 Load 'plugins.session'
@@ -61,6 +61,8 @@ Load 'plugins.curl'
 Load 'plugins.escape'
 Load 'plugins.match'
 Load 'plugins.test'
+Load 'plugins.yank'
+Load 'plugins.node'
 
 Plug {
 	'tyru/capture.vim',

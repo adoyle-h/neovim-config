@@ -941,7 +941,7 @@ function! s:prepare(...)
     call s:new_window()
   endif
 
-  nnoremap <silent> <buffer> q :call <SID>close_pane()<cr>
+  nnoremap <silent> <buffer> q :q<cr>
   if a:0 == 0
     call s:finish_bindings()
   endif

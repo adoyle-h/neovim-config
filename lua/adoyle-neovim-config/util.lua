@@ -1,8 +1,9 @@
 local util = {}
 
+local api = vim.api
 local fn = vim.fn
 local tbl_islist = vim.tbl_islist
-local set_hl = vim.api.nvim_set_hl
+local set_hl = api.nvim_set_hl
 
 function util.proxyGithub(url)
 	return url
@@ -53,6 +54,47 @@ function util.getVisualSelection(return_raw)
 	else
 		return string.gsub(text, '\n', '')
 	end
+end
+
+function util.newWindow(opts)
+	opts = opts or {}
+
+	vim.cmd.vsplit()
+	local win = api.nvim_get_current_win()
+	local buf = api.nvim_create_buf(true, true)
+
+	if opts.title then api.nvim_buf_set_name(buf, opts.title) end
+	api.nvim_buf_set_option(buf, 'filetype', opts.ft or 'text')
+	api.nvim_buf_set_option(buf, 'sw', opts.sw or 2)
+	api.nvim_buf_set_option(buf, 'ts', opts.ts or 2)
+
+	api.nvim_win_set_option(win, 'foldmethod', 'indent')
+	api.nvim_win_set_option(win, 'foldlevel', opts.foldlevel or 1)
+	api.nvim_win_set_option(win, 'cc', '')
+
+	api.nvim_win_set_buf(win, buf)
+	vim.cmd 'vertical resize 80'
+
+	local row = 0
+	local write = function(content)
+		api.nvim_buf_set_lines(buf, row, row, true, { content })
+		row = row + 1
+	end
+
+	local writeVal = function(content)
+		local text = vim.split(vim.inspect(content), '\n')
+		api.nvim_buf_set_lines(buf, row, row, true, text)
+		row = row + #text
+	end
+
+	return {
+		write = write,
+		writeVal = writeVal,
+		win = win,
+		resetCursor = function()
+			api.nvim_win_set_cursor(win, { 1, 0 })
+		end,
+	}
 end
 
 return util

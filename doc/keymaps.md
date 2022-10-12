@@ -12,13 +12,14 @@ Press `<space>k` to see all keymaps in nvim.
 - `<leader>w` = Save current buffer to disk
 - `<M-g>` = Show absolute file path
 - `<leader>l` = Toggle invisible characters
-- `<leader>L` = Toggle linenumber gutter
 - `.` = Repeat last change. Also work in visual mode
 - `<leader>ii` = Increment word under cursor
 - `<leader>id` = Decrement word under cursor
 - `>` = Increment indent
 - `<` = Decrement indent
 - `gx` = Open URL under cursor
+- `<leader>so` = Toggle scrolloff
+- `<leader>sp` = Toggle spell-checking
 
 ## Copy and Paste
 
@@ -35,6 +36,7 @@ Press `<space>k` to see all keymaps in nvim.
 - `fw` = Jump to the start of word (forward)
 - `fb` = Jump to the start of word (back forward)
 - `fe` = Jump to the end of word
+- `fl` = Jump to line
 - `fc` or `f1` = Jump to char prefixed which user type (1 char)
 - `f2` = Jump to chars prefixed which user type (2 chars)
 - `g[` = Jump to previous cursor position
@@ -58,6 +60,8 @@ Press `<space>k` to see all keymaps in nvim.
 - `va%` = Text-objects for matched pairs
 - `vat` = Text-objects for XML tag node
 - `vin` = Text-objects for treesitter node
+- `<leader>v` = Smart select the next closest text-objects
+- `<leader>V` = Reverse selection of `<leader>v`
 
 ## Swap
 
@@ -144,6 +148,8 @@ Press `<space>k` to see all keymaps in nvim.
 - `<space>v` = Find vim options
 - `<space>r` = Show recently opened files
 - `<space>n` = Find notifications
+- `<space>t` = List tabs
+- `<space>T` = List todo comments
 
 ### Telescope Window
 
@@ -166,6 +172,8 @@ Press `<space>k` to see all keymaps in nvim.
 - `~` = Character to upper case or lower case
 - `<M-s>` = Spell suggestion
 - `<space>z` = Toggle zen mode for writing
+- `J` = Join lines into one
+- `K` = Split current line on cursor
 
 ## Word Case
 
@@ -306,3 +314,12 @@ Press `<space>k` to see all keymaps in nvim.
 ## Git
 
 - `<leader>G` = Open Gitsigns window
+
+## Gutter
+
+- `<leader>N` = Toggle relative/absolute number gutter
+- `<leader>L` = Toggle linenumber gutter
+
+## Uncategory
+
+- `<leader>cr` = Send request in HTTP file (NTBBloodbath/rest.nvim)
