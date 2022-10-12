@@ -1,6 +1,7 @@
 local M = {
 	'tzachar/cmp-tabnine',
 	run = './install.sh',
+	disable = true,
 
 	config = function(config)
 		require('cmp_tabnine.config'):setup(config.tabnine)

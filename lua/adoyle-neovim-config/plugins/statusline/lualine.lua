@@ -77,6 +77,7 @@ local function theme(colors)
 			a = { fg = black, bg = green, gui = 'bold' },
 			b = { fg = white, bg = grey },
 			c = { fg = colors.sec_c_fg, bg = sec_c_bg },
+			x = { fg = colors.sec_c_fg, bg = colors.sec_x_bg },
 			y = { fg = white, bg = colors.sec_y_bg },
 			z = { fg = black, bg = green },
 		},
@@ -87,10 +88,12 @@ local function theme(colors)
 
 		replace = { a = { fg = black, bg = colors.purple, gui = 'bold' } },
 
+		command = { a = { fg = black, bg = colors.yellow, gui = 'bold' } },
+
 		inactive = {
-			c = { fg = white, bg = black },
 			a = { fg = white, bg = grey, gui = 'bold' },
 			b = { fg = white, bg = colors.sec_y_bg },
+			c = { fg = white, bg = black },
 		},
 	}
 end
@@ -111,6 +114,7 @@ M.defaultConfig = function()
 		sec_y_bg = '#272d38',
 		sec_c_fg = '#607080',
 		sec_c_bg = '#12151a',
+		sec_x_bg = '#121A22',
 	})
 
 	local symbolMap = config.symbolMap
@@ -270,7 +274,7 @@ M.defaultConfig = function()
 				['Rv'] = 'V-REPLACE',
 				['Rvc'] = 'V-REPLACE',
 				['Rvx'] = 'V-REPLACE',
-				['c'] = 'COMMAND',
+				['c'] = 'C',
 				['cv'] = 'EX',
 				['ce'] = 'EX',
 				['r'] = 'REPLACE',

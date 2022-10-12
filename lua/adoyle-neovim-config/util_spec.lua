@@ -57,4 +57,9 @@ describe('util.merge', function()
 
 		assert.equals(r.a.b.f, f2)
 	end)
+
+	it('({ a = { b = 1 } }, { a = {} })', function()
+		local r = util.merge({ a = { b = 1 } }, { a = {} })
+		assert.equals(r.a.b, 1)
+	end)
 end)

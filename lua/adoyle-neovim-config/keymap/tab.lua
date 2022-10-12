@@ -1,4 +1,4 @@
-local M = { nil, disable = true }
+local M = { disable = true }
 
 M.config = function()
 	vim.g.lasttab = 1

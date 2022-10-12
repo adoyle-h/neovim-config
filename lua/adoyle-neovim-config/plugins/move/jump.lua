@@ -20,11 +20,28 @@ return {
 
 	keymaps = function()
 		-- local HintDirection = require('hop.hint').HintDirection
-		local HintPosition = require('hop.hint').HintPosition
 		local hop = require('hop')
+		local HintPosition = require('hop.hint').HintPosition
+		local HintDirection = require('hop.hint').HintDirection
 
 		return {
-			{ '', 'fw', hop.hint_words, { desc = 'cursor jumps to the start of word' } },
+			{
+				'',
+				'fw',
+				function()
+					hop.hint_words { direction = HintDirection.AFTER_CURSOR }
+				end,
+				{ desc = 'cursor jumps to the start of word' },
+			},
+
+			{
+				'',
+				'fb',
+				function()
+					hop.hint_words { direction = HintDirection.BEFORE_CURSOR }
+				end,
+				{ desc = 'cursor jumps to char which user type' },
+			},
 
 			{
 				'',

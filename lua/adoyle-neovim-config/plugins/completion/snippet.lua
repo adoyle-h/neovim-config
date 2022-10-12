@@ -1,6 +1,4 @@
 return {
-	nil,
-
 	requires = {
 		'justinj/vim-react-snippets',
 		'rafamadriz/friendly-snippets',
@@ -10,11 +8,11 @@ return {
 	},
 
 	config = function(config)
-		require('snippy').setup(config.complete.snippy)
+		require('snippy').setup(config.snippy)
 	end,
 
 	defaultConfig = {
-		{ 'complete', 'snippy' },
+		{ 'snippy' },
 		{
 			-- :h snippy
 			scopes = {

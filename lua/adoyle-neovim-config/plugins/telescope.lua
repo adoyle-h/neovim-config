@@ -206,7 +206,13 @@ M.keymaps = function()
 			{ silent = true, desc = 'Search in current file with selection' },
 		},
 
-		{ 'n', '<space>/', ':Telescope live_grep<cr>', opts },
+		{
+			'n',
+			'<space>/',
+			':Telescope live_grep<cr>',
+			{ silent = true, desc = 'Fuzzy find content in workspace' },
+		},
+
 		{
 			'v',
 			'<space>/',
@@ -214,7 +220,7 @@ M.keymaps = function()
 				local text = util.getVisualSelection()
 				tb.live_grep({ default_text = text })
 			end,
-			{ silent = true, desc = 'Global search content with selection' },
+			{ silent = true, desc = 'Fuzzy find content with selection in workspace' },
 		},
 
 		{ 'n', '<space>p', ':Telescope commands<cr>', opts },
@@ -282,7 +288,13 @@ M.keymaps = function()
 		{ 'n', '<space>j', ':Telescope jumplist<cr>', opts },
 		{ 'n', '<space>v', ':Telescope vim_options<cr>', opts },
 		{ 'n', '<space>y', ':Telescope registers<cr>', opts },
-		{ 'n', '<space>r', ':Telescope oldfiles<cr>', opts },
+
+		{
+			'n',
+			'<space>r',
+			':Telescope oldfiles<cr>',
+			{ silent = true, desc = 'Show recently opened files' },
+		},
 
 		-- Override lsp keymaps. Use rmagatti/goto-preview instead.
 		-- {'n', 'gi', ':Telescope lsp_implementations<cr>', opts},

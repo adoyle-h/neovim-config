@@ -1,9 +1,7 @@
-local M = { nil, desc = 'window keymaps' }
+local M = { desc = 'window keymaps' }
 
 M.keymaps = {
-	{ 'n', '<leader>w', ':w<CR>', { desc = 'save current buffer' } },
-	{ 'n', '<leader>e', ':e<CR>', { desc = 'refresh current window' } },
-	{ 'n', '<C-W>t', '<C-W>T', { noremap = true, desc = 'put current buffer to new tab' } },
+	{ 'n', '<C-W>t', '<C-W>T', { noremap = true, desc = 'move current window to new tab' } },
 
 	{ 'n', '<C-W><', '<C-W>1<<C-W>', { remap = true, desc = 'adjust window border to left (1 space)' } },
 

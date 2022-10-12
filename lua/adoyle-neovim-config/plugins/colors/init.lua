@@ -1,4 +1,4 @@
-local M = { nil, desc = 'color settings' }
+local M = { 'color', desc = 'color settings' }
 
 local config = require('adoyle-neovim-config.config').config
 

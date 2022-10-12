@@ -1,41 +1,23 @@
-local config = require('adoyle-neovim-config.config').config
-local colors = config.colors
-local kindSymbolMap = config.kindSymbolMap
+local _config = require('adoyle-neovim-config.config').config
+local colors = _config.colors
+local kindSymbolMap = _config.kindSymbolMap
 local api = vim.api
 
--- You can specify multiple source arrays. The sources are grouped in the order you specify,
--- and the groups are displayed as a fallback, like chain completion.
-local sources = {
-	{ { name = 'nvim_lsp' }, { name = 'snippy' }, { name = 'buffer' }, { name = 'path' } },
-	{ { name = 'spell' } },
-}
-
-local function configFormating()
+local function configFormating(conf)
 	return {
 		-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua#L42-L47
-		fields = { 'kind', 'abbr', 'menu' }, -- fields see ":h complete-items"
+		fields = conf.menu.fields, -- fields see ":h complete-items"
 		format = function(entry, item)
 			-- vim_item.kind = string.format("%s %s", kindSymbolMap[vim_item.kind], vim_item.kind)
 			item.kind = kindSymbolMap[item.kind]
 
 			local srcName = entry.source.name
-			item.menu = ({
-				buffer = 'BUF',
-				nvim_lsp = 'LSP',
-				nvim_lua = 'LUA',
-				path = 'PATH',
-				npm = 'NPM',
-				neorg = 'ORG',
-				tabnine = 'TABN',
-				snippy = 'SNIP',
-			})[srcName] or srcName
+			item.menu = conf.menu.kindLabels[srcName] or srcName:upper()
 
-			local MAX_LABEL_WIDTH = 30
+			local maxAbbrWidth = conf.menu.maxAbbrWidth
 			local abbr = item.abbr
 
-			if #abbr > MAX_LABEL_WIDTH then
-				item.abbr = vim.fn.strcharpart(abbr, 0, MAX_LABEL_WIDTH) .. '…'
-			end
+			if #abbr > maxAbbrWidth then item.abbr = vim.fn.strcharpart(abbr, 0, maxAbbrWidth) .. '…' end
 
 			return item
 		end,
@@ -203,36 +185,11 @@ local function configMapping(cmp)
 	}
 end
 
-local function configCmdLineSources(cmp)
-	for _, cmd_type in pairs({ '/', '?' }) do
-		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline(cmd_type, {
-			-- mapping = cmp.mapping.preset.cmdline(),
-			sources = { { name = 'buffer' }, { name = 'path' } },
-		})
-	end
-
-	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-	cmp.setup.cmdline(':', {
-		-- mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({ { name = 'path' }, { name = 'cmdline' } }),
-	})
-
-	-- Set configuration for specific filetype.
-	cmp.setup.filetype('gitcommit', {
-		sources = cmp.config.sources({ { name = 'git' }, { name = 'buffer' }, { name = 'path' } }),
-	})
-end
-
-local function addSource(src)
-	local lastSrcGroup = sources[#sources]
-	table.insert(lastSrcGroup, src)
-end
-
 local M = {
-	'hrsh7th/nvim-cmp',
+	'completion',
 
 	requires = {
+		'hrsh7th/nvim-cmp',
 		'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
 		'hrsh7th/cmp-buffer', -- buffer source for nvim-cmp
 		'hrsh7th/cmp-path', -- path source for nvim-cmp
@@ -240,13 +197,9 @@ local M = {
 		'hrsh7th/cmp-cmdline',
 		'David-Kunz/cmp-npm',
 		'petertriho/cmp-git',
-		{
-			'ray-x/cmp-treesitter',
-			config = function()
-				addSource({ name = 'treesitter' })
-			end,
-		},
+		'ray-x/cmp-treesitter',
 
+		require('adoyle-neovim-config.plugins.completion.copilot'),
 		require('adoyle-neovim-config.plugins.completion.tabnine'),
 		require('adoyle-neovim-config.plugins.completion.hover'),
 		require('adoyle-neovim-config.plugins.completion.snippet'),
@@ -259,15 +212,21 @@ local M = {
 	},
 }
 
-function M.config()
+function M.config(config)
 	local cmp = require('cmp')
+	local conf = config.completion
+	local sources = conf.sources.normal
 
-	if pcall(require, 'cmp_tabnine') then addSource { name = 'tabnine' } end
+	if pcall(require, 'cmp_tabnine') then table.insert(sources, { name = 'tabnine', group_index = 1 }) end
+	if pcall(require, 'cmp_copilot') then table.insert(sources, { name = 'copilot', group_index = 1 }) end
+	if pcall(require, 'cmp_treesitter') then
+		table.insert(sources, { name = 'treesitter', group_index = 2 })
+	end
 
 	local opts = {
 		mapping = configMapping(cmp),
-		formatting = configFormating(),
-		sources = cmp.config.sources(table.unpack(sources)),
+		formatting = configFormating(conf),
+		sources = sources,
 
 		snippet = {
 			expand = function(args)
@@ -289,7 +248,80 @@ function M.config()
 
 	cmp.setup(opts)
 
-	configCmdLineSources(cmp)
+	for _, cmd_type in pairs({ '/', '?' }) do
+		cmp.setup.cmdline(cmd_type, {
+			-- mapping = cmp.mapping.preset.cmdline(),
+			sources = conf.sources.search,
+		})
+	end
+
+	cmp.setup.cmdline(':', {
+		-- mapping = cmp.mapping.preset.cmdline(),
+		sources = conf.sources.cmdline,
+	})
+
+	for ft, props in pairs(conf.filetypes) do
+		-- Set configuration for specific filetype.
+		cmp.setup.filetype(ft, props)
+	end
+end
+
+M.defaultConfig = function()
+	return {
+		'completion',
+		{
+			-- You can specify multiple source arrays. The sources are grouped in the group_index order you specify,
+			-- and the groups are displayed as a fallback, like chain completion.
+			-- See ":h cmp-config.sources" for full source properties.
+			sources = {
+				normal = {
+					{ name = 'nvim_lsp', group_index = 1 },
+					{ name = 'snippy', group_index = 1 },
+					{ name = 'buffer', group_index = 1 },
+					{ name = 'path', group_index = 1 },
+					{ name = 'spell', group_index = 2 },
+				},
+
+				search = { -- Use buffer source for `/` and '?' (if you enabled `native_menu`, this won't work anymore).
+					{ name = 'buffer', group_index = 1 },
+					{ name = 'path', group_index = 1 },
+				},
+
+				cmdline = { -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+					{ name = 'path', group_index = 1 },
+					{ name = 'cmdline', group_index = 1 },
+				},
+			},
+
+			filetypes = {
+				gitcommit = {
+					sources = {
+						{ name = 'git', group_index = 1 },
+						{ name = 'buffer', group_index = 1 },
+						{ name = 'path', group_index = 1 },
+					},
+				},
+			},
+
+			menu = {
+				fields = { 'kind', 'abbr', 'menu' },
+
+				kindLabels = {
+					buffer = 'BUF',
+					nvim_lsp = 'LSP',
+					nvim_lua = 'LUA',
+					neorg = 'ORG',
+					tabnine = 'TABN',
+					copilot = 'COPI',
+					snippy = 'SNIP',
+					treesitter = 'TREE',
+					cmdline = 'CMD',
+				},
+
+				maxAbbrWidth = 30,
+			},
+		},
+	}
 end
 
 return M

@@ -1,4 +1,4 @@
-local M = { nil, desc = 'General functions and commands' }
+local M = { 'general', desc = 'General functions and commands' }
 
 local CM = require('adoyle-neovim-config.config')
 local api = vim.api

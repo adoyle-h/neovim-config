@@ -1,4 +1,4 @@
-local M = { nil, desc = 'Toggle Keymaps' }
+local M = { desc = 'Toggle Keymaps' }
 
 M.keymaps = {
 	{

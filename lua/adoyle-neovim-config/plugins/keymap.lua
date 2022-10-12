@@ -1,6 +1,7 @@
 return {
-	nil,
+	'keymap',
 	desc = 'Load all keymap settings',
+
 	requires = {
 		require('adoyle-neovim-config.keymap.general'),
 		require('adoyle-neovim-config.keymap.tab'),

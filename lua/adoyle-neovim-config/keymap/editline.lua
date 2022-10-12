@@ -1,4 +1,4 @@
-local M = { nil, desc = 'Emacs Editline in vim insert mode' }
+local M = { desc = 'Emacs Editline in vim insert mode' }
 
 local opts = { noremap = true, silent = true }
 
@@ -13,11 +13,9 @@ M.keymaps = {
 	{ 'i', '<C-d>', '<Esc>dla', opts },
 	{ 'i', '<C-w>', '<Esc>bdei', opts },
 	{ 'i', '<C-k>', '<Esc>Da', opts },
-	{ 'i', '<C-u>', '<Esc>d0', opts },
+	{ 'i', '<C-u>', '<Esc>dl0i', opts },
 }
 
-M.requires = {
-	{ 'adoyle-h/vim-emacscommandline', desc = 'Emacs shortcuts in vim command mode' },
-}
+M.requires = { { 'adoyle-h/vim-emacscommandline', desc = 'Emacs shortcuts in vim command mode' } }
 
 return M

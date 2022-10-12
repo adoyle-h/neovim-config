@@ -9,10 +9,9 @@ require('adoyle-neovim-config').setup {
 
 	-- Add your plugins or override plugin default options.
 	-- More examples at ./lua/adoyle-neovim-config/plugins.lua
-	plugins = {
+	plugins = { --
+		{ 'profiling', disable = true },
 		{ 'olimorris/onedarkpro.nvim', disable = false },
-		{ 'folke/todo-comments.nvim', disable = true },
-		{ 'tzachar/cmp-tabnine', disable = true },
 	},
 
 	pluginConfigs = function()
@@ -33,19 +32,11 @@ require('adoyle-neovim-config').setup {
 			treesitter = {
 				prefer_git = false,
 				ensure_installed = {}, -- A list of parser names, or "all",
-				ignore_install = {
-					'agda',
-					'rasi',
-					'r',
-					'd',
-					'v',
-					'slint',
-					'c_sharp',
-					'phpdoc',
-					'ruby',
-					'php',
-					'jsonc',
-				}, -- List of parsers to ignore installing (for "all")
+				ignore_install = { -- List of parsers to ignore installing (for "all")
+					-- LuaFormatter off
+					'agda', 'rasi', 'r', 'd', 'v', 'slint', 'c_sharp', 'phpdoc', 'ruby', 'php', 'jsonc',
+					-- LuaFormatter on
+				},
 			},
 
 			nullLS = {

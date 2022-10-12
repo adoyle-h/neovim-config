@@ -13,7 +13,7 @@ local Term = {
 }
 
 local M = {
-	nil,
+	'terminal',
 	desc = 'The settings of nvim embeded terminal. See :h terminal',
 	requires = { Term },
 }

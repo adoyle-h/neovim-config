@@ -1,4 +1,4 @@
-local M = { nil, desc = 'Define highlight groups' }
+local M = { desc = 'Define highlight groups' }
 
 local config = require('adoyle-neovim-config.config').config
 local colors = config.colors
@@ -8,7 +8,7 @@ M.defaultConfig = {
 	{
 		-- Or 'MyCursor' = function(colors) return { bg = colors.blue } end,
 		MyCursor = { bg = colors.blue },
-		Visual = { bg = colors.darkOrange },
+		Visual = { bg = colors.darkOrange, fg = colors.white },
 		CursorLineNr = { bg = colors.darkBlue, fg = colors.blue, bold = true },
 		QuickFixLine = { bg = colors.darkYellow, bold = true },
 

@@ -3,7 +3,7 @@ local colors = config.colors
 local util = require('adoyle-neovim-config.util')
 
 local M = {
-	nil,
+	'lsp',
 
 	requires = {
 		require('adoyle-neovim-config.plugins.lsp.mason'),

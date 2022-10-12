@@ -1,5 +1,5 @@
 -- Set default options for vim/nvim. Use :help 'option' to see the documentation for the given option.
-local default = {}
+local default = { 'vim' }
 
 local opt = vim.opt
 
@@ -54,7 +54,7 @@ default.opt = {
 	formatoptions = opt.formatoptions + 'mB',
 	conceallevel = 2,
 	concealcursor = '',
-	sessionoptions = { 'curdir', 'folds', 'resize', 'tabpages', 'winpos', 'winsize' },
+	sessionoptions = { 'curdir', 'folds', 'resize', 'tabpages', 'winpos' },
 	termguicolors = true, -- Require true color
 	background = 'dark', -- Dark theme. DO NOT CHANGE THIS OPTION.
 
@@ -203,7 +203,6 @@ default.cmd = {
 }
 
 return {
-	nil,
 	desc = 'Set vim/nvim options. Use :help "option" to see the documentation for the given option.',
 	defaultConfig = { 'vim', default },
 

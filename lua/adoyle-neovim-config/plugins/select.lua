@@ -1,4 +1,4 @@
-local M = { nil, desc = 'The fast cursor selection with text-objects' }
+local M = { 'select', desc = 'The fast cursor selection with text-objects' }
 local P = require('adoyle-neovim-config.vim-plug')
 
 M.requires = {
@@ -29,7 +29,7 @@ M.requires = {
 
 	{
 		'RRethy/nvim-treesitter-textsubjects',
-		-- disable = P.plugMap['nvim-treesitter/nvim-treesitter'].disable,
+		-- disable = P.isPlugDisabled('nvim-treesitter/nvim-treesitter'),
 		disable = true,
 		config = function(config)
 			require('nvim-treesitter.configs').setup { textsubjects = config.select.textsubjects }
@@ -51,7 +51,7 @@ M.requires = {
 
 	{
 		'nvim-treesitter/nvim-treesitter-textobjects',
-		disable = P.plugMap['nvim-treesitter/nvim-treesitter'].disable,
+		disable = P.isPlugDisabled('nvim-treesitter/nvim-treesitter'),
 
 		config = function(config)
 			require('nvim-treesitter.configs').setup { textobjects = config.select.textobjects }
@@ -109,7 +109,7 @@ M.requires = {
 				},
 
 				swap = {
-					enable = true,
+					enable = false, -- use tree-climber instead of
 					swap_next = { ['<C-s>j'] = '@attribute.inner', ['<C-s>l'] = '@parameter.inner' },
 					swap_previous = { ['<C-s>k'] = '@attribute.inner', ['<C-s>h'] = '@parameter.inner' },
 				},

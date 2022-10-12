@@ -2,11 +2,13 @@ local config = require('adoyle-neovim-config.config').config
 local colors = config.colors
 
 local M = {
+	'treesitter',
 	requires = {
 		{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
+		{ 'nvim-treesitter/playground', desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor' },
 		require('adoyle-neovim-config.plugins.treesitter.context'),
 		require('adoyle-neovim-config.plugins.treesitter.rainbow'),
-		{ 'nvim-treesitter/playground', desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor' },
+		require('adoyle-neovim-config.plugins.treesitter.pairs'),
 	},
 }
 
@@ -52,7 +54,10 @@ M.defaultConfig = {
 			-- NOTE: these are the names of the parsers and not the filetype.
 			-- (for example if you want to disable highlighting for the `tex` filetype,
 			-- you need to include `latex` in this list as this is the name of the parser)
-			disable = { 'markdown' },
+			disable = {
+				'markdown', -- Use my markdown highlights instead of
+				'help', -- The help use tree-sitter-vimdoc as parser. But currently its highlights is poor than builtin.
+			},
 
 			-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 			-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).

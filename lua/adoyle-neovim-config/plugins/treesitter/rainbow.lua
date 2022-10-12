@@ -15,8 +15,8 @@ return {
 			max_file_lines = nil, -- Do not enable for files with more than n lines, int
 			colors = { -- table of hex strings
 				-- LuaFormatter off
-				'#589CFF', '#d75f00', '#12cf5f', '#0087ff', '#00a887', '#b8afbf', '#ff5f00',
-				'#6F0080', '#ff00ff', '#8787ff', '#82875f',
+				'#589CFF', '#1F4FFF', '#8549ED', '#00a887', '#b8afbf', '#82ab00', '#6F0080',
+				'#12cf5f', '#ff00ff', '#8787ff', '#82875f',
 				-- LuaFormatter on
 			},
 

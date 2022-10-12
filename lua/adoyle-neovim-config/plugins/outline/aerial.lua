@@ -17,7 +17,7 @@ M.highlights = {
 }
 
 M.keymaps = {
-	{ 'n', '<space>o', ':AerialToggle<CR>', { silent = true, desc = 'Toggle the aerial window' } },
+	{ 'n', '<space>o', ':AerialToggle<CR>', { silent = true, desc = 'Toggle the outline window' } },
 }
 
 M.defaultConfig = {
@@ -89,7 +89,7 @@ M.defaultConfig = {
 		end)(),
 
 		on_attach = function(bufnr)
-			require('aerial').tree_set_collapse_level(bufnr, 0)
+			require('aerial').tree_set_collapse_level(bufnr, 3)
 		end,
 	},
 }

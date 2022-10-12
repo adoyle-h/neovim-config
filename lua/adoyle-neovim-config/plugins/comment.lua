@@ -1,26 +1,59 @@
 return {
-	'scrooloose/nerdcommenter',
-	desc = 'comment codes',
+	'numToStr/Comment.nvim',
+
+	keymaps = {
+		{ { 'n' }, '<M-c>', '<Plug>(comment_toggle_linewise_current)', { silent = true } },
+		{ { 'v' }, '<M-c>', '<Plug>(comment_toggle_linewise_visual)', { silent = true } },
+	},
+
+	config = function(config)
+		require('Comment').setup(config.comment)
+	end,
 
 	defaultConfig = {
 		'comment',
 		{
-			spaceDelims = 1,
-			removeExtraSpaces = 1,
-			commentWholeLinesInVMode = 1,
-			delimiters = {
-				['javascript.jsx'] = { left = '//', right = '', leftAlt = '{/*', rightAlt = '*/}' },
-				plantuml = { left = '\'', right = '' },
+			---Add a space b/w comment and the line
+			padding = true,
+			---Whether the cursor should stay at its position
+			sticky = true,
+			---Lines to be ignored while (un)comment
+			ignore = nil,
+			---LHS of toggle mappings in NORMAL mode
+			toggler = {
+				---Line-comment toggle keymap
+				line = '<leader>cc',
+				---Block-comment toggle keymap
+				block = '<leader>cb',
 			},
+			---LHS of operator-pending mappings in NORMAL and VISUAL mode
+			opleader = {
+				---Line-comment keymap
+				line = '<leader>c',
+				---Block-comment keymap
+				block = '<leader>cb',
+			},
+			---LHS of extra mappings
+			extra = {
+				---Add comment on the line above
+				above = '<leader>cO',
+				---Add comment on the line below
+				below = '<leader>co',
+				---Add comment at the end of line
+				eol = '<leader>ca',
+			},
+			---Enable keybindings
+			---NOTE: If given `false` then the plugin won't create any mappings
+			mappings = {
+				---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+				basic = true,
+				---Extra mapping; `gco`, `gcO`, `gcA`
+				extra = true,
+			},
+			---Function to call before (un)comment
+			pre_hook = nil,
+			---Function to call after (un)comment
+			post_hook = nil,
 		},
 	},
-
-	config = function(config)
-		local conf = config.comment
-
-		vim.g.NERDSpaceDelims = conf.spaceDelims
-		vim.g.NERDRemoveExtraSpaces = conf.removeExtraSpaces
-		vim.g.NERDCommentWholeLinesInVMode = conf.commentWholeLinesInVMode
-		vim.g.NERDCustomDelimiters = conf.delimiters
-	end,
 }

@@ -6,9 +6,9 @@ local Load = P.LoadPluginFile
 Load 'plugins.vim-options'
 Load 'plugins.plenary'
 Load 'plugins.devicons' -- Devicons for nvim plugins
-Plug 'MunifTanjim/nui.nvim'
 Load 'plugins.notify'
 Load 'plugins.notifier'
+Plug 'MunifTanjim/nui.nvim'
 
 --------------------------------------
 
@@ -17,10 +17,10 @@ Load 'plugins.colors'
 Load 'plugins.statusline.lualine'
 Load 'plugins.bufferline'
 Load 'plugins.telescope'
-Load 'plugins.brackets'
 Load 'plugins.indent-line'
 Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
+Load 'plugins.scroll'
 
 -- Functions
 Load 'plugins.keymap'
@@ -32,6 +32,7 @@ Load 'plugins.completion'
 Load 'plugins.general'
 
 Load 'plugins.bookmark'
+Load 'plugins.mark'
 Load 'plugins.comment'
 Load 'plugins.outline.aerial'
 Load 'plugins.filetree.neo-tree'
@@ -58,14 +59,8 @@ Load 'plugins.winbar'
 Load 'plugins.zen'
 Load 'plugins.curl'
 Load 'plugins.escape'
-
-Plug 'chrisbra/vim-diff-enhanced'
-Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h eunuch' }
-
-Plug {
-	'chrisbra/Recover.vim',
-	desc = 'Show difference between the hidden swap file and the regular saved file. Very useful.',
-}
+Load 'plugins.match'
+Load 'plugins.test'
 
 Plug {
 	'tyru/capture.vim',
@@ -80,6 +75,9 @@ Plug {
 -- This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim.
 -- https://github.com/neovim/neovim/issues/1716
 Plug 'lambdalisue/suda.vim'
+
+Plug 'chrisbra/vim-diff-enhanced'
+Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h eunuch' }
 Plug { 'tpope/vim-repeat', desc = 'Enable repeating other supported plugins with the . command' }
 Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown presentation' }
 Plug { 'mechatroner/rainbow_csv', desc = 'For .csv file' }

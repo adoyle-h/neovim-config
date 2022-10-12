@@ -1,5 +1,5 @@
 local M = {
-	nil,
+	'git',
 	desc = 'Git Plugins',
 
 	requires = {

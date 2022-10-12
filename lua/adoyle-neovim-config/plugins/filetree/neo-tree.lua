@@ -91,9 +91,9 @@ M.defaultConfig = {
 
 					-- :h feature-list
 					if vim.fn.has('mac') then
-						vim.api.nvim_command('!open -R ' .. path) -- Open it in Finder
+						vim.api.nvim_command('silent !open -R ' .. path) -- Open it in Finder
 					elseif vim.fn.has('linux') then
-						vim.api.nvim_command(string.format('!xdg-open "%s"', path))
+						vim.api.nvim_command(string.format('silent !xdg-open "%s"', path))
 					end
 				end,
 				['C'] = 'close_node',
@@ -232,13 +232,29 @@ M.highlights = {
 }
 
 M.keymaps = {
-	{ 'n', '<space>b', ':Neotree toggle show buffers<CR>' },
-	{ 'n', '<space>g', ':Neotree toggle show git_status<CR>' },
-	{ 'n', '<space>m', ':Neotree toggle<CR>' },
-	{ 'n', '<leader>nm', ':Neotree toggle<CR>', { silent = true } },
-	{ 'n', '<leader>nb', ':Neotree toggle show buffers<CR>', { silent = true } },
-	{ 'n', '<leader>ng', ':Neotree toggle show git_status<CR>', { silent = true } },
-	{ 'n', '<leader>nf', ':Neotree reveal<CR>', { silent = true } },
+	{ 'n', '<space>b', ':Neotree toggle show buffers<CR>', { silent = true } },
+
+	{ 'n', '<space>g', ':Neotree toggle show git_status<CR>', { silent = true } },
+
+	{
+		'n',
+		'<space>m',
+		function()
+			local neotree = require('neo-tree.command')
+			local filepath = vim.fn.expand('%:p')
+
+			if filepath then
+				if vim.endswith(filepath, 'neo-tree filesystem [1]') then
+					neotree.execute { action = 'close' }
+				else
+					neotree.execute { reveal = true }
+				end
+			else
+				neotree.execute { action = 'show' }
+			end
+		end,
+		{ silent = true },
+	},
 }
 
 return M

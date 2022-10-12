@@ -1,5 +1,5 @@
 return {
-	nil,
+	'funny',
 	desc = 'Funny Games',
 	requires = {
 		{ 'johngrib/vim-game-snake', on = 'VimGameSnake' },

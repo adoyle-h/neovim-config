@@ -1,0 +1,16 @@
+priority 100
+
+snippet format-off "LuaFormatter off"
+  -- LuaFormatter off
+
+snippet format-on "LuaFormatter on"
+  -- LuaFormatter on
+
+snippet Plug "ADoyle-Nvim-Config Plugin"
+  return {
+    '$1'},
+    config = function(config)
+      require('$2').setup(config.$3)
+    end,
+    defaultConfig = { { '$3' }, {} },
+  }

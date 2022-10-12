@@ -22,20 +22,25 @@ local M = { CM = CM, util = util, Plug = P.Plug, P = P }
 
 -- @param opts {table}
 -- @param opts.config {table}
+-- @param opts.noPlugins {boolean} If true, all builtin and user-defined plugins will not be loaded
 -- @param opts.plugins {table}
 -- @param opts.pluginConfigs {table}
 M.setup = function(opts)
 	CM.setup(opts.config or {})
 
-	P.setup { userPlugins = opts.plugins, userPluginConfigs = opts.pluginConfigs }
-	P.start()
+	if not opts.noPlugins then
+		P.setup { userPlugins = opts.plugins, userPluginConfigs = opts.pluginConfigs }
+		P.start()
 
-	require('adoyle-neovim-config.plugins')
+		require('adoyle-neovim-config.plugins')
+		for _, plugin in pairs(opts.plugins or {}) do
+			-- Append user plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
+			P.Plug(plugin)
+		end
 
-	-- Append user plugins. More examples at ./lua/adoyle-neovim-config/plugins.lua
-	for _, plugin in pairs(opts.plugins or {}) do P.Plug(plugin) end
-	P.fin()
-	P.run()
+		P.fin()
+		P.run()
+	end
 end
 
 return M

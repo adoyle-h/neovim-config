@@ -4,11 +4,11 @@ return {
 	'ray-x/lsp_signature.nvim',
 
 	config = function()
-		require('lsp_signature').setup(config.completion.signature)
+		require('lsp_signature').setup(config.lsp_signature)
 	end,
 
 	defaultConfig = {
-		{ 'completion', 'signature' },
+		{ 'lsp_signature' },
 		{
 			verbose = false, -- show debug line number
 			debug = false, -- set to true to enable debug logging

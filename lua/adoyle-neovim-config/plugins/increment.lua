@@ -1,10 +1,31 @@
+local api = vim.api
+
 local M = {
 	'nishigori/increment-activator',
 	desc = 'increment and decrement',
+
 	on = { '<Plug>(increment-activator-increment)', '<Plug>(increment-activator-decrement)' },
+
 	keymaps = {
-		{ 'n', '<leader>ii', '<Plug>(increment-activator-increment)<leader>i' },
-		{ 'n', '<leader>id', '<Plug>(increment-activator-decrement)<leader>i' },
+		{
+			'n',
+			'<leader>ii',
+			function()
+				vim.fn['increment_activator#increment']()
+				api.nvim_feedkeys(api.nvim_replace_termcodes('<leader>i', true, false, true), 't', true)
+			end,
+			{ desc = 'Increment word under cursor' },
+		},
+
+		{
+			'n',
+			'<leader>id',
+			function()
+				vim.fn['increment_activator#decrement']()
+				api.nvim_feedkeys(api.nvim_replace_termcodes('<leader>i', true, false, true), 't', true)
+			end,
+			{ desc = 'Decrement word under cursor' },
+		},
 	},
 
 	config = function(config)
@@ -23,18 +44,11 @@ M.defaultConfig = {
 				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
 				'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 			},
-			{
-				'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-				'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-			},
 			{'一', '二', '三', '四', '五', '六', '七', '八', '九', '十'},
 			{'none', 'debug', 'info', 'warn', 'error'},
-			{'NONE', 'DEBUG', 'INFO', 'WARN', 'ERROR'},
-			{'Todo', 'Done'},
-			{'TODO', 'DONE'},
 			{'todo', 'done'},
+			{'ToDo', 'Done'},
 			{'low', 'normal', 'high'},
-			{'LOW', 'NORMAL', 'HIGH'},
 			-- LuaFormatter on
 		},
 	},

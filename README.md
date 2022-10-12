@@ -1,15 +1,14 @@
 # ADoyle-Style Neovim Configuration
 
-用 Lua 编写的 Neovim 一体化配置。易配置，可扩展。
+All-in-one neovim configuration implemented with Lua. It is high flexible to be customized and extended.
 
-Click [./README.en.md](./README.en.md) to read English documents.
+中文文档 [./README.zh.md](./README.zh.md)
 
 ## TOC
-
+## Features
 <!-- MarkdownTOC GFM -->
 
-- [特性](#特性)
-- [截图](#截图)
+- [Screenshots](#screenshots)
     - [Dashboard](#dashboard)
     - [Finder](#finder)
     - [UI](#ui)
@@ -17,38 +16,38 @@ Click [./README.en.md](./README.en.md) to read English documents.
     - [Diagnostic Window](#diagnostic-window)
     - [Completion](#completion)
     - [Snippet](#snippet)
-- [依赖](#依赖)
-- [安装](#安装)
+- [Dependency](#dependency)
+- [Installation](#installation)
 - [API](#api)
     - [setup(opts)](#setupopts)
-- [配置](#配置)
-    - [用户配置](#用户配置)
-    - [默认配置](#默认配置)
-    - [查看配置](#查看配置)
-- [目录结构](#目录结构)
-- [注意](#注意)
-- [LSP](#lsp)
-- [代码格式化](#代码格式化)
-- [启动时间](#启动时间)
-- [插件](#插件)
-    - [创建插件](#创建插件)
-    - [使用插件](#使用插件)
-- [建议，Bug，做贡献](#建议bug做贡献)
-- [版权声明](#版权声明)
+- [Configuration](#configuration)
+    - [User Config](#user-config)
+    - [Default Config](#default-config)
+    - [View Config](#view-config)
+- [NOTE](#note)
+- [Usage](#usage)
+    - [Keymaps](#keymaps)
+    - [LSP](#lsp)
+    - [Code Format](#code-format)
+- [Startup Time](#startup-time)
+- [Plugin](#plugin)
+    - [Create Plugin](#create-plugin)
+    - [Using Plugin](#using-plugin)
+- [Project File Structure](#project-file-structure)
+- [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
+- [Copyright and License](#copyright-and-license)
 
 <!-- /MarkdownTOC -->
 
-## 特性
+- All in Lua. All configs can be overrided.
+- Use many Neovim features: Native LSP, Float Window, Winbar.
+- Lua-wrapped plugin manage framework based on [vim-plug][]. Support on-demand loading plugins.
+- Integrated 110+ powerful Vim/Nvim plugins.
+- Awesome UI and color schema. Dark Mode. Support True-Color, Scrollbar, Dashboard.
+- Configurable. See [./lua/config.lua](./lua/config.lua)
+- Configurable proxy for fast git download in China Mainland
 
-- 用 Lua 管理所有配置。配置可覆盖。
-- 充分使用 Neovim 特性：Native LSP、Float Window、Winbar。
-- 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载插件。
-- 集成了 109 个 Vim/Nvim 插件。
-- 帅气的界面和配色。暗黑模式。支持真彩色、滚动条、Dashboard。
-- 可配置，详见[默认配置][default-config]。
-- 支持配置 github 代理，在中国大陆可加快插件下载速度。
-
-## 截图
+## Screenshots
 
 ### Dashboard
 
@@ -80,39 +79,41 @@ Click [./README.en.md](./README.en.md) to read English documents.
 
 ![snippet.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/snippet.png)
 
-## 依赖
 
-- NVIM v0.8 (最新的 commit 版本)
+## Dependency
+
+- NVIM v0.8 (latest commit)
+- Vim Plugin Manager: https://github.com/junegunn/vim-plug
 - python3、pip3
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
-  - `pip2 install --upgrade --user pynvim` (这是可选的)
-- [Nerd Font 字体][Nerd Font]。推荐 [DejaVuSansMonoForPowerline Nerd Font][font]。然后修改你的终端的字体设置。
-- 支持 Linux 和 MacOS，不支持 Windows
+  - `pip2 install --upgrade --user pynvim` (it is optional)
+- [Nerd Font][]. Recommend [DejaVuSansMonoForPowerline Nerd Font][font]. And change your terminal font setting.
+- Linux and MacOS are supported. Windows not.
 
-## 安装
+## Installation
 
-1. 你可以直接使用本项目。也可以插件的形式加载本项目，定制你的功能。
+1. You have two ways to use the project. Use the project directly, or load the project as an plugin for more customizations.
 
-  a. 直接使用
+  a. Directly use
 
     ```sh
-    # 设置你的 nvim 配置目录
+    # Set your nvim config directory
     NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-    git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
+    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
     ```
 
-  b. 加载插件
+  b. Load as plugin
 
     ```sh
-    # 设置你的 nvim 目录
+    # Set your nvim config directory
     NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
     NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
     mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
     mkdir -p "$NVIM_DATA"/plugins
     git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
 
-    # 创建 init.lua 文件
+    # Create init.lua file
     cat <<EOF > "$NVIM_HOME"/init.lua
     vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
 
@@ -120,16 +121,18 @@ Click [./README.en.md](./README.en.md) to read English documents.
     EOF
     ```
 
-  c. 开箱即用
+  c. Out of the box
 
     ```sh
     docker run -it <TODO>
     ```
 
-2. 初始化
-  - `:PlugInstall` 安装 vim 插件。可能会比较慢，请耐心等待。
-  - `:TSInstall all` 默认未安装 Treesitter Parser。执行此命令，一键安装所有。
-3. 执行 `nvim` 开始。
+2. Initialization
+  - `:PlugInstall`.
+    - All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plugin directory with the `pluginDir` option in [default config][default-config].
+    - It maybe slow, please be patient. you can set proxy via `config.proxy.github`.
+  - There no any Treesitter Parer installed by default. Invoke `:TSInstall all` to install them.
+3. `nvim` to get started.
 
 ## API
 
@@ -146,13 +149,13 @@ A.setup {
 -- A.setup()
 ```
 
-没写文档，直接看[代码](./lua/adoyle-neovim-config/init.lua)
+No more document. Just see [codes](./lua/adoyle-neovim-config/init.lua)
 
-## 配置
+## Configuration
 
-### 用户配置
+### User Config
 
-当以插件加载时，你可以传入自定义配置。
+You can pass config when load as plugin.
 
 ```lua
 require('adoyle-neovim-config').setup {
@@ -172,126 +175,109 @@ require('adoyle-neovim-config').setup {
   },
 
 	pluginConfigs = function()
-    return {}
+    return {
+			nullLS = {
+        lsp = {
+          ensureInstalled = {
+            'bash-language-server',
+          }
+        }
+      }
+    }
   end,
 }
 ```
 
-用户配置可参考 [./init.lua](./init.lua)
+When repo name in `plugins` matches existed plugin, your defined options will override the default options of plugin. When no matches, it will be loaded as new plugins.
 
-插件列表见 [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
+Existed plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
+See [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua) for details.
 
-### 默认配置
+User config can refer to [./init.lua](./init.lua).
 
-部分默认配置写在 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)，部分写在插件的 `defaultConfig` 里。
+### Default Config
 
-部分默认颜色配置写在 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) 与 [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua)，另一部分写在插件的 `highlights` 里。
+Parts of default config written in [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua), and other parts written in `defaultConfig` of each plugin.
 
-### 查看配置
+Parts of default highlights written in [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) and [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua), and other parts written in `highlights` of each plugin.
 
-`:ShowConfig` 查看最终合并的配置。
+### View Config
 
-因为配置通过 [inspect.lua](https://github.com/kikito/inspect.lua) 打印的，
-会有例如 `<table id>` 这样的标记。这是为了避免重复，对于 `<table 28>` 搜索文件内对应的 `<28>{` 即可找到相应的值。
+`:ShowConfig` to view final merged config.
+`:ShowPlugin` to view loaded plugins.
+
+Because using [inspect.lua](https://github.com/kikito/inspect.lua) to print configuration,
+you may see tags such as `<table id>`. It is for preventing infinite loops.
+You can search `<28>{` to view its value for `<table 28>` in same buffer content.
 
 > inspect can handle tables with loops inside them. It will print <id> right before the table is printed out the first time, and replace the whole table with <table id> from then on, preventing infinite loops.
 
-`<table>`, `<function>`, `<metatable>` 等标记，详见 [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use)。
+For `<table>`, `<function>`, `<metatable>` tags, see [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use).
 
-## 目录结构
+## NOTE
+
+`$VIMRUNTIME/filetype.vim` will not run, please put filetype detection in [./lua/plugins/filetype.lua](./lua/plugins/filetype.lua).
+
+## Usage
+
+### Keymaps
+
+For basic intro, see [./doc/keymaps.md](./doc/keymaps.md).
+
+Press `<space>k` to see all keymaps in nvim.
+
+### LSP
+
+Using [nvim-lspconfig][] and [null-ls][] to manage LSP. And using [mason.nvim][] to manege lsp, dap and null-ls packages.
+
+- Call `:Mason` or press `<Alt-m>` to view LSP installations.
+- Call `:LspInfo` to show LSP for current file.
+- Call `:NullLsInfo` to show LSP for current file.
+
+### Code Format
+
+The code formatting is based on LSP. Using `lsp-format` instead of nvim builtin `vim.lsp.buf.format` to provide more flexible configurations. See [lsp-format options](https://github.com/lukas-reineke/lsp-format.nvim#special-format-options).
+
+You can set multi formatters to format codes at the same time. And you can also change the order of formatters by filetype.
+
+The configs of formatter are at `lsp.format` and `nullLS.sources`.
+Default to use the formatters defined in `nullLS.sources`, and then formatters defined in `lsp.format`.
+
+## Startup Time
+
+```lua
+require('adoyle-neovim-config').setup {
+	plugins = {
+		{ 'profiling', disable = true },
+  }
+}
+```
+
+Enable [plugins/profiling](./lua/plugins/profiling.lua) and invoke `:StartupTime` in nvim. It will print below results,
 
 ```
-.
-├── README.md
-├── autoload/
-│   └── plug.vim       // vim-plug source code
-├── init.lua           // Neovim configuration entry point (directly use way)
-├── lsp-settings       // Global LSP settings
-├── lua
-│   └── adoyle-neovim-config
-│       ├── config/          // Keymaps
-│       │   ├── color.lua    // Default color config
-│       │   └── default.lua  // Default config
-│       ├── config.lua       // Config loader
-│       ├── fix-lua.lua
-│       ├── init.lua         // The lua required entry point (plugin way)
-│       ├── plugins.lua      // Plugin loading list
-│       ├── util.lua         // Utility functions
-│       ├── util_spec.lua    // Unit test for util.lua
-│       ├── vim-plug.lua     // Plugin manage framework based on vim-plug
-│       ├── keymap/          // Keymaps
-│       ├── plugins/         // Available plugins written in lua
-│       └── themes/          // Color schemas
-├── snippets/          // Code Snippets
-├── spell/             // Spell check data (git ignored)
-│   └── en.utf-8.add
-├── test/              // Unit tests
-└── temp/              // temporary files
-    ├── session        // xolox/vim-session plugin
-    ├── session_lock   // xolox/vim-session plugin
-    └── undodir        // mbbill/undotree plugin
-```
-
-插件默认安装在 `~/.local/share/nvim/plugins`。你可以修改插件目录。查看[默认配置][default-config]里的 `pluginDir` 选项。
-
-## 注意
-
-`$VIMRUNTIME/filetype.vim` 不会被调用，文件类型设置请见 [./lua/plugins/filetype.lua](./lua/plugins/filetype.lua)。
-
-## LSP
-
-本项目使用 [nvim-lspconfig][] 和 [null-ls][] 来配置 LSP，管理 LSP 与 Nvim 的连接。
-使用 [mason.nvim][] 来安装与管理 lsp 和 null-ls 的第三方包。
-
-- 执行 `:Mason` 或者按 `<Alt-m>` 查看 LSP 安装情况。
-- 执行 `:LspInfo` 查看当前文件使用的 LSP。
-- 执行 `:NullLsInfo` 查看当前文件使用的 LSP。
-
-[nvim-lspconfig][] 封装了一系列 LSP 客户端配置，能够开箱即用。它提供灵活的配置项便于用户自定义，详见[官方文档](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)。
-
-[null-ls][] 是一个虚拟 LSP 客户端，可以将 eslint、prettier 这类非 LSP 的普通命令行转化为 LSP。
-它提供统一灵活的配置项便于用户自定义，详见 [null-ls 官方配置文档](https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md)。
-
-本项目框架配置默认只安装了 Lua LSP 和 Formatter。本项目配置安装了一系列 LSP。用户可以参考 [config/lsp](./lua/adoyle-neovim-config/config/lsp.lua) 和 [init.lua](./init.lua) 来定制自己的。
-
-## 代码格式化
-
-本项目基于 LSP 来格式化代码。
-使用 `lsp-format` 代替 `vim.lsp.buf.format`，提供更灵活的自定义配置。详见 [lsp-format 选项](https://github.com/lukas-reineke/lsp-format.nvim#special-format-options)。
-
-同一个文件可以使用多个 Formatter 格式化代码。用户可以自定义 Formatter 调用顺序。
-
-Formatter 配置在 `lsp.format` 与 `lsp.nullLS.sources`。
-默认先使用 null-ls 指定顺序的 Formatter，后使用 lsp-format 指定顺序的 Formatter。
-
-## 启动时间
-
-启动插件 [plugins/profiling](./lua/plugins/profiling.lua) 并调用 `:StartupTime`.
-
-```
-startup: 339.8
+       startup: 382.3
 event                  time percent plot
-init.lua             129.06   37.98 ██████████████████████████
-loading rtp plugins   46.32   13.63 █████████▍
-opening buffers       42.66   12.56 ████████▋
-NERD_tree.vim         14.90    4.38 ███
-first screen update    6.91    2.03 █▍
-VimEnter autocommand   6.56    1.93 █▍
-syntax.vim             4.67    1.37 █
-done waiting for UI    4.39    1.29 ▉
-loading after plugin   4.38    1.29 ▉
-reading ShaDa          3.68    1.08 ▊
+init.lua             290.79   76.06 ██████████████████████████
+adoyle-neovim-config  44.18   11.55 ████
+loading rtp plugins   22.58    5.91 ██
+pears                 15.91    4.16 █▍
+neo-tree              14.76    3.86 █▍
+pears.config          12.48    3.27 █▏
+cmp                   12.11    3.17 █▏
+cmp.core              11.07    2.90 █
+telescope._extension  10.87    2.84 █
 ```
 
-## 插件
+## Plugin
 
-### 创建插件
+### Create Plugin
 
-举个例子，创建文件 `my-plugin.lua`.
+For example, create a file `lua/my-plugin.lua`.
 
 ```lua
 return {
-  'repo/name', -- string or nil. It must be first
+  'repo/name', -- string or nil or omit. It must be first
 	desc = 'Plugin Description', -- string or nil.
 	disable = false, -- boolean or nil. If true, this Plugin will not be loaded
   tag = '', -- string or nil. tag of the repository to use
@@ -302,30 +288,27 @@ return {
   for = {'lua'} -- string[] or nil. On-demand loading: File types
   frozon = false, -- boolean or nil. Do not update unless explicitly specified
 
+  -- Set default config for current plugin
   defaultConfig = {
-    {'Plugin-Name'},
-    {},
+    {'PluginName'}, -- config key
+    {}, -- config value, must be a table
   },
   -- or
-  defaultConfig = function()
+  defaultConfig = function(config)
     return {
-      {'Plugin-Name'},
+      {'PluginName'},
       {},
     }
   end,
 
-	config = function()
-    require('name').setup {}
-  end,
-
   -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
   highlights = {
-    { 'TelescopeResultsBorder', { fg = 'white', bg = 'none' } },
+    { 'PluginHighlightGroup', { fg = 'white', bg = 'none' } },
   }
   -- or function
-  highlights = function()
+  highlights = function(config)
     return {
-      { 'TelescopeResultsBorder', { fg = 'white', bg = 'none' } },
+      { 'PluginHighlightGroup', { fg = 'white', bg = 'none' } },
     },
   end
 
@@ -334,7 +317,7 @@ return {
     { 'n', '<leader>k', ':echo hello<CR>' },
   },
   -- or function
-  keymaps = function()
+  keymaps = function(config)
     return {
       { 'n', '<leader>k', ':echo hello<CR>' },
     },
@@ -345,7 +328,7 @@ return {
     { 'CleanPreviews', function require('goto-preview').close_all_win end, {} },
   },
   -- or function
-	commands = function()
+	commands = function(config)
 		return {
 			{ 'CleanPreviews', require('goto-preview').close_all_win, {} },
 		}
@@ -354,9 +337,9 @@ return {
 }
 ```
 
-### 使用插件
+### Using Plugin
 
-编辑你的 init.lua 文件
+Edit your `init.lua` file.
 
 ```lua
 require('adoyle-neovim-config').setup {
@@ -368,11 +351,42 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
-## 建议，Bug，做贡献
+## Project File Structure
 
-欢迎提供任何建议或者意见。请开 [issue][] 与我联系。
+```
+.
+├── README.md
+├── autoload/
+│   └── plug.vim             // vim-plug source code
+├── init.lua                 // Neovim configuration entry point (user config put here)
+├── lsp-settings             // Global LSP settings
+├── lua
+│   └── adoyle-neovim-config
+│       ├── config/          // Keymaps
+│       │   ├── color.lua    // Default color config
+│       │   └── default.lua  // Default config
+│       ├── config.lua       // Config loader
+│       ├── fix-lua.lua
+│       ├── init.lua         // The lua required entry point (plugin way)
+│       ├── plugins.lua      // Plugin loading list
+│       ├── util.lua         // Utility functions
+│       ├── util_spec.lua    // Unit test for util.lua
+│       ├── vim-plug/        // Plugin framework based on vim-plug
+│       ├── keymap/          // Keymaps
+│       ├── plugins/         // Available plugins written in lua
+│       └── themes/          // Color schemas
+├── snippets/                // Code Snippets
+└── spell/                   // Spell check data (git ignored)
+    └── en.utf-8.add
+```
 
-## 版权声明
+## Suggestion, Bug Reporting, Contributing
+
+Any comments and suggestions are always welcome. Please open an [issue][] to contact with me.
+
+Please read [./doc/contribution.md](./doc/contribution.md) how to contribute.
+
+## Copyright and License
 
 Copyright 2016-2022 ADoyle (adoyle.h@gmail.com) All Rights Reserved. The project is licensed under the **BSD 3-clause License**.
 

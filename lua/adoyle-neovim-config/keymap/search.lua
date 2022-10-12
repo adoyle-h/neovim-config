@@ -1,4 +1,4 @@
-local M = { nil, desc = 'search keymaps' }
+local M = { desc = 'search keymaps' }
 
 M.keymaps = {
 
@@ -46,7 +46,7 @@ M.keymaps = {
 		},
 	},
 
-	{ 'n', '<leader>C', ':let @/ = ""<CR>', { silent = true, desc = 'Clear highlighted search' } },
+	{ 'n', '<leader>C', ':let @/ = ""<CR>', { silent = true, desc = 'Clear search' } },
 
 	{
 		'n',

@@ -1,8 +1,9 @@
-local M = { nil, desc = 'Copy&Paste' }
+local M = { desc = 'Copy&Paste' }
 
 M.keymaps = {
 
-	{ 'v', '<leader>y', '"+y', { noremap = true, desc = 'copy selected into system clipboard' } },
+	{ 'n', '<leader>y', '"+yy', { noremap = true, desc = 'copy current line into system clipboard' } },
+	{ 'v', '<leader>y', '"+y', { noremap = true, desc = 'copy selected text into system clipboard' } },
 
 	{
 		'n',

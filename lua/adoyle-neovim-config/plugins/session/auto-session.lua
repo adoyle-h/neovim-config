@@ -55,7 +55,6 @@ local Lens = {
 }
 
 local M = {
-	nil,
 	requires = { Auto, Lens },
 
 	defaultConfig = {

@@ -1,8 +1,8 @@
 local CM = require('adoyle-neovim-config.config')
 
 describe('CM.config', function()
-	CM.setup({
-		config = {
+	it('CM.setup()', function()
+		CM.setup({
 			colorcolumn = { 80, 100 },
 
 			proxy = { github = 'https://ghproxy.com/' },
@@ -25,21 +25,13 @@ describe('CM.config', function()
 					end,
 				},
 			},
+		})
 
-		},
-	})
+		local config = CM.config
 
-	local config = CM.config
-
-	it('config.proxy', function()
 		assert.are.same(config.proxy, { github = 'https://ghproxy.com/' })
-	end)
-
-	it('config.lsp.ensureInstalled', function()
 		assert.are.same(config.lsp.ensureInstalled, { 'css-lsp', 'yamlfmt' })
-	end)
 
-	it('config.lsp.nullLS.sources', function()
 		local null_ls = require('null-ls')
 		local builtins = null_ls.builtins
 		local sources = config.lsp.nullLS.sources(builtins) or {}

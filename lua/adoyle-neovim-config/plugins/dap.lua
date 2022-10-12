@@ -143,4 +143,4 @@ local UI = {
 	},
 }
 
-return { nil, requires = { Dap, UI } }
+return { 'dap', requires = { Dap, UI } }

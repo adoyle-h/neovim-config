@@ -31,7 +31,7 @@ return {
 			allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
 			ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
 
-			ignored_filetypes = { 'alpha' },
+			ignored_filetypes = { 'alpha', 'man', 'neoterm' },
 
 			before_save = function() -- function to run before the session is saved to disk
 				pcall(vim.cmd, 'NeoTreeClose')

@@ -1,6 +1,7 @@
 return {
-	nil,
-	'Markdown Plugins',
+	'markdown',
+
+	desc = 'Markdown Plugins',
 
 	requires = {
 		require('adoyle-neovim-config.plugins.markdown.main'),

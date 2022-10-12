@@ -14,6 +14,14 @@ local M = {
 				desc = 'Send message to notification window. Usage: :Notify <message> [info|warn|error]',
 			},
 		},
+
+		{
+			'NotifyClear',
+			function()
+				vim.notify.dismiss({ pending = true })
+			end,
+			{ desc = 'Dismiss all notification windows currently displayed' },
+		},
 	},
 }
 

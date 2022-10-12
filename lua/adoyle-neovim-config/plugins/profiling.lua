@@ -1,5 +1,5 @@
 return {
-	nil,
+	'profiling',
 	desc = 'Profiling tools',
 	disable = true, -- Enable it when need profiling.
 	requires = { --

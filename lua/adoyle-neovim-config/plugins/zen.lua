@@ -103,4 +103,4 @@ local ZenMode = {
 	},
 }
 
-return { nil, desc = 'For better writing experience', requires = { Twilight, ZenMode } }
+return { 'zen', desc = 'For better writing experience', requires = { Twilight, ZenMode } }
