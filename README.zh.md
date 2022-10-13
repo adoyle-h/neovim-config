@@ -20,10 +20,10 @@ Click [./README.md](./README.md) to read English documents.
 - [依赖](#依赖)
 - [安装](#安装)
 - [API](#api)
-    - [setup(opts)](#setupopts)
 - [配置](#配置)
     - [用户配置](#用户配置)
     - [默认配置](#默认配置)
+    - [覆盖插件参数](#覆盖插件参数)
     - [查看配置](#查看配置)
 - [注意](#注意)
 - [使用](#使用)
@@ -32,8 +32,6 @@ Click [./README.md](./README.md) to read English documents.
     - [格代化码式](#格代化码式)
 - [启动时间](#启动时间)
 - [插件](#插件)
-    - [创建插件](#创建插件)
-    - [使用插件](#使用插件)
 - [项目文件结构](#项目文件结构)
 - [建议，Bug，做贡献](#建议bug做贡献)
 - [版权声明](#版权声明)
@@ -46,7 +44,7 @@ Click [./README.md](./README.md) to read English documents.
 - 充分使用 Neovim 特性：Native LSP、Float Window、Winbar。
 - 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载插件。
 - 集成了 110 多个 Vim/Nvim 插件。
-- 帅气的界面和配色。暗黑模式。支持真彩色、滚动条、Dashboard。
+- 帅气的界面和配色。暗黑模式。支持真彩色、顺滑滚动、滚动条、Dashboard。
 - 可配置，详见[默认配置][default-config]。
 - 支持配置 github 代理，在中国大陆可加快插件下载速度。
 
@@ -84,7 +82,7 @@ Click [./README.md](./README.md) to read English documents.
 
 ## 依赖
 
-- NVIM v0.8 (最新的 commit 版本)
+- [NVIM v0.8][] (最新的 commit 版本)
 - python3、pip3
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
@@ -98,35 +96,35 @@ Click [./README.md](./README.md) to read English documents.
 
   a. 直接使用
 
-    ```sh
-    # 设置你的 nvim 配置目录
-    NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-    git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
-    ```
+  ```sh
+  # 设置你的 nvim 配置目录
+  NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+  git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
+  ```
 
   b. 加载插件
 
-    ```sh
-    # 设置你的 nvim 目录
-    NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-    NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
-    mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
-    mkdir -p "$NVIM_DATA"/plugins
-    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
+  ```sh
+  # 设置你的 nvim 目录
+  NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+  NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
+  mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
+  mkdir -p "$NVIM_DATA"/plugins
+  git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
 
-    # 创建 init.lua 文件
-    cat <<EOF > "$NVIM_HOME"/init.lua
-    vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
+  # 创建 init.lua 文件
+  cat <<EOF > "$NVIM_HOME"/init.lua
+  vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
 
-    require('adoyle-neovim-config').setup {}
-    EOF
-    ```
+  require('adoyle-neovim-config').setup {}
+  EOF
+  ```
 
   c. 开箱即用
 
-    ```sh
-    docker run -it <TODO>
-    ```
+  ```sh
+  docker run -it <TODO>
+  ```
 
 2. 初始化
   - `:PlugInstall` 安装 vim 插件。
@@ -137,20 +135,7 @@ Click [./README.md](./README.md) to read English documents.
 
 ## API
 
-### setup(opts)
-
-```lua
-local A = require('adoyle-neovim-config')
-
-A.setup {
-  config = {},
-}
-
--- or
--- A.setup()
-```
-
-没写文档，直接看[代码](./lua/adoyle-neovim-config/init.lua)
+直接看[代码](./lua/adoyle-neovim-config/init.lua)。
 
 ## 配置
 
@@ -161,23 +146,23 @@ A.setup {
 ```lua
 require('adoyle-neovim-config').setup {
   config = {
-		proxy = {
-			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
-			-- Otherwise, remove this option.
-			github = 'https://ghproxy.com/',
-		},
+    proxy = {
+      -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
+      -- Otherwise, remove this option.
+      github = 'https://ghproxy.com/',
+    },
   },
 
-	-- Add your plugins or override plugin default options.
+  -- Add your plugins or override plugin default options.
   -- More examples in ./lua/adoyle-neovim-config/plugins.lua
   plugins = {
     -- { 'plugins.profiling', disable = false },
     -- { 'psliwka/vim-smoothie', disable = false },
   },
 
-	pluginConfigs = function()
+  pluginConfigs = function(config)
     return {
-			nullLS = {
+      nullLS = {
         lsp = {
           ensureInstalled = {
             'bash-language-server',
@@ -201,7 +186,11 @@ require('adoyle-neovim-config').setup {
 
 部分默认配置写在 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)，部分写在插件的 `defaultConfig` 里。
 
-部分默认颜色配置写在 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) 与 [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua)，另一部分写在插件的 `highlights` 里。
+部分默认颜色配置写在 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) 与 [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua)，另一部分写在插件的 `highlights` 参数里。
+
+### 覆盖插件参数
+
+通过 `require('adoyle-neovim-config').setup {plugins = {}}`，你可以覆盖任何[插件参数](./doc/plugin.zh.md#插件参数)。你可以覆盖配色和快捷键设置。
 
 ### 查看配置
 
@@ -210,10 +199,7 @@ require('adoyle-neovim-config').setup {
 
 因为使用了 [inspect.lua](https://github.com/kikito/inspect.lua) 打印配置，
 会有例如 `<table id>` 这样的标记。这是为了避免重复，对于 `<table 28>` 搜索文件内对应的 `<28>{` 即可找到相应的值。
-
-> inspect can handle tables with loops inside them. It will print <id> right before the table is printed out the first time, and replace the whole table with <table id> from then on, preventing infinite loops.
-
-`<table>`, `<function>`, `<metatable>` 等标记，详见 [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use)。
+`<table>`, `<function>`, `<metatable>` 等标记的解释详见 [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use)。
 
 ## 注意
 
@@ -257,8 +243,8 @@ Formatter 配置在 `lsp.format` 与 `nullLS.sources`。
 
 ```lua
 require('adoyle-neovim-config').setup {
-	plugins = {
-		{ 'profiling', disable = true },
+  plugins = {
+    { 'profiling', disable = true },
   }
 }
 ```
@@ -279,91 +265,7 @@ cmp.core              11.07    2.90 █
 telescope._extension  10.87    2.84 █
 ```
 
-## 插件
-
-### 创建插件
-
-举个例子，创建文件 `lua/my-plugin.lua`。
-
-```lua
-return {
-  'repo/name', -- string or nil or omit. It must be first
-	desc = 'Plugin Description', -- string or nil.
-	disable = false, -- boolean or nil. If true, this Plugin will not be loaded
-  tag = '', -- string or nil. tag of the repository to use
-  branch = '', -- string or nil. branch of the repository to use
-  commit = '', -- string or nil. commit of the repository to use
-  rtp = '', -- string or nil. Subdirectory that contains Vim plugin
-  on = {'command'} -- string[] or nil. On-demand loading: Commands or <Plug>-mappings
-  for = {'lua'} -- string[] or nil. On-demand loading: File types
-  frozon = false, -- boolean or nil. Do not update unless explicitly specified
-
-  -- Set default config for current plugin
-  defaultConfig = {
-    {'PluginName'}, -- config key
-    {}, -- config value, must be a table
-  },
-  -- or
-  defaultConfig = function(config)
-    return {
-      {'PluginName'},
-      {},
-    }
-  end,
-
-	config = function(config)
-    require('name').setup {config.PluginName}
-  end,
-
-  -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
-  highlights = {
-    { 'PluginHighlightGroup', { fg = 'white', bg = 'none' } },
-  }
-  -- or function
-  highlights = function(config)
-    return {
-      { 'PluginHighlightGroup', { fg = 'white', bg = 'none' } },
-    },
-  end
-
-  -- Parameters refer to ":h nvim_set_keymap"
-  keymaps = {
-    { 'n', '<leader>k', ':echo hello<CR>' },
-  },
-  -- or function
-  keymaps = function(config)
-    return {
-      { 'n', '<leader>k', ':echo hello<CR>' },
-    },
-  end
-
-  -- Parameters refer to ":h nvim_create_user_command"
-  commands = {
-    { 'ClearPreviews', function require('goto-preview').close_all_win end, {} },
-  },
-  -- or function
-	commands = function(config)
-		return {
-			{ 'ClearPreviews', require('goto-preview').close_all_win, {} },
-		}
-	end,
-
-}
-```
-
-### 使用插件
-
-编辑你的 init.lua 文件
-
-```lua
-require('adoyle-neovim-config').setup {
-	config = {
-		plugins = {
-      require('my-plugin'),
-    },
-  },
-}
-```
+## [插件](./doc/plugin.zh.md)
 
 ## 项目文件结构
 
@@ -418,3 +320,4 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 [mason.nvim]: https://github.com/williamboman/mason.nvim
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
+[NVIM v0.8]: https://github.com/neovim/neovim/releases/tag/v0.8.0

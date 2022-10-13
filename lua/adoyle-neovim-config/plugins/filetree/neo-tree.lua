@@ -82,9 +82,9 @@ M.defaultConfig = {
 				['<C-r>'] = 'refresh',
 				['R'] = 'refresh',
 				['r'] = 'rename',
-				['<2-LeftMouse>'] = 'open',
-				['<cr>'] = 'open',
-				['o'] = 'open',
+				['<2-LeftMouse>'] = 'open_with_window_picker',
+				['<cr>'] = 'open_with_window_picker',
+				['o'] = 'open_with_window_picker',
 				['O'] = function(state)
 					local node = state.tree:get_node()
 					local path = node:get_id()
@@ -236,25 +236,7 @@ M.keymaps = {
 
 	{ 'n', '<space>g', ':Neotree toggle show git_status<CR>', { silent = true } },
 
-	{
-		'n',
-		'<space>m',
-		function()
-			local neotree = require('neo-tree.command')
-			local filepath = vim.fn.expand('%:p')
-
-			if filepath then
-				if filepath:find('neo-tree filesystem [', nil, true) then
-					neotree.execute { action = 'close' }
-				else
-					neotree.execute { toggle = true, reveal = true }
-				end
-			else
-				neotree.execute { action = 'show' }
-			end
-		end,
-		{ silent = true },
-	},
+	{ 'n', '<space>m', ':Neotree toggle reveal<CR>', { silent = true } },
 }
 
 return M

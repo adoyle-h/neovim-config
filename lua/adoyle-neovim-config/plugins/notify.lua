@@ -16,7 +16,7 @@ local M = {
 		},
 
 		{
-			'NotifyClear',
+			'ClearNotify',
 			function()
 				vim.notify.dismiss({ pending = true })
 			end,
@@ -25,33 +25,36 @@ local M = {
 	},
 }
 
-local config = require('adoyle-neovim-config.config').config
-local symbolMap = config.symbolMap
+M.defaultConfig = function(config)
+	local symbolMap = config.symbolMap
 
-M.defaultConfig = {
-	'notify',
-	{
-		background_colour = config.colors.black,
-		fps = 30,
-		icons = {
-			ERROR = symbolMap.ERROR,
-			WARN = symbolMap.WARN,
-			INFO = symbolMap.INFO,
-			DEBUG = symbolMap.DEBUG,
-			TRACE = symbolMap.TRACE,
+	return {
+		'notify',
+		{
+			background_colour = config.colors.black,
+			fps = 30,
+			icons = {
+				ERROR = symbolMap.ERROR,
+				WARN = symbolMap.WARN,
+				INFO = symbolMap.INFO,
+				DEBUG = symbolMap.DEBUG,
+				TRACE = symbolMap.TRACE,
+			},
+			level = 2, -- Minimum log level to display. See :h vim.log.levels
+			max_width = 100, -- Max number of columns for popup messages
+			minimum_width = 40, -- Minimum number of columns for popup message
+			render = 'default',
+			stages = 'fade_in_slide_out',
+			timeout = 2000, -- Default timeout for notification
+			top_down = true,
 		},
-		level = 2,
-		minimum_width = 50,
-		render = 'default',
-		stages = 'fade_in_slide_out',
-		timeout = 2000,
-		top_down = true,
-	},
-}
+	}
+end
 
-function M.config()
-	vim.notify = require('notify')
-	vim.notify.setup(config.notify)
+function M.config(config)
+	local notify = require('notify')
+	notify.setup(config.notify)
+	vim.notify = notify
 end
 
 return M

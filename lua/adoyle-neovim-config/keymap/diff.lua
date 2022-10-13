@@ -1,4 +1,4 @@
-local M = { 'diff', disable = not vim.fn.has('diff'), desc = 'diff keymaps' }
+local M = { 'keymap.diff', disable = not vim.fn.has('diff'), desc = 'diff keymaps' }
 
 M.keymaps = {
 	{ 'n', '<leader>df', ':diffthis<CR>', { desc = 'diff this' } },

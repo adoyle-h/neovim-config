@@ -3,16 +3,12 @@ local util = require('adoyle-neovim-config.util')
 local CM = require('adoyle-neovim-config.config')
 local globals = require('adoyle-neovim-config.vim-plug.globals')
 local normalizeOpts = require('adoyle-neovim-config.vim-plug.normalize')
-local usePlug = require('adoyle-neovim-config.vim-plug.plug').usePlug
-local mergePlugConfig = require('adoyle-neovim-config.vim-plug.plug').mergePlugConfig
-local plugMap, plugs, userPlugins = globals.plugMap, globals.plugs, globals.userPlugins
+local Plug = require('adoyle-neovim-config.vim-plug.plug')
 
 local fn = vim.fn
 local set_keymap = vim.keymap.set
-local set_hl = vim.api.nvim_set_hl
-local set_cmd = vim.api.nvim_create_user_command
-local sign_define = vim.fn.sign_define
 
+local plugMap, plugs, userPlugins = globals.plugMap, globals.plugs, globals.userPlugins
 local P = { plugs = plugs, plugMap = plugMap, userPlugins = userPlugins, userPluginConfigs = nil }
 
 function P.setup(opts)
@@ -35,19 +31,9 @@ function P.start()
 end
 
 function P.fin()
-	for _, p in pairs(userPlugins) do if p then usePlug(p) end end
+	for _, p in pairs(userPlugins) do if p then Plug.usePlug(p) end end
 
 	vim.call('plug#end')
-end
-
-local function propSet(list, func)
-	if list then
-		if type(list) == 'function' then list = list(CM.config) end
-
-		for _, args in pairs(list) do --
-			func(table.unpack(args))
-		end
-	end
 end
 
 function P.run()
@@ -94,7 +80,7 @@ function P.run()
 			notify(fn.printf('Plug "%s" has not installed. Try ":PlugInstall" to install it.', plug.id),
 				'warn')
 		else
-			mergePlugConfig(config, plug)
+			Plug.mergePlugConfig(config, plug)
 			table.insert(pendings, plug) -- Only pending plugs will load config/keymaps/commends/highlights/signs
 		end
 	end
@@ -105,28 +91,19 @@ function P.run()
 	end
 
 	for _, plug in pairs(pendings) do
-		if type(plug.config) == 'function' then
-			local success, msg = pcall(plug.config, config)
-			if not success then notify(msg, 'warn') end
-		end
-
-		propSet(plug.highlights, function(name, props)
-			set_hl(0, name, props)
-		end)
-		propSet(plug.keymaps, set_keymap)
-		propSet(plug.commands, set_cmd)
-		propSet(plug.signs, sign_define)
+		local ok, msg = pcall(Plug.executePlugOptions, plug, config)
+		if not ok then notify(fn.printf('[Plug: %s] %s', plug.id, msg), 'warn') end
 	end
 end
 
-P.Plug = usePlug
+P.Plug = Plug.usePlug
 
 -- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
 P.LoadPluginFile = function(path)
 	local opts = require('adoyle-neovim-config.' .. path)
 	local userPluginOpts = plugMap[opts[1]]
 	opts = util.merge(opts, userPluginOpts)
-	usePlug(opts)
+	Plug.usePlug(opts)
 end
 
 P.isPlugDisabled = function(id)

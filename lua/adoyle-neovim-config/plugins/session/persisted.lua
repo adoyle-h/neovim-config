@@ -10,15 +10,17 @@ return {
 				function()
 					local sessDir = config.persisted.save_dir
 					-- vim.cmd(vim.fn.printf('!find "%s" -type f -mtime +3d', sessDir))
-					vim.cmd(vim.fn.printf('!find "%s" -type f -mtime +30d -exec rm {} \\;', sessDir))
+					vim.cmd(vim.fn.printf('!find "%s" -type f -mtime +10d -exec rm {} \\;', sessDir))
 				end,
-				{},
+				{ desc = 'Clear session files which modified time older than 10 days' },
 			},
 		}
 	end,
 
 	config = function(config)
 		local opts = config.persisted
+
+		vim.opt.sessionoptions = opts.session_options
 
 		opts.should_autosave = function()
 			return not vim.tbl_contains(opts.ignored_filetypes, vim.bo.filetype)
@@ -34,6 +36,7 @@ return {
 	defaultConfig = {
 		'persisted',
 		{
+			session_options = { 'curdir', 'folds', 'resize', 'tabpages', 'winpos', 'winsize' }, -- :h ssop
 			save_dir = vim.fn.stdpath('data') .. '/sessions/', -- directory where session files are saved
 			command = 'VimLeavePre', -- the autocommand for which the session is saved
 			silent = false, -- silent nvim message when sourcing session file

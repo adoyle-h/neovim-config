@@ -1,4 +1,4 @@
-local M = { disable = true }
+local M = { 'keymap.tab', disable = true }
 
 M.config = function()
 	vim.g.lasttab = 1

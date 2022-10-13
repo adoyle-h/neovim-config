@@ -2,8 +2,8 @@ return {
 	'numToStr/Comment.nvim',
 
 	keymaps = {
-		{ { 'n' }, '<M-c>', '<Plug>(comment_toggle_linewise_current)', { silent = true } },
-		{ { 'v' }, '<M-c>', '<Plug>(comment_toggle_linewise_visual)', { silent = true } },
+		{ { 'n' }, '<space>c', '<Plug>(comment_toggle_linewise_current)', { silent = true } },
+		{ { 'v' }, '<space>c', '<Plug>(comment_toggle_linewise_visual)', { silent = true } },
 	},
 
 	config = function(config)

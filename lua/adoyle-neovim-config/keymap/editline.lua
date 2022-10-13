@@ -1,4 +1,4 @@
-local M = { desc = 'Emacs Editline in vim insert mode' }
+local M = { 'keymap.editline', desc = 'Emacs Editline in vim insert mode' }
 
 local opts = { noremap = true, silent = true }
 

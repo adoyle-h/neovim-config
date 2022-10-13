@@ -1,4 +1,4 @@
-local M = { desc = 'indent keymaps' }
+local M = { 'keymap.indent', desc = 'indent keymaps' }
 
 local function indentLevel(lnum)
 	return vim.fn.indent(lnum) / vim.bo.shiftwidth

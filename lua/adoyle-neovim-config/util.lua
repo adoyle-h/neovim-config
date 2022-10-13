@@ -56,14 +56,22 @@ function util.getVisualSelection(return_raw)
 	end
 end
 
+local buffers = {}
 function util.newWindow(opts)
 	opts = opts or {}
+	local title = opts.title
 
 	vim.cmd.vsplit()
 	local win = api.nvim_get_current_win()
 	local buf = api.nvim_create_buf(true, true)
 
-	if opts.title then api.nvim_buf_set_name(buf, opts.title) end
+	if title then
+		local ok = pcall(api.nvim_buf_set_name, buf, title)
+		if not ok then api.nvim_buf_delete(buffers[title], { force = true }) end
+		pcall(api.nvim_buf_set_name, buf, title)
+		buffers[title] = buf
+	end
+
 	api.nvim_buf_set_option(buf, 'filetype', opts.ft or 'text')
 	api.nvim_buf_set_option(buf, 'sw', opts.sw or 2)
 	api.nvim_buf_set_option(buf, 'ts', opts.ts or 2)

@@ -3,7 +3,6 @@ local colors = config.colors
 
 return {
 	'https://gitlab.com/yorickpeterse/nvim-window.git',
-	disable = true,
 
 	defaultConfig = {
 		'window-selector',

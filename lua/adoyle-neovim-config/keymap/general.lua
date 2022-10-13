@@ -1,4 +1,4 @@
-local M = { desc = 'General Keymaps' }
+local M = { 'keymap.general', desc = 'General Keymaps' }
 
 M.keymaps = {
 	{ 'n', '<leader>w', ':w<CR>', { desc = 'save current buffer to disk' } },

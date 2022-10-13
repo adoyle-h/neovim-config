@@ -1,4 +1,4 @@
-local M = { desc = 'Copy&Paste' }
+local M = { 'keymap.copy-paste', desc = 'Copy&Paste' }
 
 M.keymaps = {
 

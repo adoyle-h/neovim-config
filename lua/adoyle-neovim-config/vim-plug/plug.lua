@@ -1,11 +1,18 @@
+local M = {}
+
 local util = require('adoyle-neovim-config.util')
 local CM = require('adoyle-neovim-config.config')
+
 local normalizeOpts = require('adoyle-neovim-config.vim-plug.normalize')
 local globals = require('adoyle-neovim-config.vim-plug.globals')
 local plugMap, plugs, userPlugins = globals.plugMap, globals.plugs, globals.userPlugins
 
 local fn = vim.fn
 local loadPlug = fn['plug#']
+local set_keymap = vim.keymap.set
+local set_hl = vim.api.nvim_set_hl
+local set_cmd = vim.api.nvim_create_user_command
+local sign_define = vim.fn.sign_define
 
 -- Vim-Plug Options:
 -- branch/tag/commit : Branch/tag/commit of the repository to use
@@ -49,13 +56,17 @@ local function getPlugFolderName(repo)
 	return name
 end
 
--- The structure of M should be compatible with packer.nvim Plug and vim-plug Plug
--- @param M {string|table} See packer.nvim Plug: https://github.com/wbthomason/packer.nvim#specifying-plugins
--- @param [opts] {table}
+-- Plug Load plugin of vim-plug
 -- @useage Plug(repo[, opts])
 -- @useage Plug({repo, opts...})
--- The repo is a string. Example: 'nvim-lua/plenary.nvim'
-local function usePlug(repo, opts)
+--
+-- @param repo {string}
+--   repo='<github-user>/<repo-name>' such as 'nvim-lua/plenary.nvim', or
+--   repo='name' without '/'
+-- @param opts {table} Its fields are compatible with https://github.com/junegunn/vim-plug#plug-options
+--
+-- @example See examples at ./lua/adoyle-neovim-config/plugins.lua
+function M.usePlug(repo, opts)
 	opts = normalizeOpts(repo, opts)
 	repo = opts.repo
 	local id = opts.id
@@ -74,7 +85,7 @@ local function usePlug(repo, opts)
 	end
 
 	-- Load dependent plugins first, then current plugin
-	for _, dep in pairs(opts.requires or {}) do usePlug(dep) end
+	for _, dep in pairs(opts.requires or {}) do M.usePlug(dep) end
 
 	table.insert(plugs, opts)
 	globals.count = globals.count + 1
@@ -99,7 +110,7 @@ local function usePlug(repo, opts)
 
 end
 
-local function mergePlugConfig(node, plug)
+function M.mergePlugConfig(node, plug)
 	local defaultConfig = plug.defaultConfig
 
 	if type(defaultConfig) == 'function' then defaultConfig = defaultConfig(CM.config) end
@@ -126,4 +137,61 @@ local function mergePlugConfig(node, plug)
 	end
 end
 
-return { usePlug = usePlug, mergePlugConfig = mergePlugConfig }
+local function handlePlugOptions(list, opt)
+	if type(list) == 'function' then list = list(CM.config) end
+
+	if opt.iterator then
+		for _, args in pairs(list or {}) do --
+			if opt.unpack then
+				opt.iterator(table.unpack(args))
+			else
+				opt.iterator(args)
+			end
+		end
+	end
+end
+
+local plugOpts = {
+	{ name = 'config' },
+
+	{ name = 'signs', iterator = sign_define, unpack = true },
+
+	{ name = 'keymaps', iterator = set_keymap, unpack = true },
+
+	{
+		name = 'commands',
+		iterator = function(name, command, opts)
+			set_cmd(name, command, opts or {})
+		end,
+		unpack = true,
+	},
+
+	{
+		name = 'highlights',
+		iterator = function(name, props)
+			set_hl(0, name, props)
+		end,
+		unpack = true,
+	},
+
+	{
+		name = 'telescopes',
+		iterator = function(opts)
+			local extTools = require('adoyle-neovim-config.plugins.telescope.extension-tools')
+
+			if not opts.previewer then opts.previewer = extTools.previewers.cat end
+
+			extTools.register(opts)
+		end,
+		unpack = false,
+	},
+}
+M.plugOpts = plugOpts
+
+function M.executePlugOptions(plug)
+	for _, opt in pairs(plugOpts) do --
+		handlePlugOptions(plug[opt.name], opt)
+	end
+end
+
+return M

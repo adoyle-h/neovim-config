@@ -19,10 +19,10 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 - [Dependency](#dependency)
 - [Installation](#installation)
 - [API](#api)
-    - [setup(opts)](#setupopts)
 - [Configuration](#configuration)
     - [User Config](#user-config)
     - [Default Config](#default-config)
+    - [Override Plugin Options](#override-plugin-options)
     - [View Config](#view-config)
 - [NOTE](#note)
 - [Usage](#usage)
@@ -31,8 +31,6 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
     - [Code Format](#code-format)
 - [Startup Time](#startup-time)
 - [Plugin](#plugin)
-    - [Create Plugin](#create-plugin)
-    - [Using Plugin](#using-plugin)
 - [Project File Structure](#project-file-structure)
 - [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
 - [Copyright and License](#copyright-and-license)
@@ -43,7 +41,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 - Use many Neovim features: Native LSP, Float Window, Winbar.
 - Lua-wrapped plugin manage framework based on [vim-plug][]. Support on-demand loading plugins.
 - Integrated 110+ powerful Vim/Nvim plugins.
-- Awesome UI and color schema. Dark Mode. Support True-Color, Scrollbar, Dashboard.
+- Awesome UI and color schema. Dark Mode. Support True-Color, Smooth-Scroll, Scrollbar, Dashboard.
 - Configurable. See [./lua/config.lua](./lua/config.lua)
 - Configurable proxy for fast git download in China Mainland
 
@@ -82,7 +80,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
 ## Dependency
 
-- NVIM v0.8 (latest commit)
+- [NVIM v0.8][] (latest commit)
 - Vim Plugin Manager: https://github.com/junegunn/vim-plug
 - python3、pip3
 - nvim python provider
@@ -97,35 +95,35 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
   a. Directly use
 
-    ```sh
-    # Set your nvim config directory
-    NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
-    ```
+  ```sh
+  # Set your nvim config directory
+  NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+  git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
+  ```
 
   b. Load as plugin
 
-    ```sh
-    # Set your nvim config directory
-    NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-    NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
-    mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
-    mkdir -p "$NVIM_DATA"/plugins
-    git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
+  ```sh
+  # Set your nvim config directory
+  NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+  NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
+  mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
+  mkdir -p "$NVIM_DATA"/plugins
+  git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
 
-    # Create init.lua file
-    cat <<EOF > "$NVIM_HOME"/init.lua
-    vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
+  # Create init.lua file
+  cat <<EOF > "$NVIM_HOME"/init.lua
+  vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
 
-    require('adoyle-neovim-config').setup {}
-    EOF
-    ```
+  require('adoyle-neovim-config').setup {}
+  EOF
+  ```
 
   c. Out of the box
 
-    ```sh
-    docker run -it <TODO>
-    ```
+  ```sh
+  docker run -it <TODO>
+  ```
 
 2. Initialization
   - `:PlugInstall`.
@@ -136,20 +134,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
 ## API
 
-### setup(opts)
-
-```lua
-local A = require('adoyle-neovim-config')
-
-A.setup {
-  config = {},
-}
-
--- or
--- A.setup()
-```
-
-No more document. Just see [codes](./lua/adoyle-neovim-config/init.lua)
+Just read [codes](./lua/adoyle-neovim-config/init.lua).
 
 ## Configuration
 
@@ -160,23 +145,23 @@ You can pass config when load as plugin.
 ```lua
 require('adoyle-neovim-config').setup {
   config = {
-		proxy = {
-			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
-			-- Otherwise, remove this option.
-			github = 'https://ghproxy.com/',
-		},
+    proxy = {
+      -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
+      -- Otherwise, remove this option.
+      github = 'https://ghproxy.com/',
+    },
   },
 
-	-- Add your plugins or override plugin default options.
+  -- Add your plugins or override plugin default options.
   -- More examples in ./lua/adoyle-neovim-config/plugins.lua
   plugins = {
     -- { 'plugins.profiling', disable = false },
     -- { 'psliwka/vim-smoothie', disable = false },
   },
 
-	pluginConfigs = function()
+  pluginConfigs = function(config)
     return {
-			nullLS = {
+      nullLS = {
         lsp = {
           ensureInstalled = {
             'bash-language-server',
@@ -197,9 +182,13 @@ User config can refer to [./init.lua](./init.lua).
 
 ### Default Config
 
-Parts of default config written in [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua), and other parts written in `defaultConfig` of each plugin.
+Parts of default config written in [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua), and other parts written in `defaultConfig` option of each plugin.
 
-Parts of default highlights written in [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) and [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua), and other parts written in `highlights` of each plugin.
+Parts of default highlights written in [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) and [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua), and other parts written in `highlights` option of each plugin.
+
+### Override Plugin Options
+
+You can override any [plugin options](./doc/plugin.md#plugin-options) in `require('adoyle-neovim-config').setup {plugins = {}}`. You can override highlights and keymaps.
 
 ### View Config
 
@@ -209,10 +198,7 @@ Parts of default highlights written in [./lua/adoyle-neovim-config/config/color.
 Because using [inspect.lua](https://github.com/kikito/inspect.lua) to print configuration,
 you may see tags such as `<table id>`. It is for preventing infinite loops.
 You can search `<28>{` to view its value for `<table 28>` in same buffer content.
-
-> inspect can handle tables with loops inside them. It will print <id> right before the table is printed out the first time, and replace the whole table with <table id> from then on, preventing infinite loops.
-
-For `<table>`, `<function>`, `<metatable>` tags, see [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use).
+For `<table>`, `<function>`, `<metatable>` tag explanations, see [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use).
 
 ## NOTE
 
@@ -247,8 +233,8 @@ Default to use the formatters defined in `nullLS.sources`, and then formatters d
 
 ```lua
 require('adoyle-neovim-config').setup {
-	plugins = {
-		{ 'profiling', disable = true },
+  plugins = {
+    { 'profiling', disable = true },
   }
 }
 ```
@@ -269,87 +255,7 @@ cmp.core              11.07    2.90 █
 telescope._extension  10.87    2.84 █
 ```
 
-## Plugin
-
-### Create Plugin
-
-For example, create a file `lua/my-plugin.lua`.
-
-```lua
-return {
-  'repo/name', -- string or nil or omit. It must be first
-	desc = 'Plugin Description', -- string or nil.
-	disable = false, -- boolean or nil. If true, this Plugin will not be loaded
-  tag = '', -- string or nil. tag of the repository to use
-  branch = '', -- string or nil. branch of the repository to use
-  commit = '', -- string or nil. commit of the repository to use
-  rtp = '', -- string or nil. Subdirectory that contains Vim plugin
-  on = {'command'} -- string[] or nil. On-demand loading: Commands or <Plug>-mappings
-  for = {'lua'} -- string[] or nil. On-demand loading: File types
-  frozon = false, -- boolean or nil. Do not update unless explicitly specified
-
-  -- Set default config for current plugin
-  defaultConfig = {
-    {'PluginName'}, -- config key
-    {}, -- config value, must be a table
-  },
-  -- or
-  defaultConfig = function(config)
-    return {
-      {'PluginName'},
-      {},
-    }
-  end,
-
-  -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
-  highlights = {
-    { 'PluginHighlightGroup', { fg = 'white', bg = 'none' } },
-  }
-  -- or function
-  highlights = function(config)
-    return {
-      { 'PluginHighlightGroup', { fg = 'white', bg = 'none' } },
-    },
-  end
-
-  -- Parameters refer to ":h nvim_set_keymap"
-  keymaps = {
-    { 'n', '<leader>k', ':echo hello<CR>' },
-  },
-  -- or function
-  keymaps = function(config)
-    return {
-      { 'n', '<leader>k', ':echo hello<CR>' },
-    },
-  end
-
-  -- Parameters refer to ":h nvim_create_user_command"
-  commands = {
-    { 'ClearPreviews', function require('goto-preview').close_all_win end, {} },
-  },
-  -- or function
-	commands = function(config)
-		return {
-			{ 'ClearPreviews', require('goto-preview').close_all_win, {} },
-		}
-	end,
-
-}
-```
-
-### Using Plugin
-
-Edit your `init.lua` file.
-
-```lua
-require('adoyle-neovim-config').setup {
-	config = {
-		plugins = {
-      require('my-plugin'),
-    },
-  },
-}
-```
+## [Plugin](./doc/plugin.md)
 
 ## Project File Structure
 
@@ -404,3 +310,4 @@ See the [LICENSE][] file for the specific language governing permissions and lim
 [mason.nvim]: https://github.com/williamboman/mason.nvim
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
+[NVIM v0.8]: https://github.com/neovim/neovim/releases/tag/v0.8.0

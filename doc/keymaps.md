@@ -136,10 +136,10 @@ Press `<space>k` to see all keymaps in nvim.
 
 ## Pickers and Windows
 
-- `<space>;` = Show Telescope builtins
+- `<space>;` = Choose Telescope pickers
 - `<space>M` = Show man page
 - `<space>p` = Find commands
-- `<space>c` = Find command history
+- `<space>C` = Find command history
 - `<space>h` = Find vim help
 - `<space>k` = Find keymaps
 - `<space>d` = Find diagnostics
@@ -159,16 +159,18 @@ Press `<space>k` to see all keymaps in nvim.
 - `<C-t>` = Open buffer in new tab
 - `<C-b>` = Scroll results window page up
 - `<C-f>` = Scroll results window page down
+- `<C-u>` = Scroll preview window page up
+- `<C-d>` = Scroll preview window page down
 
 ## Edit and Write
 
 - `u` = Undo
 - `U` = Redo
+- `u` in visual selection = Characters to upper case
+- `U` in visual selection = Characters to lower case
 - `<space><space>` = Insert a space at right position of cursor
 - `[<space>` = Insert a space at left position of cursor
 - `]<space>` = Insert a space at right position of cursor
-- `u` in visual selection = Characters to upper case
-- `U` in visual selection = Characters to lower case
 - `~` = Character to upper case or lower case
 - `<M-s>` = Spell suggestion
 - `<space>z` = Toggle zen mode for writing
@@ -255,7 +257,7 @@ Press `<space>k` to see all keymaps in nvim.
 
 ### Comments
 
-- `<leader>cc` or `<M-c>` = Comment toggle current line
+- `<leader>cc` or `<space>c` = Comment toggle current line
 - `<leader>cb` = Comment toggle current block
 - `<leader>ca` = Comment insert end of line
 - `<leader>cO` = Comment insert below

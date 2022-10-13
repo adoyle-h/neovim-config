@@ -6,7 +6,8 @@ return function()
 
 	local map = {
 
-		{ 'n', '<space>;', ':Telescope builtin<cr>', opts },
+		-- { 'n', '<space>;', ':Telescope builtin<cr>', opts },
+		{ 'n', '<space>;', require('telescope').extensions.find_pickers.find_pickers },
 
 		{ 'n', '<space>M', ':Telescope man_pages<cr>', opts },
 
@@ -70,10 +71,10 @@ return function()
 		-- Press '<Enter>' to execute command immediately.
 		-- Press '<Ctrl-e>' to edit command in terminal mode.
 		-- See https://github.com/nvim-telescope/telescope.nvim/pull/656/files
-		{ 'n', '<space>c', ':Telescope command_history<cr>', opts },
+		{ 'n', '<space>C', ':Telescope command_history<cr>', opts },
 		{
 			'v',
-			'<space>c',
+			'<space>C',
 			function()
 				local text = util.getVisualSelection()
 				tb.command_history({ default_text = text })

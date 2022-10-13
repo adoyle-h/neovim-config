@@ -1,4 +1,4 @@
-local M = { desc = 'Insert spaces or newline Keymap' }
+local M = { 'keymap.space', desc = 'Insert spaces or newline Keymap' }
 
 M.keymaps = {
 

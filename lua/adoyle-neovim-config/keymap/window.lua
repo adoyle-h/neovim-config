@@ -1,4 +1,4 @@
-local M = { desc = 'window keymaps' }
+local M = { 'keymap.window', desc = 'window keymaps' }
 
 M.keymaps = {
 	{ 'n', '<C-W>t', '<C-W>T', { noremap = true, desc = 'move current window to new tab' } },

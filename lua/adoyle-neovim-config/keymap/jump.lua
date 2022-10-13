@@ -1,4 +1,4 @@
-local M = { desc = 'Jump Keymaps' }
+local M = { 'keymap.jump', desc = 'Jump Keymaps' }
 
 M.keymaps = {
 	{

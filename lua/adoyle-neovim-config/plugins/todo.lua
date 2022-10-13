@@ -32,15 +32,15 @@ M.defaultConfig = {
 			FIX = {
 				icon = ' ', -- icon used for the sign, and in search results
 				color = 'error', -- can be a hex color, or a named color (see below)
-				alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' }, -- a set of other keywords that all map to this FIX keywords
+				alt = { 'Fix', 'Bug', 'Issue', 'FIXME', 'BUG', 'FIXIT', 'ISSUE' }, -- a set of other keywords that all map to this FIX keywords
 				-- signs = false, -- configure signs for some keywords individually
 			},
-			TODO = { icon = '', color = 'info' },
-			HACK = { icon = '', color = 'warning' },
-			WARN = { icon = '', color = 'warning', alt = { 'WARNING', 'XXX' } },
-			PERF = { icon = '', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
-			NOTE = { icon = '', color = 'hint', alt = { 'INFO' } },
-			TEST = { icon = 'ﭧ', color = 'test', alt = { 'TESTING', 'PASSED', 'FAILED' } },
+			TODO = { icon = '', color = 'info', alt = { 'Todo' } },
+			HACK = { icon = '', color = 'warning', alt = { 'Hack' } },
+			WARN = { icon = '', color = 'warning', alt = { 'Warn', 'WARNING', 'XXX' } },
+			PERF = { icon = '', alt = { 'Perf', 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
+			NOTE = { icon = '', color = 'hint', alt = { 'Note', 'INFO', 'Info' } },
+			TEST = { icon = 'ﭧ', color = 'test', alt = { 'Test', 'TESTING', 'PASSED', 'FAILED' } },
 		},
 
 		gui_style = {

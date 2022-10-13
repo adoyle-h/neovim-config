@@ -20,8 +20,6 @@ M.keymaps = {
 	{ 'n', '<space>o', ':AerialToggle<CR>', { silent = true, desc = 'Toggle the outline window' } },
 }
 
-M.commands = { { 'AerialTelescope', ':Telescope aerial', {} } }
-
 M.defaultConfig = {
 	'aerial',
 	{

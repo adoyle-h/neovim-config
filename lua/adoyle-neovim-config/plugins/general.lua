@@ -35,7 +35,6 @@ M.commands = {
 				w
 			]]
 		end,
-		{},
 	},
 
 	{
@@ -98,46 +97,6 @@ M.commands = {
 	},
 
 	{
-		'DetachLspClientFromBuffer',
-		function()
-			local buf = vim.api.nvim_get_current_buf()
-			local clients = vim.lsp.get_active_clients({ bufnr = buf })
-
-			local Menu = require('nui.menu')
-
-			local lines = {}
-			for _, client in pairs(clients) do
-				table.insert(lines, Menu.item(client.name, { clientId = client.id })) --
-			end
-
-			local menu = Menu({
-				position = '50%',
-				size = { width = 25, height = 5 },
-				border = { style = 'single', text = { top = '[Attached LSP Clients]', top_align = 'center' } },
-				win_options = { winhighlight = 'Normal:Normal,FloatBorder:Normal' },
-			}, {
-				lines = lines,
-				max_width = 20,
-
-				keymap = {
-					focus_next = { 'j', '<Down>', '<Tab>' },
-					focus_prev = { 'k', '<Up>', '<S-Tab>' },
-					close = { '<Esc>', 'q' },
-					submit = { '<CR>' },
-				},
-
-				on_submit = function(item)
-					vim.lsp.buf_detach_client(buf, item.clientId)
-				end,
-			})
-
-			-- mount the component
-			menu:mount()
-		end,
-		{ desc = '' },
-	},
-
-	{
 		'ListSourcedScript',
 		function()
 			local w = util.newWindow({ title = '[Nvim Sourced Scripts]' })
@@ -150,7 +109,6 @@ M.commands = {
 
 			w.resetCursor()
 		end,
-		{},
 	},
 }
 

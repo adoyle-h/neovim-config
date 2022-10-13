@@ -8,23 +8,14 @@ require('adoyle-neovim-config.fix-lua')
 
 -- @class ADoyleNeovimConfig
 -- @field util {table}
---
--- @field Plug {function}  Load plugin of vim-plug
---   @useage Plug(repo[, opts])
---   @useage Plug({repo, opts...})
---   The repo is a string. Example: 'nvim-lua/plenary.nvim'
---   The opts is a table. Support https://github.com/junegunn/vim-plug#plug-options
---   See examples at ./lua/adoyle-neovim-config/plugins.lua
---
--- @field P {function}
 -- @field CM {ConfigManager}
-local M = { CM = CM, util = util, Plug = P.Plug, P = P }
+local M = { CM = CM, util = util }
 
--- @param opts {table}
--- @param opts.config {table}
--- @param opts.noPlugins {boolean} If true, all builtin and user-defined plugins will not be loaded
--- @param opts.plugins {table}
--- @param opts.pluginConfigs {table}
+-- @param [opts={}] {table}
+-- @param [opts.config={}] {table}
+-- @param [opts.noPlugins=false] {boolean} If true, all builtin and user-defined plugins will not be loaded
+-- @param [opts.plugins={}] {table}
+-- @param [opts.pluginConfigs={}] {table}
 M.setup = function(opts)
 	CM.setup(opts.config or {})
 

@@ -42,7 +42,23 @@ return {
 				-- filter using buffer options
 				bo = {
 					-- if the file type is one of following, the window will be ignored
-					filetype = config.ignore.fileTypesForSomePlugs,
+					filetype = {
+						'TelescopePrompt',
+						'TelescopeResults',
+						-- 'alpha', -- Do not ingore alpha, it will lead to neo-tree cannot open file in dashboard
+						'lsp-installer',
+						'null-ls-info',
+						'lspinfo',
+						'nerdtree',
+						'NvimTree',
+						'neo-tree',
+						'notify',
+						'aerial',
+						'Mundo',
+						'mason',
+						'man',
+						'PlenaryTestPopup',
+					},
 
 					-- if the buffer type is one of following, the window will be ignored
 					-- buftype = { 'terminal' },

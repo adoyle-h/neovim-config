@@ -1,7 +1,7 @@
+-- It does not support gui
 return {
 	't9md/vim-choosewin',
 	desc = 'window/tab selector',
-	disable = true, -- Because it does not support gui
 	keymaps = { { 'n', '-', '<Plug>(choosewin)', { desc = 'choose window', silent = true } } },
 
 	config = function()
