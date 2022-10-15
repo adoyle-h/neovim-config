@@ -11,6 +11,7 @@ M.defaultConfig = {
 		Visual = { bg = colors.darkOrange, fg = colors.white },
 		CursorLineNr = { bg = colors.darkBlue, fg = colors.blue, bold = true },
 		QuickFixLine = { bg = colors.darkYellow, bold = true },
+		Whitespace = { fg = '#958720' },
 
 		-- If highlights not work, you may set highlights in lua/adoyle-neovim-config/themes/onedarkpro.lua
 

@@ -10,12 +10,12 @@ Load 'plugins.notify'
 Load 'plugins.notifier'
 Load 'plugins.treesitter'
 Plug 'MunifTanjim/nui.nvim'
+Load 'plugins.telescope'
 
 --------------------------------------
 
 -- UI
 Load 'plugins.colors'
-Load 'plugins.telescope'
 Load 'plugins.statusline.lualine'
 Load 'plugins.bufferline'
 Load 'plugins.indent-line'

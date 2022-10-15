@@ -178,9 +178,6 @@ local plugOpts = {
 		name = 'telescopes',
 		iterator = function(opts)
 			local extTools = require('adoyle-neovim-config.plugins.telescope.extension-tools')
-
-			if not opts.previewer then opts.previewer = extTools.previewers.cat end
-
 			extTools.register(opts)
 		end,
 		unpack = false,

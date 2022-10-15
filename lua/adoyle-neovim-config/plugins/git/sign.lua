@@ -135,4 +135,14 @@ M.keymaps = function()
 	}
 end
 
+M.highlights = function(config)
+	local colors = config.colors
+	return {
+		{
+			'GitSignsCurrentLineBlame',
+			{ fg = colors.grey, bg = config.highlights.CursorLineNr.bg, italic = true },
+		},
+	}
+end
+
 return M

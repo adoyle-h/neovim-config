@@ -10,4 +10,5 @@ return {
 
 	keymaps = require('adoyle-neovim-config.plugins.telescope.keymaps'),
 	highlights = require('adoyle-neovim-config.plugins.telescope.highlights'),
+	telescopes = require('adoyle-neovim-config.plugins.telescope.extensions'),
 }

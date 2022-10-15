@@ -1,56 +1,109 @@
 local telescope = require('telescope')
-local pickers = require 'telescope.pickers'
-local finders = require 'telescope.finders'
-local telescopeConf = require('telescope.config').values
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
+local sorters = require('adoyle-neovim-config.plugins.telescope.extension-tools.sorters')
 local previewers = require('adoyle-neovim-config.plugins.telescope.extension-tools.previewers')
-local actions = require('adoyle-neovim-config.plugins.telescope.extension-tools.actions')
 
+-- @param ext {table}
+--   See telescope.nvim/lua/telescope/pickers.lua Picker:new
+--   See https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md#picker
+-- @param ext.name {string}
+-- @param ext.prompt_title {string}
+-- @param ext.results_title {string}
+-- @param ext.preview_title='Preview' {string}
+-- @param ext.finder {Finder}
+-- @param ext.sorter {Sorter}
+-- @param ext.previewer {previewer}
+-- @param ext.attach_mappings {function():boolean}
+-- @param ext.layout_strategy {table}
+-- @param ext.layout_config {table}
+-- @param ext.scroll_strategy {string}
+-- @param ext.selection_strategy {string} Values: follow, reset, row
+-- @param ext.cwd {string}
+-- @param ext.default_text {string}
+-- @param ext.default_selection_index {number}
+--   Change the index of the initial selection row
 local function extCallback(ext, opts)
-	local name = ext.name
-	local command = ext.command or ''
-	local previewer = ext.previewer or {}
-	local action = ext.action or function()
-		return true
+	local results = {}
+	local items = {}
+
+	ext = vim.tbl_extend('keep', ext, {
+		prompt_title = ext.name,
+		preview_title = 'Preview',
+		previewer = false,
+		wrap_results = true,
+		attach_mappings = function(prompt_bufnr, map)
+			actions.select_default:replace(function()
+				actions.close(prompt_bufnr)
+				local selection = action_state.get_selected_entry()
+				local item = items[selection.index]
+				if ext.onSubmit then ext.onSubmit(item) end
+			end)
+
+			return true
+		end,
+	})
+
+	local previewer = ext.previewer
+	if type(previewer) == 'string' then ext.previewer = previewers.get(previewer) end
+
+	local command = ext.command
+
+	if type(command) == 'function' then
+		local r = command()
+		for _, item in pairs(r) do --
+			local text = item.text
+			if #text > 0 then
+				table.insert(results, text)
+				table.insert(items, item)
+			end
+		end
+	else
+		local r = vim.api.nvim_exec(command, true)
+
+		for _, text in pairs(vim.split(r, '\n')) do --
+			if #text > 0 then
+				table.insert(results, text)
+				table.insert(items, { text = text })
+			end
+		end
 	end
 
-	local result
-	if type(command) == 'function' then
-		result = command()
+	if ext.finder then
+		ext.finder = ext.finder { results = results }
 	else
-		result = vim.api.nvim_exec(command, true)
+		ext.finder = finders.new_table { results = results }
 	end
 
 	-- https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md#first-picker
-	local selections = pickers.new(opts, {
-		prompt_title = 'Command: ' .. name,
-		finder = finders.new_table { results = vim.split(result, '\n', { trimempty = true }) },
-		sorter = telescopeConf.generic_sorter(opts),
-		previewer = previewer,
-		attach_mappings = action,
-	}):find()
-
-	if ext.onSubmit then ext.onSubmit(selections) end
+	pickers.new(opts, ext):find()
 end
 
-local function register(extensions)
-	for _, ext in ipairs(extensions) do
-		local name = ext.name
+local function register(extension)
+	local name = extension.name
 
-		local e = telescope.register_extension({
-			-- function(ext_config, config)
-			setup = ext.setup,
-			exports = {
-				-- Default when to argument is given, i.e. :Telescope changes
-				[name] = function(opts)
-					extCallback(ext, opts)
-				end,
-			},
-		})
+	local ext = telescope.register_extension({
+		-- function(ext_config, config)
+		setup = extension.setup,
+		exports = {
+			-- Default when to argument is given, i.e. :Telescope changes
+			[name] = function(opts)
+				extCallback(extension, opts)
+			end,
+		},
+	})
 
-		telescope.extensions[name] = e.exports
-		-- if ext.setup then ext.setup(extensions._config[name] or {}, require('telescope.config').values) end
-		-- extensions._health[name] = ext.health
-	end
+	telescope.extensions[name] = ext.exports
+	-- if ext.setup then ext.setup(extensions._config[name] or {}, require('telescope.config').values) end
+	-- extensions._health[name] = ext.health
 end
 
-return { register = register, previewers = previewers, actions = actions }
+return {
+	register = register,
+	previewers = previewers,
+	actions = actions,
+	sorters = sorters,
+	finders = finders,
+}

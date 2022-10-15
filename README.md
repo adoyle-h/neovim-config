@@ -4,45 +4,14 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
 中文文档 [./README.zh.md](./README.zh.md)
 
-## TOC
 ## Features
-<!-- MarkdownTOC GFM -->
-
-- [Screenshots](#screenshots)
-    - [Dashboard](#dashboard)
-    - [Finder](#finder)
-    - [UI](#ui)
-    - [Outline](#outline)
-    - [Diagnostic Window](#diagnostic-window)
-    - [Completion](#completion)
-    - [Snippet](#snippet)
-- [Dependency](#dependency)
-- [Installation](#installation)
-- [API](#api)
-- [Configuration](#configuration)
-    - [User Config](#user-config)
-    - [Default Config](#default-config)
-    - [Override Plugin Options](#override-plugin-options)
-    - [View Config](#view-config)
-- [NOTE](#note)
-- [Usage](#usage)
-    - [Keymaps](#keymaps)
-    - [LSP](#lsp)
-    - [Code Format](#code-format)
-- [Startup Time](#startup-time)
-- [Plugin](#plugin)
-- [Project File Structure](#project-file-structure)
-- [Suggestion, Bug Reporting, Contributing](#suggestion-bug-reporting-contributing)
-- [Copyright and License](#copyright-and-license)
-
-<!-- /MarkdownTOC -->
 
 - All in Lua. All configs can be overrided.
 - Use many Neovim features: Native LSP, Float Window, Winbar.
 - Lua-wrapped plugin manage framework based on [vim-plug][]. Support on-demand loading plugins.
 - Integrated 110+ powerful Vim/Nvim plugins.
 - Awesome UI and color schema. Dark Mode. Support True-Color, Smooth-Scroll, Scrollbar, Dashboard.
-- Configurable. See [./lua/config.lua](./lua/config.lua)
+- [Configurable](#configuration).
 - Configurable proxy for fast git download in China Mainland
 
 ## Screenshots

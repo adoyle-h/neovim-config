@@ -21,7 +21,7 @@ return function(colors)
 
 		ignore = {
 			fileSearch = { --
-				names = { 'node_modules', '.git', 'vendor' },
+				names = { 'node_modules', '\\.git', 'vendor' },
 			},
 
 			fileTypesForSomePlugs = {

@@ -17,7 +17,8 @@ Press `<space>k` to see all keymaps in nvim.
 - `<leader>id` = Decrement word under cursor
 - `>` = Increment indent
 - `<` = Decrement indent
-- `gx` = Open URL under cursor
+- `gx` = Open URL when cursor on link
+- `gf` = Open file when cursor on filepath
 - `<leader>so` = Toggle scrolloff
 - `<leader>sp` = Toggle spell-checking
 
@@ -45,7 +46,6 @@ Press `<space>k` to see all keymaps in nvim.
 - `%` = Jump to matched pair
 - `[%` = Jump to previous matched pair
 - `]%` = Jump to next matched pair
-- `gf` = Jump to file when cursor on filepath
 - `:{number}` = Jump to line
 - `th` = move to parent node (treesitter)
 - `tj` = move to next node (treesitter)
@@ -282,16 +282,16 @@ Press `<space>k` to see all keymaps in nvim.
 - `<M-m>` = Toggle Mason window to install or uninstall lsp/dap/linter/formatter adapters
 - `[d` = Move to the previous diagnostic in the current buffer
 - `]d` = Move to the next diagnostic in the current buffer
-- `gD` = Jumps to the declaration of the symbol under the cursor.
-- `gR` = Renames all references to the symbol under the cursor.
+- `gd` = Open float window to query the definition of the symbol under the cursor
+- `gD` = Jump to the definition of the symbol under the cursor
+- `gr` = Show references about the symbol under cursor
 - `ga` = Selects a code action available at the current cursor position.
+- `gR` = Renames all references to the symbol under the cursor.
 - `gh` = Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.
 - `gs` = Displays signature information about the symbol under the cursor in a floating window.
 - `gF` = Formats a buffer using the attached (and optionally filtered) language server clients. (Autoformat will be trigger when write buffer to disk)
-- `gd` = Goto preview definition about the symbol under cursor
 - `gt` = Goto preview type definition about the symbol under cursor
 - `gi` = Show implementation about the symbol under cursor
-- `gr` = Show references about the symbol under cursor
 
 ## Diff
 

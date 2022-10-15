@@ -45,9 +45,6 @@ M.defaultConfig = {
 		-- ":h lspconfig-all" or https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 		-- for LSP configs provided by nvim-lspconfig
 		setup = {
-			-- You can write LSP settings in lua. Or write it to lsp-settings/<lsp_name>.yaml file.
-			-- If have the same key, the value in the YAML file will take precedence.
-
 			tsserver = {
 				filetypes = { -- limit tsserver only .ts files
 					'typescript',
@@ -57,88 +54,13 @@ M.defaultConfig = {
 			},
 
 			-- sumneko_lua = {
-			--   settings = {
-			--     Lua = {
-			--       diagnostics = {
-			--         globals = {}
-			--       }
-			--     }
-			--   }
+			-- 	-- You can write lsp.settings in lua. Or write it to lsp-settings/<lsp_name>.yaml file (See nlsp features).
+			-- 	-- If have the same key, the value in the YAML file will take precedence.
+			-- 	settings = { Lua = { diagnostics = { globals = {} } } },
 			-- },
 		},
 
 	},
-}
-
-M.keymaps = {
-	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-
-	{ 'n', '<M-m>', ':Mason<CR>', { silent = true } },
-
-	{
-		'n',
-		'[d',
-		function()
-			vim.diagnostic.goto_prev()
-		end,
-		{ silent = true, desc = ':h vim.diagnostic.goto_prev' },
-	},
-
-	{
-		'n',
-		']d',
-		function()
-			vim.diagnostic.goto_next()
-		end,
-		{ silent = true, desc = ':h vim.diagnostic.goto_next' },
-	},
-
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	{
-		'n',
-		'gD',
-		function()
-			vim.lsp.buf.declaration()
-		end,
-		{ silent = true, desc = ':h vim.lsp.buf.declaration' },
-	},
-
-	{
-		'n',
-		'gR',
-		function()
-			vim.lsp.buf.rename()
-		end,
-		{ silent = true, desc = ':h vim.lsp.buf.rename' },
-	},
-
-	{
-		'n',
-		'ga',
-		function()
-			vim.lsp.buf.code_action()
-		end,
-		{ silent = true, desc = ':h vim.lsp.buf.code_action' },
-	},
-
-	{
-		'n',
-		'gh',
-		function()
-			vim.lsp.buf.hover()
-		end,
-		{ silent = true, desc = ':h vim.lsp.buf.hover' },
-	},
-
-	{
-		'n',
-		'gs',
-		function()
-			vim.lsp.buf.signature_help()
-		end,
-		{ silent = true, desc = ':h vim.lsp.buf.signature_help' },
-	},
-
 }
 
 local function configDiagnostic()
@@ -216,11 +138,13 @@ function M.config()
 		opts = util.merge(opts, {
 			capabilities = capabilities,
 			on_attach = on_attach,
+			autostart = true,
 			flags = {
 				debounce_text_changes = 150, -- This is default in neovim 0.7+
 			},
 		})
 
+		-- :h lspconfig-setup
 		lspconfig[name].setup(opts)
 	end
 end
@@ -244,48 +168,8 @@ M.signs = function()
 	return signs
 end
 
-M.telescopes = {
-	{
-		name = 'dettachNullLSSource',
-		command = function()
-			local buf = vim.api.nvim_get_current_buf()
-			local clients = vim.lsp.get_active_clients({ bufnr = buf })
+M.keymaps = require('adoyle-neovim-config.plugins.lsp.keymaps')
 
-			local Menu = require('nui.menu')
-
-			local lines = {}
-			for _, client in pairs(clients) do
-				table.insert(lines, Menu.item(client.name, { clientId = client.id })) --
-			end
-
-			local menu = Menu({
-				position = '50%',
-				size = { width = 25, height = 5 },
-				border = { style = 'single', text = { top = '[Attached LSP Clients]', top_align = 'center' } },
-				win_options = { winhighlight = 'Normal:Normal,FloatBorder:Normal' },
-			}, {
-				lines = lines,
-				max_width = 20,
-
-				keymap = {
-					focus_next = { 'j', '<Down>', '<Tab>' },
-					focus_prev = { 'k', '<Up>', '<S-Tab>' },
-					close = { '<Esc>', 'q' },
-					submit = { '<CR>' },
-				},
-
-				on_submit = function(item)
-					vim.lsp.buf_detach_client(buf, item.clientId)
-				end,
-			})
-
-			-- mount the component
-			menu:mount()
-		end,
-
-		onSubmit = function(selections)
-		end,
-	},
-}
+M.telescopes = require('adoyle-neovim-config.plugins.lsp.telescopes')
 
 return M

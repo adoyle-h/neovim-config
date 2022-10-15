@@ -4,40 +4,6 @@
 
 Click [./README.md](./README.md) to read English documents.
 
-## TOC
-
-<!-- MarkdownTOC GFM -->
-
-- [特性](#特性)
-- [截图](#截图)
-    - [Dashboard](#dashboard)
-    - [Finder](#finder)
-    - [UI](#ui)
-    - [Outline](#outline)
-    - [Diagnostic Window](#diagnostic-window)
-    - [Completion](#completion)
-    - [Snippet](#snippet)
-- [依赖](#依赖)
-- [安装](#安装)
-- [API](#api)
-- [配置](#配置)
-    - [用户配置](#用户配置)
-    - [默认配置](#默认配置)
-    - [覆盖插件参数](#覆盖插件参数)
-    - [查看配置](#查看配置)
-- [注意](#注意)
-- [使用](#使用)
-    - [快捷键](#快捷键)
-    - [LSP](#lsp)
-    - [格代化码式](#格代化码式)
-- [启动时间](#启动时间)
-- [插件](#插件)
-- [项目文件结构](#项目文件结构)
-- [建议，Bug，做贡献](#建议bug做贡献)
-- [版权声明](#版权声明)
-
-<!-- /MarkdownTOC -->
-
 ## 特性
 
 - 用 Lua 管理所有配置。配置可覆盖。
@@ -45,7 +11,7 @@ Click [./README.md](./README.md) to read English documents.
 - 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载插件。
 - 集成了 110 多个 Vim/Nvim 插件。
 - 帅气的界面和配色。暗黑模式。支持真彩色、顺滑滚动、滚动条、Dashboard。
-- 可配置，详见[默认配置][default-config]。
+- 可配置，详见[配置章节](#配置)。
 - 支持配置 github 代理，在中国大陆可加快插件下载速度。
 
 ## 截图
@@ -209,9 +175,9 @@ require('adoyle-neovim-config').setup {
 
 ### 快捷键
 
-基本快捷键的查阅 [./doc/keymaps.md](./doc/keymaps.md)。（纯英文，懒得翻译了）
+[./doc/keymaps.md](./doc/keymaps.md) 文档记录了常用的快捷键。
 
-详细快捷键按 `<space>k` 查阅。
+在 nvim 里按下 `<space>k` 查询所有快捷键。
 
 ### LSP
 

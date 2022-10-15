@@ -23,6 +23,7 @@ function M.config(config)
 end
 
 M.defaultConfig = function(config)
+	local previewers = require('telescope.previewers')
 	local action_state = require('telescope.actions.state')
 	local actions = require('telescope.actions')
 	local api = vim.api
@@ -98,13 +99,18 @@ M.defaultConfig = function(config)
 				find_files = {
 					hidden = true,
 					theme = 'dropdown',
-					path_display = {},
+					path_display = {}, -- Display full filepath
 					layout_config = { width = 0.8 },
 				},
 
-				oldfiles = { layout_strategy = 'vertical', path_display = {} },
+				oldfiles = {
+					layout_strategy = 'vertical',
+					path_display = {}, -- Display full filepat
+				},
 
-				git_files = { path_display = {} },
+				git_files = {
+					path_display = {}, -- Display full filepat
+				},
 
 				highlights = {
 					theme = 'dropdown',

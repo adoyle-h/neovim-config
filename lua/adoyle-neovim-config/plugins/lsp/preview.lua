@@ -4,7 +4,7 @@ return {
 	defaultConfig = {
 		{ 'lsp', 'preview' },
 		{
-			width = 100, -- Width of the floating window
+			width = 80, -- Width of the floating window
 			height = 15, -- Height of the floating window
 			border = { '┌', '─', '┐', '│', '┘', '─', '└', '│' }, -- Border characters of the floating window
 			default_mappings = false, -- Bind default mappings
@@ -41,7 +41,20 @@ return {
 	keymaps = function()
 		local preview = require('goto-preview')
 		return {
-			{ 'n', 'gd', preview.goto_preview_definition, { desc = 'goto_preview_definition' } },
+			{
+				'n',
+				'gD',
+				vim.lsp.buf.definition,
+				{ desc = 'Jump to the definition of the symbol under the cursor' },
+			},
+
+			{
+				'n',
+				'gd',
+				preview.goto_preview_definition,
+				{ desc = 'Open float window to query the definition of the symbol under the cursor' },
+			},
+
 			{ 'n', 'gt', preview.goto_preview_type_definition, { desc = 'goto_preview_type_definition' } },
 			{ 'n', 'gi', preview.goto_preview_implementation, { desc = 'goto_preview_implementation' } },
 			{ 'n', 'gr', preview.goto_preview_references, { desc = 'goto_preview_references' } },

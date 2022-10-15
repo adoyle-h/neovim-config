@@ -105,4 +105,30 @@ function util.newWindow(opts)
 	}
 end
 
+util.bind = function(func, ...)
+	local rest = { ... }
+	return function(...)
+		local args = {}
+
+		for i = 1, #rest do args[i] = rest[i] end
+
+		for i = 1, select('#', ...) do table.insert(args, select(i, ...)) end
+
+		return func(table.unpack(args))
+	end
+end
+
+util.bindAfter = function(func, ...)
+	local rest = { ... }
+	return function(...)
+		local args = {}
+
+		for i = 1, select('#', ...) do table.insert(args, select(i, ...)) end
+
+		for i = 1, #rest do args[i] = rest[i] end
+
+		return func(table.unpack(args))
+	end
+end
+
 return util

@@ -33,13 +33,13 @@ M.defaultConfig = {
 }
 
 function M.config()
-	local null_ls = require('null-ls')
+	local nullLS = require('null-ls')
 	local conf = config.nullLS
 	local sources = conf.sources
-	if type(sources) == 'function' then sources = sources(null_ls.builtins) end
+	if type(sources) == 'function' then sources = sources(nullLS.builtins) end
 	sources = sources or {}
 
-	if pcall(require, 'gitsigns') then table.insert(sources, null_ls.builtins.code_actions.gitsigns) end
+	if pcall(require, 'gitsigns') then table.insert(sources, nullLS.builtins.code_actions.gitsigns) end
 
 	local lspFormat = require('lsp-format')
 
@@ -56,7 +56,7 @@ function M.config()
 		end,
 	})
 
-	null_ls.setup(opts)
+	nullLS.setup(opts)
 
 	require('mason-null-ls').setup { automatic_installation = conf.automatic_installation }
 
