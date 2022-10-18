@@ -5,40 +5,17 @@ local util = require('adoyle-neovim-config.util')
 local M = { 'neovim/nvim-lspconfig' }
 
 M.highlights = {
-	{ 'LspWindowBorder', { fg = colors.cyan } },
-	{ 'LspInfoTitle', { fg = colors.lightGreen } }, -- Client name
-	{ 'LspInfoList', { fg = colors.lightGreen } }, -- Server name list
-	{ 'LspInfoFiletype', { fg = colors.purple } }, -- `filetypes` area
-	{ 'LspInfoTip', { link = 'Comment' } }, -- Tip
-	{ 'LspInfoBorder', { fg = colors.blue } }, -- Window border
+	LspWindowBorder = { fg = colors.cyan },
+	LspInfoTitle = { fg = colors.lightGreen }, -- Client name
+	LspInfoList = { fg = colors.lightGreen }, -- Server name list
+	LspInfoFiletype = { fg = colors.purple }, -- `filetypes` area
+	LspInfoTip = { link = 'Comment' }, -- Tip
+	LspInfoBorder = { fg = colors.blue }, -- Window border
 }
 
 M.defaultConfig = {
 	{ 'lsp' },
 	{
-		-- See the border property of ":h nvim_open_win"
-		winBorder = {
-			{ '╭', 'LspWindowBorder' },
-			{ '─', 'LspWindowBorder' },
-			{ '╮', 'LspWindowBorder' },
-			{ '│', 'LspWindowBorder' },
-			{ '╯', 'LspWindowBorder' },
-			{ '─', 'LspWindowBorder' },
-			{ '╰', 'LspWindowBorder' },
-			{ '│', 'LspWindowBorder' },
-		},
-
-		-- winBorder = {
-		--   { '╔', 'LspWindowBorder' },
-		--   { '═', 'LspWindowBorder' },
-		--   { '╗', 'LspWindowBorder' },
-		--   { '║', 'LspWindowBorder' },
-		--   { '╝', 'LspWindowBorder' },
-		--   { '═', 'LspWindowBorder' },
-		--   { '╚', 'LspWindowBorder' },
-		--   { '║', 'LspWindowBorder' },
-		-- },
-
 		masonLspconfig = { automatic_installation = false },
 
 		-- Change lsp.setup(opts). Format: {['lsp_name'] = settings}
@@ -60,43 +37,63 @@ M.defaultConfig = {
 			-- },
 		},
 
+		diagnostic = { -- :h vim.diagnostic.config
+			virtual_text = false,
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+			severity_sort = true,
+			float = {
+				wrap = true,
+				max_width = 120,
+				max_height = 20,
+				focusable = false,
+				source = 'always', -- 'always' or 'if_many'. -- Show source in diagnostics
+				prefix = ' ',
+				scope = 'cursor',
+
+				close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
+
+				border = { -- See the border property of ":h nvim_open_win"
+					{ '╭', 'LspWindowBorder' },
+					{ '─', 'LspWindowBorder' },
+					{ '╮', 'LspWindowBorder' },
+					{ '│', 'LspWindowBorder' },
+					{ '╯', 'LspWindowBorder' },
+					{ '─', 'LspWindowBorder' },
+					{ '╰', 'LspWindowBorder' },
+					{ '│', 'LspWindowBorder' },
+				},
+
+				-- border = {
+				--   { '╔', 'LspWindowBorder' },
+				--   { '═', 'LspWindowBorder' },
+				--   { '╗', 'LspWindowBorder' },
+				--   { '║', 'LspWindowBorder' },
+				--   { '╝', 'LspWindowBorder' },
+				--   { '═', 'LspWindowBorder' },
+				--   { '╚', 'LspWindowBorder' },
+				--   { '║', 'LspWindowBorder' },
+				-- },
+			},
+		},
 	},
 }
 
 local function configDiagnostic()
-	vim.diagnostic.config {
-		virtual_text = false,
-		signs = true,
-		underline = true,
-		update_in_insert = false,
-		severity_sort = true,
-		float = {
-			-- Show source in diagnostics
-			source = 'always', -- Or 'if_many'
-		},
-	}
+	vim.diagnostic.config(config.lsp.diagnostic)
 
 	-- Show line diagnostics automatically in hover window
 	-- The CursorHold autocmd is triggered when updatetime. Use https://github.com/antoinemadec/FixCursorHold.nvim to fix it
 	vim.api.nvim_create_autocmd('CursorHold', {
 		callback = function()
-			vim.diagnostic.open_float(nil, {
-				width = 100,
-				max_height = 20,
-				focusable = false,
-				close_events = { 'BufLeave', 'CursorMoved', 'InsertEnter', 'FocusLost' },
-				border = config.lsp.winBorder,
-				source = 'always',
-				prefix = ' ',
-				scope = 'cursor',
-			})
+			vim.diagnostic.open_float()
 		end,
 	})
 end
 
-local function setBorder()
-	-- set default border
-	local border = config.lsp.winBorder
+local function setDefaultBorder()
+	local border = config.lsp.diagnostic.float.border
 	require('lspconfig.ui.windows').default_options.border = border -- This line maybe not work
 	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
 	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help,
@@ -105,7 +102,7 @@ end
 
 function M.config()
 	configDiagnostic()
-	setBorder()
+	setDefaultBorder()
 
 	local has_format, lspFormat = pcall(require, 'lsp-format')
 	local has_aerial, aerial = pcall(require, 'aerial')
@@ -162,7 +159,7 @@ M.signs = function()
 
 	for type, icon in pairs(map) do
 		local hl = 'DiagnosticSign' .. type
-		table.insert(signs, { hl, { text = icon, texthl = hl, numhl = hl } })
+		signs[hl] = { text = icon, texthl = hl, numhl = hl }
 	end
 
 	return signs

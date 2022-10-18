@@ -19,7 +19,7 @@ local M = {
 
 		{
 			'n',
-			'<leader>id',
+			'<leader>iI',
 			function()
 				vim.fn['increment_activator#decrement']()
 				api.nvim_feedkeys(api.nvim_replace_termcodes('<leader>i', true, false, true), 't', true)
@@ -49,6 +49,7 @@ M.defaultConfig = {
 			{'todo', 'done'},
 			{'ToDo', 'Done'},
 			{'low', 'normal', 'high'},
+			{'open', 'close'},
 			-- LuaFormatter on
 		},
 	},

@@ -1,11 +1,11 @@
 local M = { 'mfussenegger/nvim-dap' }
-
+-- 
 M.signs = {
-	{ 'DapBreakpoint', { text = 'B' } },
-	{ 'DapBreakpointCondition', { text = 'C' } },
-	{ 'DapLogPoint', { text = 'L' } },
-	{ 'DapStopped', { text = '→' } },
-	{ 'DapBreakpointRejected', { text = 'R' } },
+	DapBreakpoint = { text = 'B' },
+	DapBreakpointCondition = { text = 'C' },
+	DapLogPoint = { text = 'L' },
+	DapStopped = { text = '→' },
+	DapBreakpointRejected = { text = 'R' },
 }
 
 M.keymaps = function()

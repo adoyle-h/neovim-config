@@ -6,21 +6,23 @@ Press `<space>k` to see all keymaps in nvim.
 ## General
 
 - `<space>o` = Toggle outline
+- `gO` = Open table of contents (:h treesitter and :h gO. Currently works in help and :Man buffers.)
 - `<space>u` = Toggle undo tree
 - `<space>P` = Show plugin status
 - `<leader>e` = Refresh current buffer
 - `<leader>w` = Save current buffer to disk
 - `<M-g>` = Show absolute file path
-- `<leader>l` = Toggle invisible characters
+- `<leader>l` = Toggle invisible characters (EOL, Tabs, Spaces... see :h lcs)
 - `.` = Repeat last change. Also work in visual mode
 - `<leader>ii` = Increment word under cursor
-- `<leader>id` = Decrement word under cursor
-- `>` = Increment indent
-- `<` = Decrement indent
-- `gx` = Open URL when cursor on link
-- `gf` = Open file when cursor on filepath
+- `<leader>iI` = Decrement word under cursor
 - `<leader>so` = Toggle scrolloff
 - `<leader>sp` = Toggle spell-checking
+
+## Indent
+
+- `>` = Increment indent
+- `<` = Decrement indent
 
 ## Copy and Paste
 
@@ -31,6 +33,13 @@ Press `<space>k` to see all keymaps in nvim.
 - `<leader>P` = Paste from system clipboard
 - `<M-p>` = Toggle paste mode
 - `<space>y` = List vim registers
+- `<C-r>"` in insert mode = Paste from vim clipboard (:h i_CTRL-R)
+
+## Open
+- `gx` = Open URL when cursor on link
+- `gf` = Open file when cursor on filepath
+- `<C-W>f` = Open file in split when cursor on filepath
+- `<C-W>gf` = Open file in new tab when cursor on filepath
 
 ## Cursor Motion and Jump
 

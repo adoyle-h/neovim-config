@@ -7,7 +7,7 @@ Click [./README.md](./README.md) to read English documents.
 ## 特性
 
 - 用 Lua 管理所有配置。配置可覆盖。
-- 充分使用 Neovim 特性：Native LSP、Float Window、Winbar。
+- 充分使用 Neovim 功能：Native LSP、Float Window、Winbar。
 - 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载插件。
 - 集成了 110 多个 Vim/Nvim 插件。
 - 帅气的界面和配色。暗黑模式。支持真彩色、顺滑滚动、滚动条、Dashboard。
@@ -16,44 +16,15 @@ Click [./README.md](./README.md) to read English documents.
 
 ## 截图
 
-### Dashboard
-
-![dashboard.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/dashboard.png)
-
-### Finder
-
-![finder.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/finder.png)
-
-### UI
-
-![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/UI.png)
-
-### Outline
-
-![outline.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/outline.png)
-
-### Diagnostic Window
-
-![diagnostic.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/diagnostic.png)
-
-### Completion
-
-![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion.png)
-
-![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png)
-
-### Snippet
-
-![snippet.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/snippet.png)
-
 ## 依赖
 
-- [NVIM v0.8][] (最新的 commit 版本)
+- [NVIM v0.8][] 及以上版本
 - python3、pip3
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
   - `pip2 install --upgrade --user pynvim` (这是可选的)
-- [Nerd Font 字体][Nerd Font]。推荐 [DejaVuSansMonoForPowerline Nerd Font][font]。然后修改你的终端的字体设置。
+- [Nerd Font 字体][Nerd Font]。推荐 [DejaVuSansMonoForPowerline Nerd Font][font]。记得修改你的终端的字体设置。
+- [ripgrep(rg)](https://github.com/BurntSushi/ripgrep)
 - 支持 Linux 和 MacOS，不支持 Windows
 
 ## 安装
@@ -74,7 +45,6 @@ Click [./README.md](./README.md) to read English documents.
   # 设置你的 nvim 目录
   NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
   NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
-  mkdir -p "$NVIM_HOME"/{temp,snippets,spell}
   mkdir -p "$NVIM_DATA"/plugins
   git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
 
@@ -89,7 +59,7 @@ Click [./README.md](./README.md) to read English documents.
   c. 开箱即用
 
   ```sh
-  docker run -it <TODO>
+  alias nvim='docker run -it adoyle/neovim -v /workspace/:$(pwd)'
   ```
 
 2. 初始化
@@ -107,7 +77,7 @@ Click [./README.md](./README.md) to read English documents.
 
 ### 用户配置
 
-当以插件加载时，你可以传入自定义配置。
+你可以传入自定义配置来覆盖默认配置。
 
 ```lua
 require('adoyle-neovim-config').setup {
@@ -117,26 +87,20 @@ require('adoyle-neovim-config').setup {
       -- Otherwise, remove this option.
       github = 'https://ghproxy.com/',
     },
+
+    lsp = {
+      ensureInstalled = {
+        'bash-language-server',
+      }
+    }
   },
 
   -- Add your plugins or override plugin default options.
   -- More examples in ./lua/adoyle-neovim-config/plugins.lua
   plugins = {
-    -- { 'plugins.profiling', disable = false },
+    -- { 'profiling', disable = false },
     -- { 'psliwka/vim-smoothie', disable = false },
   },
-
-  pluginConfigs = function(config)
-    return {
-      nullLS = {
-        lsp = {
-          ensureInstalled = {
-            'bash-language-server',
-          }
-        }
-      }
-    }
-  end,
 }
 ```
 
@@ -144,15 +108,44 @@ require('adoyle-neovim-config').setup {
 
 已有的插件见 [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
 
-默认配置详见 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)。
-
-用户配置可参考 [./init.lua](./init.lua)。
+你可参考 [./init.lua](./init.lua) 来编写你的配置。
 
 ### 默认配置
 
 部分默认配置写在 [./lua/adoyle-neovim-config/config/default.lua](./lua/adoyle-neovim-config/config/default.lua)，部分写在插件的 `defaultConfig` 里。
 
-部分默认颜色配置写在 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) 与 [./lua/adoyle-neovim-config/config/highlights.lua](./lua/adoyle-neovim-config/config/highlights.lua)，另一部分写在插件的 `highlights` 参数里。
+部分默认颜色配置写在 [./lua/adoyle-neovim-config/config/color.lua](./lua/adoyle-neovim-config/config/color.lua) 与 [./lua/adoyle-neovim-config/themes/onedarkpro.lua](./lua/adoyle-neovim-config/themes/onedarkpro.lua)，另一部分写在插件的 `highlights` 参数里。
+
+### configFn(config)
+
+有些插件配置需要用到对应的模块。例如 `null-ls` 的 `sources` 配置项。你必须定义在 `configFn(config)` 函数。
+函数的返回值必须是一个 table，它会被合并到 `config` 变量。
+
+```lua
+require('adoyle-neovim-config').setup {
+  configFn = function(config)
+    local builtins = require('null-ls').builtins
+    local codeActions = builtins.code_actions
+    local diagnostics = builtins.diagnostics
+    local formatting = builtins.formatting
+
+    -- Do not return config, only return the overrided parts
+    return {
+      nullLS = {
+        sources = {
+          codeActions.eslint_d,
+          codeActions.shellcheck,
+          diagnostics.eslint_d,
+          formatting.eslint_d.with {
+            prefer_local = 'node_modules/.bin',
+          },
+          formatting.lua_format,
+        },
+      },
+    }
+  end,
+}
+```
 
 ### 覆盖插件参数
 
@@ -160,12 +153,16 @@ require('adoyle-neovim-config').setup {
 
 ### 查看配置
 
+你可以通过编写 lua 脚本访问 `require('adoyle-neovim-config.config').config` 或 `a.CM.config` 获取配置信息.
+
+同时，这里提供了两个命令来查看配置：
 `:ShowConfig` 查看最终合并的配置。
 `:ShowPlugin` 查看加载的插件。
 
 因为使用了 [inspect.lua](https://github.com/kikito/inspect.lua) 打印配置，
 会有例如 `<table id>` 这样的标记。这是为了避免重复，对于 `<table 28>` 搜索文件内对应的 `<28>{` 即可找到相应的值。
 `<table>`, `<function>`, `<metatable>` 等标记的解释详见 [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use)。
+### [颜色和高亮](./doc/colors.md)
 
 ## 注意
 
@@ -205,32 +202,6 @@ require('adoyle-neovim-config').setup {
 Formatter 配置在 `lsp.format` 与 `nullLS.sources`。
 默认先使用定义在 `nullLS.sources` 的 Formatter，后使用定义在 `lsp.format` 的 Formatter。Formatter 执行顺序按定义顺序.
 
-## 启动时间
-
-```lua
-require('adoyle-neovim-config').setup {
-  plugins = {
-    { 'profiling', disable = true },
-  }
-}
-```
-
-启动插件 [plugins/profiling](./lua/plugins/profiling.lua)，nvim 启动后调用 `:StartupTime`。你将会看到以下结果。
-
-```
-       startup: 382.3
-event                  time percent plot
-init.lua             290.79   76.06 ██████████████████████████
-adoyle-neovim-config  44.18   11.55 ████
-loading rtp plugins   22.58    5.91 ██
-pears                 15.91    4.16 █▍
-neo-tree              14.76    3.86 █▍
-pears.config          12.48    3.27 █▏
-cmp                   12.11    3.17 █▏
-cmp.core              11.07    2.90 █
-telescope._extension  10.87    2.84 █
-```
-
 ## [插件](./doc/plugin.zh.md)
 
 ## 项目文件结构
@@ -239,7 +210,7 @@ telescope._extension  10.87    2.84 █
 .
 ├── README.md
 ├── autoload/
-│   └── plug.vim             // vim-plug source code
+│   └── plug.vim             // vim-plug source code
 ├── init.lua                 // Neovim configuration entry point (user config put here)
 ├── lsp-settings             // Global LSP settings
 ├── lua
@@ -260,6 +231,32 @@ telescope._extension  10.87    2.84 █
 ├── snippets/                // Code Snippets
 └── spell/                   // Spell check data (git ignored)
     └── en.utf-8.add
+```
+
+## 启动时间
+
+```lua
+require('adoyle-neovim-config').setup {
+  plugins = {
+    { 'profiling', disable = true },
+  }
+}
+```
+
+启动 [profiling](./lua/plugins/profiling.lua) 插件，nvim 启动后调用 `:StartupTime`。你将会看到以下结果。
+
+```
+       startup: 382.3
+event                  time percent plot
+init.lua             290.79   76.06 ██████████████████████████
+adoyle-neovim-config  44.18   11.55 ████
+loading rtp plugins   22.58    5.91 ██
+pears                 15.91    4.16 █▍
+neo-tree              14.76    3.86 █▍
+pears.config          12.48    3.27 █▏
+cmp                   12.11    3.17 █▏
+cmp.core              11.07    2.90 █
+telescope._extension  10.87    2.84 █
 ```
 
 ## 建议，Bug，做贡献

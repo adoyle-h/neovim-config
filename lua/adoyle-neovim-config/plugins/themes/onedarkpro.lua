@@ -4,14 +4,16 @@ local config = require('adoyle-neovim-config.config').config
 local colors = config.colors;
 
 function M.config()
-	require('onedarkpro').setup(config.onedarkpro)
+	require('onedarkpro').setup(config.theme.onedarkpro)
 	vim.cmd('colorscheme onedarkpro')
 end
 
 M.defaultConfig = {
-	'onedarkpro',
+	{ 'theme', 'onedarkpro' },
 	{
-		dark_theme = 'onedark', -- The default dark theme
+		-- Options see https://github.com/olimorris/onedarkpro.nvim#wrench-configuration
+		theme = 'onedark', -- 'onelight', 'onedark_vivid', 'onedark_dark'
+
 		caching = false, -- Use caching for the theme?
 
 		colors = { -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
@@ -31,16 +33,22 @@ M.defaultConfig = {
 
 			cursorline = colors.darkBlue,
 			comment = colors.grey,
-			selection = colors.selection,
+			selection = colors.darkOrange,
 
-			diff_add = colors.diffAddBG,
-			diff_delete = colors.diffDeleteBG,
-			diff_text = colors.diffText,
-			-- diff_change = color.diffChangeBG,
+			diff_add = colors.darkGreen,
+			diff_delete = colors.darkRed,
+			diff_change = colors.darkYellow,
+			diff_text = '#484800',
 		},
 
 		highlights = { -- Override default highlight groups
 			StatusLine = { bg = 'NONE', fg = 'NONE' }, -- Fix caret in statusline. https://github.com/nvim-lualine/lualine.nvim/discussions/866
+			CursorLineNr = { bg = colors.cursorLineNrBG, fg = colors.blue, style = 'bold' },
+
+			-- DiffAdd = { bg = colors.darkGreen },
+			-- DiffDelete = { fg = colors.red, bg = colors.darkRed },
+			-- DiffChange = { bg = colors.darkYellow, style = 'nocombine' },
+			-- DiffText = { bg = '#484800', style = 'nocombine' },
 		},
 
 		-- https://github.com/olimorris/onedarkpro.nvim#configuring-filetypes
@@ -54,6 +62,7 @@ M.defaultConfig = {
 			neo_tree = true,
 			nvim_cmp = true,
 			treesitter = true,
+			trouble = true,
 			-- nvim_ts_rainbow = true,
 		},
 

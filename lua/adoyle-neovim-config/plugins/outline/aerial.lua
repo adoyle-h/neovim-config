@@ -3,17 +3,17 @@ local M = { 'stevearc/aerial.nvim', desc = 'Outline - aerial', requires = {} }
 local config = require('adoyle-neovim-config.config').config
 
 M.highlights = {
-	{ 'AerialLine', { bg = '#3E1A00' } },
-	{ 'AerialFunction', { fg = '#589CFF' } },
-	{ 'AerialFunctionIcon', { fg = '#589CFF' } },
-	{ 'AerialObject', { fg = '#8DDA00' } },
-	{ 'AerialObjectIcon', { fg = '#8DDA00' } },
-	{ 'AerialArray', { fg = '#1C9A7B' } },
-	{ 'AerialArrayIcon', { fg = '#1C9A7B' } },
-	{ 'AerialVariable', { fg = '#B0B51D' } },
-	{ 'AerialVariableIcon', { fg = '#B0B51D' } },
-	{ 'AerialConstant', { fg = '#F46400' } },
-	{ 'AerialConstantIcon', { fg = '#F46400' } },
+	AerialLine = { bg = '#3E1A00' },
+	AerialFunction = { fg = '#589CFF' },
+	AerialFunctionIcon = { fg = '#589CFF' },
+	AerialObject = { fg = '#8DDA00' },
+	AerialObjectIcon = { fg = '#8DDA00' },
+	AerialArray = { fg = '#1C9A7B' },
+	AerialArrayIcon = { fg = '#1C9A7B' },
+	AerialVariable = { fg = '#B0B51D' },
+	AerialVariableIcon = { fg = '#B0B51D' },
+	AerialConstant = { fg = '#F46400' },
+	AerialConstantIcon = { fg = '#F46400' },
 }
 
 M.keymaps = {
@@ -27,7 +27,7 @@ M.defaultConfig = {
 		-- This can be a filetype map (see :help aerial-filetype-map)
 		backends = {
 			-- "_" will be used as the default if the filetype is not present.
-			['_'] = { 'lsp', 'treesitter' },
+			['_'] = { 'lsp', 'treesitter', 'markdown' },
 			markdown = { 'markdown' },
 		},
 
@@ -51,42 +51,42 @@ M.defaultConfig = {
 			whitespace = '  ',
 		},
 
-		-- filter_kind = false,
-
 		filter_kind = {
-			'Array',
-			'Boolean',
-			'Class',
-			'Constant',
-			'Constructor',
-			'Enum',
-			'EnumMember',
-			'Event',
-			'Field',
-			'File',
-			'Function',
-			'Interface',
-			'Key',
-			'Method',
-			'Module',
-			'Namespace',
-			'Null',
-			'Number',
-			'Object',
-			'Operator',
-			-- 'Package', -- @TODO Why "if" condition is a Package kind?
-			'Property',
-			'String',
-			'Struct',
-			'TypeParameter',
-			'Variable',
+			['_'] = {
+				'Array',
+				'Boolean',
+				'Class',
+				'Constant',
+				'Constructor',
+				'Enum',
+				'EnumMember',
+				'Event',
+				'Field',
+				'File',
+				'Function',
+				'Interface',
+				'Key',
+				'Method',
+				'Module',
+				'Namespace',
+				'Null',
+				'Number',
+				'Object',
+				'Operator',
+				-- 'Package', -- @TODO Why "if" condition is a Package kind?
+				'Property',
+				'String',
+				'Struct',
+				'TypeParameter',
+				'Variable',
+			},
 		},
 
-		icons = (function()
-			local icons = { Interface = config.symbolMap.MID_DOT }
-			for k, v in pairs(config.kindSymbolMap) do if icons[k] == nil then icons[k] = v end end
-			return icons
-		end)(),
+		icons = {
+			['_'] = config.kindSymbolMap,
+
+			markdown = vim.tbl_extend('force', config.kindSymbolMap, { Interface = '' }),
+		},
 
 		on_attach = function(bufnr)
 			require('aerial').tree_set_collapse_level(bufnr, 3)

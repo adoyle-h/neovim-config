@@ -7,14 +7,7 @@ require('adoyle-neovim-config').setup {
 		},
 	},
 
-	-- Add your plugins or override plugin default options.
-	-- More examples at ./lua/adoyle-neovim-config/plugins.lua
-	plugins = { --
-		{ 'profiling', disable = true },
-		{ 'olimorris/onedarkpro.nvim', disable = false },
-	},
-
-	pluginConfigs = function()
+	configFn = function(config)
 		-- This user config will override default config. Below config is an example just for my personal usage.
 
 		local builtins = require('null-ls').builtins
@@ -65,6 +58,7 @@ require('adoyle-neovim-config').setup {
 					--     prefer_local = 'node_modules/.bin',
 					-- },
 
+					formatting.shfmt,
 					formatting.lua_format,
 				},
 			},
@@ -122,4 +116,14 @@ require('adoyle-neovim-config').setup {
 			},
 		}
 	end,
+
+	noPlugins = false, -- If true, all builtin and user-defined plugins will not be loaded
+
+	-- Add your plugins or override plugin default options.
+	-- More examples at ./lua/adoyle-neovim-config/plugins.lua
+	plugins = { --
+		{ 'profiling', disable = true },
+		{ 'olimorris/onedarkpro.nvim', disable = false },
+		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
+	},
 }

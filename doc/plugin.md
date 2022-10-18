@@ -36,15 +36,26 @@ return {
 
   -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
   highlights = {
-    { 'PluginHighlightGroup', { fg = 'white', bg = 'none' } },
-  }
+    PluginHighlightGroup = { fg = 'white', bg = 'none' } ,
+  },
   -- or function
   highlights = function(config)
     local colors = config.colors
     return {
-      { 'PluginHighlightGroup', { fg = colors.white, bg = 'none' } },
+      PluginHighlightGroup = { fg = colors.white, bg = 'none' } ,
     },
-  end
+  end,
+
+  -- Set vim sign. Parameters refer to ":h sign_define"
+  signs = {
+    GitSignsAdd = { text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+  },
+  -- or function
+  signs = function(config)
+    return {
+      GitSignsAdd = { text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    },
+  end,
 
   -- Parameters refer to ":h nvim_set_keymap"
   keymaps = {
@@ -55,7 +66,7 @@ return {
     return {
       { 'n', '<leader>k', ':echo hello<CR>' },
     },
-  end
+  end,
 
   -- Parameters refer to ":h nvim_create_user_command"
   commands = {
@@ -103,6 +114,9 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
+When repo name in `plugins` matches existed plugin, your defined options will override the default options of plugin.
+When no matches, they will be loaded as new plugins.
+
 ### Disable Default Plugin
 
 ```lua
@@ -116,3 +130,26 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
+### Override plugin configs
+
+For example, change the layout of dashboard and hide nvim logo and version.
+
+```lua
+require('adoyle-neovim-config').setup {
+  configFn = function(config)
+    -- default layout = {
+    --   { type = 'padding', val = marginTop },
+    --   getHeader(),
+    --   getTitle('Press j,k to move cursor'),
+    --   buttons,
+    -- }
+    local layout = config.dashboard.layout
+    layout[2] = { type = 'padding', val = 5 }
+
+    -- Do not return config, only return the overrided parts
+    return {
+      dashboard = { layout = layout },
+    }
+  end
+}
+```

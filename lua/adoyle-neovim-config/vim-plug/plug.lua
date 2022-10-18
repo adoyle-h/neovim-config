@@ -1,5 +1,6 @@
 local M = {}
 
+local F = require('adoyle-neovim-config.framework')
 local util = require('adoyle-neovim-config.util')
 local CM = require('adoyle-neovim-config.config')
 
@@ -137,24 +138,16 @@ function M.mergePlugConfig(node, plug)
 	end
 end
 
-local function handlePlugOptions(list, opt)
-	if type(list) == 'function' then list = list(CM.config) end
-
-	if opt.iterator then
-		for _, args in pairs(list or {}) do --
-			if opt.unpack then
-				opt.iterator(table.unpack(args))
-			else
-				opt.iterator(args)
-			end
-		end
-	end
-end
-
 local plugOpts = {
 	{ name = 'config' },
 
-	{ name = 'signs', iterator = sign_define, unpack = true },
+	{
+		name = 'signs',
+		iterator = function(props, name)
+			sign_define(name, props)
+		end,
+		unpack = false,
+	},
 
 	{ name = 'keymaps', iterator = set_keymap, unpack = true },
 
@@ -168,22 +161,35 @@ local plugOpts = {
 
 	{
 		name = 'highlights',
-		iterator = function(name, props)
+		iterator = function(props, name)
 			set_hl(0, name, props)
 		end,
-		unpack = true,
+		unpack = false,
 	},
 
 	{
 		name = 'telescopes',
 		iterator = function(opts)
-			local extTools = require('adoyle-neovim-config.plugins.telescope.extension-tools')
-			extTools.register(opts)
+			F.telescope.register(opts)
 		end,
 		unpack = false,
 	},
 }
 M.plugOpts = plugOpts
+
+local function handlePlugOptions(list, opt)
+	if type(list) == 'function' then list = list(CM.config) end
+
+	if opt.iterator then
+		for key, val in pairs(list or {}) do --
+			if opt.unpack then
+				opt.iterator(table.unpack(val))
+			else
+				opt.iterator(val, key)
+			end
+		end
+	end
+end
 
 function M.executePlugOptions(plug)
 	for _, opt in pairs(plugOpts) do --

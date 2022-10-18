@@ -9,16 +9,16 @@ local fn = vim.fn
 local set_keymap = vim.keymap.set
 
 local plugMap, plugs, userPlugins = globals.plugMap, globals.plugs, globals.userPlugins
-local P = { plugs = plugs, plugMap = plugMap, userPlugins = userPlugins, userPluginConfigs = nil }
+local P = { plugs = plugs, plugMap = plugMap, userPlugins = userPlugins, configFn = nil }
 
 function P.setup(opts)
-	set_keymap('n', '<SPACE>P', '<cmd>:PlugStatus<CR>', { desc = 'Show Plugin Status' })
+	set_keymap('n', '<SPACE>P', ':PlugStatus<CR>', { desc = 'Show Plugin Status' })
 
 	vim.g.plug_timeout = CM.config.pluginManager.timeout
 	-- Use git proxy for fast downloading
 	vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
 
-	P.userPluginConfigs = opts.userPluginConfigs
+	P.configFn = opts.configFn
 
 	for _, p in pairs(opts.userPlugins or {}) do
 		local plugOpts = normalizeOpts(p)
@@ -85,9 +85,9 @@ function P.run()
 		end
 	end
 
-	if P.userPluginConfigs then
-		local userPluginConfigs = P.userPluginConfigs()
-		for key, value in pairs(userPluginConfigs) do config[key] = util.merge(config[key], value) end
+	if P.configFn then
+		local config2 = P.configFn(config) or {}
+		for key, value in pairs(config2) do config[key] = util.merge(config[key], value) end
 	end
 
 	for _, plug in pairs(pendings) do

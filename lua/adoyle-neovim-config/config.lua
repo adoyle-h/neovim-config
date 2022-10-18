@@ -8,9 +8,9 @@ local CM = { --
 
 function CM.setup(conf)
 	local defaultConfigFn = require('adoyle-neovim-config.config.default')
-	local defaultColor = require('adoyle-neovim-config.config.color')
+	local defaultColors = require('adoyle-neovim-config.config.colors')
 
-	local colors = util.merge(defaultColor, conf.colors)
+	local colors = util.merge(defaultColors, conf.colors)
 	local defaultConfig = defaultConfigFn(colors)
 	local config = util.merge(defaultConfig, conf)
 

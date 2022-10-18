@@ -1,10 +1,8 @@
+local util = require('adoyle-neovim-config.util')
+
 local M = {
 	'nvim-telescope/telescope.nvim',
 	requires = {
-		{
-			'nvim-telescope/telescope-ui-select.nvim',
-			desc = 'improve the default vim.ui interfaces, like lsp.buf.code_action',
-		},
 		{
 			'keyvchan/telescope-find-pickers.nvim',
 			desc = 'Find all pickers available (includes builtins and extensions)',
@@ -16,17 +14,21 @@ function M.config(config)
 	local telescope = require('telescope')
 
 	telescope.setup(config.telescope.main)
-	telescope.load_extension('ui-select')
 	telescope.load_extension('find_pickers')
 
 	if pcall(require, 'notify') then telescope.load_extension('notify') end
 end
 
 M.defaultConfig = function(config)
-	local previewers = require('telescope.previewers')
 	local action_state = require('telescope.actions.state')
 	local actions = require('telescope.actions')
 	local api = vim.api
+
+	local file_ignore_patterns = {}
+	util.tbl_concat(file_ignore_patterns, config.ignore.fileSearch.files)
+	for _, value in pairs(config.ignore.fileSearch.directories) do
+		file_ignore_patterns[#file_ignore_patterns + 1] = value:gsub('%.', '%%.') .. '/' -- test ./lua/adoyle-neovim-config/plugins/git/sign.lua
+	end
 
 	return {
 		{ 'telescope', 'main' },
@@ -53,7 +55,20 @@ M.defaultConfig = function(config)
 					-- '--ignore-parent',
 				},
 
-				file_ignore_patterns = config.ignore.fileSearch.names,
+				-- A table of lua regex that define the files that should be ignored.
+				-- Example: { "^scratch/" } -- ignore all files in scratch directory
+				-- Example: { "%.npz" } -- ignore all npz files
+				-- See: https://www.lua.org/manual/5.1/manual.html#5.4.1 for more information about lua regex
+				-- Note: `file_ignore_patterns` will be used in all pickers that have a file associated.
+				-- This might lead to the problem that lsp_ pickers aren't displaying results
+				-- because they might be ignored by `file_ignore_patterns`.
+				-- For example, setting up node_modules as ignored will never show node_modules in any results,
+				-- even if you are interested in lsp_ results.
+				--
+				-- If you only want `file_ignore_patterns` for `find_files` and `grep_string`/`live_grep`
+				-- it is suggested that you setup `gitignore` and have fd and or ripgrep installed
+				-- because both tools will not show `gitignore`d files on default.
+				file_ignore_patterns = file_ignore_patterns,
 
 				path_display = {
 					shorten = {
@@ -157,7 +172,7 @@ M.defaultConfig = function(config)
 
 			},
 
-			extensions = { ['ui-select'] = { layout_config = { width = 0.4, height = 16 } } },
+			extensions = {},
 		},
 	}
 end

@@ -1,4 +1,4 @@
-local M = { 'general', desc = 'General functions and commands' }
+local M = { 'general.commands', desc = 'General functions and commands' }
 
 local CM = require('adoyle-neovim-config.config')
 local util = require('adoyle-neovim-config.util')
@@ -108,6 +108,24 @@ M.commands = {
 			for _, l in pairs(vim.split(output, '\n')) do write(l) end
 
 			w.resetCursor()
+		end,
+	},
+
+	{
+		'TabOrSpace',
+		function()
+			vim.ui.select({ 'Tabs', 'Spaces' }, {
+				prompt = 'Select Tabs or Spaces:',
+				format_item = function(item)
+					return 'I\'d like to choose ' .. item
+				end,
+			}, function(choice)
+				if choice == 'Spaces' then
+					vim.o.expandtab = true
+				else
+					vim.o.expandtab = false
+				end
+			end)
 		end,
 	},
 }

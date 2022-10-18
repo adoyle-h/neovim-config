@@ -28,7 +28,7 @@ return {
 		},
 	},
 
-	highlights = { { 'NvimWindowFloating', { fg = colors.blue, bg = colors.black } } },
+	highlights = { NvimWindowFloating = { fg = colors.blue, bg = colors.black } },
 
 	config = function()
 		require('nvim-window').setup(config['window-selector'])

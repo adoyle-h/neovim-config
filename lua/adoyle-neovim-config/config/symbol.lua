@@ -1,10 +1,11 @@
 return {
 	symbolMap = {
-		DEBUG = '',
+		DEBUG = '', -- 
 		ERROR = '', -- 
 		INFO = '', -- 
 		TRACE = '',
 		WARN = '', -- 
+		OTHER = '',
 		HINT = '',
 		LOCK = '',
 		BRANCH = '',
@@ -27,6 +28,8 @@ return {
 		ARROW_DOWN = '↓',
 		ARROW_LEFT = '←',
 		ARROW_RIGHT = '→',
+		EXPANDED = '▾',
+		COLLAPSED = '▸',
 	},
 
 	kindSymbolMap = {

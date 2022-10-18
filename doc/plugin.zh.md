@@ -40,15 +40,26 @@ return {
 
   -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
   highlights = {
-    { 'PluginHighlightGroup', { fg = 'white', bg = 'none' } },
-  }
+    PluginHighlightGroup = { fg = 'white', bg = 'none' } ,
+  },
   -- or function
   highlights = function(config)
     local colors = config.colors
     return {
-      { 'PluginHighlightGroup', { fg = colors.white, bg = 'none' } },
+      PluginHighlightGroup = { fg = colors.white, bg = 'none' } ,
     },
-  end
+  end,
+
+  -- Set vim sign. Parameters refer to ":h sign_define"
+  signs = {
+    GitSignsAdd = { text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+  },
+  -- or function
+  signs = function(config)
+    return {
+      GitSignsAdd = { text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    },
+  end,
 
   -- Parameters refer to ":h nvim_set_keymap"
   keymaps = {
@@ -59,7 +70,7 @@ return {
     return {
       { 'n', '<leader>k', ':echo hello<CR>' },
     },
-  end
+  end,
 
   -- Parameters refer to ":h nvim_create_user_command"
   commands = {
@@ -107,6 +118,9 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
+当 `plugins` 里的插件名与已有的插件匹配时，你定义的配置项会覆盖插件的默认配置。
+当没有匹配的已有插件，会作为新的插件加载。
+
 ### 禁用默认插件
 
 ```lua
@@ -120,3 +134,26 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
+### 修改插件配置
+
+例如改变 dashboard 插件的布局，隐藏 nvim logo 与版本信息。
+
+```lua
+require('adoyle-neovim-config').setup {
+  configFn = function(config)
+    -- default layout = {
+    --   { type = 'padding', val = marginTop },
+    --   getHeader(),
+    --   getTitle('Press j,k to move cursor'),
+    --   buttons,
+    -- }
+    local layout = config.dashboard.layout
+    layout[2] = { type = 'padding', val = 5 }
+
+    -- Do not return config, only return the overrided parts
+    return {
+      dashboard = { layout = layout },
+    }
+  end
+}
+```

@@ -206,9 +206,9 @@ local M = {
 	},
 
 	highlights = {
-		{ 'MenuSelectLine', { bg = colors.menu.selectBG } },
-		{ 'CmpFloatBorder', { fg = colors.grey, bg = colors.black } },
-		{ 'PmenuThumb', { bg = colors.grey3 } }, -- cmp scrollbar thumb
+		MenuSelectLine = { bg = '#012867' },
+		CmpFloatBorder = { fg = colors.grey, bg = colors.black },
+		PmenuThumb = { bg = colors.grey3 }, -- cmp scrollbar thumb
 	},
 }
 

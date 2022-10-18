@@ -3,14 +3,9 @@ local util = {}
 local api = vim.api
 local fn = vim.fn
 local tbl_islist = vim.tbl_islist
-local set_hl = api.nvim_set_hl
 
 function util.proxyGithub(url)
 	return url
-end
-
-function util.set_hl(hls)
-	for _, hl in pairs(hls) do set_hl(0, hl[1], hl[2]) end
 end
 
 ---Merge two tables recursively. The later override the previous
@@ -105,7 +100,7 @@ function util.newWindow(opts)
 	}
 end
 
-util.bind = function(func, ...)
+function util.bind(func, ...)
 	local rest = { ... }
 	return function(...)
 		local args = {}
@@ -118,7 +113,7 @@ util.bind = function(func, ...)
 	end
 end
 
-util.bindAfter = function(func, ...)
+function util.bindAfter(func, ...)
 	local rest = { ... }
 	return function(...)
 		local args = {}
@@ -128,6 +123,32 @@ util.bindAfter = function(func, ...)
 		for i = 1, #rest do args[i] = rest[i] end
 
 		return func(table.unpack(args))
+	end
+end
+
+function util.tbl_concat(t1, t2)
+	for i = 1, #t2 do t1[#t1 + 1] = t2[i] end
+	return t1
+end
+
+function util.input(func, prompt)
+	vim.ui.input({ prompt = prompt or 'Enter value: ' }, func)
+end
+
+function util.select(func, list, prompt)
+	vim.ui.select(list, {
+		prompt = prompt or 'Select Item',
+		-- telescope = require('telescope.themes').get_cursor(),
+	}, func)
+end
+
+function util.isFile(path)
+	local f = io.open(path, 'r')
+	if f ~= nil then
+		io.close(f)
+		return true
+	else
+		return false
 	end
 end
 

@@ -1,9 +1,6 @@
-local M = { 'color', desc = 'color settings' }
-
-local config = require('adoyle-neovim-config.config').config
+local M = { 'colors', desc = 'color settings' }
 
 M.requires = {
-	require('adoyle-neovim-config.themes.' .. config.theme),
 	require 'adoyle-neovim-config.plugins.colors.highlights',
 	require 'adoyle-neovim-config.plugins.colors.inline',
 

@@ -21,5 +21,5 @@ return {
 		},
 	},
 
-	highlights = { { 'Headline', { bg = '#172440' } } },
+	highlights = { Headline = { bg = '#172440' } },
 }

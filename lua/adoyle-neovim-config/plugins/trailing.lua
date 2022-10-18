@@ -4,7 +4,7 @@ return {
 	'johnfrankmorgan/whitespace.nvim',
 	desc = 'highlight trailing spaces',
 
-	highlights = { { 'TrailingWhitespace', { bg = config.colors.grey3 } } },
+	highlights = { TrailingWhitespace = { bg = config.colors.grey3 } },
 
 	commands = {
 		{

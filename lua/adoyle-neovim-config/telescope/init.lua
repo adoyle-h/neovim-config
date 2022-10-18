@@ -1,10 +1,11 @@
+-- telescope extension tools
 local telescope = require('telescope')
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
-local sorters = require('adoyle-neovim-config.plugins.telescope.extension-tools.sorters')
-local previewers = require('adoyle-neovim-config.plugins.telescope.extension-tools.previewers')
+local sorters = require('adoyle-neovim-config.telescope.sorters')
+local previewers = require('adoyle-neovim-config.telescope.previewers')
 
 -- @param ext {table}
 --   See telescope.nvim/lua/telescope/pickers.lua Picker:new
@@ -76,6 +77,8 @@ local function extCallback(ext, opts)
 	else
 		ext.finder = finders.new_table { results = results }
 	end
+
+	if ext.default_selection_index == -1 then ext.default_selection_index = #results end
 
 	-- https://github.com/nvim-telescope/telescope.nvim/blob/master/developers.md#first-picker
 	pickers.new(opts, ext):find()

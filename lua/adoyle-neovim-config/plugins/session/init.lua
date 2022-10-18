@@ -1,6 +1,6 @@
 return {
 	'session',
-	requires = { --
+	requires = {
 		require('adoyle-neovim-config.plugins.session.persisted'),
 
 		{

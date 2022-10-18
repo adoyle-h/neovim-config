@@ -1,5 +1,5 @@
 return {
-	'keymap',
+	'general.keymap',
 	desc = 'Load all keymap settings',
 
 	requires = {

@@ -17,6 +17,14 @@ return {
 		onSubmit = function(selection)
 			vim.lsp.buf_detach_client(0, selection.client.id)
 		end,
+
+		sorting_strategy = 'ascending',
+
+		layout_config = {
+			height = { 0.4, min = 10, max = 30 },
+			width = { 0.3, min = 30, max = 120 },
+			prompt_position = 'top', -- top or bottom
+		},
 	},
 
 	{
@@ -24,6 +32,7 @@ return {
 
 		command = function()
 			local nullLS = require('null-ls')
+			local S = require('null-ls.sources')
 			local sources = nullLS.get_sources()
 			local ft = vim.o.ft
 			local results = {}
@@ -52,8 +61,10 @@ return {
 			-- }
 			for _, src in pairs(sources) do
 				if src.filetypes[ft] then
+					local available = S.is_available(src, ft) and '' or ''
 					local methods = vim.fn.join(vim.tbl_keys(src.methods), ',')
-					table.insert(results, { text = printf('%s (%s)', src.name, methods), src = src, ft = ft })
+					table.insert(results,
+						{ text = printf('%s %s (%s)', available, src.name, methods), src = src, ft = ft })
 				end
 			end
 
@@ -80,10 +91,9 @@ return {
 
 		sorting_strategy = 'ascending',
 
-		-- layout_strategy = 'center',
 		layout_config = {
-			height = 16,
-			width = 60,
+			height = { 0.4, min = 10, max = 30 },
+			width = { 0.5, min = 60, max = 120 },
 			prompt_position = 'top', -- top or bottom
 		},
 	},

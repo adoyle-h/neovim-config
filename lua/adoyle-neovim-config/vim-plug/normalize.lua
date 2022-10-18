@@ -6,7 +6,7 @@ local function normalizeOpts(repo, opts)
 
 	if not opts then
 		if t == 'string' then
-			opts = { id = count, repo = repo }
+			opts = { id = repo, repo = repo }
 		elseif t == 'table' then
 			opts = repo
 			repo = table.remove(opts, 1)

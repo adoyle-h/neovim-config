@@ -1,3 +1,4 @@
+local config = require('adoyle-neovim-config.config').config
 local P = require('adoyle-neovim-config.vim-plug')
 local Plug = P.Plug
 local Load = P.LoadPluginFile
@@ -15,6 +16,8 @@ Load 'plugins.telescope'
 --------------------------------------
 
 -- UI
+Load 'plugins.dressing'
+Load('plugins.themes.' .. config.theme.use)
 Load 'plugins.colors'
 Load 'plugins.statusline.lualine'
 Load 'plugins.bufferline'
@@ -24,7 +27,6 @@ Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-h
 Load 'plugins.scroll'
 
 -- Functions
-Load 'plugins.keymap'
 Load 'plugins.filetype'
 Load 'plugins.lsp'
 Load 'plugins.dap'
@@ -55,7 +57,6 @@ Load 'plugins.funny'
 Load 'plugins.abbreviation'
 Load 'plugins.terminal'
 Load 'plugins.dashboard' -- Put this plugin after filetree and session plugin
-Load 'plugins.winbar'
 Load 'plugins.zen'
 Load 'plugins.curl'
 Load 'plugins.escape'
@@ -63,6 +64,8 @@ Load 'plugins.match'
 Load 'plugins.test'
 Load 'plugins.yank'
 Load 'plugins.node'
+Load 'plugins.trouble'
+Load 'plugins.icon-picker'
 
 Plug {
 	'tyru/capture.vim',
@@ -83,5 +86,6 @@ Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h e
 Plug { 'tpope/vim-repeat', desc = 'Enable repeating other supported plugins with the . command' }
 Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown presentation' }
 Plug { 'mechatroner/rainbow_csv', desc = 'For .csv file' }
+Plug 'rohanorton/lua-gf.nvim'
 
 Plug 'ryanoasis/vim-devicons' -- Devicons for old vimscript plugins. It should be put at last!!

@@ -171,6 +171,28 @@ M.defaultConfig = function()
 		},
 	}
 
+	local aerial = {
+		'aerial',
+
+		sep = ' > ', -- The separator to be used to separate symbols in status line.
+
+		-- The number of symbols to render top-down. In order to render only 'N' last
+		-- symbols, negative numbers may be supplied. For instance, 'depth = -1' can
+		-- be used in order to render only current symbol.
+		depth = nil,
+
+		-- When 'dense' mode is on, icons are not rendered near their symbols. Only
+		-- a single icon that represents the kind of current symbol is rendered at
+		-- the beginning of status line.
+		dense = false,
+
+		dense_sep = '.', -- The separator to be used to separate symbols in dense mode.
+
+		colored = true, -- Color the symbol icons.
+
+		color = { fg = colors.cyan, bg = '#0A1921', gui = 'underline' },
+	}
+
 	local lualineConfig = {
 		options = {
 			icons_enabled = true,
@@ -209,7 +231,7 @@ M.defaultConfig = function()
 		winbar = {
 			lualine_a = { diagnostics },
 			lualine_b = {},
-			lualine_c = {},
+			lualine_c = { aerial },
 			lualine_x = {},
 			lualine_y = {},
 			lualine_z = {},
@@ -220,14 +242,14 @@ M.defaultConfig = function()
 		extensions = {},
 	}
 
-	local has_navic, navic = pcall(require, 'nvim-navic')
-	if has_navic then
-		table.insert(lualineConfig.winbar.lualine_c, {
-			navic.get_location,
-			cond = navic.is_available,
-			color = { fg = colors.sec_c_fg, bg = colors.sec_c_bg, gui = 'underline' },
-		})
-	end
+	-- local has_navic, navic = pcall(require, 'nvim-navic')
+	-- if has_navic then
+	-- 	table.insert(lualineConfig.winbar.lualine_c, {
+	-- 		navic.get_location,
+	-- 		cond = navic.is_available,
+	-- 		color = { fg = colors.cyan, bg = '#0A1921', gui = 'underline' },
+	-- 	})
+	-- end
 
 	local has_auto_session, autoSessionLibrary = pcall(require, 'auto-session-library')
 	if has_auto_session then

@@ -1,6 +1,7 @@
 local config = require('adoyle-neovim-config.config').config
 local colors = config.colors
 local symbols = config.symbolMap
+local util = require('adoyle-neovim-config.util')
 
 local M = {
 	'nvim-neo-tree/neo-tree.nvim',
@@ -9,6 +10,10 @@ local M = {
 		require('neo-tree').setup(config.neotree)
 	end,
 }
+
+local hide_by_name = {}
+util.tbl_concat(hide_by_name, config.ignore.fileSearch.directories)
+util.tbl_concat(hide_by_name, config.ignore.fileSearch.files)
 
 M.defaultConfig = {
 	'neotree',
@@ -148,7 +153,7 @@ M.defaultConfig = {
 				hide_dotfiles = false,
 				hide_gitignored = true,
 				hide_hidden = true, -- only works on Windows for hidden files/directories
-				hide_by_name = config.ignore.fileSearch.names,
+				hide_by_name = hide_by_name,
 				hide_by_pattern = { -- uses glob style patterns
 					-- '*.meta',
 					-- '*/src/*/tsconfig.json',
@@ -222,13 +227,41 @@ M.defaultConfig = {
 				diagnostics = ' 裂Diagnostics ', -- string | nil
 			},
 		},
+
+		diagnostics = {
+			components = {
+				linenr = function(config, node)
+					local lnum = tostring(node.extra.diag_struct.lnum + 1)
+					local pad = string.rep(' ', 4 - #lnum)
+					return {
+						{ text = pad .. lnum, highlight = 'LineNr' },
+						{ text = '▕ ', highlight = 'NeoTreeDimText' },
+					}
+				end,
+			},
+
+			renderers = {
+				file = {
+					{ 'indent' },
+					{ 'icon' },
+					{ 'grouped_path' },
+					{ 'name', highlight = 'NeoTreeFileNameOpened' },
+					{ 'diagnostic_count', highlight = 'NeoTreeDimText', severity = 'Error', right_padding = 0 },
+					{ 'diagnostic_count', highlight = 'NeoTreeDimText', severity = 'Warn', right_padding = 0 },
+					{ 'diagnostic_count', highlight = 'NeoTreeDimText', severity = 'Info', right_padding = 0 },
+					{ 'diagnostic_count', highlight = 'NeoTreeDimText', severity = 'Hint', right_padding = 0 },
+					{ 'clipboard' },
+				},
+				diagnostic = { { 'indent' }, { 'icon' }, { 'linenr' }, { 'name' } },
+			},
+		},
 	},
 }
 
 M.highlights = {
-	{ 'NeoTreeGitUntracked', { fg = colors.green } },
-	{ 'NeoTreeFileIcon', { fg = colors.white } },
-	{ 'NeoTreeGitUnstaged', { fg = colors.yellow } },
+	NeoTreeGitUntracked = { fg = colors.green },
+	NeoTreeFileIcon = { fg = colors.white },
+	NeoTreeGitUnstaged = { fg = colors.yellow },
 }
 
 M.keymaps = {

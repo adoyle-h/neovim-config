@@ -1,10 +1,10 @@
 local M = { 'MattesGroeger/vim-bookmarks', desc = 'bookmark' }
 
 M.highlights = {
-	{ 'BookmarkSign', { ctermbg = 234, ctermfg = 27 } },
-	{ 'BookmarkLine', { ctermbg = 'NONE', ctermfg = 'NONE' } },
-	{ 'BookmarkAnnotationSign', { ctermbg = 234, ctermfg = 35 } },
-	{ 'BookmarkAnnotationLine', { ctermbg = 'NONE', ctermfg = 'NONE' } },
+	BookmarkSign = { ctermbg = 234, ctermfg = 27 },
+	BookmarkLine = { ctermbg = 'NONE', ctermfg = 'NONE' },
+	BookmarkAnnotationSign = { ctermbg = 234, ctermfg = 35 },
+	BookmarkAnnotationLine = { ctermbg = 'NONE', ctermfg = 'NONE' },
 }
 
 M.keymaps = {

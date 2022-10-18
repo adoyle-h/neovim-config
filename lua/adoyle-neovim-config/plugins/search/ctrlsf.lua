@@ -13,7 +13,7 @@ return {
 	defaultConfig = {
 		{ 'search', 'ctrlsf' },
 		{
-			ignoreDir = config.ignore.fileSearch.names, --
+			ignoreDir = config.ignore.fileSearch.directories,
 			context = '-C 3',
 			autoClose = 0,
 			followSymlinks = 0,

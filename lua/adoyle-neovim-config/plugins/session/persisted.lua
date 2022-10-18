@@ -1,12 +1,31 @@
 return {
 	'olimorris/persisted.nvim',
 
-	keymaps = { { 'n', '<space>s', ':Telescope persisted<CR>', { silent = true } } },
+	keymaps = { { 'n', '<space>s', ':ListSessions<CR>', { silent = true } } },
 
 	commands = function(config)
 		return {
 			{
-				'ClearSessions',
+				'ListSessions',
+				function()
+					local pwd = vim.fn.getcwd()
+					local home = os.getenv('HOME')
+
+					require('telescope').extensions.persisted.persisted({
+						default_text = pwd:sub(#home + 2),
+						sorting_strategy = 'ascending',
+						-- default_selection_index = -1,
+						layout_config = {
+							height = { 0.4, min = 10, max = 30 },
+							width = { 0.5, min = 80, max = 120 },
+							prompt_position = 'top', -- top or bottom
+						},
+					})
+				end,
+			},
+
+			{
+				'ClearOldSessions',
 				function()
 					local sessDir = config.persisted.save_dir
 					-- vim.cmd(vim.fn.printf('!find "%s" -type f -mtime +3d', sessDir))
@@ -36,24 +55,26 @@ return {
 	defaultConfig = {
 		'persisted',
 		{
-			session_options = { 'curdir', 'folds', 'resize', 'tabpages', 'winpos', 'winsize' }, -- :h ssop
+			session_options = { 'curdir', 'folds', 'tabpages', 'winpos' }, -- :h ssop
 			save_dir = vim.fn.stdpath('data') .. '/sessions/', -- directory where session files are saved
 			command = 'VimLeavePre', -- the autocommand for which the session is saved
 			silent = false, -- silent nvim message when sourcing session file
-			use_git_branch = false, -- create session files based on the branch of the git enabled repository
+			use_git_branch = true, -- create session files based on the branch of the git enabled repository
 			branch_separator = '_', -- string used to separate session directory name from branch name
 			autosave = true, -- automatically save session files when exiting Neovim
 			autoload = false, -- automatically load the session for the cwd on Neovim startup
 			on_autoload_no_session = nil, -- function to run when `autoload = true` but there is no session to load
+			follow_cwd = true, -- change session file name to match current working directory if it changes
 			allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
 			ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
 
-			ignored_filetypes = { 'alpha', 'man', 'neoterm' },
+			ignored_filetypes = { '', 'alpha', 'man', 'neoterm' },
 
 			before_save = function() -- function to run before the session is saved to disk
 				pcall(vim.cmd, 'NeoTreeClose')
 				pcall(vim.cmd, 'AerialClose')
 				pcall(vim.cmd, 'MundoHide')
+				pcall(vim.cmd, 'TroubleClose')
 			end,
 
 			after_save = nil, -- function to run after the session is saved to disk

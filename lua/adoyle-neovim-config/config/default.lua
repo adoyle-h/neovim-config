@@ -5,7 +5,17 @@ return function(colors)
 	return {
 		colors = colors,
 
-		theme = 'onedarkpro',
+		symbolMap = symbol.symbolMap,
+
+		kindSymbolMap = symbol.kindSymbolMap,
+
+		theme = {
+			use = 'onedarkpro', -- 'onedarkpro' or 'material',
+		},
+
+		-- Global lua variable. So you can easily call the framework, like ":lua a.util"
+		-- If set nil or false, do not create this variable.
+		global = 'a',
 
 		pluginManager = {
 			-- All plugins are downloaded in this directory
@@ -21,36 +31,19 @@ return function(colors)
 
 		ignore = {
 			fileSearch = { --
-				names = { 'node_modules', '\\.git', 'vendor' },
+				directories = { 'node_modules', '.git', 'vendor' },
+				files = {},
 			},
 
 			fileTypesForSomePlugs = {
-				'TelescopePrompt',
-				'TelescopeResults',
-				'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
-				'lsp-installer',
-				'null-ls-info',
-				'lspinfo',
-				'nerdtree',
-				'NvimTree',
-				'neo-tree',
-				'notify',
-				'aerial',
-				'Mundo',
-				'mason',
-				'man',
+				-- LuaFormatter off
+				'TelescopePrompt', 'TelescopeResults', 'lsp-installer', 'null-ls-info', 'lspinfo', 'aerial',
+				'nerdtree', 'NvimTree', 'neo-tree', 'notify', 'Trouble', 'Mundo', 'mason', 'man', 'alpha',
 				'PlenaryTestPopup',
+				-- LuaFormatter on
 			},
 		},
 
-		symbolMap = symbol.symbolMap,
-
-		kindSymbolMap = symbol.kindSymbolMap,
-
-		codeContext = { -- show code context which parsed by treesitter
-			winbar = true, -- show context path in winbar
-			float = true, -- show context funciton float on top
-		},
-
+		-- More options defined in "defaultConfig" of each plugin
 	}
 end

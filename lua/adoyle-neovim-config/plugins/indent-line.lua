@@ -4,9 +4,10 @@ local colors = config.colors
 local M = {
 	'lukas-reineke/indent-blankline.nvim',
 	desc = 'Show indent line',
+
 	highlights = {
-		{ 'IndentBlanklineChar', { fg = colors.grey1 } },
-		{ 'IndentBlanklineContextChar', { fg = colors.purple } },
+		IndentBlanklineChar = { fg = colors.grey1 },
+		IndentBlanklineContextChar = { fg = colors.purple },
 	},
 }
 
