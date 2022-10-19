@@ -111,4 +111,14 @@ function M.config()
 	end
 end
 
+M.autocmds = {
+	LspAttach = {
+		-- args see https://github.com/neovim/neovim/blob/e6f7e038b8bbca487e78ebfc6fe21d6852330623/runtime/lua/vim/lsp.lua#L1522-L1526
+		callback = function(args)
+			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			require('aerial').on_attach(client, args.buf)
+		end,
+	},
+}
+
 return M

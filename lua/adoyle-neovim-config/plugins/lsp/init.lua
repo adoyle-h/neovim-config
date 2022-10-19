@@ -4,6 +4,7 @@ return {
 	requires = {
 		require('adoyle-neovim-config.plugins.lsp.mason'),
 		require('adoyle-neovim-config.plugins.lsp.mason-installer'),
+		'williamboman/mason-lspconfig.nvim',
 		require('adoyle-neovim-config.plugins.lsp.null-ls'),
 		require('adoyle-neovim-config.plugins.lsp.preview'),
 		require('adoyle-neovim-config.plugins.lsp.nlsp'),
@@ -11,7 +12,13 @@ return {
 		require('adoyle-neovim-config.plugins.lsp.format'),
 		require('adoyle-neovim-config.plugins.lsp.main'),
 
-		'williamboman/mason-lspconfig.nvim',
+		{
+			'adoyle-h/lsp-toggle.nvim',
+			config = function(config)
+				require('lsp-toggle').setup(config.lsp.toggle)
+			end,
+			defaultConfig = { { 'lsp', 'toggle' }, {} },
+		},
 
 		{
 			-- This plugin is not needed after https://github.com/neovim/neovim/pull/20198

@@ -9,9 +9,9 @@ return {
 
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 
-	{ 'n', 'gR', vim.lsp.buf.rename, { silent = true, desc = ':h vim.lsp.buf.rename' } },
+	{ 'n', '<leader>r', vim.lsp.buf.rename, { silent = true, desc = ':h vim.lsp.buf.rename' } },
 
-	{ 'n', 'ga', vim.lsp.buf.code_action, { silent = true, desc = ':h vim.lsp.buf.code_action' } },
+	{ 'n', 'gc', vim.lsp.buf.code_action, { silent = true, desc = ':h vim.lsp.buf.code_action' } },
 
 	{ 'n', 'gh', vim.lsp.buf.hover, { silent = true, desc = ':h vim.lsp.buf.hover' } },
 

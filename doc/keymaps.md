@@ -294,11 +294,11 @@ Press `<space>k` to see all keymaps in nvim.
 - `gd` = Open float window to query the definition of the symbol under the cursor
 - `gD` = Jump to the definition of the symbol under the cursor
 - `gr` = Show references about the symbol under cursor
-- `ga` = Selects a code action available at the current cursor position.
-- `gR` = Renames all references to the symbol under the cursor.
-- `gh` = Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.
-- `gs` = Displays signature information about the symbol under the cursor in a floating window.
-- `gF` = Formats a buffer using the attached (and optionally filtered) language server clients. (Autoformat will be trigger when write buffer to disk)
+- `gc` = Selects a code action available at the current cursor position.
+- `<leader>r` = Rename all references to the symbol under the cursor.
+- `gh` = Display hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.
+- `gs` = Display signature information about the symbol under the cursor in a floating window.
+- `gF` = Format a buffer using the attached (and optionally filtered) language server clients. (Autoformat will be trigger when write buffer to disk)
 - `gt` = Goto preview type definition about the symbol under cursor
 - `gi` = Show implementation about the symbol under cursor
 

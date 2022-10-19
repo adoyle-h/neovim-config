@@ -8,7 +8,7 @@ local M = {
 	end,
 }
 
-local printf = vim.fn.printf
+local printf = string.format
 
 ---@return string current mode name
 local function getMode()

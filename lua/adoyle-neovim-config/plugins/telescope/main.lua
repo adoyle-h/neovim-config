@@ -51,6 +51,7 @@ M.defaultConfig = function(config)
 					'--line-number',
 					'--column',
 					'--smart-case',
+					'--trim',
 					-- '--ignore-vcs',
 					-- '--ignore-parent',
 				},
@@ -134,7 +135,7 @@ M.defaultConfig = function(config)
 							['<CR>'] = function(prompt_bufnr)
 								local entry = action_state.get_selected_entry(prompt_bufnr)
 								actions.close(prompt_bufnr)
-								local text = api.nvim_replace_termcodes(vim.fn.printf(':hi %s ', entry.value), true, false,
+								local text = api.nvim_replace_termcodes(string.format(':hi %s ', entry.value), true, false,
 									true)
 								api.nvim_feedkeys(text, 't', true)
 							end,
@@ -169,7 +170,6 @@ M.defaultConfig = function(config)
 						end,
 					},
 				},
-
 			},
 
 			extensions = {},

@@ -16,7 +16,7 @@ local function fixNotify()
 		notify = notify.instance { level = vim.log.levels.WARN }
 	else
 		notify = function(msg, level, title)
-			vim.notify(vim.fn.printf('[%s] %s', title, msg), level)
+			vim.notify(string.format('[%s] %s', title, msg), level)
 		end
 	end
 

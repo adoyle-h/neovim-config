@@ -12,7 +12,7 @@ M.defaultConfig = {
 		Visual = { bg = colors.darkOrange, fg = colors.white },
 		QuickFixLine = { bg = colors.darkYellow, bold = true },
 		Whitespace = { fg = '#958720' },
-		NonText = { fg = colors.grey, bg = 'NONE' },
+		NonText = { fg = colors.grey3, bg = 'NONE' },
 
 		NormalFloat = { bg = colors.black }, -- Float Window
 		FloatBorder = { bg = colors.black, fg = colors.blue }, -- Float Window Border

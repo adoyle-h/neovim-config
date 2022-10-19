@@ -27,4 +27,13 @@ function M.config(config)
 	require('nvim-navic').setup(config.navic)
 end
 
+M.autocmds = {
+	LspAttach = {
+		callback = function(args)
+			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			require('nvim-navic').attach(client, args.buf)
+		end,
+	},
+}
+
 return M

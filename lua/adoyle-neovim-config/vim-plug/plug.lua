@@ -14,6 +14,7 @@ local set_keymap = vim.keymap.set
 local set_hl = vim.api.nvim_set_hl
 local set_cmd = vim.api.nvim_create_user_command
 local sign_define = vim.fn.sign_define
+local create_autocmd = vim.api.nvim_create_autocmd
 
 -- Vim-Plug Options:
 -- branch/tag/commit : Branch/tag/commit of the repository to use
@@ -118,8 +119,8 @@ function M.mergePlugConfig(node, plug)
 
 	if defaultConfig then
 		if type(defaultConfig) ~= 'table' then
-			error(fn.printf('Plug defaultConfig must be a table, but current value is %s. Current Plugin=%s',
-				vim.inspect(defaultConfig), vim.inspect(plug)))
+			error(string.format('[Plug "%s"] defaultConfig must be a table, but current value is %s.',
+				plug.id, vim.inspect(defaultConfig)))
 		end
 
 		local fields = defaultConfig[1]
@@ -157,6 +158,16 @@ local plugOpts = {
 			set_cmd(name, command, opts or {})
 		end,
 		unpack = true,
+	},
+
+	{
+		name = 'autocmds',
+		-- @param opts {table}
+		-- @param events {string|string[]}
+		iterator = function(opts, events)
+			create_autocmd(events, opts)
+		end,
+		unpack = false,
 	},
 
 	{

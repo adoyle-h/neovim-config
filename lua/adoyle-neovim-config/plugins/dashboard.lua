@@ -4,7 +4,7 @@ local M = {
 	desc = 'Dashboard',
 }
 
-local printf = vim.fn.printf
+local printf = string.format
 
 local function getTitle(val)
 	return {
@@ -124,7 +124,38 @@ local function getSessions(conf)
 	return { type = 'group', val = sessions, opts = { spacing = 0 } }
 end
 
+-- Copy from https://github.com/goolord/alpha-nvim/blob/09e5374465810d71c33e9b097214adcdebeee49a/lua/alpha.lua#L512
+local function should_skip_alpha()
+	-- don't start when opening a file
+	if vim.fn.argc() > 0 then return true end
+
+	-- skip stdin
+	if vim.fn.line2byte('$') ~= -1 then return true end
+
+	-- Handle nvim -M
+	if not vim.o.modifiable then return true end
+
+	for _, arg in pairs(vim.v.argv) do
+		-- whitelisted arguments
+		-- always open
+		if arg == '--startuptime' then return false end
+
+		-- blacklisted arguments
+		-- always skip
+		if arg == '-b' -- commands, typically used for scripting
+		or arg == '-c' or vim.startswith(arg, '+') or arg == '-S' then return true end
+	end
+
+	-- base case: don't skip
+	return false
+end
+
 function M.config(config)
+	if should_skip_alpha() then
+		-- If not skip, the buf_set_keymap by alpha.nvim will affect current file buffer when nvim open a file directly.
+		return
+	end
+
 	local conf = config.dashboard
 
 	local layout = conf.layout

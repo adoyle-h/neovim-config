@@ -5,7 +5,6 @@ local globals = require('adoyle-neovim-config.vim-plug.globals')
 local normalizeOpts = require('adoyle-neovim-config.vim-plug.normalize')
 local Plug = require('adoyle-neovim-config.vim-plug.plug')
 
-local fn = vim.fn
 local set_keymap = vim.keymap.set
 
 local plugMap, plugs, userPlugins = globals.plugMap, globals.plugs, globals.userPlugins
@@ -73,11 +72,11 @@ function P.run()
 		end
 
 		if unloadRequired then
-			notify(fn.printf(
+			notify(string.format(
 				'Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.',
 				plug.id, unloadRequired.repo), 'warn')
 		elseif plug.uninstalled then
-			notify(fn.printf('Plug "%s" has not installed. Try ":PlugInstall" to install it.', plug.id),
+			notify(string.format('Plug "%s" has not installed. Try ":PlugInstall" to install it.', plug.id),
 				'warn')
 		else
 			Plug.mergePlugConfig(config, plug)
@@ -92,7 +91,7 @@ function P.run()
 
 	for _, plug in pairs(pendings) do
 		local ok, msg = pcall(Plug.executePlugOptions, plug, config)
-		if not ok then notify(fn.printf('[Plug: %s] %s', plug.id, msg), 'warn') end
+		if not ok then notify(string.format('[Plug: %s] %s', plug.id, msg), 'warn') end
 	end
 end
 

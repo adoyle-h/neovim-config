@@ -104,18 +104,6 @@ function M.config()
 	configDiagnostic()
 	setDefaultBorder()
 
-	local has_format, lspFormat = pcall(require, 'lsp-format')
-	local has_aerial, aerial = pcall(require, 'aerial')
-	local has_navic, navic = pcall(require, 'nvim-navic')
-
-	-- Use an on_attach function to only map the following keys
-	-- after the language server attaches to the current buffer
-	local on_attach = function(client, bufnr)
-		if has_aerial then aerial.on_attach(client, bufnr) end
-		if has_navic then navic.attach(client, bufnr) end
-		if has_format then lspFormat.on_attach(client, bufnr) end
-	end
-
 	local masonLspconfig = require('mason-lspconfig')
 	masonLspconfig.setup(config.lsp.masonLspconfig)
 
@@ -134,7 +122,6 @@ function M.config()
 
 		opts = util.merge(opts, {
 			capabilities = capabilities,
-			on_attach = on_attach,
 			autostart = true,
 			flags = {
 				debounce_text_changes = 150, -- This is default in neovim 0.7+
@@ -166,7 +153,5 @@ M.signs = function()
 end
 
 M.keymaps = require('adoyle-neovim-config.plugins.lsp.keymaps')
-
-M.telescopes = require('adoyle-neovim-config.plugins.lsp.telescopes')
 
 return M

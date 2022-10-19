@@ -28,8 +28,8 @@ return {
 				'ClearOldSessions',
 				function()
 					local sessDir = config.persisted.save_dir
-					-- vim.cmd(vim.fn.printf('!find "%s" -type f -mtime +3d', sessDir))
-					vim.cmd(vim.fn.printf('!find "%s" -type f -mtime +10d -exec rm {} \\;', sessDir))
+					-- vim.cmd(string.format('!find "%s" -type f -mtime +3d', sessDir))
+					vim.cmd(string.format('!find "%s" -type f -mtime +10d -exec rm {} \\;', sessDir))
 				end,
 				{ desc = 'Clear session files which modified time older than 10 days' },
 			},

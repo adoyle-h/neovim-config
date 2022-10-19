@@ -135,11 +135,10 @@ function util.input(func, prompt)
 	vim.ui.input({ prompt = prompt or 'Enter value: ' }, func)
 end
 
-function util.select(func, list, prompt)
-	vim.ui.select(list, {
-		prompt = prompt or 'Select Item',
-		-- telescope = require('telescope.themes').get_cursor(),
-	}, func)
+function util.select(func, list, format, prompt)
+	vim.ui.select(list, { prompt = prompt or 'Select Item', format_item = format }, function(item, idx)
+		if idx then func(item, idx) end
+	end)
 end
 
 function util.isFile(path)

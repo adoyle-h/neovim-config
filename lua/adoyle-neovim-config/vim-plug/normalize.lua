@@ -28,7 +28,7 @@ local function normalizeOpts(repo, opts)
 			end
 
 		else
-			error(vim.fn.printf('Invalid Plug Type: %s', t))
+			error(string.format('Invalid Plug Type: %s', t))
 		end
 	else
 		opts.repo = repo
