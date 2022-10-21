@@ -64,14 +64,17 @@ local function getSessions(conf)
 
 		if i > sessionLimit then break end
 
-		if isContained then
-			local splits = vim.split(session.name, '_', { plain = true })
-			local branch = table.remove(splits, #splits)
-			local sessionName = vim.fn.join(splits, '_')
+		local str
+		if session.branch then
+			str = printf('%s (branch: %s)', session.dir_path, session.branch)
+		else
+			str = session.dir_path
+		end
 
+		if isContained then
 			table.insert(sessions, {
 				type = 'button',
-				val = printf('%s ( %s)', sessionName, branch),
+				val = str,
 				path = path,
 
 				opts = {

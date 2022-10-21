@@ -22,6 +22,7 @@ end
 M.defaultConfig = function(config)
 	local action_state = require('telescope.actions.state')
 	local actions = require('telescope.actions')
+	local previewers = require('telescope.previewers')
 	local api = vim.api
 
 	local file_ignore_patterns = {}
@@ -35,8 +36,11 @@ M.defaultConfig = function(config)
 		{
 			defaults = {
 				prompt_prefix = ' ',
-
 				scroll_strategy = 'limit',
+				layout_strategy = 'vertical',
+				sorting_strategy = 'ascending',
+				preview = true,
+				dynamic_preview_title = true,
 
 				-- Defines the command that will be used for `live_grep` and `grep_string` pickers.
 				-- Hint: Make sure that color is currently set to `never` because we do not yet interpret color codes
@@ -80,19 +84,29 @@ M.defaultConfig = function(config)
 
 				-- :h telescope.layout
 				layout_config = {
-					bottom_pane = {
-						height = 25,
-						-- prompt_position valid values: top or bottom
-						prompt_position = 'top',
+					center = { height = 0.4, prompt_position = 'top', width = 0.8, preview_cutoff = 0 },
+
+					cursor = { --
+						height = { 0.4, min = 6, max = 10 },
+						width = { 0.4, min = 10, max = 30 },
+						preview_cutoff = 0,
 					},
 
-					center = { height = 0.4, prompt_position = 'top', width = 0.8 },
+					horizontal = {
+						height = { 0.8, min = 30, max = 80 },
+						width = { 0.94, min = 100, max = 130 },
+						preview_width = 80,
+						prompt_position = 'bottom',
+						preview_cutoff = 0,
+					},
 
-					cursor = { height = 0.4, width = 0.8 },
-
-					horizontal = { height = 0.9, prompt_position = 'bottom', width = 0.9 },
-
-					vertical = { height = 0.9, prompt_position = 'bottom', width = 0.8 },
+					vertical = {
+						preview_height = { 0.4, min = 10, max = 30 },
+						height = { 0.8, min = 30, max = 80 },
+						width = { 0.8, min = 80, max = 130 },
+						preview_cutoff = 0,
+						prompt_position = 'top', -- 'top' or 'bottom'
+					},
 				},
 
 				mappings = {
@@ -111,18 +125,26 @@ M.defaultConfig = function(config)
 				},
 			},
 
+			file_previewer = previewers.vim_buffer_cat.new({
+				---@diagnostic disable-next-line: unused-local
+				dynamic_title = function(self, entry)
+					return entry.path
+				end,
+			}),
+
 			pickers = {
+
 				find_files = {
 					hidden = true,
-					theme = 'dropdown',
 					path_display = {}, -- Display full filepath
-					layout_config = { width = 0.8 },
+					layout_config = {},
 				},
 
 				oldfiles = {
-					layout_strategy = 'vertical',
 					path_display = {}, -- Display full filepat
 				},
+
+				help_tags = { layout_strategy = 'horizontal' },
 
 				git_files = {
 					path_display = {}, -- Display full filepat
@@ -143,33 +165,16 @@ M.defaultConfig = function(config)
 					},
 				},
 
-				buffers = { theme = 'dropdown' },
+				buffers = {},
 
-				live_grep = {
-					theme = 'dropdown',
-					layout_config = { anchor = 'S', prompt_position = 'bottom', width = 0.8 },
-				},
+				live_grep = {},
 
-				current_buffer_fuzzy_find = {
-					theme = 'dropdown',
-					layout_config = { anchor = 'S', prompt_position = 'bottom', width = 0.8 },
-				},
+				current_buffer_fuzzy_find = {},
 
 				spell_suggest = { layout_strategy = 'cursor' },
 
-				diagnostics = { theme = 'dropdown', layout_config = { width = 0.8 } },
+				diagnostics = {},
 
-				lsp_references = {
-					theme = 'dropdown',
-					layout_config = { anchor = 'S', prompt_position = 'bottom', width = 0.8 },
-
-					preview = {
-						filetype_hook = function(filepath, bufnr, opts)
-							vim.api.nvim_win_set_option(opts.winid, 'number', true)
-							return true
-						end,
-					},
-				},
 			},
 
 			extensions = {},

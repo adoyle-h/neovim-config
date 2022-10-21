@@ -11,16 +11,13 @@ return {
 					local pwd = vim.fn.getcwd()
 					local home = os.getenv('HOME')
 
-					require('telescope').extensions.persisted.persisted({
+					require('telescope').extensions.persisted.persisted {
 						default_text = pwd:sub(#home + 2),
-						sorting_strategy = 'ascending',
-						-- default_selection_index = -1,
-						layout_config = {
+						layout_config = { --
 							height = { 0.4, min = 10, max = 30 },
 							width = { 0.5, min = 80, max = 120 },
-							prompt_position = 'top', -- top or bottom
 						},
-					})
+					}
 				end,
 			},
 
@@ -38,6 +35,11 @@ return {
 
 	config = function(config)
 		local opts = config.persisted
+
+		local save_dir = vim.fs.normalize(opts.save_dir)
+		local home_dir = vim.fs.normalize('~/')
+		local forbiddens = { '/', '/root', home_dir }
+		if vim.tbl_contains(forbiddens, save_dir) then error('save_dir path is forbidden') end
 
 		vim.opt.sessionoptions = opts.session_options
 
@@ -60,13 +62,14 @@ return {
 			command = 'VimLeavePre', -- the autocommand for which the session is saved
 			silent = false, -- silent nvim message when sourcing session file
 			use_git_branch = true, -- create session files based on the branch of the git enabled repository
-			branch_separator = '_', -- string used to separate session directory name from branch name
+			branch_separator = '@', -- string used to separate session directory name from branch name
 			autosave = true, -- automatically save session files when exiting Neovim
 			autoload = false, -- automatically load the session for the cwd on Neovim startup
 			on_autoload_no_session = nil, -- function to run when `autoload = true` but there is no session to load
 			follow_cwd = true, -- change session file name to match current working directory if it changes
 			allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
 			ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
+			refresh_reset_prompt = false, -- reset prompt when refresh results
 
 			ignored_filetypes = { '', 'alpha', 'man', 'neoterm' },
 

@@ -30,6 +30,12 @@ M.defaultConfig = {
 				},
 			},
 
+			clangd = {
+				-- Fix: multiple different client offset_encodings detected for buffer
+				-- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428#issuecomment-997226723
+				capabilities = { offsetEncoding = { 'utf-16' } },
+			},
+
 			-- sumneko_lua = {
 			-- 	-- You can write lsp.settings in lua. Or write it to lsp-settings/<lsp_name>.yaml file (See nlsp features).
 			-- 	-- If have the same key, the value in the YAML file will take precedence.
@@ -120,13 +126,15 @@ function M.config()
 		local opts = config.lsp.setup[name] or {}
 		if type(opts) == 'function' then opts = opts(lspconfig) or {} end
 
-		opts = util.merge(opts, {
+		opts = util.merge({
+			-- Use LspAttach autocmd insteads of on_attach function
+			-- on_attach = function(client, bufnr) end,
 			capabilities = capabilities,
 			autostart = true,
 			flags = {
 				debounce_text_changes = 150, -- This is default in neovim 0.7+
 			},
-		})
+		}, opts)
 
 		-- :h lspconfig-setup
 		lspconfig[name].setup(opts)

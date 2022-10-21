@@ -16,9 +16,27 @@ return {
 				vim.wo.cc = '';
 			end,
 
-			-- references = { -- Configure the telescope UI for slowing the references cycling window.
-			--   telescope = telescope.themes.get_dropdown({ hide_preview = false })
-			-- };
+			references = { -- Configure the telescope UI for slowing the references cycling window.
+				telescope = {
+					layout_strategy = 'vertical',
+
+					layout_config = {
+						preview_height = { 0.6, min = 10, max = 50 },
+						height = { 0.8, min = 30, max = 80 },
+						width = { 0.8, min = 80, max = 130 },
+						preview_cutoff = 0,
+						prompt_position = 'top', -- 'top' or 'bottom'
+					},
+
+					preview = {
+						---@diagnostic disable-next-line: unused-local
+						filetype_hook = function(filepath, bufnr, opts)
+							vim.api.nvim_win_set_option(opts.winid, 'number', true)
+							return true
+						end,
+					},
+				},
+			},
 
 			-- These two configs can also be passed down to the goto-preview definition and implementation calls for one off "peak" functionality.
 			focus_on_open = true, -- Focus the floating window when opening it.
@@ -41,54 +59,52 @@ return {
 	keymaps = function()
 		local preview = require('goto-preview')
 
-		local gotoDefinition = function(target)
-			-- vim.notify(vim.inspect(target))
-			if vim.fn.expand('%:p') ~= target.filename then vim.cmd.edit(target.filename) end
-			vim.api.nvim_win_set_cursor(0, { target.lnum, target.col - 1 })
-		end
-
 		return {
-			{
-				'n',
-				'gD',
-				function()
-					vim.lsp.buf.definition {
-						reuse_win = true,
-						on_list = function(options)
-							-- title, context.method context.
-							local items = options.items
 
-							if #items > 1 then
-								local pwd = vim.fn.getcwd()
-
-								vim.ui.select(items, {
-									prompt = options.title,
-									format_item = function(item)
-										return string.format('%s [%s,%s] | %s', item.filename:gsub(pwd, '.'), item.lnum, item.col,
-											vim.trim(item.text))
-									end,
-								}, function(_, idx)
-									if idx then gotoDefinition(items[idx]) end
-								end)
-							else
-								gotoDefinition(items[1])
-							end
-						end,
-					}
-				end,
-				{ desc = 'Jump to the definition of the symbol under the cursor in current window' },
-			},
+			-- Use trouble.nvim instead
+			-- {
+			-- 	'n',
+			-- 	'gD',
+			-- 	require('adoyle-neovim-config.util').gotoDef,
+			-- 	{
+			-- 		silent = true,
+			-- 		desc = 'Jump to the definition of the symbol under the cursor in current window',
+			-- 	},
+			-- },
 
 			{
 				'n',
 				'gd',
 				preview.goto_preview_definition,
-				{ desc = 'Open float window to query the definition of the symbol under the cursor' },
+				{
+					silent = true,
+					desc = 'Open float window to query the definition of the symbol under the cursor',
+				},
 			},
 
-			{ 'n', 'gt', preview.goto_preview_type_definition, { desc = 'goto_preview_type_definition' } },
-			{ 'n', 'gi', preview.goto_preview_implementation, { desc = 'goto_preview_implementation' } },
-			{ 'n', 'gr', preview.goto_preview_references, { desc = 'goto_preview_references' } },
+			{
+				'n',
+				'gt',
+				preview.goto_preview_type_definition,
+				{
+					silent = true,
+					desc = 'Open float window to preview type definition about the symbol under cursor',
+				},
+			},
+
+			{
+				'n',
+				'gi',
+				preview.goto_preview_implementation,
+				{ silent = true, desc = 'Show implementation about the symbol under cursor' },
+			},
+
+			{
+				'n',
+				'gr',
+				preview.goto_preview_references,
+				{ silent = true, desc = 'Open float window to show references about the symbol under cursor' },
+			},
 		}
 	end,
 }

@@ -151,4 +151,36 @@ function util.isFile(path)
 	end
 end
 
+local function gotoDefinition(target)
+	-- vim.notify(vim.inspect(target))
+	if vim.fn.expand('%:p') ~= target.filename then vim.cmd.edit(target.filename) end
+	vim.api.nvim_win_set_cursor(0, { target.lnum, target.col - 1 })
+end
+
+function util.gotoDef()
+	vim.lsp.buf.definition {
+		reuse_win = true,
+		on_list = function(options)
+			-- title, context.method context.
+			local items = options.items
+
+			if #items > 1 then
+				local pwd = vim.fn.getcwd()
+
+				vim.ui.select(items, {
+					prompt = options.title,
+					format_item = function(item)
+						return string.format('%s [%s,%s] | %s', item.filename:gsub(pwd, '.'), item.lnum, item.col,
+							vim.trim(item.text))
+					end,
+				}, function(_, idx)
+					if idx then gotoDefinition(items[idx]) end
+				end)
+			else
+				gotoDefinition(items[1])
+			end
+		end,
+	}
+end
+
 return util

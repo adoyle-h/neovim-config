@@ -1,6 +1,7 @@
 local M = { 'stevearc/aerial.nvim', desc = 'Outline - aerial', requires = {} }
 
 local config = require('adoyle-neovim-config.config').config
+local keymap = vim.keymap.set
 
 M.highlights = {
 	AerialLine = { bg = '#3E1A00' },
@@ -20,6 +21,13 @@ M.keymaps = {
 	{ 'n', '<space>o', ':AerialToggle<CR>', { silent = true, desc = 'Toggle the outline window' } },
 }
 
+local icons = {}
+local Collapsed = config.kindSymbolMap.Collapsed
+for key, val in pairs(config.kindSymbolMap) do
+	icons[key] = val
+	icons[key .. 'Collapsed'] = string.format('%s %s', Collapsed, val)
+end
+
 M.defaultConfig = {
 	'aerial',
 	{
@@ -29,6 +37,7 @@ M.defaultConfig = {
 			-- "_" will be used as the default if the filetype is not present.
 			['_'] = { 'lsp', 'treesitter', 'markdown' },
 			markdown = { 'markdown' },
+			man = { 'man' },
 		},
 
 		highlight_on_hover = true,
@@ -83,19 +92,37 @@ M.defaultConfig = {
 		},
 
 		icons = {
-			['_'] = config.kindSymbolMap,
+			['_'] = icons,
 
-			markdown = vim.tbl_extend('force', config.kindSymbolMap, { Interface = '' }),
+			markdown = vim.tbl_extend('force', icons, { Interface = '', InterfaceCollapsed = Collapsed }),
+
+			help = vim.tbl_extend('force', icons,
+				{ Interface = '', InterfaceCollapsed = Collapsed .. ' ' }),
+
+			man = vim.tbl_extend('force', icons,
+				{ Interface = '', InterfaceCollapsed = Collapsed .. ' ' }),
 		},
-
-		on_attach = function(bufnr)
-			require('aerial').tree_set_collapse_level(bufnr, 3)
-		end,
 	},
 }
 
+local function aerialOnOpened(opts)
+	local aerial = require('aerial')
+	local bufnr = opts.buf
+	aerial.tree_set_collapse_level(bufnr, 1)
+
+	keymap('n', '<C-h>', function()
+		aerial.up(-1, 1)
+	end, { buffer = bufnr })
+
+	keymap('n', '<C-l>', function()
+		aerial.up(1, 1)
+	end, { buffer = bufnr })
+end
+
 function M.config()
 	require('aerial').setup(config.aerial)
+
+	vim.api.nvim_create_autocmd('FileType', { pattern = 'aerial', callback = aerialOnOpened })
 
 	local has_t, telescope = pcall(require, 'telescope')
 	if has_t then

@@ -69,8 +69,8 @@ Press `<space>k` to see all keymaps in nvim.
 - `va%` = Text-objects for matched pairs
 - `vat` = Text-objects for XML tag node
 - `vin` = Text-objects for treesitter node
-- `<leader>v` = Smart select the next closest text-objects
-- `<leader>V` = Reverse selection of `<leader>v`
+- `vv` = Smart select the next closest text-objects
+- `vV` = Reverse selection of `vv`
 
 ## Swap
 
@@ -291,16 +291,18 @@ Press `<space>k` to see all keymaps in nvim.
 - `<M-m>` = Toggle Mason window to install or uninstall lsp/dap/linter/formatter adapters
 - `[d` = Move to the previous diagnostic in the current buffer
 - `]d` = Move to the next diagnostic in the current buffer
+- `gi` = Show implementation about the symbol under cursor
 - `gd` = Open float window to query the definition of the symbol under the cursor
 - `gD` = Jump to the definition of the symbol under the cursor
-- `gr` = Show references about the symbol under cursor
+- `gr` = Open float window to show references about the symbol under cursor
+- `gR` = Show references about the symbol under cursor
+- `gt` = Open float window to preview type definition about the symbol under cursor
+- `gT` = Goto preview type definition about the symbol under cursor
 - `gc` = Selects a code action available at the current cursor position.
 - `<leader>r` = Rename all references to the symbol under the cursor.
 - `gh` = Display hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.
 - `gs` = Display signature information about the symbol under the cursor in a floating window.
 - `gF` = Format a buffer using the attached (and optionally filtered) language server clients. (Autoformat will be trigger when write buffer to disk)
-- `gt` = Goto preview type definition about the symbol under cursor
-- `gi` = Show implementation about the symbol under cursor
 
 ## Diff
 

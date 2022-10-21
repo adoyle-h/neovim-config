@@ -6,7 +6,6 @@ return function()
 
 	local map = {
 
-		-- { 'n', '<space>;', ':Telescope builtin<cr>', opts },
 		{ 'n', '<space>;', require('telescope').extensions.find_pickers.find_pickers },
 
 		{ 'n', '<space>M', ':Telescope man_pages<cr>', opts },
@@ -115,8 +114,6 @@ return function()
 			{ silent = true, desc = 'List keymaps with selection' },
 		},
 
-		-- {'n', '<space>b', ':Telescope buffers<cr>', opts}, -- Use :Neotree buffers instead.
-		{ 'n', '<space>d', ':Telescope diagnostics<cr>', opts },
 		{ 'n', '<space>S', ':Telescope search_history<cr>', opts },
 		{ 'n', '<M-s>', ':Telescope spell_suggest<cr>', opts },
 		{ 'n', '<space>j', ':Telescope jumplist<cr>', opts },
@@ -129,6 +126,9 @@ return function()
 			':Telescope oldfiles<cr>',
 			{ silent = true, desc = 'Show recently opened files' },
 		},
+
+		-- {'n', '<space>b', ':Telescope buffers<cr>', opts}, -- Use :Neotree buffers instead.
+		-- { 'n', '<space>d', ':Telescope diagnostics<cr>', opts }, -- Use trouble.nvim instead.
 
 		-- Override lsp keymaps. Use rmagatti/goto-preview instead.
 		-- {'n', 'gi', ':Telescope lsp_implementations<cr>', opts},

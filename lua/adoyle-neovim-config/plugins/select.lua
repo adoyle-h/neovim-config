@@ -7,14 +7,8 @@ M.requires = {
 		desc = 'Select the text-objects',
 
 		keymaps = {
-			{ '', '<leader>v', '<Plug>(wildfire-fuel)', desc = 'Smart select the next closest text object.' },
-			{
-				'',
-				'<leader>V',
-				'<Plug>(wildfire-water)',
-				desc = 'Smart select the previous closest text object.',
-			},
-
+			{ '', 'vv', '<Plug>(wildfire-fuel)', desc = 'Smart select the next closest text object.' },
+			{ '', 'vV', '<Plug>(wildfire-water)', desc = 'Smart select the previous closest text object.' },
 			{ 'n', '<M-v>', '<Plug>(wildfire-quick-select)' },
 		},
 

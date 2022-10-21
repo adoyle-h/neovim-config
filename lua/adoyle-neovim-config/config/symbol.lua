@@ -30,6 +30,8 @@ return {
 		ARROW_RIGHT = '→',
 		EXPANDED = '▾',
 		COLLAPSED = '▸',
+		EXPANDED_L = '',
+		COLLAPSED_L = '',
 	},
 
 	kindSymbolMap = {
