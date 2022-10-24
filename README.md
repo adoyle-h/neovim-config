@@ -47,7 +47,9 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
 ![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion.png)
 
-![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png "Function signature completion")
+Function signature completion
+
+![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png)
 
 </details>
 

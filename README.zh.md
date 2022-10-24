@@ -47,7 +47,9 @@ Click [./README.md](./README.md) to read English documents.
 
 ![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion.png)
 
-![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png "函数签名补全")
+函数签名补全
+
+![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png)
 
 </details>
 
