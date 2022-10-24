@@ -9,7 +9,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 - All in Lua. All configs can be overrided.
 - Use many Neovim features: Native LSP, Float Window, Winbar.
 - Lua-wrapped plugin manage framework based on [vim-plug][]. Support on-demand loading plugins.
-- Integrated 110+ powerful Vim/Nvim plugins.
+- Integrated 110+ powerful Vim/Nvim plugins. Enhancing the usage experience and default config. Fix some shortcomings of plugins.
 - Awesome UI and color schema. Dark Mode. Support True-Color, Smooth-Scroll, Scrollbar, Dashboard.
 - [Configurable](#configuration).
 - Configurable proxy for fast git download in China Mainland
@@ -272,7 +272,7 @@ Default to use the formatters defined in `nullLS.sources`, and then formatters d
 ```lua
 require('adoyle-neovim-config').setup {
   plugins = {
-    { 'profiling', disable = true },
+    { 'profiling', disable = false }, -- This plugin is disabled in default
   }
 }
 ```

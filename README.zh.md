@@ -9,7 +9,7 @@ Click [./README.md](./README.md) to read English documents.
 - 用 Lua 管理所有配置。配置可覆盖。
 - 充分使用 Neovim 功能：Native LSP、Float Window、Winbar。
 - 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载插件。
-- 集成了 110 多个 Vim/Nvim 插件。
+- 集成了 110 多个 Vim/Nvim 插件。增强插件的使用体验，并且修复了一些插件的缺点。
 - 帅气的界面和配色。暗黑模式。支持真彩色、顺滑滚动、滚动条、Dashboard。
 - 可配置，详见[配置章节](#配置)。
 - 支持配置 github 代理，在中国大陆可加快插件下载速度。
@@ -211,7 +211,7 @@ require('adoyle-neovim-config').setup {
 
 [./doc/keymaps.md](./doc/keymaps.md) 文档记录了常用的快捷键。
 
-在 nvim 里按下 `<space>k` 查询所有快捷键。
+在 nvim 按下 `<space>k` 查询所有快捷键。
 
 ### LSP
 
@@ -278,12 +278,12 @@ Formatter 配置在 `lsp.format` 与 `nullLS.sources`。
 ```lua
 require('adoyle-neovim-config').setup {
   plugins = {
-    { 'profiling', disable = true },
+    { 'profiling', disable = false }, -- 该插件默认禁用
   }
 }
 ```
 
-启动 [profiling](./lua/plugins/profiling.lua) 插件，nvim 启动后调用 `:StartupTime`。你将会看到以下结果。
+启动 [profiling](./lua/plugins/profiling.lua) 插件，nvim 启动后调用 `:StartupTime`。将会输出以下类似结果。
 
 ```
        startup: 382.3
