@@ -16,6 +16,41 @@ Click [./README.md](./README.md) to read English documents.
 
 ## 截图
 
+<details close>
+<summary>Click to expend</summary>
+
+### Dashboard
+
+![dashboard.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/dashboard.png)
+
+### UI
+
+![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/UI.png)
+
+### Outline
+
+![outline.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/outline.png)
+
+### Finder
+
+![finder.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/finder.png)
+
+### Keymaps
+
+![keymaps.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/keymaps.png)
+
+### Diagnostic
+
+![diagnostic.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/diagnostic.png)
+
+### Completion
+
+![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion.png)
+
+![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png "函数签名补全")
+
+</details>
+
 ## 依赖
 
 - [NVIM v0.8][] 及以上版本

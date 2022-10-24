@@ -23,10 +23,6 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
 ![dashboard.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/dashboard.png)
 
-### Finder
-
-![finder.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/finder.png)
-
 ### UI
 
 ![UI.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/UI.png)
@@ -35,7 +31,15 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
 ![outline.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/outline.png)
 
-### Diagnostic Window
+### Finder
+
+![finder.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/finder.png)
+
+### Keymaps
+
+![keymaps.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/keymaps.png)
+
+### Diagnostic
 
 ![diagnostic.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/diagnostic.png)
 
@@ -43,11 +47,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
 ![completion.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion.png)
 
-![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png)
-
-### Snippet
-
-![snippet.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/snippet.png)
+![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png "Function signature completion")
 
 </details>
 

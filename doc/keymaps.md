@@ -6,6 +6,7 @@ Press `<space>k` to see all keymaps in nvim.
 ## General
 
 - `<space>o` = Toggle outline
+  - `?` in outline = Show outline keymaps
 - `gO` = Open table of contents (:h treesitter and :h gO. Currently works in help and :Man buffers.)
 - `<space>u` = Toggle undo tree
 - `<space>P` = Show plugin status
@@ -107,8 +108,10 @@ Press `<space>k` to see all keymaps in nvim.
 
 - `<space>m` = Reveal current buffer in file explorer. Or close file explorer.
 - `<space>b` = Toggle buffers window
+  - `?` in buffers window = Show buffers window keymaps
 - `<space>g` = Toggle git files window
-- `?` = Show file explorer keymaps window
+  - `?` in git files window = Show git files window keymaps
+- `?` = Show file explorer keymaps
 - `<C-h>` = Change current work directory to upper
 - `<C-l>` = Change current work directory to the folder under cursor
 - `<c-r>` = Refresh
