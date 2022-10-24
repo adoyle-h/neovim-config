@@ -4,12 +4,11 @@ local CM = require('adoyle-neovim-config.config')
 local util = require('adoyle-neovim-config.util')
 
 M.commands = {
-	{ 'Q', ':q!', { desc = 'quit current buffer without saving' } },
-	{ 'Qa', ':qa!', { desc = 'quit all buffers without saving' } },
-	{ 'CD', ':lcd %:p:h', { desc = 'Change PWD in current buffer' } },
+	Q = { ':q!', { desc = 'quit current buffer without saving' } },
+	Qa = { ':qa!', { desc = 'quit all buffers without saving' } },
+	CD = { ':lcd %:p:h', { desc = 'Change PWD in current buffer' } },
 
-	{
-		'Cheatsheet',
+	Cheatsheet = {
 		function()
 			local lang = table.unpack(vim.split(string.lower(vim.v.lang), '.', { plain = true }))
 			local url = 'https://vim.rtorr.com/lang/' .. lang
@@ -18,16 +17,14 @@ M.commands = {
 		{ desc = 'Open vim cheatsheet in browser' },
 	},
 
-	{
-		'GetWinConfig',
+	GetWinConfig = {
 		function()
 			vim.notify(vim.inspect(vim.api.nvim_win_get_config(0)))
 		end,
 		{ desc = 'Print current window config' },
 	},
 
-	{
-		'FixLineBreak',
+	FixLineBreak = {
 		function()
 			vim.cmd [[
 				e ++ff=dos
@@ -37,8 +34,7 @@ M.commands = {
 		end,
 	},
 
-	{
-		'ProfileStart',
+	ProfileStart = {
 		function()
 			vim.cmd [[
 				profile start profile.log
@@ -49,16 +45,14 @@ M.commands = {
 		{ desc = 'ProfileStart/ProfileEnd' },
 	},
 
-	{
-		'ProfileEnd',
+	ProfileEnd = {
 		function()
 			vim.cmd ':profile pause'
 		end,
 		{ desc = 'ProfileStart/ProfileEnd' },
 	},
 
-	{
-		'OpenGithub',
+	OpenGithub = {
 		function()
 			local text = vim.fn.expand('<cfile>')
 			vim.fn.OpenBrowser('https://github.com/' .. text)
@@ -66,8 +60,7 @@ M.commands = {
 		{ desc = 'Open github url in browser' },
 	},
 
-	{
-		'ShowConfig',
+	ShowConfig = {
 		function()
 			local w = util.newWindow({ title = '[ADoyle-Neovim-Configs]', ft = 'lua' })
 			local write, writeVal = w.write, w.writeVal
@@ -82,8 +75,7 @@ M.commands = {
 		{ desc = 'Show the merged config of adoyle-neovim-config' },
 	},
 
-	{
-		'ShowPlugins',
+	ShowPlugins = {
 		function()
 			local w = util.newWindow({ title = '[ADoyle-Neovim-Plugins]', ft = 'text' })
 			local write, writeVal = w.write, w.writeVal
@@ -96,8 +88,7 @@ M.commands = {
 		{ desc = 'Show plugins of adoyle-neovim-config' },
 	},
 
-	{
-		'ListSourcedScript',
+	ListSourcedScript = {
 		function()
 			local w = util.newWindow({ title = '[Nvim Sourced Scripts]' })
 			local write = w.write
@@ -111,8 +102,7 @@ M.commands = {
 		end,
 	},
 
-	{
-		'TabOrSpace',
+	TabOrSpace = {
 		function()
 			vim.ui.select({ 'Tabs', 'Spaces' }, {
 				prompt = 'Select Tabs or Spaces:',

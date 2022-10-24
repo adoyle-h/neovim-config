@@ -1,7 +1,10 @@
 local M = {
 	'folke/todo-comments.nvim',
 
-	keymaps = { { 'n', '<space>T', ':TodoTelescope<CR>' } },
+	keymaps = {
+		-- You can override it with ':TodoTelescope<CR>' if you prefer Telescope.
+		{ 'n', '<space>T', ':TodoTrouble<CR>' },
+	},
 
 	config = function(config)
 		local has_t, telescope = pcall(require, 'telescope')

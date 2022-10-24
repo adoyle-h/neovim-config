@@ -4,6 +4,8 @@ local CM = require('adoyle-neovim-config.config')
 local util = require('adoyle-neovim-config.util')
 local P = require('adoyle-neovim-config.vim-plug')
 local F = require('adoyle-neovim-config.framework')
+local FT = require('adoyle-neovim-config.filetype')
+local dynamic = require('adoyle-neovim-config.plugins.completion.dynamic.source')
 
 require('adoyle-neovim-config.fix-lua')
 
@@ -12,6 +14,7 @@ require('adoyle-neovim-config.fix-lua')
 -- @field CM {ConfigManager}
 F.CM = CM
 F.util = util
+F.cmp = { add = dynamic.add }
 
 local function setGlobal()
 	local config = CM.config
@@ -41,6 +44,8 @@ F.setup = function(opts)
 		P.fin()
 		P.run()
 	end
+
+	FT.setup()
 end
 
 return F

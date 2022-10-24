@@ -146,12 +146,11 @@ Press `<space>k` to see all keymaps in nvim.
 ## Pickers and Windows
 
 - `<space>;` = Choose Telescope pickers
-- `<space>M` = Show man page
+- `<space>M` = Find man page
 - `<space>p` = Find commands
 - `<space>C` = Find command history
 - `<space>h` = Find vim help
 - `<space>k` = Find keymaps
-- `<space>d` = Find diagnostics
 - `<space>S` = Find search history
 - `<space>j` = Show jumplists
 - `<space>v` = Find vim options
@@ -285,12 +284,16 @@ Press `<space>k` to see all keymaps in nvim.
 -	`<C-u>` = Scroll preview up
 -	`<C-d>` = Scroll preview down
 
-### LSP and Diagnostic
+### Diagnostic
 
-- `<space>d` = Find diagnostics
-- `<M-m>` = Toggle Mason window to install or uninstall lsp/dap/linter/formatter adapters
+- `<space>d` = Find diagnostics in current buffer
+- `<space>D` = Find diagnostics in workspace
 - `[d` = Move to the previous diagnostic in the current buffer
 - `]d` = Move to the next diagnostic in the current buffer
+
+### LSP and Diagnostic
+
+- `<M-m>` = Toggle Mason window to install or uninstall lsp/dap/linter/formatter adapters
 - `gi` = Show implementation about the symbol under cursor
 - `gd` = Open float window to query the definition of the symbol under the cursor
 - `gD` = Jump to the definition of the symbol under the cursor

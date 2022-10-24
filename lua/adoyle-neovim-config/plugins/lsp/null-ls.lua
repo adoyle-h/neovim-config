@@ -35,6 +35,7 @@ M.defaultConfig = {
 function M.config()
 	local nullLS = require('null-ls')
 	local conf = config.nullLS
+
 	local sources = conf.sources
 	if type(sources) == 'function' then sources = sources(nullLS.builtins) end
 	sources = sources or {}
@@ -59,15 +60,23 @@ function M.config()
 	nullLS.setup(opts)
 
 	require('mason-null-ls').setup { automatic_installation = conf.automatic_installation }
+end
 
-	vim.api.nvim_create_autocmd('User', {
+M.autocmds = {
+	User = {
 		pattern = 'MasonNullLsUpdateCompleted',
 		callback = function()
 			vim.schedule(function()
 				print 'mason-null-ls has finished'
 			end)
 		end,
-	})
-end
+	},
+}
+
+M.filetypes = {
+	['null-ls-info'] = function()
+		vim.api.nvim_win_set_config(0, { border = 'rounded', height = 30 })
+	end,
+}
 
 return M

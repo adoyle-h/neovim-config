@@ -1,34 +1,26 @@
 local M = { 'nathom/filetype.nvim', desc = 'filetype detection' }
 
+M.filetypes = {
+	js = function()
+		-- vim.cmd 'set isk-=.'
+		vim.opt_local.isk:remove{ '.' }
+	end,
+
+	jsx = function()
+		-- vim.cmd 'set isk-=.'
+		vim.opt_local.isk:remove{ '.' }
+	end,
+
+	-- TODO: maybe useless
+	crontab = function()
+		vim.opt_local.backup = false
+		vim.opt_local.writebackup = false
+	end,
+}
+
 M.defaultConfig = {
 	'filetype',
 	{
-		-- Use lua filetype detection instead of vim filetype detection
-		-- If true, neither the default `$VIMRUNTIME/filetype.lua` nor the legacy `$VIMRUNTIME/filetype.vim` will run.
-		disableNvimBuiltin = true,
-
-		callbacks = {
-			js = function()
-				-- vim.cmd 'set isk-=.'
-				vim.opt_local.isk:remove{ '.' }
-			end,
-
-			jsx = function()
-				-- vim.cmd 'set isk-=.'
-				vim.opt_local.isk:remove{ '.' }
-			end,
-
-			crontab = function()
-				vim.opt_local.backup = false
-				vim.opt_local.writebackup = false
-			end,
-
-			['null-ls-info'] = function()
-				vim.api.nvim_win_set_config(0, { border = 'rounded', height = 30 })
-			end,
-
-		},
-
 		overrides = {
 
 			-- Set the filetype based on file extension
@@ -86,17 +78,8 @@ M.defaultConfig = {
 function M.config(config)
 	local conf = config.filetype
 
-	vim.g.did_load_filetypes = conf.disableNvimBuiltin
-
-	require('filetype').setup({ overrides = conf.overrides })
-
-	local callbacks = config.filetype.callbacks
-	vim.api.nvim_create_autocmd('FileType', {
-		callback = function(args)
-			local fn = callbacks[args.match]
-			if fn then fn() end
-		end,
-	})
+	---@diagnostic disable-next-line: different-requires, redundant-parameter
+	require('filetype').setup(conf)
 end
 
 return M

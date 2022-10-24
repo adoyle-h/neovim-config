@@ -86,18 +86,6 @@ M.defaultConfig = {
 	},
 }
 
-local function configDiagnostic()
-	vim.diagnostic.config(config.lsp.diagnostic)
-
-	-- Show line diagnostics automatically in hover window
-	-- The CursorHold autocmd is triggered when updatetime. Use https://github.com/antoinemadec/FixCursorHold.nvim to fix it
-	vim.api.nvim_create_autocmd('CursorHold', {
-		callback = function()
-			vim.diagnostic.open_float()
-		end,
-	})
-end
-
 local function setDefaultBorder()
 	local border = config.lsp.diagnostic.float.border
 	require('lspconfig.ui.windows').default_options.border = border -- This line maybe not work
@@ -107,7 +95,7 @@ local function setDefaultBorder()
 end
 
 function M.config()
-	configDiagnostic()
+	vim.diagnostic.config(config.lsp.diagnostic)
 	setDefaultBorder()
 
 	local masonLspconfig = require('mason-lspconfig')
@@ -161,5 +149,15 @@ M.signs = function()
 end
 
 M.keymaps = require('adoyle-neovim-config.plugins.lsp.keymaps')
+
+M.autocmds = {
+	-- Show line diagnostics automatically in hover window
+	-- The CursorHold autocmd is triggered when updatetime. Use https://github.com/antoinemadec/FixCursorHold.nvim to fix it
+	CursorHold = {
+		callback = function()
+			vim.diagnostic.open_float()
+		end,
+	},
+}
 
 return M

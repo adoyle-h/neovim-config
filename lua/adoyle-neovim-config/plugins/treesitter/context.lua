@@ -3,7 +3,7 @@ local config = require('adoyle-neovim-config.config').config
 return {
 	'nvim-treesitter/nvim-treesitter-context',
 	desc = 'Shows the context of the currently visible buffer contents.',
-	disable = true,
+	disable = true, -- BUG: https://github.com/nvim-treesitter/nvim-treesitter-context/issues/163
 
 	config = function()
 		require('treesitter-context').setup(config.treesitterContext)

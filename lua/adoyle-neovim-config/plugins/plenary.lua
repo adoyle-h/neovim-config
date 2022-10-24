@@ -1,8 +1,8 @@
 return {
 	'nvim-lua/plenary.nvim',
+
 	commands = {
-		{
-			'TestLuaSpec',
+		TestLuaSpec = {
 			function()
 				require('plenary.test_harness').test_directory(vim.fn.expand('%:p'))
 			end,

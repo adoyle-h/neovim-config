@@ -5,11 +5,15 @@ return {
 		{
 			'n',
 			'<space>d',
+			':TroubleToggle document_diagnostics<cr>',
+			{ silent = true, desc = 'Find diagnostics in current buffer' },
+		},
+
+		{
+			'n',
+			'<space>D',
 			':TroubleToggle workspace_diagnostics<cr>',
-			{
-				silent = true,
-				desc = 'Open float window to query the definition of the symbol under the cursor',
-			},
+			{ silent = true, desc = 'Find diagnostics in workspace' },
 		},
 
 		{
@@ -33,7 +37,6 @@ return {
 			{ silent = true, desc = 'Show references about the symbol under cursor' },
 		},
 
-		-- { 'n', '<leader>id', ':TroubleToggle document_diagnostics<cr>', { silent = true } },
 		-- { 'n', '<leader>il', ':TroubleToggle loclist<cr>', { silent = true } },
 		-- { 'n', '<leader>iq', ':TroubleToggle quickfix<cr>', { silent = true } },
 	},

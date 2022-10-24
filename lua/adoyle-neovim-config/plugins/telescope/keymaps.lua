@@ -135,7 +135,6 @@ return function()
 		-- {'n', 'gd', ':Telescope lsp_definitions jump_type=split<cr>', opts},
 		-- {'n', 'gr', ':Telescope lsp_references<cr>', opts},
 		-- {'n', 'gt', ':Telescope lsp_type_definitions<cr>', opts},
-
 	}
 
 	if pcall(require, 'notify') then

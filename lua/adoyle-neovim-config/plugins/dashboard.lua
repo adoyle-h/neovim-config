@@ -1,6 +1,7 @@
 local M = {
 	--	'goolord/alpha-nvim'
-	'adoyle-h/alpha-nvim',
+	'adoyle-h/alpha-nvim', -- TODO: https://github.com/goolord/alpha-nvim/pull/152
+	branch = 'adoyle',
 	desc = 'Dashboard',
 }
 
@@ -173,22 +174,25 @@ function M.config(config)
 	table.insert(layout, index or 1, getSessions(conf))
 
 	require('alpha').setup { layout = conf.layout, opts = conf.opts }
-
-	vim.api.nvim_create_autocmd('User', {
-		pattern = { 'AlphaReady' },
-		callback = function()
-			vim.opt.cursorline = true
-			vim.opt.showtabline = 0
-		end,
-	})
-
-	vim.api.nvim_create_autocmd('User', {
-		pattern = { 'AlphaClosed' },
-		callback = function()
-			vim.opt.showtabline = 2
-		end,
-	})
 end
+
+M.autocmds = {
+	User = {
+		{
+			pattern = { 'AlphaReady' },
+			callback = function()
+				vim.opt.cursorline = true
+				vim.opt.showtabline = 0
+			end,
+		},
+		{
+			pattern = { 'AlphaClosed' },
+			callback = function()
+				vim.opt.showtabline = 2
+			end,
+		},
+	},
+}
 
 local function getVersion()
 	local info = vim.version()

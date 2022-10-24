@@ -248,7 +248,9 @@ Default to use the formatters defined in `nullLS.sources`, and then formatters d
 │       │   ├── color.lua    // Default color config
 │       │   └── default.lua  // Default config
 │       ├── config.lua       // Config loader
+│       ├── filetype.lua     // FileType autocmd
 │       ├── fix-lua.lua
+│       ├── framework.lua    // The framework singleton
 │       ├── init.lua         // The lua required entry point (plugin way)
 │       ├── plugins.lua      // Plugin loading list
 │       ├── util.lua         // Utility functions
@@ -256,6 +258,7 @@ Default to use the formatters defined in `nullLS.sources`, and then formatters d
 │       ├── vim-plug/        // Plugin framework based on vim-plug
 │       ├── keymap/          // Keymaps
 │       ├── plugins/         // Available plugins written in lua
+│       ├── telescope/       // Utilities for telescope
 │       └── themes/          // Color schemas
 ├── snippets/                // Code Snippets
 └── spell/                   // Spell check data (git ignored)

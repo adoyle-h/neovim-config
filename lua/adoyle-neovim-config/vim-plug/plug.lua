@@ -3,6 +3,8 @@ local M = {}
 local F = require('adoyle-neovim-config.framework')
 local util = require('adoyle-neovim-config.util')
 local CM = require('adoyle-neovim-config.config')
+local FT = require('adoyle-neovim-config.filetype')
+local dynamic = require('adoyle-neovim-config.plugins.completion.dynamic.source')
 
 local normalizeOpts = require('adoyle-neovim-config.vim-plug.normalize')
 local globals = require('adoyle-neovim-config.vim-plug.globals')
@@ -145,6 +147,7 @@ local plugOpts = {
 	{
 		name = 'signs',
 		iterator = function(props, name)
+			if not props then return end
 			sign_define(name, props)
 		end,
 		unpack = false,
@@ -154,10 +157,11 @@ local plugOpts = {
 
 	{
 		name = 'commands',
-		iterator = function(name, command, opts)
-			set_cmd(name, command, opts or {})
+		iterator = function(props, name)
+			if not props then return end
+			set_cmd(name, props[1], props[2] or {})
 		end,
-		unpack = true,
+		unpack = false,
 	},
 
 	{
@@ -165,7 +169,21 @@ local plugOpts = {
 		-- @param opts {table}
 		-- @param events {string|string[]}
 		iterator = function(opts, events)
-			create_autocmd(events, opts)
+			if not opts then return end
+			if vim.tbl_islist(opts) then
+				for _, value in pairs(opts) do create_autocmd(events, value) end
+			else
+				create_autocmd(events, opts)
+			end
+		end,
+		unpack = false,
+	},
+
+	{
+		name = 'filetypes',
+		iterator = function(callback, lang)
+			if not callback then return end
+			FT.add(lang, callback)
 		end,
 		unpack = false,
 	},
@@ -173,6 +191,7 @@ local plugOpts = {
 	{
 		name = 'highlights',
 		iterator = function(props, name)
+			if not props then return end
 			set_hl(0, name, props)
 		end,
 		unpack = false,
@@ -180,8 +199,19 @@ local plugOpts = {
 
 	{
 		name = 'telescopes',
-		iterator = function(opts)
+		iterator = function(opts, name)
+			if not opts then return end
+			opts.name = name
 			F.telescope.register(opts)
+		end,
+		unpack = false,
+	},
+
+	{
+		name = 'completions',
+		iterator = function(props, name)
+			if not props then return end
+			dynamic.add(name, props)
 		end,
 		unpack = false,
 	},

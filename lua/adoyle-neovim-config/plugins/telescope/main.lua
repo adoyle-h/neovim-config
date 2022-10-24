@@ -144,6 +144,8 @@ M.defaultConfig = function(config)
 					path_display = {}, -- Display full filepat
 				},
 
+				commands = { layout_config = { width = { 0.9, min = 80, max = 130 } } },
+
 				help_tags = { layout_strategy = 'horizontal' },
 
 				git_files = {

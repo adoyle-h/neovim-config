@@ -96,6 +96,6 @@ return {
 	},
 
 	commands = function()
-		return { { 'DapUIToggle', require('dapui').toggle } }
+		return { DapUIToggle = { require('dapui').toggle } }
 	end,
 }

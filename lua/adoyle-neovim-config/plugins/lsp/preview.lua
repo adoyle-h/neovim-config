@@ -52,7 +52,7 @@ return {
 
 	commands = function()
 		return {
-			{ 'ClearPreviews', require('goto-preview').close_all_win, { desc = 'close all preview windows' } },
+			ClearPreviews = { require('goto-preview').close_all_win, { desc = 'close all preview windows' } },
 		}
 	end,
 

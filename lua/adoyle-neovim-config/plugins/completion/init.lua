@@ -34,7 +34,7 @@ local function feedkey(key, mode)
 	api.nvim_feedkeys(api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-local function configMapping(cmp)
+local function configMapping(cmp, conf)
 	local snippy = require('snippy')
 	local useFallback = function(fallback)
 		fallback()
@@ -124,28 +124,13 @@ local function configMapping(cmp)
 	selectNextOrHistoryNext.i = selectNext.i
 	selectNextOrHistoryNext.s = selectNext.s
 
+	local pageScrollLines = conf.pageScrollLines
 	local selectPageUp = cmp.mapping(function()
-		local i = 8
-		if cmp.visible() then
-			while i > 0 do
-				cmp.select_prev_item({ behavior = behavior })
-				i = i - 1
-			end
-		else
-			feedkey(i .. '<Up>', 'n')
-		end
+		cmp.select_prev_item({ behavior = behavior, lines = pageScrollLines })
 	end, { 'i', 'c', 's' })
 
 	local selectPageDown = cmp.mapping(function()
-		local i = 8
-		if cmp.visible() then
-			while i > 0 do
-				cmp.select_next_item({ behavior = behavior })
-				i = i - 1
-			end
-		else
-			feedkey(i .. '<Down>', 'n')
-		end
+		cmp.select_next_item({ behavior = behavior, lines = pageScrollLines })
 	end, { 'i', 'c', 's' })
 
 	local confirm = cmp.mapping(function(fallback)
@@ -181,7 +166,7 @@ local function configMapping(cmp)
 		['<C-b>'] = selectPageUp,
 		['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 's' }), -- scroll preview up
 		['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 's' }), -- scroll preview down
-		['<M-c>'] = cmp.mapping.abort(),
+		['<M-c>'] = cmp.mapping(cmp.mapping.abort(), { 'i', 'c', 's' }), -- abort completion
 	}
 end
 
@@ -189,16 +174,19 @@ local M = {
 	'completion',
 
 	requires = {
-		'hrsh7th/nvim-cmp',
+		-- 'hrsh7th/nvim-cmp',
+		{ 'adoyle-h/nvim-cmp', branch = 'a' }, -- TODO: https://github.com/hrsh7th/nvim-cmp/pull/1262
 		'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
 		'hrsh7th/cmp-buffer', -- buffer source for nvim-cmp
 		'hrsh7th/cmp-path', -- path source for nvim-cmp
 		'f3fora/cmp-spell',
 		'hrsh7th/cmp-cmdline',
+		'dmitmel/cmp-cmdline-history',
 		'David-Kunz/cmp-npm',
 		'petertriho/cmp-git',
 		'ray-x/cmp-treesitter',
 
+		require('adoyle-neovim-config.plugins.completion.dynamic'),
 		require('adoyle-neovim-config.plugins.completion.copilot'),
 		require('adoyle-neovim-config.plugins.completion.tabnine'),
 		require('adoyle-neovim-config.plugins.completion.hover'),
@@ -215,18 +203,20 @@ local M = {
 function M.config(config)
 	local cmp = require('cmp')
 	local conf = config.completion
-	local sources = conf.sources.normal
+	local normalSources = conf.sources.normal
 
-	if pcall(require, 'cmp_tabnine') then table.insert(sources, { name = 'tabnine', group_index = 1 }) end
-	if pcall(require, 'cmp_copilot') then table.insert(sources, { name = 'copilot', group_index = 1 }) end
-	if pcall(require, 'cmp_treesitter') then
-		table.insert(sources, { name = 'treesitter', group_index = 2 })
+	local function addNormalSrc(src, group_index)
+		normalSources[#normalSources + 1] = { name = src, group_index = group_index or 1 }
 	end
 
+	if pcall(require, 'cmp_tabnine') then addNormalSrc('tabnine') end
+	if pcall(require, 'cmp_copilot') then addNormalSrc('copilot') end
+	if pcall(require, 'cmp_treesitter') then addNormalSrc('treesitter', 2) end
+
 	local opts = {
-		mapping = configMapping(cmp),
+		mapping = configMapping(cmp, conf),
 		formatting = configFormating(conf),
-		sources = sources,
+		sources = normalSources,
 
 		snippet = {
 			expand = function(args)
@@ -264,12 +254,17 @@ function M.config(config)
 		-- Set configuration for specific filetype.
 		cmp.setup.filetype(ft, props)
 	end
+
+	vim.o.pumheight = conf.pumheight
 end
 
 M.defaultConfig = function()
 	return {
 		'completion',
 		{
+			pumheight = 20, -- The window height of cmdline completion
+			pageScrollLines = 8, -- Page down/up scroll lines
+
 			-- You can specify multiple source arrays. The sources are grouped in the group_index order you specify,
 			-- and the groups are displayed as a fallback, like chain completion.
 			-- See ":h cmp-config.sources" for full source properties.
@@ -279,17 +274,20 @@ M.defaultConfig = function()
 					{ name = 'snippy', group_index = 1 },
 					{ name = 'buffer', group_index = 1 },
 					{ name = 'path', group_index = 1 },
+					{ name = 'dynamic', group_index = 1 },
 					{ name = 'spell', group_index = 2 },
 				},
 
 				search = { -- Use buffer source for `/` and '?' (if you enabled `native_menu`, this won't work anymore).
 					{ name = 'buffer', group_index = 1 },
 					{ name = 'path', group_index = 1 },
+					{ name = 'cmdline_history', group_index = 1 },
 				},
 
 				cmdline = { -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 					{ name = 'path', group_index = 1 },
 					{ name = 'cmdline', group_index = 1 },
+					{ name = 'cmdline_history', group_index = 1 },
 				},
 			},
 
@@ -316,6 +314,8 @@ M.defaultConfig = function()
 					snippy = 'SNIP',
 					treesitter = 'TREE',
 					cmdline = 'CMD',
+					cmdline_history = 'HIST',
+					dynamic = 'DYNA',
 				},
 
 				maxAbbrWidth = 30,

@@ -7,8 +7,7 @@ return {
 	highlights = { TrailingWhitespace = { bg = config.colors.grey3 } },
 
 	commands = {
-		{
-			'TrailingSpaces',
+		TrailingSpaces = {
 			function()
 				require('whitespace-nvim').trim()
 			end,

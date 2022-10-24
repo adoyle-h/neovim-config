@@ -32,14 +32,16 @@ return {
 
 	config = function(config)
 		require('mason-tool-installer').setup(config['mason-installer'])
+	end,
 
-		vim.api.nvim_create_autocmd('User', {
+	autocmds = {
+		User = {
 			pattern = 'MasonToolsUpdateCompleted',
 			callback = function()
 				vim.schedule(function()
 					print 'mason-tool-installer has finished'
 				end)
 			end,
-		})
-	end,
+		},
+	},
 }

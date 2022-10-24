@@ -1,27 +1,22 @@
-local M = {
-	'rcarriga/nvim-notify',
-	desc = 'An awesome notify library!',
+local M = { 'rcarriga/nvim-notify', desc = 'An awesome notify library!' }
 
-	commands = {
+M.commands = {
+	Notify = {
+		function(opts)
+			local args = opts.fargs
+			vim.notify(args[1], args[2] or 'info')
+		end,
 		{
-			'Notify',
-			function(opts)
-				local args = opts.fargs
-				vim.notify(args[1], args[2] or 'info')
-			end,
-			{
-				nargs = '+',
-				desc = 'Send message to notification window. Usage: :Notify <message> [info|warn|error]',
-			},
+			nargs = '+',
+			desc = 'Send message to notification window. Usage: :Notify <message> [info|warn|error]',
 		},
+	},
 
-		{
-			'ClearNotify',
-			function()
-				vim.notify.dismiss({ pending = true })
-			end,
-			{ desc = 'Dismiss all notification windows currently displayed' },
-		},
+	ClearNotify = {
+		function()
+			vim.notify.dismiss({ pending = true })
+		end,
+		{ desc = 'Dismiss all notification windows currently displayed' },
 	},
 }
 

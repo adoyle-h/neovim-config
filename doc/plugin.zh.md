@@ -21,12 +21,111 @@ return {
   ['for'] = {'lua'} -- string[] or nil. On-demand loading: File types
   frozon = false, -- boolean or nil. Do not update unless explicitly specified
 
+  config = function(config)
+    require('name').setup {config.PluginName}
+  end,
+
   -- Set default config for current plugin
   defaultConfig = {
     {'PluginName'}, -- config key
     {}, -- config value, must be a table
   },
-  -- or
+
+  -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
+  highlights = {
+    PluginHighlightGroup = { fg = 'white', bg = 'none' } ,
+    HighlightName = false, -- false or nil. To cancel plugin default highlight
+  },
+
+  -- Set vim sign. Parameters refer to ":h sign_define"
+  signs = {
+    GitSignsAdd = { text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    SignName = false, -- false or nil. To cancel plugin default sign
+  },
+
+  -- Parameters refer to ":h nvim_set_keymap"
+  keymaps = {
+    { 'n', '<leader>k', ':echo hello<CR>' },
+  },
+
+  -- Parameters refer to ":h nvim_create_user_command"
+  commands = {
+    AerialTelescope = { ':Telescope aerial' },
+    ClearPreviews = { function require('goto-preview').close_all_win end },
+    TestLuaSpec = {
+      function()
+        require('plenary.test_harness').test_directory(vim.fn.expand('%:p'))
+      end,
+      { desc = 'Run unit test on current lua spec file' },
+    },
+    CommandName = false, -- false or nil. To cancel plugin default command
+  },
+
+  autocmds = {
+    LspAttach = { -- Parameters refer to ":h nvim_create_autocmd"
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        require('aerial').on_attach(client, args.buf)
+      end,
+    },
+
+    VimEnter = false, -- false or nil. To cancel plugin default autocmd
+
+    User = { -- User autocmds
+      {
+        pattern = { 'AlphaReady' },
+        callback = function()
+          vim.opt.cursorline = true
+          vim.opt.showtabline = 0
+        end,
+      },
+      {
+        pattern = { 'AlphaClosed' },
+        callback = function()
+          vim.opt.showtabline = 2
+        end,
+      },
+    },
+  }
+
+  filetypes = {
+    ['null-ls-info'] = function(opts) -- Parameters refer to ":h nvim_create_autocmd" callback arguments
+      vim.api.nvim_win_set_config(0, { border = 'rounded', height = 30 })
+    end,
+
+    lua = false, -- false or nil. To cancel plugin default filetype callback
+  },
+
+  completions = {
+    today = { -- completion keyword
+      callback = function() -- The returned value will be the completion text
+        return os.date('%Y/%m/%d')
+      end,
+      cache = false, -- If true, callback returned value will be cached
+    },
+
+    today2 = false, -- false or nil. To cancel plugin default completion
+  }
+
+  -- Add telescope extensions
+  telescopes = {
+    ls = { -- extension name
+      command = '!ls', -- vimscript or lua function
+    },
+
+    messages = false -- false or nil. To cancel plugin default telescope extension
+  },
+}
+```
+
+以下字段可以接受一个函数。该函数参数为 `config`，且必须返回一个 table。
+
+`defaultConfig`, `signs`, `keymaps` `commands`, `autocmds`, `filetypes`, `highlights`, `telescopes`, `completions`
+
+举个例子，
+
+```lua
+{
   defaultConfig = function(config)
     return {
       {'PluginName'},
@@ -34,15 +133,6 @@ return {
     }
   end,
 
-  config = function(config)
-    require('name').setup {config.PluginName}
-  end,
-
-  -- Set highlight groups. Parameters refer to ":h nvim_set_hl"
-  highlights = {
-    PluginHighlightGroup = { fg = 'white', bg = 'none' } ,
-  },
-  -- or function
   highlights = function(config)
     local colors = config.colors
     return {
@@ -50,57 +140,13 @@ return {
     },
   end,
 
-  -- Set vim sign. Parameters refer to ":h sign_define"
-  signs = {
-    GitSignsAdd = { text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-  },
-  -- or function
-  signs = function(config)
-    return {
-      GitSignsAdd = { text = '┃', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-    },
-  end,
-
-  -- Parameters refer to ":h nvim_set_keymap"
-  keymaps = {
-    { 'n', '<leader>k', ':echo hello<CR>' },
-  },
-  -- or function
-  keymaps = function(config)
-    return {
-      { 'n', '<leader>k', ':echo hello<CR>' },
-    },
-  end,
-
-  -- Parameters refer to ":h nvim_create_user_command"
-  commands = {
-    { 'AerialTelescope', ':Telescope aerial' },
-    { 'ClearPreviews', function require('goto-preview').close_all_win end },
-  },
-  -- or function
   commands = function(config)
-    -- require plugin must put in function
     return {
-      { 'ClearPreviews', require('goto-preview').close_all_win },
+      AerialTelescope = { ':Telescope aerial' },
+      -- 注意: 调用第三方模块必须放在函数里
+      ClearPreviews = { require('goto-preview').close_all_win },
     }
   end,
-
-  -- Add telescope extensions
-  telescopes = {
-    {
-      name = 'ls', -- extension name
-      command = '!ls', -- vimscript or lua function
-    },
-  },
-  -- or function
-  telescopes = function(config)
-    return {
-      {
-        name = 'ls', -- extension name
-        command = '!ls', -- vimscript or lua function
-      },
-    },
-  end
 }
 ```
 
