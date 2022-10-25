@@ -137,8 +137,24 @@ end
 
 M.highlights = function(config)
 	local colors = config.colors
+	local addBG = '#264618'
+	local delBG = '#741313'
+	local chBG = '#464018'
+
 	return {
-		GitSignsCurrentLineBlame = { fg = colors.grey, bg = config.colors.cursorLineNrBG, italic = true },
+		GitSignsCurrentLineBlame = { fg = colors.grey, bg = colors.cursorLineNrBG, italic = true },
+		-- For word diff in previews
+		GitSignsAddInline = { bg = addBG },
+		GitSignsChangeInline = { bg = chBG },
+		GitSignsDeleteInline = { bg = delBG },
+		-- For word diff in buffer
+		GitSignsAddLnInline = { bg = addBG },
+		GitSignsChangeLnInline = { bg = chBG },
+		GitSignsDeleteLnInline = { bg = delBG },
+		-- For word diff in virtual lines (e.g. show_deleted)
+		GitSignsAddLnVirtLnInLine = { bg = addBG },
+		GitSignsChangeVirtLnInLine = { bg = chBG },
+		GitSignsDeleteVirtLnInLine = { bg = delBG },
 	}
 end
 

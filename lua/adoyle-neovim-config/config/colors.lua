@@ -28,6 +28,12 @@ local colors = {
 
 local functionsColors = { --
 	cursorLineNrBG = colors.darkBlue,
+	diff = {
+		add = { bg = colors.darkGreen },
+		delete = { fg = colors.red, bg = colors.darkRed },
+		change = { bg = colors.darkYellow },
+		text = { bg = '#353513' },
+	},
 }
 
 for k, v in pairs(functionsColors) do colors[k] = v end

@@ -35,9 +35,45 @@ function P.fin()
 	vim.call('plug#end')
 end
 
-function P.run()
+local function addPending(pendings, plug)
+	if plug.disable then return end
+
+	local unloadRequired = false
+
+	for _, required in pairs(plug.requires or {}) do
+		local requiredPlugRepo
+		if type(required) == 'string' then
+			requiredPlugRepo = required
+		else
+			requiredPlugRepo = required[1]
+		end
+
+		local reqP = plugMap[requiredPlugRepo]
+		if reqP then
+			if reqP.disable then
+				unloadRequired = reqP
+				break
+			end
+		end
+	end
+
+	if unloadRequired then
+		P.notify(string.format(
+			'Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.',
+			plug.id, unloadRequired.repo), 'warn')
+	elseif plug.uninstalled then
+		P.notify(string.format('Plug "%s" has not installed. Try ":PlugInstall" to install it.', plug.id),
+			'warn')
+	else
+		Plug.mergePlugConfig(CM.config, plug)
+		pendings[#pendings + 1] = plug
+	end
+end
+
+local function setNotify()
 	local has_notify, _notify = pcall(require, 'notify')
 	local notify
+
 	if has_notify then
 		notify = function(msg, level)
 			vim.schedule(function()
@@ -48,41 +84,17 @@ function P.run()
 		notify = print
 	end
 
+	P.notify = notify
+
+	return notify
+end
+
+function P.run()
+	local notify = setNotify()
 	local config = CM.config
 	local pendings = {}
 
-	for _, plug in pairs(plugs) do
-		local unloadRequired = false
-
-		for _, required in pairs(plug.requires or {}) do
-			local requiredPlugRepo
-			if type(required) == 'string' then
-				requiredPlugRepo = required
-			else
-				requiredPlugRepo = required[1]
-			end
-
-			local reqP = plugMap[requiredPlugRepo]
-			if reqP then
-				if reqP.disable then
-					unloadRequired = reqP
-					break
-				end
-			end
-		end
-
-		if unloadRequired then
-			notify(string.format(
-				'Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.',
-				plug.id, unloadRequired.repo), 'warn')
-		elseif plug.uninstalled then
-			notify(string.format('Plug "%s" has not installed. Try ":PlugInstall" to install it.', plug.id),
-				'warn')
-		else
-			Plug.mergePlugConfig(config, plug)
-			table.insert(pendings, plug) -- Only pending plugs will load config/keymaps/commends/highlights/signs
-		end
-	end
+	for _, plug in pairs(plugs) do addPending(pendings, plug) end
 
 	if P.configFn then
 		local config2 = P.configFn(config) or {}

@@ -13,9 +13,7 @@ Load 'plugins.treesitter'
 Plug 'MunifTanjim/nui.nvim'
 Load 'plugins.telescope'
 
---------------------------------------
-
--- UI
+------------- UI plugins -------------
 Load 'plugins.dressing'
 Load('plugins.themes.' .. config.theme.use)
 Load 'plugins.colors'
@@ -26,15 +24,12 @@ Load 'plugins.search'
 Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
 Load 'plugins.scroll'
 
--- Functions
+---------- Enhanced plugins ----------
 Load 'plugins.filetype'
 Load 'plugins.lsp'
 Load 'plugins.dap'
 Load 'plugins.completion'
 Load 'plugins.general'
-
-Load 'plugins.bookmark'
-Load 'plugins.mark'
 Load 'plugins.comment'
 Load 'plugins.outline.aerial'
 Load 'plugins.format'
@@ -45,27 +40,22 @@ Load 'plugins.markdown'
 Load 'plugins.move'
 Load 'plugins.filetree.neo-tree' -- neo-tree must put after move plugin
 Load 'plugins.open-url'
-Load 'plugins.profiling'
 Load 'plugins.session'
 Load 'plugins.select'
 Load 'plugins.table'
-Load 'plugins.todo'
 Load 'plugins.trailing'
 Load 'plugins.undotree'
 Load 'plugins.window'
-Load 'plugins.funny'
 Load 'plugins.abbreviation'
 Load 'plugins.terminal'
 Load 'plugins.dashboard' -- Put this plugin after filetree and session plugin
-Load 'plugins.zen'
-Load 'plugins.curl'
 Load 'plugins.escape'
 Load 'plugins.match'
 Load 'plugins.test'
 Load 'plugins.yank'
-Load 'plugins.node'
 Load 'plugins.trouble'
 Load 'plugins.icon-picker'
+Load 'plugins.diff'
 
 Plug {
 	'tyru/capture.vim',
@@ -77,15 +67,29 @@ Plug {
 	]],
 }
 
--- This plugin was built while :w !sudo tee % > /dev/null trick does not work on neovim.
--- https://github.com/neovim/neovim/issues/1716
-Plug 'lambdalisue/suda.vim'
+Plug {
+	'lambdalisue/suda.vim',
+	desc = 'read or write files with sudo command. :SudaRead and :SudaWrite',
+}
 
-Plug 'chrisbra/vim-diff-enhanced'
 Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h eunuch' }
 Plug { 'tpope/vim-repeat', desc = 'Enable repeating other supported plugins with the . command' }
-Plug { 'sotte/presenting.vim', ['for'] = 'markdown', desc = 'markdown presentation' }
-Plug { 'mechatroner/rainbow_csv', desc = 'For .csv file' }
+Plug { 'mechatroner/rainbow_csv', desc = 'For .csv file', ['for'] = 'csv' }
 Plug 'rohanorton/lua-gf.nvim'
+
+------ Default disabled plugins ------
+-- User can enable them on demand
+Load 'plugins.profiling'
+Load 'plugins.zk'
+Load 'plugins.node'
+Load 'plugins.curl'
+Load 'plugins.funny'
+Load 'plugins.latex'
+Load 'plugins.calendar'
+Load 'plugins.todo'
+Load 'plugins.zen'
+Load 'plugins.mark'
+Load 'plugins.bookmark'
+--------------------------------------
 
 Plug 'ryanoasis/vim-devicons' -- Devicons for old vimscript plugins. It should be put at last!!

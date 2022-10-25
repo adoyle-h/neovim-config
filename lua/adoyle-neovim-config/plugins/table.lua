@@ -1,4 +1,9 @@
-local M = { 'dhruvasagar/vim-table-mode', desc = 'format table', on = 'TableModeToggle' }
+local M = {
+	'table',
+	requires = { 'dhruvasagar/vim-table-mode' },
+	desc = 'format table',
+	on = 'TableModeToggle',
+}
 
 local function changeTableMode()
 	local b = vim.b

@@ -17,7 +17,7 @@ Click [./README.md](./README.md) to read English documents.
 ## 截图
 
 <details close>
-<summary>Click to expend</summary>
+<summary>点击展开/折叠</summary>
 
 ### Dashboard
 
@@ -194,11 +194,11 @@ require('adoyle-neovim-config').setup {
 
 同时，这里提供了两个命令来查看配置：
 `:ShowConfig` 查看最终合并的配置。
-`:ShowPlugin` 查看加载的插件。
+`:ShowPlugins` 查看加载的和未加载的插件。
 
 因为使用了 [inspect.lua](https://github.com/kikito/inspect.lua) 打印配置，
-会有例如 `<table id>` 这样的标记。这是为了避免重复，对于 `<table 28>` 搜索文件内对应的 `<28>{` 即可找到相应的值。
-`<table>`, `<function>`, `<metatable>` 等标记的解释详见 [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use)。
+会有例如 `<table id>` 这样的标记。这是为了避免重复，对于 `<table 28>` 搜索文件内对应的 `--[[<table 28>--]]` 即可找到相应的值。
+`<table id>`, `<function id>`, `<metatable>` 等标记的解释详见 [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use)。
 ### [颜色和高亮](./doc/colors.md)
 
 ## 注意

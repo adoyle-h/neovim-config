@@ -82,6 +82,8 @@ function M.usePlug(repo, opts)
 	end
 
 	plugMap[id] = opts
+	table.insert(plugs, opts)
+	globals.count = globals.count + 1
 
 	if opts.disable == true then
 		-- disable current and required plugs
@@ -90,9 +92,6 @@ function M.usePlug(repo, opts)
 
 	-- Load dependent plugins first, then current plugin
 	for _, dep in pairs(opts.requires or {}) do M.usePlug(dep) end
-
-	table.insert(plugs, opts)
-	globals.count = globals.count + 1
 
 	-- Handle current plugin
 

@@ -35,21 +35,22 @@ M.defaultConfig = {
 			comment = colors.grey,
 			selection = colors.darkOrange,
 
-			diff_add = colors.darkGreen,
-			diff_delete = colors.darkRed,
-			diff_change = colors.darkYellow,
-			diff_text = '#484800',
+			diff_add = colors.diff.add.bg,
+			diff_delete = colors.diff.delete.bg,
+			diff_change = colors.diff.change.bg,
+			diff_text = colors.diff.text.bg,
 		},
 
-		highlights = { -- Override default highlight groups
+		-- Only fix onedarkpro highlights. Do not put all highlights here
+		highlights = { -- Override default highlight groups.
 			StatusLine = { bg = 'NONE', fg = 'NONE' }, -- Fix caret in statusline. https://github.com/nvim-lualine/lualine.nvim/discussions/866
 			CursorLineNr = { bg = colors.cursorLineNrBG, fg = colors.blue, style = 'bold' },
 
 			-- override diff styles
-			DiffAdd = { bg = colors.darkGreen },
-			DiffDelete = { fg = colors.red, bg = colors.darkRed },
-			DiffChange = { bg = colors.darkYellow, style = 'nocombine' },
-			DiffText = { bg = '#313117', style = 'nocombine' },
+			DiffAdd = { bg = colors.diff.add.bg },
+			DiffDelete = { fg = colors.diff.delete.fg, bg = colors.diff.delete.bg },
+			DiffChange = { bg = colors.diff.change.bg, style = 'nocombine' },
+			DiffText = { bg = colors.diff.text.bg, style = 'nocombine' },
 		},
 
 		-- https://github.com/olimorris/onedarkpro.nvim#configuring-filetypes

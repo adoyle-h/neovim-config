@@ -1,6 +1,6 @@
 return {
 	'general.keymap',
-	desc = 'Load all keymap settings',
+	desc = 'Setting all general keymaps',
 
 	requires = {
 		require('adoyle-neovim-config.keymap.general'),

@@ -1,5 +1,8 @@
 return {
-	'NTBBloodbath/rest.nvim',
+	'curl',
+	disable = true,
+
+	requires = { 'NTBBloodbath/rest.nvim' },
 
 	keymaps = { { 'n', '<leader>cr', '<Plug>RestNvim' } },
 

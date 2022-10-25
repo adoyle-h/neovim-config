@@ -1,5 +1,0 @@
- # limit tsserver only .ts files
-filetypes:
-  - typescript
-  - typescriptreact
-  - typescript.tsx

@@ -1,5 +1,6 @@
 return {
 	'node',
+	disable = true,
 	requires = {
 		{
 			'nvim-telescope/telescope-node-modules.nvim',

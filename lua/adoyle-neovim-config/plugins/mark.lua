@@ -1,5 +1,8 @@
 return {
-	'chentoast/marks.nvim',
+	'mark',
+
+	requires = { 'chentoast/marks.nvim' },
+
 	disable = true,
 
 	config = function(config)

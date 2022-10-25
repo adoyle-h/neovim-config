@@ -17,7 +17,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 ## Screenshots
 
 <details close>
-<summary>Click to expend</summary>
+<summary>Click to expend/collapse</summary>
 
 ### Dashboard
 
@@ -196,12 +196,13 @@ You can get config via `require('adoyle-neovim-config.config').config` or `a.CM.
 
 Also, there are two commands to view configs.
 `:ShowConfig` to view final merged config.
-`:ShowPlugin` to view loaded plugins.
+`:ShowPlugins` to view disabled and enabled plugins.
 
 Because using [inspect.lua](https://github.com/kikito/inspect.lua) to print configuration,
 you may see tags such as `<table id>`. It is for preventing infinite loops.
-You can search `<28>{` to view its value for `<table 28>` in same buffer content.
-For `<table>`, `<function>`, `<metatable>` tag explanations, see [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use).
+You can search `--[[<table 28>--]]` to view its value for `<table 28>` in same buffer content.
+
+For `<table id>`, `<function id>`, `<metatable>` tag explanations, see [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use).
 
 ### [Colors and Highlights](./doc/colors.md)
 ## NOTE

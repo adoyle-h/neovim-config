@@ -52,6 +52,7 @@ function util.getVisualSelection(return_raw)
 end
 
 local buffers = {}
+
 function util.newWindow(opts)
 	opts = opts or {}
 	local title = opts.title
@@ -78,10 +79,15 @@ function util.newWindow(opts)
 	api.nvim_win_set_buf(win, buf)
 	vim.cmd 'vertical resize 80'
 
+	api.nvim_win_set_option(win, 'nu', true)
+	api.nvim_win_set_option(win, 'rnu', true)
+	api.nvim_win_set_option(win, 'cursorline', true)
+
 	local row = 0
 	local write = function(content)
-		api.nvim_buf_set_lines(buf, row, row, true, { content })
-		row = row + 1
+		if type(content) == 'string' then content = { content } end
+		api.nvim_buf_set_lines(buf, row, row, true, content)
+		row = row + #content
 	end
 
 	local writeVal = function(content)
@@ -181,6 +187,11 @@ function util.gotoDef()
 			end
 		end,
 	}
+end
+
+function util.clearKeymaps(prefix, buffer)
+	local keys = vim.fn.getcompletion(prefix, 'mapping')
+	for _, key in pairs(keys) do vim.keymap.del('n', key, { buffer = buffer or 0 }) end
 end
 
 return util

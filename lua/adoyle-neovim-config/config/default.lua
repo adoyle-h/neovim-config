@@ -38,7 +38,7 @@ return function(colors)
 			fileTypesForSomePlugs = {
 				-- LuaFormatter off
 				'TelescopePrompt', 'TelescopeResults', 'lsp-installer', 'null-ls-info', 'lspinfo', 'aerial',
-				'nerdtree', 'NvimTree', 'neo-tree', 'notify', 'Trouble', 'Mundo', 'mason', 'man', 'alpha',
+				'nerdtree', 'NvimTree', 'neo-tree', 'notify', 'Trouble', 'Mundo', 'mason', 'man', 'alpha', 'calendar',
 				'PlenaryTestPopup',
 				-- LuaFormatter on
 			},

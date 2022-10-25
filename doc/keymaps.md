@@ -13,6 +13,7 @@ Press `<space>k` to see all keymaps in nvim.
 - `<leader>e` = Refresh current buffer
 - `<leader>w` = Save current buffer to disk
 - `<M-g>` = Show absolute file path
+- `<C-g>` = Show relative file path to CWD
 - `<leader>l` = Toggle invisible characters (EOL, Tabs, Spaces... see :h lcs)
 - `.` = Repeat last change. Also work in visual mode
 - `<leader>ii` = Increment word under cursor
@@ -277,7 +278,7 @@ Press `<space>k` to see all keymaps in nvim.
 ### Completion
 
 - `<M-c>` = Abort completion
--	`<CR>` = Confirm selection
+-	`<CR>` or `<C-o>` = Confirm selection
 -	`<C-n>` = Select next completion. And select history next in cmdline
 -	`<C-p>` = Select prev completion. And select history prev in cmdline
 -	`<Up>` or `<S-Tab>` or `<C-k>` = Select prev completion

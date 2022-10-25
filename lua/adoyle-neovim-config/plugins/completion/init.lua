@@ -30,11 +30,7 @@ local function has_words_before()
 		       nil
 end
 
-local function feedkey(key, mode)
-	api.nvim_feedkeys(api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
-local function configMapping(cmp, conf)
+local function configMapping(cmp, config)
 	local snippy = require('snippy')
 	local useFallback = function(fallback)
 		fallback()
@@ -124,16 +120,17 @@ local function configMapping(cmp, conf)
 	selectNextOrHistoryNext.i = selectNext.i
 	selectNextOrHistoryNext.s = selectNext.s
 
-	local pageScrollLines = conf.pageScrollLines
-	local selectPageUp = cmp.mapping(function()
-		cmp.select_prev_item({ behavior = behavior, lines = pageScrollLines })
+	local mapping = cmp.mapping
+
+	local selectPageUp = mapping(function()
+		cmp.select_prev_item({ behavior = behavior, lines = config.completion.pageScrollLines })
 	end, { 'i', 'c', 's' })
 
-	local selectPageDown = cmp.mapping(function()
-		cmp.select_next_item({ behavior = behavior, lines = pageScrollLines })
+	local selectPageDown = mapping(function()
+		cmp.select_next_item({ behavior = behavior, lines = config.completion.pageScrollLines })
 	end, { 'i', 'c', 's' })
 
-	local confirm = cmp.mapping(function(fallback)
+	local confirm = mapping(function(fallback)
 		if cmp.visible() then
 			local entry = cmp.get_selected_entry()
 			if entry then
@@ -151,8 +148,9 @@ local function configMapping(cmp, conf)
 		end
 	end, { 'i', 'c', 's' })
 
-	return cmp.mapping.preset.insert {
+	return mapping.preset.insert {
 		['<CR>'] = confirm,
+		['<C-o>'] = confirm,
 		['<Down>'] = selectNext,
 		['<Up>'] = selectPrev,
 		['<C-n>'] = selectNextOrHistoryNext,
@@ -164,9 +162,9 @@ local function configMapping(cmp, conf)
 		['<C-k>'] = selectPrev,
 		['<C-f>'] = selectPageDown,
 		['<C-b>'] = selectPageUp,
-		['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 's' }), -- scroll preview up
-		['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 's' }), -- scroll preview down
-		['<M-c>'] = cmp.mapping(cmp.mapping.abort(), { 'i', 'c', 's' }), -- abort completion
+		['<C-u>'] = mapping(mapping.scroll_docs(-4), { 'i', 's' }), -- scroll preview up
+		['<C-d>'] = mapping(mapping.scroll_docs(4), { 'i', 's' }), -- scroll preview down
+		['<M-c>'] = mapping(mapping.abort(), { 'i', 'c', 's' }), -- abort completion
 	}
 end
 
@@ -214,7 +212,7 @@ function M.config(config)
 	if pcall(require, 'cmp_treesitter') then addNormalSrc('treesitter', 2) end
 
 	local opts = {
-		mapping = configMapping(cmp, conf),
+		mapping = conf.mapping,
 		formatting = configFormating(conf),
 		sources = normalSources,
 
@@ -258,12 +256,16 @@ function M.config(config)
 	vim.o.pumheight = conf.pumheight
 end
 
-M.defaultConfig = function()
+M.defaultConfig = function(config)
+	local cmp = require('cmp')
+
 	return {
 		'completion',
 		{
 			pumheight = 20, -- The window height of cmdline completion
 			pageScrollLines = 8, -- Page down/up scroll lines
+
+			mapping = configMapping(cmp, config),
 
 			-- You can specify multiple source arrays. The sources are grouped in the group_index order you specify,
 			-- and the groups are displayed as a fallback, like chain completion.

@@ -58,7 +58,7 @@ require('adoyle-neovim-config').setup {
 					--     prefer_local = 'node_modules/.bin',
 					-- },
 
-					formatting.shfmt,
+					-- formatting.shfmt, -- not good
 					formatting.lua_format,
 				},
 			},
@@ -102,7 +102,7 @@ require('adoyle-neovim-config').setup {
 					'pyright',
 					'python-lsp-server',
 					'shellcheck',
-					'shfmt', -- #Formatter A shell formatter (sh/bash/mksh)
+					-- 'shfmt', -- #Formatter A shell formatter (sh/bash/mksh)
 					'sqlfluff', -- #Linter SQLFluff is a dialect-flexible and configurable SQL linter
 					'sqls', -- #LSP
 					'taplo', -- #LSP TOML
@@ -123,6 +123,14 @@ require('adoyle-neovim-config').setup {
 	-- More examples at ./lua/adoyle-neovim-config/plugins.lua
 	plugins = { --
 		{ 'profiling', disable = true },
+		{ 'zk', disable = false },
+		{ 'node', disable = false },
+		{ 'curl', disable = false },
+		{ 'funny', disable = false },
+		{ 'latex', disable = false },
+		{ 'calendar', disable = false },
+		{ 'todo', disable = false },
+		{ 'zen', disable = false },
 		{ 'olimorris/onedarkpro.nvim', disable = false },
 		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
 	},

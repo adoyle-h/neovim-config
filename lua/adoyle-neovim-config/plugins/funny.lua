@@ -1,5 +1,6 @@
 return {
 	'funny',
+	disable = true,
 	desc = 'Funny Games',
 	requires = {
 		{ 'johngrib/vim-game-snake', on = 'VimGameSnake' },
