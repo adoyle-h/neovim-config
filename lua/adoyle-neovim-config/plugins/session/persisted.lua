@@ -65,7 +65,7 @@ M.defaultConfig = function(config)
 			command = 'VimLeavePre', -- the autocommand for which the session is saved
 			silent = false, -- silent nvim message when sourcing session file
 			use_git_branch = true, -- create session files based on the branch of the git enabled repository
-			branch_separator = '@', -- string used to separate session directory name from branch name
+			branch_separator = '@@', -- string used to separate session directory name from branch name
 			autosave = true, -- automatically save session files when exiting Neovim
 			autoload = false, -- automatically load the session for the cwd on Neovim startup
 			on_autoload_no_session = nil, -- function to run when `autoload = true` but there is no session to load

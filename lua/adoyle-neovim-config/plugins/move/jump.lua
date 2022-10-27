@@ -7,7 +7,7 @@ return {
 	defaultConfig = {
 		{ 'move', 'jump' },
 		{
-			keys = '12345asdghklqwertyuiopzxcvbnmfj',
+			keys = 'asdghklqwertyuiopzxcvbnmfj',
 			quit_key = '<Esc>',
 			multi_windows = false,
 			create_hl_autocmd = false,

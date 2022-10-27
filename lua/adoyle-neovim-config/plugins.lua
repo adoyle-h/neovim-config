@@ -56,6 +56,8 @@ Load 'plugins.yank'
 Load 'plugins.trouble'
 Load 'plugins.icon-picker'
 Load 'plugins.diff'
+Load 'plugins.js'
+Load 'plugins.crontab'
 
 Plug {
 	'tyru/capture.vim',

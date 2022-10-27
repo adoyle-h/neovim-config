@@ -84,7 +84,13 @@ M.defaultConfig = function(config)
 
 				-- :h telescope.layout
 				layout_config = {
-					center = { height = 0.4, prompt_position = 'top', width = 0.8, preview_cutoff = 0 },
+					center = {
+						preview_height = { 0.4, min = 5, max = 20 },
+						height = { 0.8, min = 10, max = 40 },
+						width = { 0.8, min = 80, max = 130 },
+						preview_cutoff = 20,
+						prompt_position = 'top', -- 'top' or 'bottom'
+					},
 
 					cursor = { --
 						height = { 0.4, min = 6, max = 10 },
@@ -93,7 +99,7 @@ M.defaultConfig = function(config)
 					},
 
 					horizontal = {
-						height = { 0.8, min = 30, max = 80 },
+						height = { 0.8, min = 10, max = 40 },
 						width = { 0.94, min = 100, max = 130 },
 						preview_width = 80,
 						prompt_position = 'bottom',
@@ -101,10 +107,10 @@ M.defaultConfig = function(config)
 					},
 
 					vertical = {
-						preview_height = { 0.4, min = 10, max = 30 },
-						height = { 0.8, min = 30, max = 80 },
+						preview_height = { 0.4, min = 5, max = 20 },
+						height = { 0.8, min = 10, max = 40 },
 						width = { 0.8, min = 80, max = 130 },
-						preview_cutoff = 0,
+						preview_cutoff = 20,
 						prompt_position = 'top', -- 'top' or 'bottom'
 					},
 				},
@@ -171,7 +177,12 @@ M.defaultConfig = function(config)
 
 				live_grep = {},
 
-				current_buffer_fuzzy_find = {},
+				current_buffer_fuzzy_find = {
+					layout_config = {
+						preview_height = { 0.2, min = 4, max = 6 },
+						height = { 0.9, min = 10, max = 40 },
+					},
+				},
 
 				spell_suggest = { layout_strategy = 'cursor' },
 

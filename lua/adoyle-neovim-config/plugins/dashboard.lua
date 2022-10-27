@@ -1,8 +1,17 @@
 local M = {
-	--	'goolord/alpha-nvim'
-	'adoyle-h/alpha-nvim', -- TODO: https://github.com/goolord/alpha-nvim/pull/152
-	branch = 'adoyle',
-	desc = 'Dashboard',
+	'dashboard',
+
+	requires = {
+		-- {
+		-- 	'goolord/alpha-nvim'
+		-- },
+		{
+			'adoyle-h/alpha-nvim', -- TODO: https://github.com/goolord/alpha-nvim/pull/152
+			branch = 'adoyle',
+		},
+	},
+
+	desc = 'Dashboard when nvim opened without arguments',
 }
 
 local printf = string.format
@@ -11,7 +20,7 @@ local function getTitle(val)
 	return {
 		type = 'text',
 		val = val,
-		opts = { position = 'center', cursor = 5, width = 100, hl = 'Title' },
+		opts = { position = 'center', cursor = 5, width = 50, hl = 'Title' },
 	}
 end
 
@@ -203,18 +212,28 @@ local function getVersion()
 end
 
 local function getHeader()
-	local header = {
-		type = 'text',
-		val = {
+	local logo
+	if vim.o.columns > 49 then
+		logo = {
 			[[                               __                ]],
 			[[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
 			[[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
 			[[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
 			[[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
 			[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
-		},
-		opts = { position = 'center', hl = 'DashboardLogo' },
-	}
+		}
+	else
+		logo = {
+			[[ _   _       _            ]],
+			[[| \ | |     (_)           ]],
+			[[|  \| |_   ___ _ __ ___   ]],
+			[[| . ` \ \ / / | '_ ` _ \  ]],
+			[[| |\  |\ V /| | | | | | | ]],
+			[[\_| \_/ \_/ |_|_| |_| |_| ]],
+		}
+	end
+
+	local header = { type = 'text', val = logo, opts = { position = 'center', hl = 'DashboardLogo' } }
 
 	return {
 		type = 'group',

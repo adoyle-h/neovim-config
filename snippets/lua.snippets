@@ -8,9 +8,14 @@ snippet format-on "LuaFormatter on"
 
 snippet Plug "ADoyle-Nvim-Config Plugin"
   return {
-    '$1'},
+    '$1',
+
+    requires = {},
+
     config = function(config)
-      require('$2').setup(config.$3)
+      local conf = config.$1
+      require('$2').setup(conf)
     end,
-    defaultConfig = { { '$3' }, {} },
+
+    defaultConfig = { { '$1' }, {} },
   }

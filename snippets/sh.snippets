@@ -11,12 +11,45 @@ snippet shellcheck-disable "shellcheck disable=" b
 snippet shellcheck-source "shellcheck source=" b
   # shellcheck source=${0}
 
-snippet SCRIPT_DIR "[shell] Add SCRIPT_DIR variable" b
-  readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+# snippet SCRIPT_DIR "[shell] Add SCRIPT_DIR variable" b
+#   readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
 
 snippet script_dir "[shell] Add SCRIPT_DIR variable" b
-  readonly SCRIPT_PATH=$( if [[ "$OSTYPE" == "darwin"* ]]; then echo "$PWD"/"$(readlink "\$0")"; else realpath "\$0"; fi )
-  readonly SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+  readlinkf() { # Modified from https://github.com/ko1nksm/readlinkf
+    [ "${1:-}" ] || return 1
+
+    CDPATH='' # to avoid changing to an unexpected directory
+    local max_symlinks=40
+    local link
+    local target=$1
+
+    [ -e "${target%/}" ] || target=${1%"${1##*[!/]}"} # trim trailing slashes
+    [ -d "${target:-/}" ] && target="$target/"
+
+    cd -P . 2>/dev/null || return 1
+    while [ "$max_symlinks" -ge 0 ] && max_symlinks=$((max_symlinks - 1)); do
+      if [ ! "$target" = "${target%/*}" ]; then
+        case $target in
+          /*) cd -P "${target%/*}/" 2>/dev/null || break ;;
+          *) cd -P "./${target%/*}" 2>/dev/null || break ;;
+        esac
+        target=${target##*/}
+      fi
+
+      if [ ! -L "$target" ]; then
+        target="${PWD%/}${target:+/}${target}"
+        printf '%s\n' "${target:-/}"
+        return 0
+      fi
+
+      link=$(ls -dl -- "$target" 2>/dev/null) || break
+      target=${link#*" $target -> "}
+    done
+    return 1
+  }
+
+  SCRIPT_PATH="$(readlinkf "$0")"
+  SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
 
 snippet sh-vars "[shell] Add magic shell variables" b
   readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"

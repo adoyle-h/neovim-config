@@ -1,22 +1,11 @@
 local M = { 'nathom/filetype.nvim', desc = 'filetype detection' }
 
-M.filetypes = {
-	js = function()
-		-- vim.cmd 'set isk-=.'
-		vim.opt_local.isk:remove{ '.' }
-	end,
+function M.config(config)
+	local conf = config.filetype
 
-	jsx = function()
-		-- vim.cmd 'set isk-=.'
-		vim.opt_local.isk:remove{ '.' }
-	end,
-
-	-- TODO: maybe useless
-	crontab = function()
-		vim.opt_local.backup = false
-		vim.opt_local.writebackup = false
-	end,
-}
+	---@diagnostic disable-next-line: different-requires, redundant-parameter
+	require('filetype').setup(conf)
+end
 
 M.defaultConfig = {
 	'filetype',
@@ -74,12 +63,5 @@ M.defaultConfig = {
 
 	},
 }
-
-function M.config(config)
-	local conf = config.filetype
-
-	---@diagnostic disable-next-line: different-requires, redundant-parameter
-	require('filetype').setup(conf)
-end
 
 return M

@@ -16,6 +16,8 @@ M.highlights = {
 M.defaultConfig = {
 	{ 'lsp' },
 	{
+		log = { level = 'ERROR' }, -- 'TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'OFF'
+
 		masonLspconfig = { automatic_installation = false },
 
 		-- Change lsp.setup(opts). Format: {['lsp_name'] = settings}
@@ -95,11 +97,14 @@ local function setDefaultBorder()
 end
 
 function M.config()
-	vim.diagnostic.config(config.lsp.diagnostic)
+	local conf = config.lsp
+
+	vim.lsp.set_log_level(conf.log.level)
+	vim.diagnostic.config(conf.diagnostic)
 	setDefaultBorder()
 
 	local masonLspconfig = require('mason-lspconfig')
-	masonLspconfig.setup(config.lsp.masonLspconfig)
+	masonLspconfig.setup(conf.masonLspconfig)
 
 	-- It only list LSP packages. Not includes DAP/Linter/Formatter packages and null-ls.
 	local servers = masonLspconfig.get_installed_servers()

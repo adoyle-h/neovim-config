@@ -32,6 +32,8 @@ return {
 
 	keymaps = {
 
+		{ 'n', '<space>Z', ':Neotree toggle zk<CR>', { silent = true } },
+
 		{
 			'n',
 			'<leader>zn',
