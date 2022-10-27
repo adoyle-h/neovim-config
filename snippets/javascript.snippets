@@ -1,0 +1,51 @@
+priority 100
+
+snippet function* "Generator function"
+  function* ${1:name}(${2}) {
+      yield ${3};
+  }
+
+snippet req "require module"
+  const ${2} = require('${1}');
+
+snippet mod "module.exports"
+  module.exports = ${1};
+
+snippet cons
+  /**
+  * @param {Object} props
+  */
+  constructor(${1:props}) {
+  }
+
+snippet => "Arrow function" i
+  (${1}) => {
+      ${2}
+  }
+
+snippet class "ES6 Class"
+  class ${1:name} {
+      /**
+      * @param {Object} props
+      */
+      constructor(${2:props}) {
+      }
+  }
+
+snippet import "Import"
+  import ${1:foo} from '${2:bar}'
+
+snippet export "Export"
+  export ${1:default} ${2:bar}
+
+snippet eslint-enable
+  /* eslint-enable ${1:rule} */
+
+snippet eslint-disable
+  /* eslint-disable ${1:rule} */
+
+snippet eslint-disable-line
+  // eslint-disable-line ${1:rule}
+
+snippet eslint-disable-next-line
+  // eslint-disable-next-line ${1:rule}
