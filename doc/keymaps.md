@@ -173,6 +173,8 @@ Press `<space>k` to see all keymaps in nvim.
 - `<C-f>` = Scroll results window page down
 - `<C-u>` = Scroll preview window page up
 - `<C-d>` = Scroll preview window page down
+- `<C-y>` = Copy name of current selection
+- `<M-y>` = Copy path of current selection
 
 ## Edit and Write
 
@@ -207,8 +209,8 @@ Press `<space>k` to see all keymaps in nvim.
 
 ## Buffer Line
 
-- `[b` = Select previous buffer
-- `]b` = Select next buffer
+- `<M-[>` or `[b` = Select previous buffer
+- `<M-]>` or `]b` = Select next buffer
 - `<leader>1` = Select 1st buffer
 - `<leader>2` = Select 2nd buffer
 - `<leader>3` = Select 3rd buffer

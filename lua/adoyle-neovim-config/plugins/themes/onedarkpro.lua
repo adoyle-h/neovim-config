@@ -31,7 +31,7 @@ M.defaultConfig = {
 			gray = colors.grey,
 			highlight = colors.yellow,
 
-			cursorline = colors.darkBlue,
+			cursorline = colors.cursorLine,
 			comment = colors.grey,
 			selection = colors.darkOrange,
 
@@ -44,7 +44,7 @@ M.defaultConfig = {
 		-- Only fix onedarkpro highlights. Do not put all highlights here
 		highlights = { -- Override default highlight groups.
 			StatusLine = { bg = 'NONE', fg = 'NONE' }, -- Fix caret in statusline. https://github.com/nvim-lualine/lualine.nvim/discussions/866
-			CursorLineNr = { bg = colors.cursorLineNrBG, fg = colors.blue, style = 'bold' },
+			CursorLineNr = { bg = colors.cursorLineNrBG, fg = colors.cursorLineNrFG, style = 'bold' },
 
 			-- override diff styles
 			DiffAdd = { bg = colors.diff.add.bg },

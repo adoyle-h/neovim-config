@@ -9,10 +9,67 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 - All in Lua. All configs can be overrided.
 - Use many Neovim features: Native LSP, Float Window, Winbar.
 - Lua-wrapped plugin manage framework based on [vim-plug][]. Support on-demand loading plugins.
-- Integrated 110+ powerful Vim/Nvim plugins. Enhancing the usage experience and default config. Fix some shortcomings of plugins.
-- Awesome UI and color schema. Dark Mode. Support True-Color, Smooth-Scroll, Scrollbar, Dashboard.
+- Awesome UI and color schema. Dark Mode. Support True-Color, Smooth-Scroll, Scrollbar, Dashboard. You can change colors and highlights, see [doc/colors.md](doc/colors.md).
 - [Configurable](#configuration).
-- Configurable proxy for fast git download in China Mainland
+- Configurable proxy for fast git download in China Mainland. See [Proxy](#proxy).
+- Integrated 110+ powerful Vim/Nvim plugins. Enhancing the usage experience, and fixed some shortcomings of these plugins.
+
+  <details close>
+  <summary>Click to expend/collapse</summary>
+
+  - Dashboard: [alpha.nvim](lua/adoyle-neovim-config/plugins/dashboard.lua)
+  - Outline: [aerial](lua/adoyle-neovim-config/plugins/outline/aerial.lua) (default) or [majutsushi/tagbar](lua/adoyle-neovim-config/plugins/outline/tagbar.lua)
+  - File Explorer: [neo-tree](lua/adoyle-neovim-config/plugins/filetree/neo-tree.lua) (default) or [nerdtree](lua/adoyle-neovim-config/plugins/filetree/nerdtree.lua) or [nvim-tree](lua/adoyle-neovim-config/plugins/filetree/nvim-tree.lua)
+  - Statusline: [lualine](lua/adoyle-neovim-config/plugins/statusline/lualine.lua) (default) or [airline](lua/adoyle-neovim-config/plugins/statusline/airline.lua)
+  - Bufferline: [bufferline](lua/adoyle-neovim-config/plugins/bufferline.lua)
+  - Scrollbar: [nvim-scrollbar](lua/adoyle-neovim-config/plugins/scrollbar.lua)
+  - Smooth-Scroll: [neoscroll.nvim](lua/adoyle-neovim-config/plugins/scroll.lua)
+  - Session: [persisted](lua/adoyle-neovim-config/plugins/session/persisted.lua) (default) or [possession](lua/adoyle-neovim-config/plugins/session/possession.lua) or [xolox/vim-session](lua/adoyle-neovim-config/plugins/session/vim-session.lua) or [rmagatti/auto-session](lua/adoyle-neovim-config/plugins/session/auto-session.lua)
+  - Fuzzy Finding: [telescope](lua/adoyle-neovim-config/plugins/telescope/main.lua) and [ctrlsf](lua/adoyle-neovim-config/plugins/search/ctrlsf.lua)
+  - Diagnostics Window: [trouble](lua/adoyle-neovim-config/plugins/trouble.lua)
+  - Undo: [vim-mundo](lua/adoyle-neovim-config/plugins/undotree.lua)
+  - Syntax Highlight: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter) and [nvim-ts-rainbow](lua/adoyle-neovim-config/plugins/treesitter/rainbow.lua) and [nvim-treesitter-pairs](lua/adoyle-neovim-config/plugins/treesitter/pairs.lua)
+  - Highlight Words: [vim-interestingwords](lua/adoyle-neovim-config/plugins/highlight-words.lua)
+  - Code Comment: [Comment.nvim](lua/adoyle-neovim-config/plugins/comment.lua) (default) or [nerdcommenter](lua/adoyle-neovim-config/plugins/comment_nerd.lua)
+  - LSP: [nvim-lspconfig](lua/adoyle-neovim-config/plugins/lsp/main.lua) and [treesitter](lua/adoyle-neovim-config/plugins/treesitter/init.lua) and [null-ls](lua/adoyle-neovim-config/plugins/lsp/null-ls.lua) and [fidget.nvim](lua/adoyle-neovim-config/plugins/lsp/fidget.lua) and [nlsp](lua/adoyle-neovim-config/plugins/lsp/nlsp.lua) and [goto-preview](lua/adoyle-neovim-config/plugins/lsp/preview.lua) and [lsp-toggle](https://github.com/adoyle-h/lsp-toggle.nvim)
+  - DAP: [nvim-dap](lua/adoyle-neovim-config/plugins/dap/init.lua)
+  - Format: [lsp-format](lua/adoyle-neovim-config/plugins/lsp/format.lua) and [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
+  - Formatter, Linter, LSP, DAP Manager: [mason](lua/adoyle-neovim-config/plugins/lsp/mason.lua) and [mason-installer](lua/adoyle-neovim-config/plugins/lsp/mason-installer.lua)
+  - Completion: [nvim-cmp](lua/adoyle-neovim-config/plugins/completion/init.lua)
+  - Snippets: [nvim-snippy](lua/adoyle-neovim-config/plugins/completion/snippet.lua)
+  - Markdown: [plasticboy/vim-markdown](lua/adoyle-neovim-config/plugins/markdown/main.lua) and [markdown-preview](lua/adoyle-neovim-config/plugins/markdown/preview.lua) and [headlines.nvim](lua/adoyle-neovim-config/plugins/markdown/headlines.lua) and [vim-MarkdownTOC](lua/adoyle-neovim-config/plugins/markdown/toc.lua)
+  - Surrounds: [nvim-surround](lua/adoyle-neovim-config/plugins/match/surround.lua) and [nvim-autopairs](lua/adoyle-neovim-config/plugins/match/autopairs.lua) and [nvim-ts-autotag](lua/adoyle-neovim-config/plugins/match/ts-autotag.lua) and [vim-matchup](lua/adoyle-neovim-config/plugins/match/matchup.lua)
+  - Git: [gitsigns](lua/adoyle-neovim-config/plugins/git/sign.lua) and [lazygit](lua/adoyle-neovim-config/plugins/git/lazygit.lua) and [diffview.nvim](https://github.com/sindrets/diffview.nvim)
+  - Indent Line: [indent-blankline](lua/adoyle-neovim-config/plugins/indent-line.lua)
+  - Cursor Move: [hop.nvim](lua/adoyle-neovim-config/plugins/move/jump.lua) and [accelerated-jk](lua/adoyle-neovim-config/plugins/move/accelerated.lua)
+  - Window Picker: [nvim-window-picker](lua/adoyle-neovim-config/plugins/move/window-picker.lua) (default) or [yorickpeterse/nvim-window](lua/adoyle-neovim-config/plugins/move/window-selector.lua) or [vim-choosewin](lua/adoyle-neovim-config/plugins/move/choose-window.lua)
+  - Window Resize: [simeji/winresizer](lua/adoyle-neovim-config/plugins/window/resize.lua) and [windows.nvim](lua/adoyle-neovim-config/plugins/window/maximize.lua)
+  - Context: [aerial](lua/adoyle-neovim-config/plugins/outline/aerial.lua) (default) or [navic](lua/adoyle-neovim-config/plugins/navic.lua) and [nvim-treesitter-context](lua/adoyle-neovim-config/plugins/treesitter/context.lua)
+  - Text Align: [vim-easy-align](lua/adoyle-neovim-config/plugins/align.lua)
+  - Bookmark: [vim-bookmarks](lua/adoyle-neovim-config/plugins/bookmark.lua)
+  - Mark: [marks.nvim](lua/adoyle-neovim-config/plugins/mark.lua)
+  - Calendar: [mattn/calendar-vim](lua/adoyle-neovim-config/plugins/calendar.lua)
+  - Curl: [rest.nvim](lua/adoyle-neovim-config/plugins/curl.lua)
+  - Icons: [devicons](lua/adoyle-neovim-config/plugins/devicons.lua) and [icon-picker](lua/adoyle-neovim-config/plugins/icon-picker.lua)
+  - UI Enhancing: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua)
+  - Escape: [better-escape.nvim](lua/adoyle-neovim-config/plugins/escape.lua)
+  - Increment: [increment-activator](lua/adoyle-neovim-config/plugins/increment.lua)
+  - Filetype: [filetype.nvim](lua/adoyle-neovim-config/plugins/filetype.lua)
+  - Latex: [nabla](lua/adoyle-neovim-config/plugins/latex.lua)
+  - Notification: [notify](lua/adoyle-neovim-config/plugins/notify.lua) (default) or [notifier](lua/adoyle-neovim-config/plugins/notifier.lua)
+  - Profiling: [vim-startuptime](lua/adoyle-neovim-config/plugins/profiling.lua)
+  - Text-Objects: [wildfire](lua/adoyle-neovim-config/plugins/select.lua) and [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
+  - Table Edit: [vim-table-mode](lua/adoyle-neovim-config/plugins/table.lua)
+  - Terminal: [neoterm](lua/adoyle-neovim-config/plugins/terminal/neoterm.lua)
+  - Testing: [nvim-test](lua/adoyle-neovim-config/plugins/test.lua)
+  - TODO Comment: [todo-comments](lua/adoyle-neovim-config/plugins/todo.lua)
+  - Trailing Spaces: [whitespace](lua/adoyle-neovim-config/plugins/trailing.lua)
+  - Yank: [yanky](lua/adoyle-neovim-config/plugins/yank.lua)
+  - Zen Mode: [twilight and zen-mode](lua/adoyle-neovim-config/plugins/zen.lua)
+  - Notebook: [zk](lua/adoyle-neovim-config/plugins/zk.lua)
+  - [Games](lua/adoyle-neovim-config/plugins/funny.lua)
+
+  </details>
 
 ## Screenshots
 
@@ -53,7 +110,7 @@ Function signature completion
 
 </details>
 
-## Dependency
+## Dependencies
 
 - [NVIM v0.8][] or later
 - Vim Plugin Manager: https://github.com/junegunn/vim-plug
@@ -67,49 +124,57 @@ Function signature completion
 
 ## Installation
 
-1. You have two ways to use the project. Use the project directly, or load the project as an plugin for more customizations.
+You have three ways to install the project.
 
-  a. Directly use
+1. Use the project as an plugin.
+2. Out of the box via container.
+3. Git clone the project directly.
 
-  ```sh
-  # Set your nvim config directory
-  NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-  git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
-  ```
+### Use as plugin
 
-  b. Load as plugin
+```sh
+# Set your nvim config directory
+NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
+mkdir -p "$NVIM_DATA"/plugins
+git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
 
-  ```sh
-  # Set your nvim config directory
-  NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
-  NVIM_DATA=${XDG_CONFIG_HOME:-$HOME/.local/share}/nvim
-  mkdir -p "$NVIM_DATA"/plugins
-  git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_DATA"/plugins/adoyle-neovim-config
+# Create init.lua file
+cat <<EOF > "$NVIM_HOME"/init.lua
+vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
 
-  # Create init.lua file
-  cat <<EOF > "$NVIM_HOME"/init.lua
-  vim.opt.rtp:prepend { vim.fn.stdpath('data') .. '/plugins/adoyle-neovim-config' }
+require('adoyle-neovim-config').setup {}
+EOF
+```
 
-  require('adoyle-neovim-config').setup {}
-  EOF
-  ```
+Do [initialization](#initialization) and then press `nvim` to get started.
 
-  c. Out of the box
+### Out of the box
 
-  ```sh
-  alias nvim='docker run -it adoyle/neovim -v /workspace/:$(pwd)'
-  ```
+```sh
+alias nvim='docker run --rm -it -v "$PWD:/workspace" adoyle/neovim:v0.8.0'
+```
 
-2. Initialization
-  - `:PlugInstall`.
-    - All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plugin directory with the `pluginDir` option in [default config][default-config].
-    - It maybe slow, please be patient. you can set proxy via `config.proxy.github`.
-  - There no any Treesitter Parer installed by default. Invoke `:TSInstall all` to install them.
-3. `nvim` to get started.
+Press `nvim` to get started.
 
-## API
+### Git clone directly
 
-Just read [codes](./lua/adoyle-neovim-config/init.lua).
+```sh
+# Set your nvim config directory
+NVIM_HOME=${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
+# If you want to change configs, checkout to new branch
+```
+
+Do [initialization](#initialization) and then press `nvim` to get started.
+
+### Initialization
+
+- `nvim --headless -c PlugInstall -c qa`, or `:PlugInstall` in nvim, to install all plugins.
+  - All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plugin directory with the `pluginDir` option in [default config][default-config].
+  - It maybe slow, please be patient. You can modify `config.proxy.github` option in `init.lua` to use proxy. See [Proxy](#proxy) for details.
+- `nvim --headless -c 'TSInstall all' -c qa`, or `:TSInstall all` in nvim, to install treesitter parsers.
+- `nvim --headless -c 'MasonInstall all' -c qa`, or `MasonInstall all` in nvim, to install LSP.
 
 ## Configuration
 
@@ -120,10 +185,10 @@ You can set your config to override default configs.
 ```lua
 require('adoyle-neovim-config').setup {
   config = {
-    proxy = {
-      -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
-      -- Otherwise, remove this option.
-      github = 'https://ghproxy.com/',
+    colors = { -- basic colors
+      white = '#BEC0C4', -- frontground
+      black = '#15181D', -- background
+      cursorLine = '#252931',
     },
 
     lsp = {
@@ -205,9 +270,22 @@ You can search `--[[<table 28>--]]` to view its value for `<table 28>` in same b
 For `<table id>`, `<function id>`, `<metatable>` tag explanations, see [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use).
 
 ### [Colors and Highlights](./doc/colors.md)
-## NOTE
 
-`$VIMRUNTIME/filetype.vim` will not run, please put filetype detection in [./lua/plugins/filetype.lua](./lua/plugins/filetype.lua).
+### Proxy
+
+```lua
+require('adoyle-neovim-config').setup {
+  config = {
+    proxy = {
+      -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
+      -- Otherwise, remove this option.
+      github = 'https://ghproxy.com/',
+    },
+  },
+}
+```
+
+Proxy will not work for some plugins using "git submodule". It's recommended to execute `git config --global http.https://github.com.proxy https://ghproxy.com` to set global git proxy.
 
 ## Usage
 
@@ -236,6 +314,10 @@ Default to use the formatters defined in `nullLS.sources`, and then formatters d
 
 ## [Plugin](./doc/plugin.md)
 
+## API
+
+Just read [codes](./lua/adoyle-neovim-config/init.lua).
+
 ## Project File Structure
 
 ```
@@ -263,9 +345,7 @@ Default to use the formatters defined in `nullLS.sources`, and then formatters d
 │       ├── plugins/         // Available plugins written in lua
 │       ├── telescope/       // Utilities for telescope
 │       └── themes/          // Color schemas
-├── snippets/                // Code Snippets
-└── spell/                   // Spell check data (git ignored)
-    └── en.utf-8.add
+└── snippets/                // Code Snippets
 ```
 
 ## Startup Time

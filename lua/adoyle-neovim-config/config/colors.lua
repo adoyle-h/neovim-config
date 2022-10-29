@@ -1,4 +1,4 @@
-local colors = {
+local colors = { -- basic colors
 	white = '#BEC0C4',
 	black = '#101012',
 	grey1 = '#18191B',
@@ -27,7 +27,10 @@ local colors = {
 }
 
 local functionsColors = { --
+	cursorLine = colors.darkBlue,
+	cursorLineNrFG = colors.blue,
 	cursorLineNrBG = colors.darkBlue,
+
 	diff = {
 		add = { bg = colors.darkGreen },
 		delete = { fg = colors.red, bg = colors.darkRed },

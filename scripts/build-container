@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+readonly SCRIPT_DIR
+source "$SCRIPT_DIR/lobash.bash"
+
+declare -A opts=()
+declare -a args=()
+
+main() {
+  l.parse_params opts args "$@"
+
+  local VERSION="${opts[v]:-v0.8.0}"
+  local PLATFORM=${opts[platform]:-linux/amd64}
+
+  declare -a docker_args=(
+    --platform "$PLATFORM"
+    -t "adoyle/nvim:$VERSION"
+    --build-arg "VERSION=$VERSION"
+    --build-arg "BASE_IMAGE=${opts[IMAGE]:-ubuntu:22.04}" # alpine image not work
+  )
+
+  if [[ -n ${opts[p]:-} ]]; then
+    docker_args+=(
+      -t "adoyle/nvim:$VERSION-china"
+      --build-arg "APK_PROXY=https://mirrors.tuna.tsinghua.edu.cn"
+      --build-arg "GH_PROXY=https://ghproxy.com"
+    )
+  else
+    docker_args+=(
+      -t "adoyle/nvim:$VERSION"
+    )
+  fi
+
+  echo "[TODO] docker build ${docker_args[*]} $SCRIPT_DIR/../"
+  docker build "${docker_args[@]}" "$SCRIPT_DIR/../"
+}
+
+main "$@"

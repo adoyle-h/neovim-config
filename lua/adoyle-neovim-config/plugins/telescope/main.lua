@@ -31,6 +31,26 @@ M.defaultConfig = function(config)
 		file_ignore_patterns[#file_ignore_patterns + 1] = value:gsub('%.', '%%.') .. '/' -- test ./lua/adoyle-neovim-config/plugins/git/sign.lua
 	end
 
+	local function copySelection(prompt_bufnr)
+		local entry = action_state.get_selected_entry()
+		local path = entry.filename or entry.path
+		vim.cmd(string.format('let @"="%s"', path))
+		vim.schedule(function()
+			print('Copied: ' .. path)
+		end)
+		actions.close(prompt_bufnr)
+	end
+
+	local function copySelectionPath(prompt_bufnr)
+		local entry = action_state.get_selected_entry()
+		local path = entry.path
+		vim.cmd(string.format('let @"="%s"', path))
+		vim.schedule(function()
+			print('Copied: ' .. path)
+		end)
+		actions.close(prompt_bufnr)
+	end
+
 	return {
 		{ 'telescope', 'main' },
 		{
@@ -125,9 +145,16 @@ M.defaultConfig = function(config)
 						-- ['<C-d>'] = false,
 						['<C-b>'] = 'results_scrolling_up',
 						['<C-f>'] = 'results_scrolling_down',
+						['<C-y>'] = copySelection,
+						['<M-y>'] = copySelectionPath,
 					},
 
-					n = { ['<C-b>'] = 'results_scrolling_up', ['<C-f>'] = 'results_scrolling_down' },
+					n = {
+						['<C-b>'] = 'results_scrolling_up',
+						['<C-f>'] = 'results_scrolling_down',
+						['<C-y>'] = copySelection,
+						['<M-y>'] = copySelectionPath,
+					},
 				},
 			},
 

@@ -16,6 +16,7 @@ M.defaultConfig = {
 			extensions = {
 				-- *.cocoascript files set filetype javascript
 				cocoascript = 'javascript',
+				bats = 'sh',
 			},
 
 			-- Set the filetype based on filename

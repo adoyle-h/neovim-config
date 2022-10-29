@@ -17,8 +17,8 @@ M.commands = function(config)
 				require('telescope').extensions.persisted.persisted {
 					default_text = pwd:sub(#home + 2),
 					layout_config = { --
-						height = { 0.4, min = 10, max = 30 },
-						width = { 0.5, min = 80, max = 120 },
+						height = { 0.8, min = 6, max = 15 },
+						width = { 0.5, min = 60, max = 100 },
 					},
 				}
 			end,

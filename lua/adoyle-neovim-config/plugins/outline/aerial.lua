@@ -42,12 +42,22 @@ M.defaultConfig = {
 
 		highlight_on_hover = true,
 
-		default_direction = 'right',
-
-		min_width = 20,
-		max_width = 50,
+		layout = { default_direction = 'right', min_width = 20, max_width = 50 },
 
 		show_guides = true,
+
+		-- Use symbol tree for folding. Set to true or false to enable/disable
+		-- Set to "auto" to manage folds if your previous foldmethod was 'manual'
+		-- This can be a filetype map (see :help aerial-filetype-map)
+		manage_folds = false,
+
+		-- When you fold code with za, zo, or zc, update the aerial tree as well.
+		-- Only works when manage_folds = true
+		link_folds_to_tree = false,
+
+		-- Fold code when you open/collapse symbols in the tree.
+		-- Only works when manage_folds = true
+		link_tree_to_folds = false,
 
 		guides = {
 			-- When the child item has a sibling below it
@@ -136,16 +146,6 @@ M.filetypes = {
 			aerial.up(1, 1)
 		end, { buffer = bufnr })
 	end,
-}
-
-M.autocmds = {
-	LspAttach = {
-		-- args see https://github.com/neovim/neovim/blob/e6f7e038b8bbca487e78ebfc6fe21d6852330623/runtime/lua/vim/lsp.lua#L1522-L1526
-		callback = function(args)
-			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			require('aerial').on_attach(client, args.buf)
-		end,
-	},
 }
 
 return M

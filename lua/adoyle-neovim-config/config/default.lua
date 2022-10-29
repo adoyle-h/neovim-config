@@ -3,7 +3,7 @@ return function(colors)
 	local symbol = require('adoyle-neovim-config.config.symbol')
 
 	return {
-		colors = colors,
+		colors = colors, -- basic colors
 
 		symbolMap = symbol.symbolMap,
 

@@ -11,51 +11,53 @@ snippet shellcheck-disable "shellcheck disable=" b
 snippet shellcheck-source "shellcheck source=" b
   # shellcheck source=${0}
 
-# snippet SCRIPT_DIR "[shell] Add SCRIPT_DIR variable" b
-#   readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+snippet SCRIPT_DIR "[shell] Add SCRIPT_DIR variable" b
+  SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+  readonly SCRIPT_DIR
 
-snippet script_dir "[shell] Add SCRIPT_DIR variable" b
+snippet script_dir "[shell] Add SCRIPT_DIR variable (for command entry)" b
   readlinkf() { # Modified from https://github.com/ko1nksm/readlinkf
-    [ "${1:-}" ] || return 1
+    [ "\${1:-}" ] || return 1
 
     CDPATH='' # to avoid changing to an unexpected directory
     local max_symlinks=40
     local link
-    local target=$1
+    local target=\$1
 
-    [ -e "${target%/}" ] || target=${1%"${1##*[!/]}"} # trim trailing slashes
-    [ -d "${target:-/}" ] && target="$target/"
+    [ -e "\${target%/}" ] || target=\${1%"\${1##*[!/]}"} # trim trailing slashes
+    [ -d "\${target:-/}" ] && target="\$target/"
 
     cd -P . 2>/dev/null || return 1
-    while [ "$max_symlinks" -ge 0 ] && max_symlinks=$((max_symlinks - 1)); do
-      if [ ! "$target" = "${target%/*}" ]; then
-        case $target in
-          /*) cd -P "${target%/*}/" 2>/dev/null || break ;;
-          *) cd -P "./${target%/*}" 2>/dev/null || break ;;
+    while [ "\$max_symlinks" -ge 0 ] && max_symlinks=\$((max_symlinks - 1)); do
+      if [ ! "\$target" = "\${target%/*}" ]; then
+        case \$target in
+          /*) cd -P "\${target%/*}/" 2>/dev/null || break ;;
+          *) cd -P "./\${target%/*}" 2>/dev/null || break ;;
         esac
-        target=${target##*/}
+        target=\${target##*/}
       fi
 
-      if [ ! -L "$target" ]; then
-        target="${PWD%/}${target:+/}${target}"
-        printf '%s\n' "${target:-/}"
+      if [ ! -L "\$target" ]; then
+        target="\${PWD%/}\${target:+/}\${target}"
+        printf '%s\n' "\${target:-/}"
         return 0
       fi
 
-      link=$(ls -dl -- "$target" 2>/dev/null) || break
-      target=${link#*" $target -> "}
+      link=\$(ls -dl -- "\$target" 2>/dev/null) || break
+      target=\${link#*" \$target -> "}
     done
     return 1
   }
 
-  SCRIPT_PATH="$(readlinkf "$0")"
-  SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+  SCRIPT_PATH="\$(readlinkf "\$0")"
+  SCRIPT_DIR=\$(dirname "\$SCRIPT_PATH")
+  readonly SCRIPT_PATH SCRIPT_DIR
 
 snippet sh-vars "[shell] Add magic shell variables" b
-  readonly SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
-  readonly SCRIPT_BASENAME="$(basename "\$0")"
+  SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+  SCRIPT_BASENAME="$(basename "\$0")"
+  readonly SCRIPT_DIR SCRIPT_BASENAME
   readonly SCRIPT_PATH="${SCRIPT_DIR}/$SCRIPT_BASENAME"
-
   readonly ARGS="$@"
   readonly ARG1="\${1:-}"
 

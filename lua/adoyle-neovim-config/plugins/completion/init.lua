@@ -123,11 +123,11 @@ local function configMapping(cmp, config)
 	local mapping = cmp.mapping
 
 	local selectPageUp = mapping(function()
-		cmp.select_prev_item({ behavior = behavior, lines = config.completion.pageScrollLines })
+		cmp.select_prev_item({ behavior = behavior, count = config.completion.pageScrollLines })
 	end, { 'i', 'c', 's' })
 
 	local selectPageDown = mapping(function()
-		cmp.select_next_item({ behavior = behavior, lines = config.completion.pageScrollLines })
+		cmp.select_next_item({ behavior = behavior, count = config.completion.pageScrollLines })
 	end, { 'i', 'c', 's' })
 
 	local confirm = mapping(function(fallback)
@@ -272,11 +272,11 @@ M.defaultConfig = function(config)
 			-- See ":h cmp-config.sources" for full source properties.
 			sources = {
 				normal = {
-					{ name = 'nvim_lsp', group_index = 1 },
-					{ name = 'snippy', group_index = 1 },
-					{ name = 'buffer', group_index = 1 },
-					{ name = 'path', group_index = 1 },
 					{ name = 'dynamic', group_index = 1 },
+					{ name = 'path', group_index = 1 },
+					{ name = 'snippy', group_index = 1 },
+					{ name = 'nvim_lsp', group_index = 1 },
+					{ name = 'buffer', group_index = 1 },
 					{ name = 'spell', group_index = 2 },
 				},
 
