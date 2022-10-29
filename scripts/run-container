@@ -61,7 +61,6 @@ main() {
     --rm -it
     --entrypoint "${opts[entrypoint]:-nvim}"
     -v "$PWD:/workspace/"
-    -v "nvim-data:/root/.local/share/nvim"
   )
 
   # echo "docker run ${docker_args[*]} adoyle/nvim:${VERSION}"

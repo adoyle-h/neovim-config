@@ -22,6 +22,11 @@ return function(colors)
 			-- Default: ~/.local/share/nvim/plugins
 			pluginDir = vim.fn.stdpath('data') .. '/plugins',
 			timeout = 30,
+			threads = 8,
+			retries = 2,
+			shallow = 1,
+			window = 'vertical topleft new',
+			pwindow = 'above 12new',
 		},
 
 		proxy = {

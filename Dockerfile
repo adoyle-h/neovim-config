@@ -39,11 +39,10 @@ RUN if [[ -n "$APK_PROXY" ]]; then \
     fi
 
 RUN apt-get update && apt-get install -y \
-    glibc-source \
-    coreutils \
-    git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+    glibc-source coreutils git curl gcc software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt install python3 && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=base /workspace/nvim-linux64 /opt/nvim
 
@@ -54,10 +53,9 @@ COPY . /root/.config/nvim
 
 RUN if [[ -n "$GH_PROXY" ]]; then git config --global http.https://github.com.proxy $GH_PROXY; fi
 
-RUN nvim --headless -c PlugInstall \
-    -c 'TSInstall all' \
-    -c 'MasonInstall all' \
-    -c qa
+RUN nvim --headless -c PlugInstall -c qa
+
+RUN nvim --headless -c 'TSInstall all' -c 'MasonInstall all' -c qa
 
 ENTRYPOINT [ "bash" ]
 CMD [ "nvim" "/workspace" ]

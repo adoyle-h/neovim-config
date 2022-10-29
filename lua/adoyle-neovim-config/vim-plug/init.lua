@@ -13,7 +13,13 @@ local P = { plugs = plugs, plugMap = plugMap, userPlugins = userPlugins, configF
 function P.setup(opts)
 	set_keymap('n', '<SPACE>P', ':PlugStatus<CR>', { desc = 'Show Plugin Status' })
 
-	vim.g.plug_timeout = CM.config.pluginManager.timeout
+	local vimPlugConf = CM.config.pluginManager
+	vim.g.plug_threads = vimPlugConf.threads
+	vim.g.plug_timeout = vimPlugConf.timeout
+	vim.g.plug_retries = vimPlugConf.retries
+	vim.g.plug_shallow = vimPlugConf.shallow
+	vim.g.plug_window = vimPlugConf.window
+	vim.g.plug_pwindow = vimPlugConf.pwindow
 	-- Use git proxy for fast downloading
 	vim.g.plug_url_format = util.proxyGithub 'https://github.com/%s'
 
