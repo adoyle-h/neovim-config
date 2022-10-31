@@ -13,28 +13,67 @@ source "$SCRIPT_DIR/lobash.bash"
 declare -A opts=()
 declare -a args=()
 
+usage() {
+  cat <<EOF
+Usage: $0 [Options]
+
+Description: build image
+
+Options:
+  -p  Use proxy for China users
+  -d <distro>  Choose base image [Value: ubuntu|alpine] [Default: ubuntu]
+EOF
+}
+
 main() {
   l.parse_params opts args "$@"
 
+  if [[ -n ${opts[h]:-${opts[help]:-}} ]]; then
+    usage
+    exit 0
+  fi
+
   local VERSION="${opts[v]:-v0.8.0}"
-  local PLATFORM=${opts[platform]:-linux/amd64}
+  local PLATFORM=${opts[platform]:-}
+  local DIST=${opts[d]:-ubuntu}
 
   declare -a docker_args=(
-    --platform "$PLATFORM"
-    -t "adoyle/nvim:$VERSION"
     --build-arg "VERSION=$VERSION"
-    --build-arg "BASE_IMAGE=${opts[IMAGE]:-ubuntu:22.04}" # alpine image not work
   )
+
+  if [[ -n $PLATFORM ]]; then
+    docker_args+=(
+      --platform "$PLATFORM"
+    )
+  fi
 
   if [[ -n ${opts[p]:-} ]]; then
     docker_args+=(
+      -t "adoyle/nvim:$VERSION"
       -t "adoyle/nvim:$VERSION-china"
-      --build-arg "APK_PROXY=https://mirrors.tuna.tsinghua.edu.cn"
-      --build-arg "GH_PROXY=https://ghproxy.com"
+      --build-arg "GH_PROXY=https://ghproxy.com/"
     )
+
+    if [[ $DIST == 'ubuntu' ]]; then
+      docker_args+=( --build-arg "APT_PROXY=http://mirrors.tuna.tsinghua.edu.cn" )
+    else
+      docker_args+=( --build-arg "APK_PROXY=mirrors.ustc.edu.cn" )
+    fi
   else
     docker_args+=(
       -t "adoyle/nvim:$VERSION"
+    )
+  fi
+
+  if [[ $DIST == 'ubuntu' ]]; then
+    docker_args+=(
+      -f "$SCRIPT_DIR/../Dockerfile.ubuntu"
+      --build-arg "BASE_IMAGE=${opts[IMAGE]:-ubuntu:22.04}"
+    )
+  else
+    docker_args+=(
+      -f "$SCRIPT_DIR/../Dockerfile.alpine"
+      --build-arg "BASE_IMAGE=${opts[IMAGE]:-alpine:3.16}"
     )
   fi
 

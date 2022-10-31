@@ -51,7 +51,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   - Calendar: [mattn/calendar-vim](lua/adoyle-neovim-config/plugins/calendar.lua)
   - Curl: [rest.nvim](lua/adoyle-neovim-config/plugins/curl.lua)
   - Icons: [devicons](lua/adoyle-neovim-config/plugins/devicons.lua) and [icon-picker](lua/adoyle-neovim-config/plugins/icon-picker.lua)
-  - UI Enhancing: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua)
+  - UI Enhancing: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua) and [noice](lua/adoyle-neovim-config/plugins/notify/noice.lua)
   - Escape: [better-escape.nvim](lua/adoyle-neovim-config/plugins/escape.lua)
   - Increment: [increment-activator](lua/adoyle-neovim-config/plugins/increment.lua)
   - Filetype: [filetype.nvim](lua/adoyle-neovim-config/plugins/filetype.lua)
@@ -67,6 +67,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   - Yank: [yanky](lua/adoyle-neovim-config/plugins/yank.lua)
   - Zen Mode: [twilight and zen-mode](lua/adoyle-neovim-config/plugins/zen.lua)
   - Notebook: [zk](lua/adoyle-neovim-config/plugins/zk.lua)
+  - Live Command: [live-command](https://github.com/smjonas/live-command.nvim)
   - [Games](lua/adoyle-neovim-config/plugins/funny.lua)
 
   </details>
@@ -113,11 +114,12 @@ Function signature completion
 ## Dependencies
 
 - [NVIM v0.8][] or later
-- Vim Plugin Manager: https://github.com/junegunn/vim-plug
 - python3、pip3
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
   - `pip2 install --upgrade --user pynvim` (it is optional)
+- Git
+- A C compiler in your path and libstdc++ installed. (Required by [treesitter](https://github.com/nvim-treesitter/nvim-treesitter#requirements))
 - [Nerd Font][]. Recommend [DejaVuSansMonoForPowerline Nerd Font][font]. Remember to change your terminal font setting.
 - [ripgrep(rg)](https://github.com/BurntSushi/ripgrep)
 - Linux and MacOS are supported. Windows not.
@@ -174,7 +176,7 @@ Do [initialization](#initialization) and then press `nvim` to get started.
   - All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plugin directory with the `pluginDir` option in [default config][default-config].
   - It maybe slow, please be patient. You can modify `config.proxy.github` option in `init.lua` to use proxy. See [Proxy](#proxy) for details.
 - `nvim --headless -c 'TSInstall all' -c qa`, or `:TSInstall all` in nvim, to install treesitter parsers.
-- `nvim --headless -c 'MasonInstall all' -c qa`, or `MasonInstall all` in nvim, to install LSP.
+- `nvim --headless -c 'MasonToolsInstall' -c qa`, or `:MasonToolsInstall` in nvim, to install LSP.
 
 ## Configuration
 
@@ -191,8 +193,10 @@ require('adoyle-neovim-config').setup {
       cursorLine = '#252931',
     },
 
-    lsp = {
+    ['mason-installer'] = {
       ensureInstalled = {
+        'lua-language-server',
+        'luaformatter',
         'bash-language-server',
       }
     }
@@ -358,21 +362,7 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
-Enable [profiling](./lua/plugins/profiling.lua) plugin, and invoke `:StartupTime` in nvim. It will print below results,
-
-```
-       startup: 382.3
-event                  time percent plot
-init.lua             290.79   76.06 ██████████████████████████
-adoyle-neovim-config  44.18   11.55 ████
-loading rtp plugins   22.58    5.91 ██
-pears                 15.91    4.16 █▍
-neo-tree              14.76    3.86 █▍
-pears.config          12.48    3.27 █▏
-cmp                   12.11    3.17 █▏
-cmp.core              11.07    2.90 █
-telescope._extension  10.87    2.84 █
-```
+Enable [profiling](./lua/plugins/profiling.lua) plugin, and invoke `:StartupTime` in nvim. It will print each time on startup.
 
 ## Suggestion, Bug Reporting, Contributing
 

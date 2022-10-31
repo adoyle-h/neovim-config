@@ -6,65 +6,29 @@ set -o pipefail
 set -o errtrace
 (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
-readlinkf() { # Modified from https://github.com/ko1nksm/readlinkf
-  [ "${1:-}" ] || return 1
-
-  CDPATH='' # to avoid changing to an unexpected directory
-  local max_symlinks=40
-  local link
-  local target=$1
-
-  [ -e "${target%/}" ] || target=${1%"${1##*[!/]}"} # trim trailing slashes
-  [ -d "${target:-/}" ] && target="$target/"
-
-  cd -P . 2>/dev/null || return 1
-  while [ "$max_symlinks" -ge 0 ] && max_symlinks=$((max_symlinks - 1)); do
-    if [ ! "$target" = "${target%/*}" ]; then
-      case $target in
-        /*) cd -P "${target%/*}/" 2>/dev/null || break ;;
-        *) cd -P "./${target%/*}" 2>/dev/null || break ;;
-      esac
-      target=${target##*/}
-    fi
-
-    if [ ! -L "$target" ]; then
-      target="${PWD%/}${target:+/}${target}"
-      printf '%s\n' "${target:-/}"
-      return 0
-    fi
-
-    link=$(ls -dl -- "$target" 2>/dev/null) || break
-    target=${link#*" $target -> "}
-  done
-  return 1
-}
-
-SCRIPT_PATH="$(readlinkf "$0")"
-SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
-readonly SCRIPT_PATH SCRIPT_DIR
-
-source "$SCRIPT_DIR/lobash.bash"
-
-declare -A opts=()
-declare -a args=()
+# nvim --headless -c PlugInstall -c qa
+# nvim --headless -c 'TSInstall all' -c 'MasonToolsInstall' -c qa
 
 main() {
-  l.parse_params opts args "$@"
-
-  local VERSION="${opts[v]:-v0.8.0}"
-  local PLATFORM=${opts[platform]:-linux/amd64}
-
   docker volume create nvim-data >/dev/null
 
-  declare -a docker_args=(
-    --platform "$PLATFORM"
+  local docker_args=(
     --rm -it
-    --entrypoint "${opts[entrypoint]:-nvim}"
     -v "$PWD:/workspace/"
+    -v "nvim-data:/root/.local/share/nvim"
   )
 
-  # echo "docker run ${docker_args[*]} adoyle/nvim:${VERSION}"
-  docker run "${docker_args[@]}" "adoyle/nvim:${VERSION}-china"
+  if [[ -n ${PLATFORM:-} ]]; then
+    docker_args+=(
+      --platform "$PLATFORM"
+    )
+  fi
+
+  if (( $# > 0 )); then
+    docker run "${docker_args[@]}" "adoyle/nvim:${NVIM_VERSION:-v0.8.0}" "$@"
+  else
+    docker run "${docker_args[@]}" "adoyle/nvim:${NVIM_VERSION:-v0.8.0}"
+  fi
 }
 
 main "$@"

@@ -9,5 +9,5 @@ return {
 	TelescopePromptPrefix = { fg = colors.blue, bg = 'none' },
 	TelescopeSelection = { fg = 'none', bg = colors.darkBlue },
 	TelescopeSelectionCaret = { fg = colors.blue, bg = 'none' },
-	TelescopeMatching = { fg = colors.orange, bg = 'none', underline = true },
+	TelescopeMatching = { fg = colors.match.fg, bg = 'none', underline = true },
 }

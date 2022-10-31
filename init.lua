@@ -63,7 +63,7 @@ require('adoyle-neovim-config').setup {
 				},
 			},
 
-			lsp = {
+			['mason-installer'] = {
 				-- a list of all tools you want to ensure are installed upon start;
 				-- Package Index: https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md
 				ensureInstalled = {

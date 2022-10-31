@@ -1,0 +1,9 @@
+/lua/packer_compiled.lua
+/spell
+/plugged
+.DS_Store
+.netrwhist
+.git
+.gitignore
+/experimental
+/doc

@@ -1,9 +1,9 @@
 local M = { 'keymap.general', desc = 'General Keymaps' }
 
 M.keymaps = {
-	{ 'n', '<leader>w', ':w<CR>', { desc = 'save current buffer to disk' } },
+	{ 'n', '<leader>w', ':w<CR>', { silent = true, desc = 'save current buffer to disk' } },
 
-	{ 'n', '<leader>e', ':e<CR>', { desc = 'refresh current buffer' } },
+	{ 'n', '<leader>e', ':e<CR>', { silent = true, desc = 'refresh current buffer' } },
 
 	{ 'n', '<F1>', ':h<CR>', { noremap = true, silent = true, desc = 'Open vim help document' } },
 

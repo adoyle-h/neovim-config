@@ -16,7 +16,7 @@ M.defaultConfig = {
 
 		NormalFloat = { bg = colors.black }, -- Float Window
 		FloatBorder = { bg = colors.black, fg = colors.blue }, -- Float Window Border
-		MatchParen = { fg = colors.orange, bg = colors.black, underline = true },
+		MatchParen = { fg = colors.match.fg, bg = colors.black, underline = true },
 		DiagnosticVirtualTextError = { fg = colors.red },
 	},
 }

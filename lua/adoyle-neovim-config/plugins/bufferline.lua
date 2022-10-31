@@ -3,8 +3,6 @@ local M = { 'akinsho/bufferline.nvim', tag = 'v2.*', requires = { 'tiagovla/scop
 local opts = { silent = true }
 
 M.keymaps = {
-	{ 'n', '[b', ':BufferLineCyclePrev<CR>', opts },
-	{ 'n', ']b', ':BufferLineCycleNext<CR>', opts },
 	{ 'n', '<M-[>', ':BufferLineCyclePrev<CR>', opts },
 	{ 'n', '<M-]>', ':BufferLineCycleNext<CR>', opts },
 	{ 'n', '<C-T>j', ':BufferLineCyclePrev<CR>', opts },

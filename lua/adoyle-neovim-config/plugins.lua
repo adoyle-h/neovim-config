@@ -7,10 +7,10 @@ local Load = P.LoadPluginFile
 Load 'plugins.vim-options'
 Load 'plugins.plenary'
 Load 'plugins.devicons' -- Devicons for nvim plugins
+Plug 'MunifTanjim/nui.nvim'
 Load 'plugins.notify'
 Load 'plugins.notifier'
 Load 'plugins.treesitter'
-Plug 'MunifTanjim/nui.nvim'
 Load 'plugins.telescope'
 
 ------------- UI plugins -------------
@@ -58,6 +58,7 @@ Load 'plugins.icon-picker'
 Load 'plugins.diff'
 Load 'plugins.js'
 Load 'plugins.crontab'
+Load 'plugins.live-cmd'
 
 Plug {
 	'tyru/capture.vim',

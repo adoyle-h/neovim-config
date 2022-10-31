@@ -51,7 +51,7 @@ Click [./README.md](./README.md) to read English documents.
   - 日历: [mattn/calendar-vim](lua/adoyle-neovim-config/plugins/calendar.lua)
   - Curl: [rest.nvim](lua/adoyle-neovim-config/plugins/curl.lua)
   - Icons: [devicons](lua/adoyle-neovim-config/plugins/devicons.lua) 与 [icon-picker](lua/adoyle-neovim-config/plugins/icon-picker.lua)
-  - UI 增强: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua)
+  - UI 增强: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua) 和 [noice](lua/adoyle-neovim-config/plugins/notify/noice.lua)
   - 跳出输出模式的快捷键: [better-escape.nvim](lua/adoyle-neovim-config/plugins/escape.lua)
   - Increment: [increment-activator](lua/adoyle-neovim-config/plugins/increment.lua)
   - Filetype: [filetype.nvim](lua/adoyle-neovim-config/plugins/filetype.lua)
@@ -67,6 +67,7 @@ Click [./README.md](./README.md) to read English documents.
   - 复制粘贴: [yanky](lua/adoyle-neovim-config/plugins/yank.lua)
   - 禅模式: [twilight 与 zen-mode](lua/adoyle-neovim-config/plugins/zen.lua)
   - 笔记本: [zk](lua/adoyle-neovim-config/plugins/zk.lua)
+  - 实时命令: [live-command](https://github.com/smjonas/live-command.nvim)
   - [游戏](lua/adoyle-neovim-config/plugins/funny.lua)
 
   </details>
@@ -118,6 +119,8 @@ Click [./README.md](./README.md) to read English documents.
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
   - `pip2 install --upgrade --user pynvim` (这是可选的)
+- Git
+- C 编译器与 libstdc++。([treesitter](https://github.com/nvim-treesitter/nvim-treesitter#requirements) 需要)
 - [Nerd Font 字体][Nerd Font]。推荐 [DejaVuSansMonoForPowerline Nerd Font][font]。记得修改你的终端的字体设置。
 - [ripgrep(rg)](https://github.com/BurntSushi/ripgrep)
 - 支持 Linux 和 MacOS，不支持 Windows
@@ -172,7 +175,7 @@ git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
   - 插件默认安装在 `~/.local/share/nvim/plugins`。你可以修改插件目录。查看[默认配置][default-config]里的 `pluginDir` 选项。
   - 下载插件可能会比较慢，请耐心等待。如果你在中国大陆，可以使用镜像代理加速，详见[用户配置](#用户配置)里的 `config.proxy.github`。
 - `nvim --headless -c 'TSInstall all' -c qa`，或者进入 nvim 执行 `:TSInstall all`。默认未安装 Treesitter Parser。执行此命令，一键安装所有。
-- `nvim --headless -c 'MasonInstall all' -c qa`，或者进入 nvim 执行 `:MasonInstall`，安装 LSP。
+- `nvim --headless -c 'MasonToolsInstall' -c qa`，或者进入 nvim 执行 `:MasonToolsInstall`，安装 LSP。
 
 ## 配置
 
@@ -189,8 +192,10 @@ require('adoyle-neovim-config').setup {
       cursorLine = '#252931',
     },
 
-    lsp = {
+    ['mason-installer'] = {
       ensureInstalled = {
+        'lua-language-server',
+        'luaformatter',
         'bash-language-server',
       }
     }
@@ -365,21 +370,7 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
-启动 [profiling](./lua/plugins/profiling.lua) 插件，nvim 启动后调用 `:StartupTime`。将会输出以下类似结果。
-
-```
-       startup: 382.3
-event                  time percent plot
-init.lua             290.79   76.06 ██████████████████████████
-adoyle-neovim-config  44.18   11.55 ████
-loading rtp plugins   22.58    5.91 ██
-pears                 15.91    4.16 █▍
-neo-tree              14.76    3.86 █▍
-pears.config          12.48    3.27 █▏
-cmp                   12.11    3.17 █▏
-cmp.core              11.07    2.90 █
-telescope._extension  10.87    2.84 █
-```
+启动 [profiling](./lua/plugins/profiling.lua) 插件，nvim 启动后调用 `:StartupTime`。将会输出启动阶段的用时。
 
 ## 建议，Bug，做贡献
 

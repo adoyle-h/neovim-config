@@ -139,23 +139,6 @@ M.commands = {
 			w.resetCursor()
 		end,
 	},
-
-	TabOrSpace = {
-		function()
-			vim.ui.select({ 'Tabs', 'Spaces' }, {
-				prompt = 'Select Tabs or Spaces:',
-				format_item = function(item)
-					return 'I\'d like to choose ' .. item
-				end,
-			}, function(choice)
-				if choice == 'Spaces' then
-					vim.o.expandtab = true
-				else
-					vim.o.expandtab = false
-				end
-			end)
-		end,
-	},
 }
 
 return M

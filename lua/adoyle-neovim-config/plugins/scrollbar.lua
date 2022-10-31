@@ -6,7 +6,7 @@ local M = {
 }
 
 M.defaultConfig = function(config)
-	local colors = config.colors
+	local c = config.colors
 	local has_hlslens = pcall(require, 'hlslens')
 
 	return {
@@ -20,59 +20,68 @@ M.defaultConfig = function(config)
 
 			handle = {
 				text = ' ',
-				color = colors.grey2,
+				priority = 100,
+				color = c.scrollbarBG,
 				cterm = nil,
-				highlight = 'CursorColumn',
+				highlight = 'ScrollbarHandle',
 				hide_if_all_visible = true, -- Hides handle if all lines are visible
 			},
 
 			marks = {
 				Search = {
 					text = { '-', '=' },
-					priority = 0,
-					color = colors.orange,
+					priority = 100,
+					color = c.match.fg,
 					cterm = nil,
-					highlight = 'Search',
+					highlight = 'ScrollbarSearchMark',
 				},
 
 				Error = {
 					text = { '-', '=' },
-					priority = 1,
-					color = nil,
+					priority = 101,
+					color = c.red,
 					cterm = nil,
-					highlight = 'DiagnosticVirtualTextError',
+					highlight = 'ScrollbarErrorMark',
 				},
 
 				Warn = {
 					text = { '-', '=' },
-					priority = 2,
-					color = nil,
+					priority = 102,
+					color = c.yellow,
 					cterm = nil,
-					highlight = 'DiagnosticVirtualTextWarn',
+					highlight = 'ScrollbarWarnMark',
 				},
 
 				Info = {
 					text = { '-', '=' },
-					priority = 3,
-					color = nil,
+					priority = 103,
+					color = c.blue,
 					cterm = nil,
-					highlight = 'DiagnosticVirtualTextInfo',
+					highlight = 'ScrollbarInfoMark',
 				},
 
 				Hint = {
 					text = { '-', '=' },
-					priority = 4,
-					color = nil,
+					priority = 104,
+					color = c.cyan,
 					cterm = nil,
-					highlight = 'DiagnosticVirtualTextHint',
+					highlight = 'ScrollbarHintMark',
 				},
 
-				Misc = { text = { '-', '=' }, priority = 5, color = nil, cterm = nil, highlight = 'Normal' },
+				Misc = {
+					text = { '-', '=' },
+					priority = 105,
+					color = c.white,
+					cterm = nil,
+					highlight = 'ScrollbarMiscMark',
+				},
 			},
 
 			excluded_buftypes = {},
 
-			excluded_filetypes = { 'prompt', 'TelescopePrompt' },
+			excluded_filetypes = {
+				'noice', -- noice has its builtin scrollbar
+			},
 
 			autocmd = {
 				render = {

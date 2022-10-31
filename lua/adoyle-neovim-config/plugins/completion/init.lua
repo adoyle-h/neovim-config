@@ -193,8 +193,8 @@ local M = {
 
 	highlights = {
 		MenuSelectLine = { bg = '#012867' },
-		CmpFloatBorder = { fg = colors.grey, bg = colors.black },
-		PmenuThumb = { bg = colors.grey3 }, -- cmp scrollbar thumb
+		CmpFloatBorder = { fg = colors.blue, bg = colors.black },
+		PmenuThumb = { bg = '#004CC8' }, -- cmp scrollbar thumb
 	},
 }
 

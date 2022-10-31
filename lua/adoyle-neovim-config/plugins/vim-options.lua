@@ -37,7 +37,8 @@ default.opt = {
 	compatible = false, -- not compatible Vi. Default "nocompatible" in nvim. DO NOT CHANGE THIS OPTION.
 
 	hidden = false, -- current buffer can be put into background"
-	lazyredraw = true, -- don't update the display while executing macros
+	-- lazyredraw = true, -- don't update the display while executing macros
+	lazyredraw = false, -- noice.nvim need to disable lazyredraw
 	autoread = true, -- detect when a file is changed
 	whichwrap = 'b,s', -- 允许 backspace 和空格键跨越行边界
 	backspace = { 'indent', 'eol', 'start' }, -- 使 backspace 正常处理 indent, eol, start 等

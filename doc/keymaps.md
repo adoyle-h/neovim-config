@@ -99,8 +99,8 @@ Press `<space>k` to see all keymaps in nvim.
 ## Highlight
 
 - `<leader>k` = Toggle highlight of all matched words under cursor
-- `[k` = Move to previous user highlighted word
-- `]k` = Move to next user highlighted word
+- `[k` = Move to previous user highlighted word (cursor must be on highlighted word)
+- `]k` = Move to next user highlighted word (cursor must be on highlighted word)
 - `<leader>K` = Clear user highlighted words
 - `<leader>h` = Toggle search highlighted
 - `<space>H` = Find highlight groups
@@ -209,8 +209,8 @@ Press `<space>k` to see all keymaps in nvim.
 
 ## Buffer Line
 
-- `<M-[>` or `[b` = Select previous buffer
-- `<M-]>` or `]b` = Select next buffer
+- `<M-[>` = Select previous buffer
+- `<M-]>` = Select next buffer
 - `<leader>1` = Select 1st buffer
 - `<leader>2` = Select 2nd buffer
 - `<leader>3` = Select 3rd buffer

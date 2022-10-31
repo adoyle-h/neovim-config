@@ -17,9 +17,9 @@ return function(colors)
 		-- If set nil or false, do not create this variable.
 		global = 'a',
 
+		-- https://github.com/junegunn/vim-plug#global-options
 		pluginManager = {
-			-- All plugins are downloaded in this directory
-			-- Default: ~/.local/share/nvim/plugins
+			-- All plugins are downloaded in this directory. Default: ~/.local/share/nvim/plugins
 			pluginDir = vim.fn.stdpath('data') .. '/plugins',
 			timeout = 30,
 			threads = 8,
@@ -44,7 +44,7 @@ return function(colors)
 				-- LuaFormatter off
 				'TelescopePrompt', 'TelescopeResults', 'lsp-installer', 'null-ls-info', 'lspinfo', 'aerial',
 				'nerdtree', 'NvimTree', 'neo-tree', 'notify', 'Trouble', 'Mundo', 'mason', 'man', 'alpha', 'calendar',
-				'PlenaryTestPopup',
+				'PlenaryTestPopup', 'noice',
 				-- LuaFormatter on
 			},
 		},

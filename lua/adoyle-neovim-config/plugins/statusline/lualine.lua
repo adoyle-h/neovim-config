@@ -193,6 +193,9 @@ M.defaultConfig = function()
 		color = { fg = colors.cyan, bg = '#0A1921', gui = 'underline' },
 	}
 
+	local noice = require('noice')
+	local noiceStatus = noice.api.status
+
 	local lualineConfig = {
 		options = {
 			icons_enabled = true,
@@ -232,7 +235,10 @@ M.defaultConfig = function()
 			lualine_a = { diagnostics },
 			lualine_b = {},
 			lualine_c = { aerial },
-			lualine_x = {},
+			lualine_x = {
+				{ noiceStatus.mode.get, cond = noiceStatus.mode.has, color = { fg = '#ff9e64' } },
+				-- { noiceStatus.search.get, cond = noiceStatus.search.has, color = { fg = '#ff9e64' } },
+			},
 			lualine_y = {},
 			lualine_z = {},
 		},

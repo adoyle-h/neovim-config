@@ -4,7 +4,7 @@ return {
 
 	highlights = function(config)
 		local colors = config.colors
-		local mainColor = colors.orange
+		local mainColor = colors.match.fg
 		local bgColor = colors.grey2
 
 		return {

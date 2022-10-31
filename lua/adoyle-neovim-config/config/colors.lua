@@ -31,6 +31,10 @@ local functionsColors = { --
 	cursorLineNrFG = colors.blue,
 	cursorLineNrBG = colors.darkBlue,
 
+	scrollbarBG = '#0E2851',
+
+	match = { fg = colors.orange },
+
 	diff = {
 		add = { bg = colors.darkGreen },
 		delete = { fg = colors.red, bg = colors.darkRed },
