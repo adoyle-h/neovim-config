@@ -80,38 +80,44 @@ local function configAirlineExtensions()
 	]]
 end
 
-function M.config()
-	vim.g.airline_theme = 'bubblegum'
-	vim.g.airline_powerline_fonts = 1
-
-	vim.g.airline_mode_map = {
-		n = 'N',
-		i = 'I',
-		c = 'C',
-		R = 'R',
-		s = 'S',
-		t = 'T',
-		v = 'V',
-		V = 'V-LINE',
-		['^V'] = 'V-BLOCK',
-		multi = 'M',
-		['S '] = 'S-LINE',
-		['^S'] = 'S-BLOCK',
-		ni = '(INSERT)',
-		ic = 'INSERT COMPL',
-		no = 'OP PENDING',
-		Rv = 'V REPLACE',
-		ix = 'INSERT COMPL',
-		['__'] = '------',
-	}
-
-	-- vim-airline symbols
-	vim.g.airline_symbols = { paste = 'Ƥ', spell = 'Ȿ', branch = '', crypt = '🔒' }
-
-	vim.api.nvim_create_autocmd({ 'User' },
-		{ pattern = { 'AirlineAfterInit' }, callback = initAirline })
+function M.config(config)
+	for key, val in pairs(config.tagbar) do vim.g['airline_' .. key] = val end
 
 	configAirlineExtensions()
 end
+
+M.autocmds = { User = { pattern = 'AirlineAfterInit', callback = initAirline } }
+
+M.defaultConfig = {
+	'arline',
+	{
+		theme = 'bubblegum',
+		powerline_fonts = 1,
+
+		mode_map = {
+			n = 'N',
+			i = 'I',
+			c = 'C',
+			R = 'R',
+			s = 'S',
+			t = 'T',
+			v = 'V',
+			V = 'V-LINE',
+			['^V'] = 'V-BLOCK',
+			multi = 'M',
+			['S '] = 'S-LINE',
+			['^S'] = 'S-BLOCK',
+			ni = '(INSERT)',
+			ic = 'INSERT COMPL',
+			no = 'OP PENDING',
+			Rv = 'V REPLACE',
+			ix = 'INSERT COMPL',
+			['__'] = '------',
+		},
+
+		-- vim-airline symbols
+		symbols = { paste = 'Ƥ', spell = 'Ȿ', branch = '', crypt = '🔒' },
+	},
+}
 
 return M

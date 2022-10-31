@@ -57,6 +57,13 @@ M.config = function(config)
 end
 
 M.defaultConfig = function(config)
+	local function safeClose()
+		pcall(vim.cmd, 'NeoTreeClose')
+		pcall(vim.cmd, 'AerialClose')
+		pcall(vim.cmd, 'MundoHide')
+		pcall(vim.cmd, 'TroubleClose')
+	end
+
 	return {
 		'persisted',
 		{
@@ -76,12 +83,7 @@ M.defaultConfig = function(config)
 
 			ignored_filetypes = vim.list_extend({ '', 'neoterm' }, config.ignore.fileTypesForSomePlugs),
 
-			before_save = function() -- function to run before the session is saved to disk
-				pcall(vim.cmd, 'NeoTreeClose')
-				pcall(vim.cmd, 'AerialClose')
-				pcall(vim.cmd, 'MundoHide')
-				pcall(vim.cmd, 'TroubleClose')
-			end,
+			before_save = safeClose, -- function to run before the session is saved to disk
 
 			after_save = nil, -- function to run after the session is saved to disk
 
@@ -90,13 +92,16 @@ M.defaultConfig = function(config)
 			telescope = { -- options for the telescope extension
 				-- function to run before the session is sourced via telescope
 				before_source = function()
+					safeClose()
 					vim.api.nvim_input('<ESC>:%bd<CR>') -- Close all open buffers
 					vim.lsp.stop_client(vim.lsp.get_active_clients())
 				end,
 
 				-- function to run after the session is sourced via telescope
 				after_source = function(session)
-					print('Loaded session: ' .. session.name)
+					vim.schedule(function()
+						print('Loaded session: ' .. session.name)
+					end)
 				end,
 			},
 		},

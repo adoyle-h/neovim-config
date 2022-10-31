@@ -55,7 +55,7 @@ M.defaultConfig = function(config)
 		{ 'telescope', 'main' },
 		{
 			defaults = {
-				prompt_prefix = ' ',
+				prompt_prefix = '   ',
 				scroll_strategy = 'limit',
 				layout_strategy = 'vertical',
 				sorting_strategy = 'ascending',
@@ -177,7 +177,10 @@ M.defaultConfig = function(config)
 					path_display = {}, -- Display full filepat
 				},
 
-				commands = { layout_config = { width = { 0.9, min = 80, max = 130 } } },
+				commands = { --
+					prompt_prefix = '  ',
+					layout_config = { width = { 0.9, min = 80, max = 130 } },
+				},
 
 				help_tags = { layout_strategy = 'horizontal' },
 
@@ -202,9 +205,10 @@ M.defaultConfig = function(config)
 
 				buffers = {},
 
-				live_grep = {},
+				live_grep = { prompt_prefix = '  ' },
 
 				current_buffer_fuzzy_find = {
+					prompt_prefix = '  ',
 					layout_config = {
 						preview_height = { 0.2, min = 4, max = 6 },
 						height = { 0.9, min = 10, max = 40 },

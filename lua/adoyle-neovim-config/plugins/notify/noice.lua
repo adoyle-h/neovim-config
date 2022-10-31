@@ -1,18 +1,27 @@
 return {
 	'folke/noice.nvim',
 
-	keymaps = { { 'n', '<space>N', ':NoiceHistory<CR>' } },
+	keymaps = {
+		{
+			'n',
+			'<space>N',
+			function()
+				require('noice').cmd('history')
+			end,
+		},
+	},
 
 	highlights = function(config)
-		local colors = config.colors
+		local c = config.colors
 		return { --
-			NoiceMini = { bg = colors.darkBlue },
-			NoiceMiniBorder = { bg = colors.darkBlue },
-			NoiceCmdlineIconSearch = { fg = colors.match.fg },
-			NoiceFormatEvent = { fg = colors.green },
-			NoiceFormatKind = { fg = colors.yellow },
-			NoiceCmdlineNormal = { fg = colors.white, bg = colors.black },
-			NoiceCmdlineBorder = { fg = colors.blue },
+			NoiceMini = { fg = c.grey, bg = c.darkBlue },
+			NoiceMiniBorder = { bg = c.darkBlue },
+			NoiceCmdlineIconSearch = { fg = c.match.fg },
+			NoiceFormatEvent = { fg = c.green },
+			NoiceFormatKind = { fg = c.yellow },
+			NoiceCmdlineNormal = { fg = c.white, bg = c.black },
+			NoiceCmdlineBorder = { fg = c.blue },
+			NoiceLspProgressTitle = { fg = c.grey },
 		}
 	end,
 
@@ -37,12 +46,12 @@ return {
 						-- opts: any options passed to the view
 						-- icon_hl_group: optional hl_group for the icon
 						-- title: set to anything or empty string to hide
-						cmdline = { pattern = '^:', icon = ' ', lang = 'vim' },
-						search_down = { kind = 'search', pattern = '^/', icon = '  ', lang = 'regex' },
-						search_up = { kind = 'search', pattern = '^%?', icon = '  ', lang = 'regex' },
-						filter = { pattern = '^:%s*!', icon = ' $', lang = 'bash' },
-						lua = { pattern = '^:%s*lua%s+', icon = ' ', lang = 'lua' },
-						help = { pattern = '^:%s*he?l?p?%s+', icon = ' ' },
+						cmdline = { pattern = '^:', icon = '', lang = 'vim' },
+						search_down = { kind = 'search', pattern = '^/', icon = '', lang = 'regex' },
+						search_up = { kind = 'search', pattern = '^%?', icon = ' ', lang = 'regex' },
+						filter = { pattern = '^:%s*!', icon = '$', lang = 'bash' },
+						lua = { pattern = '^:%s*lua%s+', icon = '', lang = 'lua' },
+						help = { pattern = '^:%s*he?l?p?%s+', icon = 'ﲉ' },
 						input = {}, -- Used by input()
 						-- lua = false, -- to disable a format, set to `false`
 					},
@@ -64,13 +73,11 @@ return {
 					enabled = true, -- enables the Noice popupmenu UI
 					---@type 'nui'|'cmp'
 					backend = 'nui', -- backend to use to show regular cmdline completions
-					---@type NoicePopupmenuItemKind|false
 					-- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
 					kind_icons = {}, -- set to `false` to disable icons
 				},
 
 				-- You can add any custom commands below that will be available with `:Noice command`
-				---@type table<string, NoiceCommand>
 				commands = {
 					history = {
 						-- options for the message history that you get with `:Noice`
@@ -82,7 +89,7 @@ return {
 								{ event = 'notify' },
 								{ error = true },
 								{ warning = true },
-								{ event = 'msg_show', kind = { '' } },
+								{ event = 'msg_show' },
 								{ event = 'lsp', kind = 'message' },
 							},
 						},
@@ -97,7 +104,7 @@ return {
 								{ event = 'notify' },
 								{ error = true },
 								{ warning = true },
-								{ event = 'msg_show', kind = { '' } },
+								{ event = 'msg_show' },
 								{ event = 'lsp', kind = 'message' },
 							},
 						},
@@ -129,11 +136,9 @@ return {
 						enabled = true,
 						-- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
 						-- See the section on formatting for more details on how to customize.
-						--- @type NoiceFormat|string
 						format = 'lsp_progress',
-						--- @type NoiceFormat|string
 						format_done = 'lsp_progress_done',
-						throttle = 1000 / 30, -- frequency to update lsp progress message
+						throttle = 1000 / 100, -- frequency to update lsp progress message
 						view = 'mini',
 					},
 
@@ -149,7 +154,6 @@ return {
 					hover = {
 						enabled = true,
 						view = nil, -- when nil, use defaults from documentation
-						---@type NoiceViewOptions
 						opts = {}, -- merged with defaults from documentation
 					},
 
@@ -162,7 +166,6 @@ return {
 							throttle = 50, -- Debounce lsp signature help request by 50ms
 						},
 						view = nil, -- when nil, use defaults from documentation
-						---@type NoiceViewOptions
 						opts = {}, -- merged with defaults from documentation
 					},
 
@@ -176,7 +179,7 @@ return {
 					-- defaults for hover and signature help
 					documentation = {
 						view = 'hover',
-						---@type NoiceViewOptions
+
 						opts = {
 							lang = 'markdown',
 							replace = true,
@@ -204,7 +207,7 @@ return {
 				},
 
 				health = {
-					checker = true, -- Disable if you don't want health checks to run
+					checker = false, -- Disable if you don't want health checks to run
 				},
 
 				smart_move = {
@@ -214,7 +217,6 @@ return {
 					excluded_filetypes = { 'cmp_menu', 'cmp_docs', 'notify' },
 				},
 
-				---@type NoicePresets
 				presets = {
 					-- you can enable a preset by setting it to true, or a table that will override the preset config
 					-- you can also add custom presets that you can enable/disable with enabled=true
@@ -225,12 +227,13 @@ return {
 					lsp_doc_border = false, -- add a border to hover docs and signature help
 				},
 
-				throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
-				---@type NoiceConfigViews
+				-- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
+				throttle = 1000 / 100,
+
 				views = { ---@see section on views
 					['mini'] = {
 						reverse = false,
-						align = 'message-left',
+						align = 'message-right',
 						timeout = 3000,
 						size = {
 							max_height = math.ceil(0.8 * vim.o.lines),
@@ -238,6 +241,7 @@ return {
 							width = 'auto',
 							height = 'auto',
 						},
+						win_options = { winblend = 0 },
 					},
 
 					['cmdline'] = {
@@ -261,7 +265,7 @@ return {
 								{ '╰', 'NoiceCmdlineBorder' },
 								{ '│', 'NoiceCmdlineBorder' },
 							},
-							padding = { right = 1 },
+							padding = { left = 1, right = 1 },
 						},
 
 						win_options = {
@@ -271,7 +275,6 @@ return {
 					},
 				},
 
-				---@type NoiceRouteConfig[]
 				routes = { --- @see section on routes
 					{ -- Hide written messages
 						filter = { event = 'msg_show', kind = '', find = 'written' },
@@ -301,10 +304,8 @@ return {
 					{ filter = { event = 'msg_show', kind = '', find = '^<' }, opts = { skip = true } },
 				},
 
-				---@type table<string, NoiceFilter>
 				status = {}, --- @see section on statusline components
 
-				---@type NoiceFormatOptions
 				format = {}, --- @see section on formatting
 			},
 		}

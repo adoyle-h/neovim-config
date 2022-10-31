@@ -1,8 +1,16 @@
 return {
 	'j-hui/fidget.nvim',
 	desc = 'nvim-lsp loading progress',
-	defaultConfig = { { 'lsp', 'fidget' }, {} },
-	config = function(config)
-		require('fidget').setup(config.lsp.fidget)
+	disable = true, -- use noice lsp.progress
+
+	highlights = function(config)
+		local c = config.colors
+		return { FidgetTask = { fg = c.grey } }
 	end,
+
+	config = function(config)
+		require('fidget').setup(config['lsp-fidget'])
+	end,
+
+	defaultConfig = { { 'lsp-fidget' }, {} },
 }

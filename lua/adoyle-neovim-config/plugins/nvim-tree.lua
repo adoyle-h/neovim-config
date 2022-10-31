@@ -1,5 +1,7 @@
 local M = { 'kyazdani42/nvim-tree.lua' }
 
+local consts = require('adoyle-neovim-config.consts')
+
 M.keymaps = {
 	{ 'n', '<leader>nm', ':NvimTreeToggle<CR>', { silent = true } },
 	{ 'n', '<leader>nf', ':NvimTreeFindFile<CR>', { silent = true } },
@@ -8,26 +10,17 @@ M.keymaps = {
 
 -- Temp Fix: too many notifications.
 -- https://github.com/kyazdani42/nvim-tree.lua/issues/1502
-local function fixNotify()
-	local utils = require('nvim-tree.utils')
-
-	local has_notify, notify = pcall(require, 'notify')
-	if has_notify then
-		notify = notify.instance { level = vim.log.levels.WARN }
-	else
-		notify = function(msg, level, title)
-			vim.notify(string.format('[%s] %s', title, msg), level)
-		end
-	end
-
+local function fixNotify(levelMap)
 	local function notify_level(level)
 		return function(msg)
 			vim.schedule(function()
-				notify(msg, level, { title = 'NvimTree' })
+				if level < vim.log.levels.WARN then return end
+				print(string.format('[%s][%s] %s', levelMap[level] or level or 'INFO', 'NvimTree', msg))
 			end)
 		end
 	end
 
+	local utils = require('nvim-tree.utils')
 	local levels = vim.log.levels
 	utils.notify.warn = notify_level(levels.WARN)
 	utils.notify.error = notify_level(levels.ERROR)
@@ -36,7 +29,7 @@ local function fixNotify()
 end
 
 function M.config()
-	fixNotify()
+	fixNotify(consts.log.levelMap)
 
 	require('nvim-tree').setup({
 		sort_by = 'case_sensitive',

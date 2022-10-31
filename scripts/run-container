@@ -18,7 +18,8 @@ main() {
     -v "nvim-data:/root/.local/share/nvim"
   )
 
-  if [[ -n ${PLATFORM:-} ]]; then
+  # neovim has not arm64 release https://github.com/neovim/neovim/issues/1514
+  if [[ -n ${PLATFORM:=linux/amd64} ]]; then
     docker_args+=(
       --platform "$PLATFORM"
     )

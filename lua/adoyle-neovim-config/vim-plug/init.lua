@@ -4,7 +4,9 @@ local CM = require('adoyle-neovim-config.config')
 local globals = require('adoyle-neovim-config.vim-plug.globals')
 local normalizeOpts = require('adoyle-neovim-config.vim-plug.normalize')
 local Plug = require('adoyle-neovim-config.vim-plug.plug')
+local consts = require('adoyle-neovim-config.consts')
 
+local levelMap = consts.log.levelMap
 local set_keymap = vim.keymap.set
 
 local plugMap, plugs, userPlugins = globals.plugMap, globals.plugs, globals.userPlugins
@@ -36,40 +38,20 @@ function P.start()
 end
 
 function P.fin()
-	for _, p in pairs(userPlugins) do if p then Plug.usePlug(p) end end
+	for _, p in pairs(userPlugins) do if p then P.Plug(p) end end
 
 	vim.call('plug#end')
 end
 
 local function addPending(pendings, plug)
-	if plug.disable then return end
-
-	local unloadRequired = false
-
-	for _, required in pairs(plug.requires or {}) do
-		local requiredPlugRepo
-		if type(required) == 'string' then
-			requiredPlugRepo = required
-		else
-			requiredPlugRepo = required[1]
+	if plug.disable then
+		if plug.uninstalled then
+			P.notify(
+				string.format('Plug "%s" has not installed. Try ":PlugInstall" to install it.', plug.id), 'warn')
+		elseif plug.reason then
+			P.notify(string.format('Plug "%s" has been loaded but not setup. Because %s.', plug.id,
+				plug.reason), 'warn')
 		end
-
-		local reqP = plugMap[requiredPlugRepo]
-		if reqP then
-			if reqP.disable then
-				unloadRequired = reqP
-				break
-			end
-		end
-	end
-
-	if unloadRequired then
-		P.notify(string.format(
-			'Plug "%s" has been loaded but its config function not called. Because its required plugin "%s" is not loaded.',
-			plug.id, unloadRequired.repo), 'warn')
-	elseif plug.uninstalled then
-		P.notify(string.format('Plug "%s" has not installed. Try ":PlugInstall" to install it.', plug.id),
-			'warn')
 	else
 		Plug.mergePlugConfig(CM.config, plug)
 		pendings[#pendings + 1] = plug
@@ -77,17 +59,19 @@ local function addPending(pendings, plug)
 end
 
 local function setNotify()
-	local has_notify, _notify = pcall(require, 'notify')
 	local notify
 
-	if has_notify then
+	-- if pcall(require, 'notify') then
+	if false then
 		notify = function(msg, level)
 			vim.schedule(function()
-				_notify(msg, level)
+				vim.notify(msg, level)
 			end)
 		end
 	else
-		notify = print
+		notify = function(msg, level)
+			print(string.format('[%s] %s', levelMap[level] or level or 'INFO', msg))
+		end
 	end
 
 	P.notify = notify
@@ -113,14 +97,26 @@ function P.run()
 	end
 end
 
-P.Plug = Plug.usePlug
+-- Plug Load plugin of vim-plug
+-- @useage Plug(repo[, opts])
+-- @useage Plug({repo, opts...})
+--
+-- @param repo {string}
+--   repo='<github-user>/<repo-name>' such as 'nvim-lua/plenary.nvim', or
+--   repo='name' without '/'
+-- @param opts {table} Its fields are compatible with https://github.com/junegunn/vim-plug#plug-options
+--
+-- @example See examples at ./lua/adoyle-neovim-config/plugins.lua
+P.Plug = function(repo, opts)
+	Plug.usePlug(globals, repo, opts)
+end
 
 -- @type {function(path)} Load builtin plugin by filepath which relative lua directory.
 P.LoadPluginFile = function(path)
 	local opts = require('adoyle-neovim-config.' .. path)
 	local userPluginOpts = plugMap[opts[1]]
 	opts = util.merge(opts, userPluginOpts)
-	Plug.usePlug(opts)
+	P.Plug(opts)
 end
 
 P.isPlugDisabled = function(id)

@@ -7,6 +7,7 @@ Useful commands that user should know.
 - `MasonInstall <tool>`
 - `ShowConfig` and `ShowPlugins`
 - `TSHighlightCapturesUnderCursor` and `TSCaptureUnderCursor` and `TSNodeUnderCursor`
+- `TSPlaygroundToggle` and `TSHighlightCapturesUnderCursor`
 - `Space2Tab` and `Tab2Space`
 - `IconPickerYank` and `IconPickerInsert` and `IconPickerNormal`
 - `Gitsigns <command>`
@@ -16,3 +17,4 @@ Useful commands that user should know.
 - `CD`
 - `Cheatsheet`
 - `OpenGithub`
+- `SudaRead` and `SudaWrite`

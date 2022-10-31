@@ -2,10 +2,20 @@ return {
 	'kevinhwang91/nvim-hlslens',
 	desc = 'Highlight search floating',
 
+	-- setup hlslens in nvim-scrollbar
+	-- config = function(config)
+	-- 	require('hlslens').setup(config.hlslens)
+	-- end,
+
+	defaultConfig = {
+		'hlslens',
+		{ calm_down = true, nearest_only = true, nearest_float_when = 'always' },
+	},
+
 	highlights = function(config)
 		local colors = config.colors
 		local mainColor = colors.match.fg
-		local bgColor = colors.grey2
+		local bgColor = colors.grey1
 
 		return {
 			Search = { bg = 'none', fg = mainColor, underline = true },

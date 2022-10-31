@@ -63,7 +63,7 @@ M.defaultConfig = {
 			nvim_notify = true,
 			neo_tree = true,
 			nvim_cmp = true,
-			treesitter = true,
+			treesitter = false, -- NOTE: Do not enable this
 			trouble = true,
 			-- nvim_ts_rainbow = true,
 		},

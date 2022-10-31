@@ -1,6 +1,8 @@
 local M = {
 	'dashboard',
 
+	desc = 'Dashboard when nvim opened without arguments',
+
 	requires = {
 		-- {
 		-- 	'goolord/alpha-nvim'
@@ -10,8 +12,6 @@ local M = {
 			branch = 'adoyle',
 		},
 	},
-
-	desc = 'Dashboard when nvim opened without arguments',
 }
 
 local printf = string.format
@@ -138,6 +138,7 @@ local function getSessions(conf)
 end
 
 -- Copy from https://github.com/goolord/alpha-nvim/blob/09e5374465810d71c33e9b097214adcdebeee49a/lua/alpha.lua#L512
+-- If not skip, the buf_set_keymap by alpha.nvim will affect current file buffer when nvim open a file directly.
 local function should_skip_alpha()
 	-- don't start when opening a file
 	if vim.fn.argc() > 0 then return true end
@@ -164,10 +165,9 @@ local function should_skip_alpha()
 end
 
 function M.config(config)
-	if should_skip_alpha() then
-		-- If not skip, the buf_set_keymap by alpha.nvim will affect current file buffer when nvim open a file directly.
-		return
-	end
+	if should_skip_alpha() then return end
+
+	vim.opt_local.laststatus = 0
 
 	local conf = config.dashboard
 
@@ -197,6 +197,7 @@ M.autocmds = {
 		{
 			pattern = { 'AlphaClosed' },
 			callback = function()
+				vim.opt_local.laststatus = 3
 				vim.opt.showtabline = 2
 			end,
 		},

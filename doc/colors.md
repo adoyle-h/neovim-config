@@ -1,5 +1,13 @@
 # Colors and Highlights
 
+The color design:
+
+- Subject color: blue
+- Second color: green
+- Search/Match color: orange
+
+You can change the colors and highlights.
+
 ## Change background, frontground, cursorline colors
 
 Change basic colors via `config.colors`.

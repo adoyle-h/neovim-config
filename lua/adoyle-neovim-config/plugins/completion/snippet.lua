@@ -1,4 +1,6 @@
 return {
+	'cmp-snippet',
+
 	requires = {
 		'justinj/vim-react-snippets',
 		'rafamadriz/friendly-snippets',

@@ -12,15 +12,15 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 - Awesome UI and color schema. Dark Mode. Support True-Color, Smooth-Scroll, Scrollbar, Dashboard. You can change colors and highlights, see [doc/colors.md](doc/colors.md).
 - [Configurable](#configuration).
 - Configurable proxy for fast git download in China Mainland. See [Proxy](#proxy).
-- Integrated 110+ powerful Vim/Nvim plugins. Enhancing the usage experience, and fixed some shortcomings of these plugins.
+- Integrated 120+ powerful Vim/Nvim plugins. Enhancing the usage experience, and fixed some shortcomings of these plugins.
 
   <details close>
   <summary>Click to expend/collapse</summary>
 
   - Dashboard: [alpha.nvim](lua/adoyle-neovim-config/plugins/dashboard.lua)
-  - Outline: [aerial](lua/adoyle-neovim-config/plugins/outline/aerial.lua) (default) or [majutsushi/tagbar](lua/adoyle-neovim-config/plugins/outline/tagbar.lua)
-  - File Explorer: [neo-tree](lua/adoyle-neovim-config/plugins/filetree/neo-tree.lua) (default) or [nerdtree](lua/adoyle-neovim-config/plugins/filetree/nerdtree.lua) or [nvim-tree](lua/adoyle-neovim-config/plugins/filetree/nvim-tree.lua)
-  - Statusline: [lualine](lua/adoyle-neovim-config/plugins/statusline/lualine.lua) (default) or [airline](lua/adoyle-neovim-config/plugins/statusline/airline.lua)
+  - Outline: [aerial](lua/adoyle-neovim-config/plugins/aerial.lua) (default) or [majutsushi/tagbar](lua/adoyle-neovim-config/plugins/tagbar.lua)
+  - File Explorer: [neo-tree](lua/adoyle-neovim-config/plugins/neo-tree.lua) (default) or [nerdtree](lua/adoyle-neovim-config/plugins/nerdtree.lua) or [nvim-tree](lua/adoyle-neovim-config/plugins/nvim-tree.lua)
+  - Statusline: [lualine](lua/adoyle-neovim-config/plugins/lualine.lua) (default) or [airline](lua/adoyle-neovim-config/plugins/airline.lua)
   - Bufferline: [bufferline](lua/adoyle-neovim-config/plugins/bufferline.lua)
   - Scrollbar: [nvim-scrollbar](lua/adoyle-neovim-config/plugins/scrollbar.lua)
   - Smooth-Scroll: [neoscroll.nvim](lua/adoyle-neovim-config/plugins/scroll.lua)
@@ -31,7 +31,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   - Syntax Highlight: [treesitter](https://github.com/nvim-treesitter/nvim-treesitter) and [nvim-ts-rainbow](lua/adoyle-neovim-config/plugins/treesitter/rainbow.lua) and [nvim-treesitter-pairs](lua/adoyle-neovim-config/plugins/treesitter/pairs.lua)
   - Highlight Words: [vim-interestingwords](lua/adoyle-neovim-config/plugins/highlight-words.lua)
   - Code Comment: [Comment.nvim](lua/adoyle-neovim-config/plugins/comment.lua) (default) or [nerdcommenter](lua/adoyle-neovim-config/plugins/comment_nerd.lua)
-  - LSP: [nvim-lspconfig](lua/adoyle-neovim-config/plugins/lsp/main.lua) and [treesitter](lua/adoyle-neovim-config/plugins/treesitter/init.lua) and [null-ls](lua/adoyle-neovim-config/plugins/lsp/null-ls.lua) and [fidget.nvim](lua/adoyle-neovim-config/plugins/lsp/fidget.lua) and [nlsp](lua/adoyle-neovim-config/plugins/lsp/nlsp.lua) and [goto-preview](lua/adoyle-neovim-config/plugins/lsp/preview.lua) and [lsp-toggle](https://github.com/adoyle-h/lsp-toggle.nvim)
+  - LSP: [nvim-lspconfig](lua/adoyle-neovim-config/plugins/lsp/main.lua) and [treesitter](lua/adoyle-neovim-config/plugins/treesitter/init.lua) and [null-ls](lua/adoyle-neovim-config/plugins/lsp/null-ls.lua) and [nlsp](lua/adoyle-neovim-config/plugins/lsp/nlsp.lua) and [goto-preview](lua/adoyle-neovim-config/plugins/lsp/preview.lua) and [lsp-toggle](https://github.com/adoyle-h/lsp-toggle.nvim)
   - DAP: [nvim-dap](lua/adoyle-neovim-config/plugins/dap/init.lua)
   - Format: [lsp-format](lua/adoyle-neovim-config/plugins/lsp/format.lua) and [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim)
   - Formatter, Linter, LSP, DAP Manager: [mason](lua/adoyle-neovim-config/plugins/lsp/mason.lua) and [mason-installer](lua/adoyle-neovim-config/plugins/lsp/mason-installer.lua)
@@ -44,7 +44,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   - Cursor Move: [hop.nvim](lua/adoyle-neovim-config/plugins/move/jump.lua) and [accelerated-jk](lua/adoyle-neovim-config/plugins/move/accelerated.lua)
   - Window Picker: [nvim-window-picker](lua/adoyle-neovim-config/plugins/move/window-picker.lua) (default) or [yorickpeterse/nvim-window](lua/adoyle-neovim-config/plugins/move/window-selector.lua) or [vim-choosewin](lua/adoyle-neovim-config/plugins/move/choose-window.lua)
   - Window Resize: [simeji/winresizer](lua/adoyle-neovim-config/plugins/window/resize.lua) and [windows.nvim](lua/adoyle-neovim-config/plugins/window/maximize.lua)
-  - Context: [aerial](lua/adoyle-neovim-config/plugins/outline/aerial.lua) (default) or [navic](lua/adoyle-neovim-config/plugins/navic.lua) and [nvim-treesitter-context](lua/adoyle-neovim-config/plugins/treesitter/context.lua)
+  - Context: [aerial](lua/adoyle-neovim-config/plugins/aerial.lua) (default) or [navic](lua/adoyle-neovim-config/plugins/navic.lua) and [nvim-treesitter-context](lua/adoyle-neovim-config/plugins/treesitter/context.lua)
   - Text Align: [vim-easy-align](lua/adoyle-neovim-config/plugins/align.lua)
   - Bookmark: [vim-bookmarks](lua/adoyle-neovim-config/plugins/bookmark.lua)
   - Mark: [marks.nvim](lua/adoyle-neovim-config/plugins/mark.lua)
@@ -154,10 +154,13 @@ Do [initialization](#initialization) and then press `nvim` to get started.
 ### Out of the box
 
 ```sh
-alias nvim='docker run --rm -it -v "$PWD:/workspace" adoyle/neovim:v0.8.0'
+# Cache the nvim data in host
+docker volume create nvim-data
+# It's recommended to add this line to ~/.bashrc
+alias nvim='docker run --rm -it --platform linux/amd64 -v "nvim-data:/root/.local/share/nvim" -v "$PWD:/workspace" adoyle/neovim:v0.8.0'
 ```
 
-Press `nvim` to get started.
+Do [initialization](#initialization) and then press `nvim` to get started.
 
 ### Git clone directly
 

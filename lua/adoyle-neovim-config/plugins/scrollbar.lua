@@ -2,6 +2,8 @@ local M = {
 	'petertriho/nvim-scrollbar',
 	config = function(config)
 		require('scrollbar').setup(config.scrollbar)
+
+		if pcall(require, 'hlslens') then require('scrollbar.handlers.search').setup(config.hlslens) end
 	end,
 }
 

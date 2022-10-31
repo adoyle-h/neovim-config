@@ -34,7 +34,7 @@ main() {
   fi
 
   local VERSION="${opts[v]:-v0.8.0}"
-  local PLATFORM=${opts[platform]:-}
+  local PLATFORM=${opts[platform]:-linux/amd64} # neovim has not arm64 release https://github.com/neovim/neovim/issues/15143
   local DIST=${opts[d]:-ubuntu}
 
   declare -a docker_args=(

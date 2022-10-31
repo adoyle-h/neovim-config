@@ -26,6 +26,11 @@ Press `<space>k` to see all keymaps in nvim.
 - `>` = Increment indent
 - `<` = Decrement indent
 
+## Fold
+
+- `<Tab>` = Toggle folding at current cursor
+- `<M-Tab>` = Toggle all foldings with fold level of current cursor
+
 ## Copy and Paste
 
 - `<leader>y` = Copy current line into system clipboard

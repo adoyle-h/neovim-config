@@ -7,8 +7,6 @@ local FT = require('adoyle-neovim-config.filetype')
 local dynamic = require('adoyle-neovim-config.plugins.completion.dynamic.source')
 
 local normalizeOpts = require('adoyle-neovim-config.vim-plug.normalize')
-local globals = require('adoyle-neovim-config.vim-plug.globals')
-local plugMap, plugs, userPlugins = globals.plugMap, globals.plugs, globals.userPlugins
 
 local fn = vim.fn
 local loadPlug = fn['plug#']
@@ -70,7 +68,10 @@ end
 -- @param opts {table} Its fields are compatible with https://github.com/junegunn/vim-plug#plug-options
 --
 -- @example See examples at ./lua/adoyle-neovim-config/plugins.lua
-function M.usePlug(repo, opts)
+-- @return boolean
+function M.usePlug(globals, repo, opts)
+	local plugMap, plugs, userPlugins = globals.plugMap, globals.plugs, globals.userPlugins
+
 	opts = normalizeOpts(repo, opts)
 	repo = opts.repo
 	local id = opts.id
@@ -81,19 +82,36 @@ function M.usePlug(repo, opts)
 		userPlugins[id] = nil -- Avoid repeat merge userPluginOpts. And for loading user added plugins in P.fin()
 	end
 
-	plugMap[id] = opts
-	table.insert(plugs, opts)
-	globals.count = globals.count + 1
+	if opts.disable == true then
+		plugMap[id] = opts
+		table.insert(plugs, opts)
+		globals.count = globals.count + 1
+
+		-- Disable current and required plugs
+		return opts
+	else
+		-- Load dependent plugins first, then current plugin
+		for index, dep in pairs(opts.requires or {}) do
+			local requiredPlug = M.usePlug(globals, dep)
+
+			opts.requires[index] = requiredPlug
+
+			-- If user set "disable = true" or default disabled, there is no reason
+			if requiredPlug.disable == true and requiredPlug.reason then
+				opts.disable = true
+				opts.reason = string.format('its required plug "%s" is disabled', requiredPlug.id)
+			end
+		end
+
+		plugMap[id] = opts
+		table.insert(plugs, opts)
+		globals.count = globals.count + 1
+	end
 
 	if opts.disable == true then
 		-- disable current and required plugs
-		return false
+		return opts
 	end
-
-	-- Load dependent plugins first, then current plugin
-	for _, dep in pairs(opts.requires or {}) do M.usePlug(dep) end
-
-	-- Handle current plugin
 
 	-- Run setup before plugin is loaded.
 	if opts.setup then opts.setup() end
@@ -108,9 +126,14 @@ function M.usePlug(repo, opts)
 
 		-- If plug is uninstalled
 		local folderPath = CM.config.pluginManager.pluginDir .. '/' .. getPlugFolderName(repo)
-		if not util.exist(folderPath) then opts.uninstalled = true end
+		if not util.exist(folderPath) then
+			opts.disable = true
+			opts.reason = 'uninstalled'
+			opts.uninstalled = true
+		end
 	end
 
+	return opts
 end
 
 function M.mergePlugConfig(node, plug)

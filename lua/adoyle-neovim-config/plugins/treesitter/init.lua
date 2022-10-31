@@ -2,7 +2,7 @@ local M = {
 	'treesitter',
 
 	requires = {
-		{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
+		'nvim-treesitter/nvim-treesitter',
 		{ 'nvim-treesitter/playground', desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor' },
 		require('adoyle-neovim-config.plugins.treesitter.context'),
 		require('adoyle-neovim-config.plugins.treesitter.rainbow'),

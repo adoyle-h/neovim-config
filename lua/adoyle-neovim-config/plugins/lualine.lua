@@ -61,8 +61,12 @@ local function spaces()
 	return printf('ts:%s sw:%s', vim.o.tabstop, vim.o.shiftwidth)
 end
 
-local function my_sections()
-	return printf('%s %s %s', location(), spaces(), bufferNumber())
+local function my_sections(funcs)
+	return function()
+		local str = ''
+		for _, func in pairs(funcs) do str = str .. ' ' .. func() end
+		return str
+	end
 end
 
 local function theme(colors)
@@ -193,8 +197,7 @@ M.defaultConfig = function()
 		color = { fg = colors.cyan, bg = '#0A1921', gui = 'underline' },
 	}
 
-	local noice = require('noice')
-	local noiceStatus = noice.api.status
+	local progress = require('lualine.components.progress')
 
 	local lualineConfig = {
 		options = {
@@ -204,7 +207,10 @@ M.defaultConfig = function()
 			component_separators = { left = '│', right = '│' },
 			section_separators = { left = '', right = '' },
 
-			disabled_filetypes = { statusline = {}, winbar = {} },
+			disabled_filetypes = {
+				statusline = { 'alpha' },
+				winbar = { 'alpha', 'aerial', 'neo-tree', 'nerdtree', 'NvimTree' },
+			},
 
 			ignore_focus = {},
 			always_divide_middle = true,
@@ -217,7 +223,7 @@ M.defaultConfig = function()
 			lualine_a = { getMode },
 			lualine_b = { { 'branch', icon = symbolMap.BRANCH } },
 			lualine_c = { filename },
-			lualine_x = { my_sections, 'filesize' },
+			lualine_x = { my_sections({ progress, location, spaces, bufferNumber }), 'filesize' },
 			lualine_y = { 'filetype' },
 			lualine_z = { 'encoding', 'fileformat', mixLine, paste },
 		},
@@ -235,10 +241,7 @@ M.defaultConfig = function()
 			lualine_a = { diagnostics },
 			lualine_b = {},
 			lualine_c = { aerial },
-			lualine_x = {
-				{ noiceStatus.mode.get, cond = noiceStatus.mode.has, color = { fg = '#ff9e64' } },
-				-- { noiceStatus.search.get, cond = noiceStatus.search.has, color = { fg = '#ff9e64' } },
-			},
+			lualine_x = {},
 			lualine_y = {},
 			lualine_z = {},
 		},
@@ -248,14 +251,14 @@ M.defaultConfig = function()
 		extensions = {},
 	}
 
-	-- local has_navic, navic = pcall(require, 'nvim-navic')
-	-- if has_navic then
-	-- 	table.insert(lualineConfig.winbar.lualine_c, {
-	-- 		navic.get_location,
-	-- 		cond = navic.is_available,
-	-- 		color = { fg = colors.cyan, bg = '#0A1921', gui = 'underline' },
-	-- 	})
-	-- end
+	local has_navic, navic = pcall(require, 'nvim-navic')
+	if has_navic then
+		table.insert(lualineConfig.winbar.lualine_c, {
+			navic.get_location,
+			cond = navic.is_available,
+			color = { fg = colors.cyan, bg = '#0A1921', gui = 'underline' },
+		})
+	end
 
 	local has_auto_session, autoSessionLibrary = pcall(require, 'auto-session-library')
 	if has_auto_session then
@@ -263,6 +266,20 @@ M.defaultConfig = function()
 			return printf('#%s', autoSessionLibrary.current_session_name())
 		end)
 	end
+
+	-- local has_noice, noice = pcall(require, 'noice')
+	-- if has_noice then
+	-- 	local noiceStatus = noice.api.status
+	--
+	-- 	table.insert(lualineConfig.winbar.lualine_x,
+	-- 		{ noiceStatus.mode.get, cond = noiceStatus.mode.has, color = { fg = '#ff9e64' } })
+	--
+	-- 	table.insert(lualineConfig.winbar.lualine_x, {
+	-- 		noiceStatus.search.get,
+	-- 		cond = noiceStatus.search.has,
+	-- 		color = { fg = '#ff9e64' },
+	-- 	})
+	-- end
 
 	return {
 		'statusline',
