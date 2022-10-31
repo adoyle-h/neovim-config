@@ -102,6 +102,43 @@ local function theme(colors)
 	}
 end
 
+local function setNoice(lualineConfig, c)
+	local has_noice, noice = pcall(require, 'noice')
+	if has_noice then
+		local noiceStatus = noice.api.status
+
+		table.insert(lualineConfig.winbar.lualine_x, {
+			function()
+				local message = require('noice.message.manager').get({ event = 'msg_showmode' },
+					                { count = 1, sort = true })[1]
+				local str = vim.trim(message:content()):gsub('%%', '%%%%')
+
+				if str:find('@') then
+					return str
+				else
+					return ''
+				end
+			end,
+			cond = noiceStatus.mode.has,
+			color = { fg = '#ff9e64' },
+		})
+
+		table.insert(lualineConfig.winbar.lualine_x, {
+			function()
+				local message = require('noice.message.manager').get({ event = 'msg_show',
+                                                           kind = 'search_count' },
+					                { count = 1, sort = true })[1]
+
+				return vim.trim(message:content()):gsub('%%', '%%%%'):gsub('%s*%[%d+/%d+%]$', '')
+			end,
+			icon = '',
+			cond = noiceStatus.search.has,
+			color = { fg = c.match.fg },
+		})
+	end
+
+end
+
 M.defaultConfig = function()
 	local c = config.colors
 	local colors = vim.tbl_extend('keep', vim.tbl_get(config, 'statusline', 'colors') or {}, {
@@ -216,7 +253,7 @@ M.defaultConfig = function()
 			always_divide_middle = true,
 			globalstatus = true,
 
-			refresh = { statusline = 1000, tabline = 1000, winbar = 1000 },
+			refresh = { statusline = 1000, tabline = 1000, winbar = 200 },
 		},
 
 		sections = {
@@ -267,19 +304,7 @@ M.defaultConfig = function()
 		end)
 	end
 
-	-- local has_noice, noice = pcall(require, 'noice')
-	-- if has_noice then
-	-- 	local noiceStatus = noice.api.status
-	--
-	-- 	table.insert(lualineConfig.winbar.lualine_x,
-	-- 		{ noiceStatus.mode.get, cond = noiceStatus.mode.has, color = { fg = '#ff9e64' } })
-	--
-	-- 	table.insert(lualineConfig.winbar.lualine_x, {
-	-- 		noiceStatus.search.get,
-	-- 		cond = noiceStatus.search.has,
-	-- 		color = { fg = '#ff9e64' },
-	-- 	})
-	-- end
+	setNoice(lualineConfig, c)
 
 	return {
 		'statusline',

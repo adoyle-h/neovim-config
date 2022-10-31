@@ -7,6 +7,7 @@ return {
 			'<space>N',
 			function()
 				require('noice').cmd('history')
+				vim.api.nvim_feedkeys('G', 'n', false)
 			end,
 		},
 	},
@@ -15,7 +16,6 @@ return {
 		local c = config.colors
 		return { --
 			NoiceMini = { fg = c.grey, bg = c.darkBlue },
-			NoiceMiniBorder = { bg = c.darkBlue },
 			NoiceCmdlineIconSearch = { fg = c.match.fg },
 			NoiceFormatEvent = { fg = c.green },
 			NoiceFormatKind = { fg = c.yellow },
@@ -26,6 +26,7 @@ return {
 	end,
 
 	config = function(config)
+		vim.o.lazyredraw = false -- noice.nvim requires to disable this option
 		require('noice').setup(config.noice)
 	end,
 
@@ -50,6 +51,7 @@ return {
 						search_down = { kind = 'search', pattern = '^/', icon = '', lang = 'regex' },
 						search_up = { kind = 'search', pattern = '^%?', icon = ' ', lang = 'regex' },
 						filter = { pattern = '^:%s*!', icon = '$', lang = 'bash' },
+						man = { pattern = '^:%s*Man%s+', icon = '龎', lang = 'bash' },
 						lua = { pattern = '^:%s*lua%s+', icon = '', lang = 'lua' },
 						help = { pattern = '^:%s*he?l?p?%s+', icon = 'ﲉ' },
 						input = {}, -- Used by input()
@@ -300,6 +302,9 @@ return {
 						filter = { event = 'msg_show', kind = '', find = '^".+"  ?%[.+%] %d+L, %d+B$' },
 						opts = { skip = true },
 					},
+
+					-- Hide Search
+					{ filter = { event = 'msg_show', kind = 'search_count' }, opts = { skip = true } },
 
 					{ filter = { event = 'msg_show', kind = '', find = '^<' }, opts = { skip = true } },
 				},

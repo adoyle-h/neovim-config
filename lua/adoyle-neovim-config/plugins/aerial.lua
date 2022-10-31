@@ -134,8 +134,12 @@ end
 
 M.filetypes = {
 	aerial = function(args)
+		if vim.bo.aerial_init then return end
+		vim.bo.aerial_init = true
+
 		local aerial = require('aerial')
 		local bufnr = args.buf
+
 		aerial.tree_set_collapse_level(bufnr, 1)
 
 		keymap('n', '<C-h>', function()

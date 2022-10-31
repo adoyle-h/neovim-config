@@ -24,7 +24,7 @@ default.opt = {
 
 	-- Default nvim statusline (If statusline plugin disabled)
 	statusline = '%F%m%r%h%w [FORMAT=%{&ff}] [TYPE=%Y] [POS=%l,%v][%p%%] %{strftime(\"%d/%m/%y - %H:%M\")}',
-	shortmess = 'ilmnrwxst',
+	shortmess = 'ilmnrxsW', -- helps to avoid all the hit-enter prompts caused by file messages
 	showmode = true,
 
 	cmdheight = 2, -- cmd line height. :h 'cmdheight'
@@ -37,8 +37,7 @@ default.opt = {
 	compatible = false, -- not compatible Vi. Default "nocompatible" in nvim. DO NOT CHANGE THIS OPTION.
 
 	hidden = false, -- current buffer can be put into background"
-	-- lazyredraw = true, -- don't update the display while executing macros
-	lazyredraw = false, -- noice.nvim need to disable lazyredraw
+	lazyredraw = true, -- don't update the display while executing macros
 	autoread = true, -- detect when a file is changed
 	whichwrap = 'b,s', -- 允许 backspace 和空格键跨越行边界
 	backspace = { 'indent', 'eol', 'start' }, -- 使 backspace 正常处理 indent, eol, start 等

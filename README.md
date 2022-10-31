@@ -51,7 +51,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   - Calendar: [mattn/calendar-vim](lua/adoyle-neovim-config/plugins/calendar.lua)
   - Curl: [rest.nvim](lua/adoyle-neovim-config/plugins/curl.lua)
   - Icons: [devicons](lua/adoyle-neovim-config/plugins/devicons.lua) and [icon-picker](lua/adoyle-neovim-config/plugins/icon-picker.lua)
-  - UI Enhancing: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua) and [noice](lua/adoyle-neovim-config/plugins/notify/noice.lua)
+  - UI Enhancing: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua) and [noice](lua/adoyle-neovim-config/plugins/noice.lua)
   - Escape: [better-escape.nvim](lua/adoyle-neovim-config/plugins/escape.lua)
   - Increment: [increment-activator](lua/adoyle-neovim-config/plugins/increment.lua)
   - Filetype: [filetype.nvim](lua/adoyle-neovim-config/plugins/filetype.lua)

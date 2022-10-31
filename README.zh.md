@@ -51,7 +51,7 @@ Click [./README.md](./README.md) to read English documents.
   - 日历: [mattn/calendar-vim](lua/adoyle-neovim-config/plugins/calendar.lua)
   - Curl: [rest.nvim](lua/adoyle-neovim-config/plugins/curl.lua)
   - Icons: [devicons](lua/adoyle-neovim-config/plugins/devicons.lua) 与 [icon-picker](lua/adoyle-neovim-config/plugins/icon-picker.lua)
-  - UI 增强: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua) 和 [noice](lua/adoyle-neovim-config/plugins/notify/noice.lua)
+  - UI 增强: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua) 和 [noice](lua/adoyle-neovim-config/plugins/noice.lua)
   - 跳出输出模式的快捷键: [better-escape.nvim](lua/adoyle-neovim-config/plugins/escape.lua)
   - Increment: [increment-activator](lua/adoyle-neovim-config/plugins/increment.lua)
   - Filetype: [filetype.nvim](lua/adoyle-neovim-config/plugins/filetype.lua)

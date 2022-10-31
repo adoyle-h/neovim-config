@@ -15,6 +15,7 @@ Load 'plugins.telescope'
 
 ------------- UI plugins -------------
 Load 'plugins.dressing'
+Load 'plugins.noice'
 Load('plugins.themes.' .. config.theme.use)
 Load 'plugins.colors'
 Load 'plugins.lualine'

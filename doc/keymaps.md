@@ -43,6 +43,7 @@ Press `<space>k` to see all keymaps in nvim.
 - `<C-r>"` in insert mode = Paste from vim clipboard (:h i_CTRL-R)
 
 ## Open
+
 - `gx` = Open URL when cursor on link
 - `gf` = Open file when cursor on filepath
 - `<C-W>f` = Open file in split when cursor on filepath
@@ -165,6 +166,7 @@ Press `<space>k` to see all keymaps in nvim.
 - `<space>v` = Find vim options
 - `<space>r` = Show recently opened files
 - `<space>n` = Find notifications
+- `<space>N` = List messages
 - `<space>t` = List tabs
 - `<space>T` = List todo comments
 
