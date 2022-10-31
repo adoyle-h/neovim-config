@@ -268,7 +268,7 @@ M.defaultConfig = function()
 	}
 
 	local fn = vim.fn
-	local marginTopPercent = 0.1
+	local marginTopPercent = 0.14
 	local marginTop = fn.max({ 1, fn.floor(fn.winheight(0) * marginTopPercent) })
 
 	return {

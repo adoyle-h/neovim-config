@@ -109,6 +109,10 @@ Function signature completion
 
 ![completion-function-args.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/completion-function-args.png)
 
+### Float Cmdline
+
+![cmdline.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/cmdline.png)
+
 </details>
 
 ## Dependencies
