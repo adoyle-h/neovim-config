@@ -17,7 +17,12 @@ function M.setup()
 	vim.api.nvim_create_autocmd('FileType', {
 		callback = function(args)
 			local list = map[args.match]
-			if list then for _, callback in pairs(list) do callback(args) end end
+
+			if list then
+				for _, callback in pairs(list) do --
+					callback(args)
+				end
+			end
 		end,
 	})
 end

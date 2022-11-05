@@ -1,5 +1,5 @@
 local M = { 'select', desc = 'The fast cursor selection with text-objects' }
-local P = require('adoyle-neovim-config.vim-plug')
+local PM = require('adoyle-neovim-config.plugin-manager')
 
 M.requires = {
 	{
@@ -29,8 +29,7 @@ M.requires = {
 
 	{
 		'RRethy/nvim-treesitter-textsubjects',
-		-- disable = P.isPlugDisabled('nvim-treesitter/nvim-treesitter'),
-		disable = true,
+		disable = true or PM.isPlugDisabled('nvim-treesitter/nvim-treesitter'),
 		config = function(config)
 			require('nvim-treesitter.configs').setup { textsubjects = config.select.textsubjects }
 		end,
@@ -51,7 +50,8 @@ M.requires = {
 
 	{
 		'nvim-treesitter/nvim-treesitter-textobjects',
-		disable = P.isPlugDisabled('nvim-treesitter/nvim-treesitter'),
+		disable = PM.isPlugDisabled('nvim-treesitter/nvim-treesitter'),
+		after = 'nvim-treesitter', -- for PackerSync
 
 		config = function(config)
 			require('nvim-treesitter.configs').setup { textobjects = config.select.textobjects }

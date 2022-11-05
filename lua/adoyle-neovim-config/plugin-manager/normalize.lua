@@ -1,17 +1,19 @@
-local globals = require('adoyle-neovim-config.vim-plug.globals')
+local M = {}
 
-local function getId(repo)
+function M.getId(repo)
 	if type(repo) == 'string' then
 		if #repo == 0 then error('Invalid value of repo. Cannot be empty string.') end
 		return repo
 	elseif repo == nil then
-		return globals.count
+		local index = M.PM.index + 1
+		M.PM.index = index
+		return index
 	else
 		error('Invalid value of repo. Only nil or "string" can be repo name.')
 	end
 end
 
-local function getRepo(repo)
+function M.getRepo(repo)
 	if repo then
 		if repo:match('/') then
 			return repo
@@ -23,7 +25,7 @@ local function getRepo(repo)
 	end
 end
 
-local function normalizeOpts(repo, opts)
+function M.normalizeOpts(repo, opts)
 	local t = type(repo)
 
 	if not opts then
@@ -31,18 +33,22 @@ local function normalizeOpts(repo, opts)
 			opts = { id = repo, repo = repo }
 		elseif t == 'table' then
 			opts = repo
+			if opts.id then return opts end
+
 			repo = table.remove(opts, 1)
-			opts.id = getId(repo)
-			opts.repo = getRepo(repo)
+			opts.id = M.getId(repo)
+			opts.repo = M.getRepo(repo)
 		else
 			error(string.format('Invalid Plug Type: %s', t))
 		end
 	else
-		opts.id = getId(repo)
-		opts.repo = getRepo(repo)
+		if opts.id then return opts end
+
+		opts.id = M.getId(repo)
+		opts.repo = M.getRepo(repo)
 	end
 
 	return opts
 end
 
-return normalizeOpts
+return M

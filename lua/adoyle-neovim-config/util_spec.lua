@@ -63,3 +63,44 @@ describe('util.merge', function()
 		assert.equals(r.a.b, 1)
 	end)
 end)
+
+describe('util.pathJoin', function()
+	local pathJoin = util.pathJoin
+
+	it('"plugins"', function()
+		assert.equals('/.local/share/nvim/plugins', pathJoin('/.local/share/nvim', 'plugins'))
+	end)
+
+	it('"lua/packer_compiled.lua"', function()
+		assert.equals('/.local/share/nvim/lua/packer_compiled.lua',
+			pathJoin('/.local', 'share', 'nvim', 'lua/packer_compiled.lua'))
+	end)
+end)
+
+describe('util.dataPath', function()
+	local home = vim.fs.normalize('~/')
+	it('dataPath("")', function()
+		assert.equals(home .. '.local/share/nvim/', util.dataPath())
+	end)
+end)
+
+-- describe('util.ensureFile', function()
+-- 	local tempDir = util.pathJoin('/tmp/nvim_test/util')
+-- 	vim.loop.fs_rmdir(tempDir)
+--
+-- 	it('success', function()
+-- 		local flag = util.ensureFile { --
+-- 			url = 'http://google.com/',
+-- 			dist = util.pathJoin(tempDir, 'google'),
+-- 		}
+-- 		assert.equals(false, flag)
+-- 	end)
+--
+-- 	it('fail', function()
+-- 		local flag = util.ensureFile { --
+-- 			url = 'http:/abc.com',
+-- 			dist = util.pathJoin(tempDir, 'abc'),
+-- 		}
+-- 		assert.equals(false, flag)
+-- 	end)
+-- end)

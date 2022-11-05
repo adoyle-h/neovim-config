@@ -1,3 +1,5 @@
+local util = require('adoyle-neovim-config.util')
+
 return {
 	'tpope/vim-abolish',
 
@@ -20,6 +22,6 @@ return {
 		vim.g.abolish_save_file = config.abbreviation.saveFile
 	end,
 
-	defaultConfig = { 'abbreviation', { saveFile = vim.fn.stdpath('data') .. '/abbreviations.vim' } },
+	defaultConfig = { 'abbreviation', { saveFile = util.dataPath('abbreviations.vim') } },
 
 }

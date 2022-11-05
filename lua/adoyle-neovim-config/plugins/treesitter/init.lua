@@ -1,12 +1,14 @@
+-- NOTE: nvim-treesitter has many Breaking Changes
+-- Notice of Breaking Changes: https://github.com/nvim-treesitter/nvim-treesitter/issues/2293
 local M = {
 	'treesitter',
 
 	requires = {
 		'nvim-treesitter/nvim-treesitter',
-		{ 'nvim-treesitter/playground', desc = ':TSPlaygroundToggle and :TSHighlightCapturesUnderCursor' },
 		require('adoyle-neovim-config.plugins.treesitter.context'),
 		require('adoyle-neovim-config.plugins.treesitter.rainbow'),
 		require('adoyle-neovim-config.plugins.treesitter.pairs'),
+		require('adoyle-neovim-config.plugins.treesitter.playground'),
 	},
 
 	highlights = require('adoyle-neovim-config.plugins.treesitter.highlights'),
@@ -16,7 +18,7 @@ M.defaultConfig = {
 	'treesitter',
 	{
 		prefer_git = false,
-
+		-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 		ensure_installed = {}, -- A list of parser names, or "all",
 		auto_install = false,
 		sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -79,16 +81,14 @@ function M.config(config)
 	require('nvim-treesitter.install').prefer_git = config.treesitter.prefer_git
 
 	if config.proxy.github then
-		for _, treesitterConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
-			treesitterConf.install_info.url = treesitterConf.install_info.url:gsub('https://github.com/',
-				util.proxyGithub 'https://github.com/')
+		for _, parserConf in pairs(require('nvim-treesitter.parsers').get_parser_configs()) do
+			parserConf.install_info.url = parserConf.install_info.url:gsub('https://github.com/',
+				util.proxyGithub('https://github.com/'))
 		end
 	end
 
 	vim.opt.foldmethod = 'expr'
-	vim.cmd [[
-		set foldexpr=nvim_treesitter#foldexpr()
-	]]
+	vim.opt.foldexpr = vim.fn['nvim_treesitter#foldexpr']()
 
 	require('nvim-treesitter.configs').setup(config.treesitter)
 end

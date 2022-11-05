@@ -5,6 +5,7 @@ return {
 
 	config = function(config)
 		require('telescope-tabs').setup(config.telescope.tabs)
+		require('telescope').load_extension('telescope-tabs')
 	end,
 
 	defaultConfig = {

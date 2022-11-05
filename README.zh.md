@@ -8,7 +8,7 @@ Click [./README.md](./README.md) to read English documents.
 
 - 用 Lua 管理 nvim 配置。所有配置项都可覆盖。
 - 充分使用 Neovim 功能：Native LSP、Float Window、Winbar。
-- 基于 [vim-plug][] 的 Lua 插件管理框架。支持按需加载插件。
+- 基于 [vim-plug](https://github.com/junegunn/vim-plug) 或 [packer](https://github.com/wbthomason/packer.nvim) 的插件框架，任你选择。详见[插件管理器](#插件管理器)。
 - 帅气的界面和配色。暗黑模式。支持真彩色、平滑滚动、滚动条、Dashboard。你可以修改配色，详见 [doc/colors.md](doc/colors.md)。
 - 可配置，详见[配置章节](#配置)。
 - 支持配置 github 代理，在中国大陆可加快插件下载速度。详见[代理](#代理)。
@@ -17,7 +17,8 @@ Click [./README.md](./README.md) to read English documents.
   <details close>
   <summary>点击展开/折叠</summary>
 
-  - 面板: [alpha.nvim](lua/adoyle-neovim-config/plugins/dashboard.lua)
+  - 插件管理器: [vim-plug](lua/adoyle-neovim-config/plugin-manager/vim-plug.lua) (默认) 或 [packer](lua/adoyle-neovim-config/plugin-manager/packer.lua)
+  - 面板: [alpha.nvim](lua/adoyle-neovim-config/plugins/alpha.lua)
   - 大纲: [aerial](lua/adoyle-neovim-config/plugins/aerial.lua) (默认) 或 [majutsushi/tagbar](lua/adoyle-neovim-config/plugins/tagbar.lua)
   - 文件浏览器: [neo-tree](lua/adoyle-neovim-config/plugins/neo-tree.lua) (默认) 或 [nerdtree](lua/adoyle-neovim-config/plugins/nerdtree.lua) 或 [nvim-tree](lua/adoyle-neovim-config/plugins/nvim-tree.lua)
   - 状态栏: [lualine](lua/adoyle-neovim-config/plugins/lualine.lua) (默认) 或 [airline](lua/adoyle-neovim-config/plugins/airline.lua)
@@ -52,7 +53,8 @@ Click [./README.md](./README.md) to read English documents.
   - Curl: [rest.nvim](lua/adoyle-neovim-config/plugins/curl.lua)
   - Icons: [devicons](lua/adoyle-neovim-config/plugins/devicons.lua) 与 [icon-picker](lua/adoyle-neovim-config/plugins/icon-picker.lua)
   - UI 增强: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua) 和 [noice](lua/adoyle-neovim-config/plugins/noice.lua)
-  - 跳出输出模式的快捷键: [better-escape.nvim](lua/adoyle-neovim-config/plugins/escape.lua)
+  - 启动加速: [impatient.nvim](https://github.com/lewis6991/impatient.nvim)
+  - 跳出输入模式的快捷键: [better-escape.nvim](lua/adoyle-neovim-config/plugins/escape.lua)
   - Increment: [increment-activator](lua/adoyle-neovim-config/plugins/increment.lua)
   - Filetype: [filetype.nvim](lua/adoyle-neovim-config/plugins/filetype.lua)
   - Latex: [nabla](lua/adoyle-neovim-config/plugins/latex.lua)
@@ -68,6 +70,7 @@ Click [./README.md](./README.md) to read English documents.
   - 禅模式: [twilight 与 zen-mode](lua/adoyle-neovim-config/plugins/zen.lua)
   - 笔记本: [zk](lua/adoyle-neovim-config/plugins/zk.lua)
   - 实时命令: [live-command](https://github.com/smjonas/live-command.nvim)
+  - 颜色着色: [nvim-colorizer](lua/adoyle-neovim-config/plugins/colors/inline.lua)
   - [游戏](lua/adoyle-neovim-config/plugins/funny.lua)
 
   </details>
@@ -112,6 +115,17 @@ Click [./README.md](./README.md) to read English documents.
 
 ### Float Cmdline
 
+该功能默认未开启，因为还不稳定。
+你可以开启试用。
+
+```lua
+require('adoyle-neovim-config').setup {
+  plugins = {
+    { 'noice', disable = false },
+  },
+}
+```
+
 ![cmdline.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/cmdline.png)
 
 </details>
@@ -123,7 +137,7 @@ Click [./README.md](./README.md) to read English documents.
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
   - `pip2 install --upgrade --user pynvim` (这是可选的)
-- Git
+- Git 与 curl
 - C 编译器与 libstdc++。([treesitter](https://github.com/nvim-treesitter/nvim-treesitter#requirements) 需要)
 - [Nerd Font 字体][Nerd Font]。推荐 [DejaVuSansMonoForPowerline Nerd Font][font]。记得修改你的终端的字体设置。
 - [ripgrep(rg)](https://github.com/BurntSushi/ripgrep)
@@ -176,15 +190,30 @@ git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
 ```
 [初始化](#初始化)后，执行 `nvim` 启动。
 
-### 初始化
+## 初始化
 
-- `nvim --headless -c PlugInstall -c qa`，或者进入 nvim 执行 `:PlugInstall`，安装 vim 插件。
-  - 插件默认安装在 `~/.local/share/nvim/plugins`。你可以修改插件目录。查看[默认配置][default-config]里的 `pluginDir` 选项。
-  - 下载插件可能会比较慢，请耐心等待。如果你在中国大陆，可以使用镜像代理加速，详见[用户配置](#用户配置)里的 `config.proxy.github`。
-- `nvim --headless -c 'TSInstall all' -c qa`，或者进入 nvim 执行 `:TSInstall all`。默认未安装 Treesitter Parser。执行此命令，一键安装所有。
-- `nvim --headless -c 'MasonToolsInstall' -c qa`，或者进入 nvim 执行 `:MasonToolsInstall`，安装 LSP。
+- 用你现有的编辑器修改 `init.lua` 文件的配置。
+  - `config.pluginManager.use` 选择你喜欢的插件管理器。详见[插件管理器](#插件管理器)章节。
+  - 下载插件可能会比较慢。通过配置项 `config.proxy.github` 设置代理加速。详见[代理](#代理)。
+- 打开 `nvim`。它会自动下载所需依赖包，比如 impatient.nvim, vim-plug 或 packer。然后自动下载插件。
+- 如果下载插件失败。
+  - 当 `config.pluginManager.use = vim-plug`。
+    - 在 nvim 执行 `:PlugInstall` 安装所有插件，重复直到全部安装成功。
+    - 插件默认安装在 `~/.local/share/nvim/plugins`。你可以通过配置项 `CM.config.pluginManager['vim-plug'].pluginDir` 修改插件目录。
+  - 当 `config.pluginManager.use = packer`
+    - 在 nvim 执行 `:PackerSync` 安装所有插件，重复直到全部安装成功。
+    - 插件默认安装在 `~/.local/share/nvim/pack/packer`。**不要修改** `config.pluginManager.packer.package_root`，除非你十分明白自己在做什么。如果你修改后出了错，请不要来询问我。
+- 在 nvim 执行 `:TSInstall all`，安装所有 Treesitter Parser。
+- 按 `<M-m>` 打开 Mason 窗口，选择要安装的 LSP/DAP/Formatter/Linter。
+<!-- - 在 nvim 执行 `:MasonToolsInstall`，安装 `config['mason-installer'].ensureInstalled` 设定好的工具。 -->
 
 ## 配置
+
+所有配置项都是可选的。
+
+```lua
+require('adoyle-neovim-config').setup {}
+```
 
 ### 用户配置
 
@@ -275,6 +304,26 @@ require('adoyle-neovim-config').setup {
 因为使用了 [inspect.lua](https://github.com/kikito/inspect.lua) 打印配置，
 会有例如 `<table id>` 这样的标记。这是为了避免重复，对于 `<table 28>` 搜索文件内对应的 `--[[<table 28>--]]` 即可找到相应的值。
 `<table id>`, `<function id>`, `<metatable>` 等标记的解释详见 [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use)。
+
+### 插件管理器
+
+选择你喜欢的插件管理器，目前提供 `vim-plug` (默认) 和 `packer`。
+
+```lua
+require('adoyle-neovim-config').setup {
+  config = {
+    pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
+  },
+}
+```
+
+vim-plug 管理的插件目录和 packer 管理的是不一样的。当你改变了 `config.pluginManager.use` 的值，需要重装插件。详见[初始化](#初始化)流程。
+
+- Packer [默认配置](./lua/adoyle-neovim-config/config/packer.lua)
+- Vim-Plug [默认配置](./lua/adoyle-neovim-config/config/vim-plug.lua)
+
+### [插件](./doc/plugin.zh.md)
+
 ### [颜色和高亮](./doc/colors.md)
 
 ### 代理
@@ -283,9 +332,8 @@ require('adoyle-neovim-config').setup {
 require('adoyle-neovim-config').setup {
   config = {
     proxy = {
-      -- 如果你在中国大陆，推荐使用 'https://ghproxy.com/' (注意别遗漏末尾的 '/').
-      -- 否则，不要设置该配置项。
-      github = 'https://ghproxy.com/',
+      -- 如果你在中国大陆，推荐使用 'https://ghproxy.com'。否则，不要设置该配置项。
+      github = 'https://ghproxy.com',
     },
   },
 }
@@ -299,11 +347,17 @@ require('adoyle-neovim-config').setup {
 
 ## 使用
 
+### [Debug](./doc/debug.md)
+
+Debug 技巧。例如禁用所有插件。
+
 ### 快捷键
 
 [./doc/keymaps.md](./doc/keymaps.md) 文档记录了常用的快捷键。
 
 在 nvim 按下 `<space>k` 查询所有快捷键。
+
+### [命令](./doc/commands.md)
 
 ### LSP
 
@@ -331,7 +385,11 @@ require('adoyle-neovim-config').setup {
 Formatter 配置在 `lsp.format` 与 `nullLS.sources`。
 默认先使用定义在 `nullLS.sources` 的 Formatter，后使用定义在 `lsp.format` 的 Formatter。Formatter 执行顺序按定义顺序.
 
-## [插件](./doc/plugin.zh.md)
+### Telescope 插件
+
+本项目定义了很多有用的 Telescope 插件，详见 [./lua/adoyle-neovim-config/plugins/telescope/extensions.lua](./lua/adoyle-neovim-config/plugins/telescope/extensions.lua)。
+
+可使用 `<space>;` 快捷键查询所有 Telescope 插件。
 
 ## API
 
@@ -341,17 +399,17 @@ Formatter 配置在 `lsp.format` 与 `nullLS.sources`。
 
 ```
 .
-├── README.md
 ├── autoload/
 │   └── plug.vim             // vim-plug source code
-├── init.lua                 // Neovim configuration entry point (user config put here)
-├── lsp-settings             // Global LSP settings
-├── lua
-│   └── adoyle-neovim-config
+├── doc/                     // Documents
+├── lsp-settings/            // Global LSP settings
+├── lua/
+│   └── adoyle-neovim-config/
 │       ├── config/          // Keymaps
 │       │   ├── color.lua    // Default color config
 │       │   └── default.lua  // Default config
 │       ├── config.lua       // Config loader
+│       ├── consts.lua       // Constants
 │       ├── filetype.lua     // FileType autocmd
 │       ├── fix-lua.lua
 │       ├── framework.lua    // The framework singleton
@@ -359,12 +417,16 @@ Formatter 配置在 `lsp.format` 与 `nullLS.sources`。
 │       ├── plugins.lua      // Plugin loading list
 │       ├── util.lua         // Utility functions
 │       ├── util_spec.lua    // Unit test for util.lua
-│       ├── vim-plug/        // Plugin framework based on vim-plug
 │       ├── keymap/          // Keymaps
 │       ├── plugins/         // Available plugins written in lua
-│       ├── telescope/       // Utilities for telescope
-│       └── themes/          // Color schemas
-└── snippets/                // Code Snippets
+│       │   └── themes/      // Color schemas
+│       ├── plugin-manager/
+│       │   ├── init.lua     // Plugin Manager
+│       │   ├── vim-plug.lua // Wrapper for vim-plug
+│       │   └── packer.lua   // Wrapper for packer.nvim
+│       └── telescope/       // Utilities for telescope
+├── snippets/                // Code Snippets
+└── init.lua                 // Neovim configuration entry point (user config put here)
 ```
 
 ## 启动时间
@@ -383,7 +445,11 @@ require('adoyle-neovim-config').setup {
 
 欢迎提供任何建议或者意见。请开 [issue][] 与我联系。
 
-如何为本项目贡献，请见 [./doc/contribution.md](./doc/contribution.md)
+如果你想要提交一个新功能，请先开一个 Feature Request [issue][] 来讨论你的设计。
+
+如果你想要提交一个 bug 修复，先查找相关 issue，再提交 Pull Request。
+
+请阅读[如何为本项目贡献](./doc/contribution.md)
 
 ## 版权声明
 

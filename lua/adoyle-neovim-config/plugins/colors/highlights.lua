@@ -11,14 +11,55 @@ M.defaultConfig = {
 		MyCursor = { bg = c.blue },
 		Visual = { bg = c.darkOrange, fg = c.white },
 		QuickFixLine = { bg = c.darkYellow, bold = true },
-		Whitespace = { fg = '#958720' },
+		-- Whitespace = { fg = '#958720' }, -- TODO: Remove
 		NonText = { fg = c.grey3, bg = 'NONE' },
 		Title = { fg = c.blue },
+		ColorColumn = { bg = c.grey1 },
 
 		NormalFloat = { bg = c.black }, -- Float Window
 		FloatBorder = { bg = c.black, fg = c.blue }, -- Float Window Border
 		MatchParen = { fg = c.match.fg, bg = c.black, underline = true },
 		DiagnosticVirtualTextError = { fg = c.red },
+
+		-- syntax
+		Comment = { fg = c.comment }, -- Comments
+		Constant = { fg = '#AB9D1C' }, -- (preferred) any constant
+		String = { fg = c.green }, --   a string constant: "this is a string"
+		Character = { link = 'String' }, -- a character constant: 'c', '\n'
+		Number = { fg = c.orange }, -- a number constant: 234, 0xff
+		Boolean = { fg = '#DA5B5B', bold = true }, -- a boolean constant: TRUE, false
+		Float = { link = 'Number' }, -- a floating point constant: 2.3e10
+		Identifier = { fg = c.white }, -- (preferred) any variable name
+		Function = { fg = '#5395F9' }, -- function name (also: methods for classes)
+		Statement = { fg = c.purple }, -- (preferred) any statement
+		Conditional = { link = 'Keyword' }, --  if, then, else, endif, switch, etc
+		Repeat = { link = 'Keyword' }, -- for, do, while, etc
+		Label = { fg = c.red }, -- case, default, etc
+		Operator = { fg = c.cyan }, -- "sizeof", "+", "*", etc
+		Keyword = { fg = c.purple }, -- any other keyword
+		Exception = { link = 'Keyword' }, -- try, catch, throw
+		PreProc = { fg = c.yellow }, -- (preferred) generic Preprocessor
+		Include = { fg = '#7B59E2' }, -- preprocessor #include
+		Define = { link = 'Keyword' }, -- preprocessor #define
+		Macro = { fg = c.blue }, -- same as Define
+		PreCondit = { fg = c.yellow }, -- preprocessor #if, #else, #endif, etc
+		Type = { fg = '#C9853E' }, -- (preferred) int, long, char, etc
+		StorageClass = { fg = c.yellow }, -- static, register, volatile, etc
+		Structure = { fg = c.purple }, -- struct, union, enum, etc
+		Typedef = { fg = c.purple }, -- A typedef
+		Special = { fg = c.red }, -- (preferred) any special symbol
+		SpecialChar = { fg = c.orange }, -- special character in a constant
+		-- Tag = {}, -- you can use CTRL-] on this
+		Delimiter = { fg = c.white }, -- character that needs attention
+		SpecialComment = { fg = c.comment }, -- special things inside a comment
+		-- Debug = {}, -- debugging statements
+		Underlined = { underline = true }, -- (preferred) text that stands out, HTML links
+		Bold = { bold = true },
+		Ignore = {}, -- (preferred) left blank, hidden  |hl-Ignore|
+		Italic = { italic = true },
+		Error = { fg = c.red }, -- (preferred) any erroneous construct
+		Warn = { fg = c.yellow },
+		Todo = { fg = c.purple }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 	},
 }
 

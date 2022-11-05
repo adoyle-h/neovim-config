@@ -1,3 +1,5 @@
+local util = require('adoyle-neovim-config.util')
+
 return {
 	'calendar',
 
@@ -14,7 +16,7 @@ return {
 		-- see :h calendar
 		{
 			no_mappings = 1,
-			diary = vim.fn.stdpath('data') .. '/calendar',
+			diary = util.dataPath('calendar'),
 			navi = 'top',
 			mark = 'right',
 			monday = 1,

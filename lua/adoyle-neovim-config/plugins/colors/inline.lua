@@ -8,6 +8,7 @@ return {
 
 	defaultConfig = {
 		{ 'colorizer' },
+		-- https://github.com/norcalli/nvim-colorizer.lua#customization
 		{
 			filetypes = { '*' },
 			options = {

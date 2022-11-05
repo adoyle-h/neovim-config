@@ -1,8 +1,19 @@
-local config = require('adoyle-neovim-config.config').config
-
 return {
 	'phaazon/hop.nvim',
-	branch = 'v2', -- optional but strongly recommended
+	branch = 'v2',
+
+	highlights = function(config)
+		local c = config.colors
+		return {
+			HopNextKey = { fg = c.green, bg = c.black, bold = true },
+			HopNextKey1 = { fg = '#00dfff', bg = c.black, bold = true },
+			HopNextKey2 = { fg = '#2b8db3', bg = c.black },
+		}
+	end,
+
+	config = function(config)
+		require('hop').setup(config.move.jump)
+	end,
 
 	defaultConfig = {
 		{ 'move', 'jump' },
@@ -13,10 +24,6 @@ return {
 			create_hl_autocmd = false,
 		},
 	},
-
-	config = function()
-		require('hop').setup(config.move.jump)
-	end,
 
 	keymaps = function()
 		-- local HintDirection = require('hop.hint').HintDirection
@@ -58,6 +65,4 @@ return {
 			{ '', 'fl', hop.hint_lines_skip_whitespace, { desc = 'cursor jumps to line' } },
 		}
 	end,
-
-	highlights = { HopNextKey = { fg = config.colors.green, bold = true } },
 }

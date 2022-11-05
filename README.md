@@ -8,8 +8,8 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
 
 - All in Lua. All configs can be overrided.
 - Use many Neovim features: Native LSP, Float Window, Winbar.
-- Lua-wrapped plugin manage framework based on [vim-plug][]. Support on-demand loading plugins.
-- Awesome UI and color schema. Dark Mode. Support True-Color, Smooth-Scroll, Scrollbar, Dashboard. You can change colors and highlights, see [doc/colors.md](doc/colors.md).
+- Lua-wrapped plugin manager based on [vim-plug](https://github.com/junegunn/vim-plug) or [packer](https://github.com/wbthomason/packer.nvim) at your choice. See [Plugin Manager](#plugin-manager).
+- Awesome UI and color schema. Dark Mode. Support True-Color, Smooth-Scroll, Scrollbar, Dashboard. You can change colors and highlights. See [doc/colors.md](doc/colors.md).
 - [Configurable](#configuration).
 - Configurable proxy for fast git download in China Mainland. See [Proxy](#proxy).
 - Integrated 120+ powerful Vim/Nvim plugins. Enhancing the usage experience, and fixed some shortcomings of these plugins.
@@ -17,7 +17,8 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   <details close>
   <summary>Click to expend/collapse</summary>
 
-  - Dashboard: [alpha.nvim](lua/adoyle-neovim-config/plugins/dashboard.lua)
+  - Plugin Manager: [vim-plug](lua/adoyle-neovim-config/plugin-manager/vim-plug.lua) (default) or [packer](lua/adoyle-neovim-config/plugin-manager/packer.lua)
+  - Dashboard: [alpha.nvim](lua/adoyle-neovim-config/plugins/alpha.lua)
   - Outline: [aerial](lua/adoyle-neovim-config/plugins/aerial.lua) (default) or [majutsushi/tagbar](lua/adoyle-neovim-config/plugins/tagbar.lua)
   - File Explorer: [neo-tree](lua/adoyle-neovim-config/plugins/neo-tree.lua) (default) or [nerdtree](lua/adoyle-neovim-config/plugins/nerdtree.lua) or [nvim-tree](lua/adoyle-neovim-config/plugins/nvim-tree.lua)
   - Statusline: [lualine](lua/adoyle-neovim-config/plugins/lualine.lua) (default) or [airline](lua/adoyle-neovim-config/plugins/airline.lua)
@@ -52,6 +53,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   - Curl: [rest.nvim](lua/adoyle-neovim-config/plugins/curl.lua)
   - Icons: [devicons](lua/adoyle-neovim-config/plugins/devicons.lua) and [icon-picker](lua/adoyle-neovim-config/plugins/icon-picker.lua)
   - UI Enhancing: [dressing](lua/adoyle-neovim-config/plugins/dressing.lua) and [noice](lua/adoyle-neovim-config/plugins/noice.lua)
+  - Start Speed Up: [impatient.nvim](https://github.com/lewis6991/impatient.nvim)
   - Escape: [better-escape.nvim](lua/adoyle-neovim-config/plugins/escape.lua)
   - Increment: [increment-activator](lua/adoyle-neovim-config/plugins/increment.lua)
   - Filetype: [filetype.nvim](lua/adoyle-neovim-config/plugins/filetype.lua)
@@ -68,6 +70,7 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   - Zen Mode: [twilight and zen-mode](lua/adoyle-neovim-config/plugins/zen.lua)
   - Notebook: [zk](lua/adoyle-neovim-config/plugins/zk.lua)
   - Live Command: [live-command](https://github.com/smjonas/live-command.nvim)
+  - Color Highlighter: [nvim-colorizer](lua/adoyle-neovim-config/plugins/colors/inline.lua)
   - [Games](lua/adoyle-neovim-config/plugins/funny.lua)
 
   </details>
@@ -111,6 +114,17 @@ Function signature completion
 
 ### Float Cmdline
 
+This feature is disabled by default. Because it seems not stable.
+You can enable it by below codes.
+
+```lua
+require('adoyle-neovim-config').setup {
+  plugins = {
+    { 'noice', disable = false },
+  },
+}
+```
+
 ![cmdline.png](https://media.githubusercontent.com/media/adoyle-h/_imgs/master/github/neovim-config/cmdline.png)
 
 </details>
@@ -122,7 +136,7 @@ Function signature completion
 - nvim python provider
   - `pip3 install --upgrade --user pynvim`
   - `pip2 install --upgrade --user pynvim` (it is optional)
-- Git
+- Git and curl
 - A C compiler in your path and libstdc++ installed. (Required by [treesitter](https://github.com/nvim-treesitter/nvim-treesitter#requirements))
 - [Nerd Font][]. Recommend [DejaVuSansMonoForPowerline Nerd Font][font]. Remember to change your terminal font setting.
 - [ripgrep(rg)](https://github.com/BurntSushi/ripgrep)
@@ -177,15 +191,30 @@ git clone --depth 1 --single-branch https://github.com/adoyle-h/neovim-config.gi
 
 Do [initialization](#initialization) and then press `nvim` to get started.
 
-### Initialization
+## Initialization
 
-- `nvim --headless -c PlugInstall -c qa`, or `:PlugInstall` in nvim, to install all plugins.
-  - All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plugin directory with the `pluginDir` option in [default config][default-config].
-  - It maybe slow, please be patient. You can modify `config.proxy.github` option in `init.lua` to use proxy. See [Proxy](#proxy) for details.
-- `nvim --headless -c 'TSInstall all' -c qa`, or `:TSInstall all` in nvim, to install treesitter parsers.
-- `nvim --headless -c 'MasonToolsInstall' -c qa`, or `:MasonToolsInstall` in nvim, to install LSP.
+- Use your current editor to edit config in file `init.lua`.
+  - `config.pluginManager.use` choose your favorite plugin manager. See [Plugin Manager](#plugin-manager) for details.
+  - It maybe be slow to download plugins. Modify `config.proxy.github` option to use proxy. See [Proxy](#proxy) for details.
+- Open `nvim`. It will auto download dependent packages, like impatient.nvim, vim-plug or packer. And then auto download plugins.
+- When plugins installed failed.
+  - If `config.pluginManager.use = vim-plug`
+    - Run `:PlugInstall` in nvim, to install all plugins. Repeat it util all plugins installed successfully.
+    - All plugines installed in `~/.local/share/nvim/plugins`. You can modify the plugin directory with the `CM.config.pluginManager['vim-plug'].pluginDir` option.
+  - If `config.pluginManager.use = packer`
+    - Run `:PackerSync` in nvim, to install all plugins. Repeat it util all plugins installed successfully.
+    - All plugines installed in `~/.local/share/nvim/pack/packer`. **DO NOT MODIFY** the `config.pluginManager.packer.package_root` option, unless you completely know what you are doing. If the option modified and get any error, please don't ask me anything.
+- Run `:TSInstall all` in nvim, to install treesitter parsers.
+- Press `<M-m>` to open Mason window. Choose to install LSP/DAP/Formatter/Linter.
+<!-- - Run `:MasonToolsInstall` in nvim, to install tools defined in `config['mason-installer'].ensureInstalled`. -->
 
 ## Configuration
+
+All config options are optional.
+
+```lua
+require('adoyle-neovim-config').setup {}
+```
 
 ### User Config
 
@@ -280,6 +309,25 @@ You can search `--[[<table 28>--]]` to view its value for `<table 28>` in same b
 
 For `<table id>`, `<function id>`, `<metatable>` tag explanations, see [inspect.lua](https://github.com/kikito/inspect.lua#examples-of-use).
 
+### Plugin Manager
+
+Choose your favorite plugin manager. Now available: `vim-plug` (default) and `packer`.
+
+```lua
+require('adoyle-neovim-config').setup {
+  config = {
+    pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
+  },
+}
+```
+
+The plugins directory maneged by vim-plug is different from packer. When you modify `config.pluginManager.use`, the plugins need to be installed again. See [initialization](#initialization).
+
+- Packer [default config](./lua/adoyle-neovim-config/config/packer.lua)
+- Vim-Plug [default config](./lua/adoyle-neovim-config/config/vim-plug.lua)
+
+### [Plugin](./doc/plugin.md)
+
 ### [Colors and Highlights](./doc/colors.md)
 
 ### Proxy
@@ -288,9 +336,8 @@ For `<table id>`, `<function id>`, `<metatable>` tag explanations, see [inspect.
 require('adoyle-neovim-config').setup {
   config = {
     proxy = {
-      -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
-      -- Otherwise, remove this option.
-      github = 'https://ghproxy.com/',
+      -- If you are in China Mainland, it is suggested to set 'https://ghproxy.com'. Otherwise, remove this option.
+      github = 'https://ghproxy.com',
     },
   },
 }
@@ -300,11 +347,17 @@ Proxy will not work for some plugins using "git submodule". It's recommended to 
 
 ## Usage
 
+### [Debug](./doc/debug.md)
+
+Tricks for debug. Such as disable all plugins.
+
 ### Keymaps
 
 For basic intro, see [./doc/keymaps.md](./doc/keymaps.md).
 
 Press `<space>k` to see all keymaps in nvim.
+
+### [Commands](./doc/commands.md)
 
 ### LSP
 
@@ -323,7 +376,11 @@ You can set multi formatters to format codes at the same time. And you can also 
 The configs of formatter are at `lsp.format` and `nullLS.sources`.
 Default to use the formatters defined in `nullLS.sources`, and then formatters defined in `lsp.format`.
 
-## [Plugin](./doc/plugin.md)
+### Telescope Extensions
+
+There are many useful telescope extensions. See [./lua/adoyle-neovim-config/plugins/telescope/extensions.lua](./lua/adoyle-neovim-config/plugins/telescope/extensions.lua)
+
+Use `<space>;` to view all telescope extensions.
 
 ## API
 
@@ -333,17 +390,17 @@ Just read [codes](./lua/adoyle-neovim-config/init.lua).
 
 ```
 .
-├── README.md
 ├── autoload/
 │   └── plug.vim             // vim-plug source code
-├── init.lua                 // Neovim configuration entry point (user config put here)
-├── lsp-settings             // Global LSP settings
-├── lua
-│   └── adoyle-neovim-config
+├── doc/                     // Documents
+├── lsp-settings/            // Global LSP settings
+├── lua/
+│   └── adoyle-neovim-config/
 │       ├── config/          // Keymaps
 │       │   ├── color.lua    // Default color config
 │       │   └── default.lua  // Default config
 │       ├── config.lua       // Config loader
+│       ├── consts.lua       // Constants
 │       ├── filetype.lua     // FileType autocmd
 │       ├── fix-lua.lua
 │       ├── framework.lua    // The framework singleton
@@ -351,12 +408,16 @@ Just read [codes](./lua/adoyle-neovim-config/init.lua).
 │       ├── plugins.lua      // Plugin loading list
 │       ├── util.lua         // Utility functions
 │       ├── util_spec.lua    // Unit test for util.lua
-│       ├── vim-plug/        // Plugin framework based on vim-plug
 │       ├── keymap/          // Keymaps
 │       ├── plugins/         // Available plugins written in lua
-│       ├── telescope/       // Utilities for telescope
-│       └── themes/          // Color schemas
-└── snippets/                // Code Snippets
+│       │   └── themes/      // Color schemas
+│       ├── plugin-manager/
+│       │   ├── init.lua     // Plugin Manager
+│       │   ├── vim-plug.lua // Wrapper for vim-plug
+│       │   └── packer.lua   // Wrapper for packer.nvim
+│       └── telescope/       // Utilities for telescope
+├── snippets/                // Code Snippets
+└── init.lua                 // Neovim configuration entry point (user config put here)
 ```
 
 ## Startup Time
@@ -375,7 +436,16 @@ Enable [profiling](./lua/plugins/profiling.lua) plugin, and invoke `:StartupTime
 
 Any comments and suggestions are always welcome. Please open an [issue][] to contact with me.
 
-Please read [./doc/contribution.md](./doc/contribution.md) how to contribute.
+If you want to submit a new feature, please open an [issue][] for feature request to talk about your design.
+
+If you want to submit a bug fix, search related issues first, and then open a Pull Requst.
+
+And read [how to contribute](./doc/contribution.md).
+
+## Versions
+
+See [tags][].
+The versions follows the rules of [SemVer 2.0.0](http://semver.org/).
 
 ## Copyright and License
 
@@ -383,14 +453,20 @@ Copyright 2016-2022 ADoyle (adoyle.h@gmail.com) All Rights Reserved. The project
 
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.
 
+See the [NOTICE][] file distributed with this work for additional information regarding copyright ownership.
+
+## Other Projects
+
+[Other lua projects](https://github.com/adoyle-h?tab=repositories&q=&type=source&language=lua&sort=stargazers) created by me.
 
 <!-- links -->
 
-[issue]: https://github.com/adoyle-h/neovim-config/issues
 [LICENSE]: ./LICENSE
+[NOTICE]: ./NOTICE
+[tags]: https://github.com/adoyle-h/neovim-config/tags
+[issue]: https://github.com/adoyle-h/neovim-config/issues
 [font]: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/DejaVuSansMono
 [Nerd Font]: https://github.com/ryanoasis/nerd-fonts
-[vim-plug]: https://github.com/junegunn/vim-plug
 [default-config]: ./lua/adoyle-neovim-config/config/default.lua
 [mason.nvim]: https://github.com/williamboman/mason.nvim
 [null-ls]: https://github.com/jose-elias-alvarez/null-ls.nvim

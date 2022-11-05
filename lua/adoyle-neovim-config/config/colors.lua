@@ -1,5 +1,5 @@
 local colors = { -- basic colors
-	white = '#BEC0C4',
+	white = '#ACAFB4',
 	black = '#101012',
 	grey1 = '#18191B',
 	grey2 = '#242629',
@@ -31,6 +31,8 @@ local functionsColors = { --
 	cursorLineNrFG = colors.blue,
 	cursorLineNrBG = colors.darkBlue,
 
+	linkFG = '#30B17D',
+	comment = colors.grey,
 	scrollbarBG = '#0E2851',
 
 	match = { fg = colors.orange },

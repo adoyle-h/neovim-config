@@ -1,11 +1,11 @@
+local util = require('adoyle-neovim-config.util')
+
 -- Set default options for vim/nvim. Use :help 'option' to see the documentation for the given option.
 local default = { 'vim' }
 
 local opt = vim.opt
 
 default.g = {
-	mapleader = ';', -- Set a map <leader> for more key combos
-
 	-- Set the default listing style:
 	-- = 0: thin listing (one file per line)
 	-- = 1: long listing (one file per line with time
@@ -172,7 +172,7 @@ default.opt = {
 	fileformats = { 'unix', 'dos', 'mac' },
 
 	spell = false,
-	spellfile = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
+	spellfile = util.configPath('spell/en.utf-8.add'),
 	spelllang = { 'en', 'cjk' }, -- :h 'spelllang'
 	spellsuggest = { 'best', 6 }, -- :h 'spellsuggest'
 
@@ -202,6 +202,8 @@ default.cmd = {
 }
 
 return {
+	'vim',
+
 	desc = 'Set vim/nvim options. Use :help "option" to see the documentation for the given option.',
 	defaultConfig = { 'vim', default },
 

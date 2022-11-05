@@ -1,33 +1,32 @@
-local M = {
-	-- 'olimorris/persisted.nvim'
-	'adoyle-h/persisted.nvim', -- TODO: https://github.com/olimorris/persisted.nvim/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc+author%3Aadoyle-h
-	branch = 'adoyle',
-	desc = 'session manager',
-}
+local consts = require('adoyle-neovim-config.consts')
+local util = require('adoyle-neovim-config.util')
 
-M.keymaps = { { 'n', '<space>s', ':ListSessions<CR>', { silent = true } } }
+local M = {
+	'olimorris/persisted.nvim',
+	desc = 'session manager',
+	keymaps = { { 'n', '<space>s', ':ListSessions<CR>', { silent = true } } },
+}
 
 M.commands = function(config)
 	return {
 		ListSessions = {
 			function()
 				local pwd = vim.fn.getcwd()
-				local home = os.getenv('HOME')
 
 				require('telescope').extensions.persisted.persisted {
-					default_text = pwd:sub(#home + 2),
+					default_text = pwd:sub(#consts.HOME_DIR + 2),
 					layout_config = { --
 						height = { 0.8, min = 6, max = 15 },
 						width = { 0.5, min = 60, max = 100 },
 					},
 				}
 			end,
+			{ desc = 'List sessions via telescope' },
 		},
 
 		ClearOldSessions = {
 			function()
 				local sessDir = config.persisted.save_dir
-				-- vim.cmd(string.format('!find "%s" -type f -mtime +3d', sessDir))
 				vim.cmd(string.format('!find "%s" -type f -mtime +10d -exec rm {} \\;', sessDir))
 			end,
 			{ desc = 'Clear session files which modified time older than 10 days' },
@@ -39,8 +38,11 @@ M.config = function(config)
 	local opts = config.persisted
 
 	local save_dir = vim.fs.normalize(opts.save_dir)
-	local home_dir = vim.fs.normalize('~/')
-	local forbiddens = { '/', '/root', home_dir }
+	if not vim.endswith(save_dir, '/') then
+		save_dir = save_dir .. '/'
+		opts.save_dir = save_dir
+	end
+	local forbiddens = { '/', '/root/', consts.HOME_DIR .. '/' }
 	if vim.tbl_contains(forbiddens, save_dir) then error('save_dir path is forbidden') end
 
 	vim.opt.sessionoptions = opts.session_options
@@ -68,7 +70,7 @@ M.defaultConfig = function(config)
 		'persisted',
 		{
 			session_options = { 'curdir', 'folds', 'tabpages', 'winpos' }, -- :h ssop
-			save_dir = vim.fn.stdpath('data') .. '/sessions/', -- directory where session files are saved
+			save_dir = util.dataPath('sessions'), -- directory where session files are saved.
 			command = 'VimLeavePre', -- the autocommand for which the session is saved
 			silent = false, -- silent nvim message when sourcing session file
 			use_git_branch = true, -- create session files based on the branch of the git enabled repository
@@ -79,7 +81,6 @@ M.defaultConfig = function(config)
 			follow_cwd = true, -- change session file name to match current working directory if it changes
 			allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
 			ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
-			refresh_reset_prompt = false, -- reset prompt when refresh results
 
 			ignored_filetypes = vim.list_extend({ '', 'neoterm' }, config.ignore.fileTypesForSomePlugs),
 
@@ -103,6 +104,8 @@ M.defaultConfig = function(config)
 						print('Loaded session: ' .. session.name)
 					end)
 				end,
+
+				reset_prompt_after_deletion = false, -- whether to reset prompt after session deleted
 			},
 		},
 	}

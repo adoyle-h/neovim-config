@@ -8,26 +8,39 @@ For example, create a file `lua/my-plugin.lua`.
 
 ```lua
 return {
-  'repo/name', -- string or nil or omit. It must be first
-  desc = 'Plugin Description', -- string or nil.
-  disable = false, -- boolean or nil. If true, this Plugin will not be loaded
-  tag = '', -- string or nil. tag of the repository to use
-  branch = '', -- string or nil. branch of the repository to use
-  commit = '', -- string or nil. commit of the repository to use
-  rtp = '', -- string or nil. Subdirectory that contains Vim plugin
-  as = '', -- string or nil. Use different name for the plugin
-  ['do'] = '' -- string or nil. Post-update hook (string or funcref)
-  on = {'command'} -- string[] or nil. On-demand loading: Commands or <Plug>-mappings
-  ['for'] = {'lua'} -- string[] or nil. On-demand loading: File types
-  frozon = false, -- boolean or nil. Do not update unless explicitly specified
+  'repo/name', -- string | nil | omit. It must be first
 
+  -- common options
+  desc = 'Plugin Description', -- string | nil.
+  disable = false, -- boolean | nil. If true, this Plugin will not be loaded
+  tag = '', -- string | nil. tag of the repository to use
+  branch = '', -- string | nil. branch of the repository to use
+  commit = '', -- string | nil. commit of the repository to use
+  rtp = '', -- string | nil. Subdirectory that contains Vim plugin
+  as = '', -- string | nil. Use different name for the plugin
+  run = '' -- string | nil. Post-update hook (string or funcref)
+  on = {'command'} -- string[] | nil. On-demand loading: Commands or <Plug>-mappings
+  ft = {'lua'} -- string | string[] | nil. On-demand loading: File types
+  lock = false, -- boolean | nil. Do not update unless explicitly specified
+
+  -- Supporting more specifying options by plugin manager
+  -- packer: https://github.com/wbthomason/packer.nvim#specifying-plugins
+  -- vim-plug: https://github.com/junegunn/vim-plug#plug-options
+
+  -- Specifies code to run before this plugin is loaded.
+  -- User should not require lua module in this function.
+  setup = function() end,
+
+  -- Specifies code to run after this plugin is loaded.
+  -- User can require lua module in this function.
   config = function(config)
-    require('name').setup {config.PluginName}
+    -- Put your code here. Like require('name').setup {config.PluginName}
   end,
 
   -- Set default config for current plugin
+  -- User can require lua module in this function.
   defaultConfig = {
-    {'PluginName'}, -- config key
+    'PluginName', -- string | string[]. Config key. If set {'plugin', 'path'}, the value store at `config.plugin.path`.
     {}, -- config value, must be a table
   },
 
@@ -45,7 +58,10 @@ return {
 
   -- Parameters refer to ":h nvim_set_keymap"
   keymaps = {
-    { 'n', '<leader>k', ':echo hello<CR>' },
+    { 'n', '<leader>k1', ':echo hello<CR>' },
+    { '', '<leader>k2', function() print('hello') end, {desc = '"" means mode "n", "v", "o". see :h map'} },
+    { '!', '<leader>k3', function() print('hello') end, {desc = '! means mode "i" and "c". See :h map!'} },
+    { { 'i', 'n' }, '<leader>k4', function() print('hello') end },
   },
 
   -- Parameters refer to ":h nvim_create_user_command"
@@ -194,12 +210,12 @@ require('adoyle-neovim-config').setup {
     --   getTitle('Press j,k to move cursor'),
     --   buttons,
     -- }
-    local layout = config.dashboard.layout
+    local layout = config.alpha.layout
     layout[2] = { type = 'padding', val = 5 }
 
     -- Do not return config, only return the overrided parts
     return {
-      dashboard = { layout = layout },
+      alpha = { layout = layout },
     }
   end
 }

@@ -86,6 +86,8 @@ local function theme(colors)
 			z = { fg = black, bg = green },
 		},
 
+		winbar = { c = { fg = colors.sec_c_fg, bg = 'green' } },
+
 		insert = { a = { fg = black, bg = colors.blue, gui = 'bold' } },
 
 		visual = { a = { fg = black, bg = colors.orange, gui = 'bold' } },
@@ -203,6 +205,7 @@ M.defaultConfig = function()
 		-- 3: Absolute path, with tilde as the home directory
 
 		shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+
 		-- for other components. (terrible name, any suggestions?)
 		symbols = {
 			modified = '[*]', -- Text to show when the file is modified.
@@ -231,7 +234,7 @@ M.defaultConfig = function()
 
 		colored = true, -- Color the symbol icons.
 
-		color = { fg = colors.cyan, bg = '#0A1921', gui = 'underline' },
+		color = { fg = colors.cyan, bg = '#0A1921', gui = 'bold' },
 	}
 
 	local progress = require('lualine.components.progress')
@@ -253,7 +256,8 @@ M.defaultConfig = function()
 			always_divide_middle = true,
 			globalstatus = true,
 
-			refresh = { statusline = 1000, tabline = 1000, winbar = 200 },
+			-- how often lualine should refreash it's contents (in ms)
+			refresh = { statusline = 5000, tabline = 0, winbar = 200 },
 		},
 
 		sections = {
@@ -278,7 +282,14 @@ M.defaultConfig = function()
 			lualine_a = { diagnostics },
 			lualine_b = {},
 			lualine_c = { aerial },
-			lualine_x = {},
+			lualine_x = {
+				{ -- Let winbar always visible
+					function()
+						return ' '
+					end,
+					padding = 0,
+				},
+			},
 			lualine_y = {},
 			lualine_z = {},
 		},

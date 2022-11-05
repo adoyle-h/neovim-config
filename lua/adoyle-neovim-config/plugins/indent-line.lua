@@ -16,7 +16,7 @@ M.defaultConfig = {
 	{
 		line = '⎜', -- '┊', '', '⎸', '│', '⎜', '⎜', '⎜'
 		excludeFileType = {
-			'alpha', -- goolord/alpha-nvim, see plugins/dashboard.lua
+			'alpha', -- goolord/alpha-nvim, see plugins/alpha.lua
 		},
 		opts = { -- :h indent_blankline
 			-- space_char_blankline = " ",

@@ -1,11 +1,18 @@
-local config = require('adoyle-neovim-config.config').config
-local util = require('adoyle-neovim-config.util')
-local symbolMap = config.symbolMap
+local M = {
+	'williamboman/mason.nvim',
 
-return {
-	'williamboman/mason.nvim', -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+	desc = 'Easily install and manage LSP servers, DAP servers, linters, and formatters.',
 
-	defaultConfig = {
+	config = function(config)
+		require('mason').setup(config.mason)
+	end,
+}
+
+M.defaultConfig = function(config)
+	local util = require('adoyle-neovim-config.util')
+	local sym = config.symbolMap
+
+	return {
 		'mason',
 		{
 			ui = {
@@ -17,11 +24,11 @@ return {
 
 				icons = {
 					-- The list icon to use for installed packages.
-					package_installed = symbolMap.INSTALLED,
+					package_installed = sym.INSTALLED,
 					-- The list icon to use for packages that are installing, or queued for installation.
-					package_pending = symbolMap.PENDING,
+					package_pending = sym.PENDING,
 					-- The list icon to use for packages that are not installed.
-					package_uninstalled = symbolMap.UNINSTALLED,
+					package_uninstalled = sym.UNINSTALLED,
 				},
 
 				keymaps = {
@@ -47,7 +54,7 @@ return {
 			},
 
 			-- The directory in which to install packages.
-			install_root_dir = vim.fn.stdpath('data') .. '/mason',
+			install_root_dir = util.dataPath('mason'),
 
 			pip = {
 				-- These args will be added to `pip install` calls. Note that setting extra args might impact intended behavior
@@ -72,9 +79,7 @@ return {
 				download_url_template = util.proxyGithub('https://github.com/%s/releases/download/%s/%s'),
 			},
 		},
-	},
+	}
+end
 
-	config = function()
-		require('mason').setup(config.mason)
-	end,
-}
+return M

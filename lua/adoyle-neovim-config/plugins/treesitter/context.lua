@@ -1,11 +1,17 @@
-local config = require('adoyle-neovim-config.config').config
-
 return {
 	'nvim-treesitter/nvim-treesitter-context',
 	desc = 'Shows the context of the currently visible buffer contents.',
 	disable = true, -- BUG: https://github.com/nvim-treesitter/nvim-treesitter-context/issues/163
 
-	config = function()
+	highlights = function(config)
+		local c = config.colors
+		return {
+			TreesitterContext = { bg = c.darkCyan, italic = true, bold = true },
+			TreesitterContextLineNumber = { bg = c.darkCyan, italic = true, bold = true },
+		}
+	end,
+
+	config = function(config)
 		require('treesitter-context').setup(config.treesitterContext)
 	end,
 

@@ -8,7 +8,7 @@ The color design:
 
 You can change the colors and highlights.
 
-## Change background, frontground, cursorline colors
+## The background, frontground, cursorline colors
 
 Change basic colors via `config.colors`.
 
@@ -26,7 +26,8 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
-## Change plugin highlights
+## The highlights for plugins
+
 Override plugin highlights via `plugins`.
 
 ```lua
@@ -41,6 +42,12 @@ require('adoyle-neovim-config').setup {
   },
 }
 ```
+
+## The syntax highlights
+
+The syntax highlights are defined by nvim-treesitter, whose [highlights config](../lua/adoyle-neovim-config/plugins/treesitter/highlights.lua).
+
+Use `:TSHighlightCapturesUnderCursor` to view the highlight group of word under cursor.
 
 ## Theme
 

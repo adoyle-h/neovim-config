@@ -1,10 +1,16 @@
 return {
 	'plasticboy/vim-markdown',
-	['for'] = 'markdown',
+
+	ft = 'markdown',
+
+	config = function(config)
+		for key, val in pairs(config.markdown.main) do vim.g['vim_markdown_' .. key] = val end
+	end,
 
 	defaultConfig = {
 		{ 'markdown', 'main' },
 		{
+			no_default_key_mappings = 1,
 			frontmatter = 1,
 			conceal = 1,
 			conceal_code_blocks = 0,
@@ -14,16 +20,4 @@ return {
 			new_list_item_indent = 2,
 		},
 	},
-
-	config = function()
-		local conf = require('adoyle-neovim-config.config').config.markdown.main
-
-		vim.g.vim_markdown_frontmatter = conf.frontmatter
-		vim.g.vim_markdown_conceal = conf.conceal
-		vim.g.vim_markdown_conceal_code_blocks = conf.conceal_code_blocks
-		vim.g.vim_markdown_toc_autofit = conf.toc_autofit
-		vim.g.vim_markdown_emphasis_multiline = conf.emphasis_multiline
-		vim.g.vim_markdown_fenced_languages = conf.fenced_languages
-		vim.g.vim_markdown_new_list_item_indent = conf.new_list_item_indent
-	end,
 }

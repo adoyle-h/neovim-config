@@ -61,16 +61,16 @@ return {
 
 		return {
 
-			-- Use trouble.nvim instead
-			-- {
-			-- 	'n',
-			-- 	'gD',
-			-- 	require('adoyle-neovim-config.util').gotoDef,
-			-- 	{
-			-- 		silent = true,
-			-- 		desc = 'Jump to the definition of the symbol under the cursor in current window',
-			-- 	},
-			-- },
+			-- If trouble plugin enabled, "gD" keymap will be overrided
+			{
+				'n',
+				'gD',
+				require('adoyle-neovim-config.util').gotoDef,
+				{
+					silent = true,
+					desc = 'Jump to the definition of the symbol under the cursor in current window',
+				},
+			},
 
 			{
 				'n',

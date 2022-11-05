@@ -1,8 +1,123 @@
+local consts = require('adoyle-neovim-config.consts')
+
 local util = {}
 
 local api = vim.api
 local fn = vim.fn
 local tbl_islist = vim.tbl_islist
+
+local PATH_SEPARATOR = consts.PATH_SEPARATOR
+local IS_WINDOWS = consts.IS_WINDOWS
+
+-- @usage notify('message')
+-- @usage notify('message', 'error')
+-- @usage notify('message', {level = 'error'})
+-- @usage notify('message', {level = 'error', defer = true})  use vim.schedule to notify message
+--
+-- Default level is "info"
+local function notify(msg, opts)
+	if not opts then
+		vim.notify(msg, 'info')
+	elseif opts.defer then
+		vim.schedule(function()
+			vim.notify(msg, opts.level or 'info')
+		end)
+	else
+		vim.notify(msg, opts.level or opts or 'info')
+	end
+end
+util.notify = notify
+
+-- Joins arbitrary number of paths together.
+-- Modified from https://github.com/nvim-neo-tree/neo-tree.nvim/blob/main/lua/neo-tree/utils.lua#L704
+-- @param ... string The paths to join.
+-- @return string
+function util.pathJoin(...)
+	local args = { ... }
+	if #args == 0 then return '' end
+
+	local all_parts = {}
+
+	for _, arg in ipairs(args) do
+		if arg == '' and #all_parts == 0 and not IS_WINDOWS then
+			all_parts = { '' }
+		else
+			local arg_parts = vim.split(arg, '/')
+			vim.list_extend(all_parts, arg_parts)
+		end
+	end
+
+	return table.concat(all_parts, PATH_SEPARATOR)
+end
+
+local HOME_DIR = util.pathJoin(consts.HOME_DIR)
+local CACHE_DIR = util.pathJoin(consts.CACHE_DIR)
+local DATA_DIR = util.pathJoin(consts.DATA_DIR)
+local CONFIG_DIR = util.pathJoin(consts.CONFIG_DIR)
+
+function util.path(path)
+	return HOME_DIR .. PATH_SEPARATOR .. util.pathJoin(path)
+end
+
+function util.dataPath(path)
+	return DATA_DIR .. PATH_SEPARATOR .. util.pathJoin(path)
+end
+
+function util.cachePath(path)
+	return CACHE_DIR .. PATH_SEPARATOR .. util.pathJoin(path)
+end
+
+function util.configPath(path)
+	return CONFIG_DIR .. PATH_SEPARATOR .. util.pathJoin(path)
+end
+
+function util.getFolderName(repo)
+	local s = vim.fn.split(repo, '/')
+	local name = s[#s]
+	if vim.endswith(name, '.git') then name = name:sub(0, -5) end
+	return name
+end
+
+-- @return {boolean} whether is new file
+function util.ensurePkg(params)
+	local url = util.proxyGithub(params.url)
+	local dist = params.dist
+
+	if fn.empty(fn.glob(dist)) > 0 then
+		local cmd = string.format('git clone --depth 1 --single-branch "%s" "%s" 2>&1 >/dev/null', url,
+			dist)
+		notify(string.format('Not found %s\nTo run: %s', dist, cmd))
+
+		local str = fn.system(cmd)
+		if vim.v.shell_error > 0 then
+			error(string.format('util.ensurePkg failed. exit code=%s. Reason: %s', vim.v.shell_error, str))
+		end
+
+		return true
+	end
+
+	return false
+end
+
+-- @return {boolean} whether is new file
+function util.ensureFile(params)
+	local url = util.proxyGithub(params.url)
+	local dist = params.dist
+
+	if fn.empty(fn.glob(dist)) > 0 then
+		local cmd = string.format('curl --create-dirs -sSLo "%s" "%s" 2>&1 >/dev/null', dist, url)
+		notify(string.format('Not found %s\nTo run: %s', dist, cmd))
+
+		local str = fn.system(cmd)
+		if vim.v.shell_error > 0 then
+			error(string.format('util.ensureFile failed. exit code=%s. Reason: %s', vim.v.shell_error, str))
+		end
+
+		return true
+	end
+
+	return false
+end
 
 function util.proxyGithub(url)
 	return url
@@ -158,7 +273,6 @@ function util.isFile(path)
 end
 
 local function gotoDefinition(target)
-	-- vim.notify(vim.inspect(target))
 	if vim.fn.expand('%:p') ~= target.filename then vim.cmd.edit(target.filename) end
 	vim.api.nvim_win_set_cursor(0, { target.lnum, target.col - 1 })
 end
@@ -192,6 +306,56 @@ end
 function util.clearKeymaps(prefix, buffer)
 	local keys = vim.fn.getcompletion(prefix, 'mapping')
 	for _, key in pairs(keys) do vim.keymap.del('n', key, { buffer = buffer or 0 }) end
+end
+
+-- see :h packadd
+function util.packadd(dist)
+	local name = util.getFolderName(dist)
+	vim.cmd.packadd(name)
+end
+
+function util.floatWindow()
+	-- local last_win = vim.api.nvim_get_current_win()
+	-- local last_pos = vim.api.nvim_win_get_cursor(last_win)
+	local columns = vim.o.columns
+	local lines = vim.o.lines
+	local width = math.ceil(columns * 0.8)
+	local height = math.ceil(lines * 0.8 - 4)
+	local left = math.ceil((columns - width) * 0.5)
+	local top = math.ceil((lines - height) * 0.5)
+
+	local opts = {
+		relative = 'editor',
+		style = 'minimal',
+		width = width,
+		height = height,
+		col = left,
+		row = top,
+		border = {
+			{ '╭', 'FloatBorder' },
+			{ '─', 'FloatBorder' },
+			{ '╮', 'FloatBorder' },
+			{ '│', 'FloatBorder' },
+			{ '╯', 'FloatBorder' },
+			{ '─', 'FloatBorder' },
+			{ '╰', 'FloatBorder' },
+			{ '│', 'FloatBorder' },
+		},
+	}
+
+	local buf = vim.api.nvim_create_buf(false, true)
+	local win = vim.api.nvim_open_win(buf, true, opts)
+
+	vim.api.nvim_win_set_option(win, 'winhighlight', 'NormalFloat:Normal')
+
+	return win, buf
+end
+
+function util.getRepoName(str)
+	local list = vim.split(str, '/')
+	local name = list[#list]
+	list = vim.split(name, '.git')
+	return list[1]
 end
 
 return util

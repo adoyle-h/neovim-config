@@ -35,8 +35,8 @@ return {
 				width = nil,
 				-- min_width and max_width can be a list of mixed types.
 				-- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
-				max_width = { 120, 0.9 },
-				min_width = { 20, 0.2 },
+				max_width = { 80, 0.8 },
+				min_width = { 10, 0.2 },
 
 				-- Window transparency (0-100)
 				winblend = 0,

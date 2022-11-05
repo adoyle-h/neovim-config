@@ -1,3 +1,5 @@
+local util = require('adoyle-neovim-config.util')
+
 return {
 	'tamago324/nlsp-settings.nvim',
 
@@ -9,7 +11,7 @@ return {
 		'nlsp',
 		{
 			-- For global settings,
-			config_home = vim.fn.stdpath('config') .. '/lsp-settings',
+			config_home = util.configPath('lsp-settings'),
 			-- For local project, put settings file in {project}/.lsp-settings/{server_name}.yaml.
 			local_settings_dir = '.nlsp-settings',
 			local_settings_root_markers_fallback = { '.git' },

@@ -1,5 +1,3 @@
-local api = vim.api
-
 local M = {
 	'nishigori/increment-activator',
 	desc = 'increment and decrement',
@@ -7,25 +5,9 @@ local M = {
 	on = { '<Plug>(increment-activator-increment)', '<Plug>(increment-activator-decrement)' },
 
 	keymaps = {
-		{
-			'n',
-			'<leader>ii',
-			function()
-				vim.fn['increment_activator#increment']()
-				api.nvim_feedkeys(api.nvim_replace_termcodes('<leader>i', true, false, true), 't', true)
-			end,
-			{ desc = 'Increment word under cursor' },
-		},
+		{ 'n', '<M-i>', vim.fn['increment_activator#increment'], { desc = 'Increment word under cursor' } },
 
-		{
-			'n',
-			'<leader>iI',
-			function()
-				vim.fn['increment_activator#decrement']()
-				api.nvim_feedkeys(api.nvim_replace_termcodes('<leader>i', true, false, true), 't', true)
-			end,
-			{ desc = 'Decrement word under cursor' },
-		},
+		{ 'n', '<M-I>', vim.fn['increment_activator#decrement'], { desc = 'Decrement word under cursor' } },
 	},
 
 	config = function(config)

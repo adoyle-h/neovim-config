@@ -3,6 +3,17 @@
 List basic keymaps for novices.
 Press `<space>k` to see all keymaps in nvim.
 
+## Keymaps Design Principles
+
+- Prefixed `<leader>` to functions.
+- Prefixed `<space>` to open/toggle window, and change mode.
+- Prefixed `<M->` for shortcuts/toggle.
+- Prefixed `g` for goto/jump/search/lsp.
+- Prefixed `[` or `]` for jump.
+- Prefixed `<C-t>` for tabs.
+- Prefixed `<C-w>` for windows.
+- Normal characters for general skilled usages.
+
 ## General
 
 - `<space>o` = Toggle outline
@@ -16,8 +27,8 @@ Press `<space>k` to see all keymaps in nvim.
 - `<C-g>` = Show relative file path to CWD
 - `<leader>l` = Toggle invisible characters (EOL, Tabs, Spaces... see :h lcs)
 - `.` = Repeat last change. Also work in visual mode
-- `<leader>ii` = Increment word under cursor
-- `<leader>iI` = Decrement word under cursor
+- `<M-i>` = Increment word under cursor
+- `<M-I>` = Decrement word under cursor
 - `<leader>so` = Toggle scrolloff
 - `<leader>sp` = Toggle spell-checking
 
@@ -64,10 +75,10 @@ Press `<space>k` to see all keymaps in nvim.
 - `[%` = Jump to previous matched pair
 - `]%` = Jump to next matched pair
 - `:{number}` = Jump to line
-- `th` = move to parent node (treesitter)
-- `tj` = move to next node (treesitter)
-- `tk` = move to previous node (treesitter)
-- `tl` = move to child node (treesitter)
+- `ch` = Move cursor to parent node (treesitter)
+- `cj` = Move cursor to next node (treesitter)
+- `ck` = Move cursor to previous node (treesitter)
+- `cl` = Move cursor to child node (treesitter)
 
 ## Select
 
@@ -82,10 +93,10 @@ Press `<space>k` to see all keymaps in nvim.
 
 ## Swap
 
-- `<M-h>` = Swap current symbol under cursor with previous node
+- `<M-h>` = Swap current symbol under cursor with previous node (Note: cursor position affects swap position)
+- `<M-l>` = Swap current symbol under cursor with next node (Note: cursor position affects swap position
 - `<M-j>` = Swap current line with next line
 - `<M-k>` = Swap current line with previous line
-- `<M-l>` = Swap current symbol under cursor with next node
 - `t` = Swap next character under cursor
 
 ## Search
@@ -108,7 +119,7 @@ Press `<space>k` to see all keymaps in nvim.
 - `[k` = Move to previous user highlighted word (cursor must be on highlighted word)
 - `]k` = Move to next user highlighted word (cursor must be on highlighted word)
 - `<leader>K` = Clear user highlighted words
-- `<leader>h` = Toggle search highlighted
+- `<leader>h` = Show treesitter highlight group
 - `<space>H` = Find highlight groups
 
 ## File Explorer
@@ -159,19 +170,23 @@ Press `<space>k` to see all keymaps in nvim.
 - `<space>M` = Find man page
 - `<space>p` = Find commands
 - `<space>C` = Find command history
+  - `<CR>` in picker = Execute command immediately.
+  -	`<Ctrl-e>` in picker = Edit command in terminal mode.
 - `<space>h` = Find vim help
 - `<space>k` = Find keymaps
 - `<space>S` = Find search history
 - `<space>j` = Show jumplists
 - `<space>v` = Find vim options
 - `<space>r` = Show recently opened files
-- `<space>n` = Find notifications
-- `<space>N` = List messages
+- `<space>N` = Find notifications
+- `<space>n` = List messages
 - `<space>t` = List tabs
 - `<space>T` = List todo comments
+- `<space>l` = List lsp symbols in current buffer
 
 ### Telescope Window
 
+- `?` in normal mode = Show keymaps of telescope
 - `<C-j>` = Move to next selection
 - `<C-k>` = Move to previous selection
 - `<C-s>` = Open buffer in horizontal split window
@@ -229,6 +244,16 @@ Press `<space>k` to see all keymaps in nvim.
 
 - `<C-t>n` = Open new tab
 - `<C-t>x` = Close tab
+- `<M-[>` = Select previous tab
+- `<M-]>` = Select next tab
+- `<M-{>` = Move current tab to previous
+- `<M-}>` = Move current tab to next
+- `<leader>1` = Select the 1st tab
+- `<leader>2` = Select the 2nd tab
+- `<leader>3` = Select the 3rd tab
+- ...
+- `<leader>9` = Select the 9th tab
+- `<leader>0` = Select the last tab
 
 ## Window
 

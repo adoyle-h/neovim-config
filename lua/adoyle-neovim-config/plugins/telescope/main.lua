@@ -1,25 +1,39 @@
-local util = require('adoyle-neovim-config.util')
-
-local M = {
-	'nvim-telescope/telescope.nvim',
-	requires = {
-		{
-			'keyvchan/telescope-find-pickers.nvim',
-			desc = 'Find all pickers available (includes builtins and extensions)',
-		},
-	},
-}
+local M = { 'nvim-telescope/telescope.nvim' }
 
 function M.config(config)
 	local telescope = require('telescope')
 
 	telescope.setup(config.telescope.main)
-	telescope.load_extension('find_pickers')
 
 	if pcall(require, 'notify') then telescope.load_extension('notify') end
 end
 
+local function genCopy(actions, action_state, fields)
+	return function(prompt_bufnr)
+		local entry = action_state.get_selected_entry()
+
+		local str
+		for _, key in pairs(fields) do
+			local val = entry[key]
+			if type(val) == 'string' then
+				str = val
+				break
+			end
+		end
+
+		if str then
+			vim.fn.setreg('"', str)
+			vim.schedule(function()
+				print('Copied: ' .. str)
+			end)
+			actions.close(prompt_bufnr)
+		end
+	end
+end
+
 M.defaultConfig = function(config)
+	local util = require('adoyle-neovim-config.util')
+
 	local action_state = require('telescope.actions.state')
 	local actions = require('telescope.actions')
 	local previewers = require('telescope.previewers')
@@ -27,29 +41,14 @@ M.defaultConfig = function(config)
 
 	local file_ignore_patterns = {}
 	util.tbl_concat(file_ignore_patterns, config.ignore.fileSearch.files)
+
 	for _, value in pairs(config.ignore.fileSearch.directories) do
-		file_ignore_patterns[#file_ignore_patterns + 1] = value:gsub('%.', '%%.') .. '/' -- test ./lua/adoyle-neovim-config/plugins/git/sign.lua
+		-- ./lua/adoyle-neovim-config/plugins/git/sign.lua should not be ignored
+		file_ignore_patterns[#file_ignore_patterns + 1] = value:gsub('%.', '%%.') .. '/'
 	end
 
-	local function copySelection(prompt_bufnr)
-		local entry = action_state.get_selected_entry()
-		local path = entry.filename or entry.path
-		vim.cmd(string.format('let @"="%s"', path))
-		vim.schedule(function()
-			print('Copied: ' .. path)
-		end)
-		actions.close(prompt_bufnr)
-	end
-
-	local function copySelectionPath(prompt_bufnr)
-		local entry = action_state.get_selected_entry()
-		local path = entry.path
-		vim.cmd(string.format('let @"="%s"', path))
-		vim.schedule(function()
-			print('Copied: ' .. path)
-		end)
-		actions.close(prompt_bufnr)
-	end
+	local copySelection = genCopy(actions, action_state, { 'filename', 'display' })
+	local copySelectionPath = genCopy(actions, action_state, { 'path', 'display' })
 
 	return {
 		{ 'telescope', 'main' },

@@ -3,6 +3,8 @@
   "Lua.diagnostics.globals": [
     "vim",
     "it",
-    "describe"
+    "describe",
+    "before_each",
+    "after_each"
   ]
 }

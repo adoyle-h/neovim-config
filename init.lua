@@ -42,10 +42,11 @@ end
 require('adoyle-neovim-config').setup {
 	config = {
 		proxy = {
-			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/').
-			-- Otherwise, remove this option.
-			github = 'https://ghproxy.com/',
+			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com'. Otherwise, remove this option.
+			github = 'https://ghproxy.com',
 		},
+
+		pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
 	},
 
 	---@diagnostic disable-next-line: unused-local
@@ -60,10 +61,29 @@ require('adoyle-neovim-config').setup {
 
 			treesitter = {
 				prefer_git = false,
-				ensure_installed = {}, -- A list of parser names, or "all",
+				-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
+				ensure_installed = { -- A list of parser names, or "all",
+					-- LuaFormatter off
+					'bash', 'beancount', 'bibtex', 'blueprint', 'c', 'clojure', 'cmake', 'comment',
+					'commonlisp', 'cpp', 'css', 'cuda', 'dart', 'diff', 'dockerfile', 'dot', 'eex', 'elixir',
+					'elm', 'elvish', 'erlang', 'fennel', 'fish', 'git_rebase', 'gitattributes', 'gitignore',
+					'glsl', 'go', 'godot_resource', 'gomod', 'gowork', 'graphql', 'haskell', 'hcl', 'help',
+					'hjson', 'hlsl', 'html', 'http', 'java', 'javascript', 'jsdoc', 'json', 'json5',
+					'jsonnet', 'julia', 'kotlin', 'latex', 'llvm', 'lua', 'make', 'markdown',
+					'markdown_inline', 'perl', 'pioasm', 'proto', 'python', 'racket', 'regex', 'rst', 'rust',
+					'scheme', 'scss', 'solidity', 'sparql', 'sql', 'svelte', 'swift', 'teal', 'toml', 'tsx',
+					'twig', 'typescript', 'verilog', 'vim', 'vue', 'wgsl', 'yaml',
+					-- LuaFormatter on
+				},
 				ignore_install = { -- List of parsers to ignore installing (for "all")
 					-- LuaFormatter off
-					'agda', 'rasi', 'r', 'd', 'v', 'slint', 'c_sharp', 'phpdoc', 'ruby', 'php', 'jsonc',
+					'agda', 'astro', 'c_sharp', 'cooklang', 'd', 'devicetree', 'embedded_template', 'jsonc',
+					'foam', 'fortran', 'fusion', 'gdscript', 'gleam', 'glimmer', 'hack', 'heex', 'hocon',
+					'lalrpop', 'ledger', 'm68k', 'menhir', 'meson', 'nickel', 'ninja', 'nix', 'ocaml',
+					'ocaml_interface', 'ocamllex', 'pascal', 'php', 'phpdoc', 'prisma', 'pug', 'ql', 'qmljs',
+					'r', 'rasi', 'rego', 'rnoweb', 'ruby', 'slint', 'supercollider', 'surface', 'sxhkdrc',
+					'tiger', 'tlaplus', 'todotxt', 'turtle', 'v', 'vala',
+					'yang', 'zig'
 					-- LuaFormatter on
 				},
 			},
@@ -124,7 +144,11 @@ require('adoyle-neovim-config').setup {
 		}
 	end,
 
-	noPlugins = false, -- If true, all builtin and user-defined plugins will not be loaded
+	-- @param [opts.onlyPlugins] {string[]|nil}
+	-- It's useful for debug. Defaults to nil.
+	-- If set empty table, all builtin and user-defined plugins are disabled.
+	-- If set non-empty table, only these plugins are not disabled.
+	-- onlyPlugins = { 'akinsho/bufferline.nvim' },
 
 	-- Add your plugins or override plugin default options.
 	-- More examples at ./lua/adoyle-neovim-config/plugins.lua
@@ -133,13 +157,13 @@ require('adoyle-neovim-config').setup {
 		{ 'zk', disable = false },
 		{ 'node', disable = false },
 		{ 'curl', disable = false },
-		{ 'funny', disable = false },
 		{ 'latex', disable = false },
 		{ 'calendar', disable = false },
 		{ 'todo', disable = false },
 		{ 'zen', disable = false },
-		{ 'olimorris/onedarkpro.nvim', disable = false },
+		{ 'onedarkpro', disable = false },
+		{ 'noice', disable = true },
 		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
-		{ 'folke/noice.nvim', disable = false },
+		{ 'dmitmel/cmp-cmdline-history', disable = true },
 	},
 }

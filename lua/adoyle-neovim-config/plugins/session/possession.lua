@@ -1,3 +1,5 @@
+local util = require('adoyle-neovim-config.util')
+
 return {
 	'jedrzejboczar/possession.nvim',
 
@@ -8,7 +10,7 @@ return {
 	defaultConfig = {
 		{ 'possession' },
 		{
-			session_dir = vim.fn.stdpath('data') .. '/sessions/',
+			session_dir = util.dataPath('sessions'),
 			silent = true,
 			load_silent = true,
 			debug = false,
@@ -20,6 +22,7 @@ return {
 				on_load = true,
 				on_quit = true,
 			},
+
 			commands = {
 				save = 'SessionSave',
 				load = 'SessionLoad',
@@ -29,6 +32,7 @@ return {
 				list = 'SessionList',
 				migrate = 'SessionMigrate',
 			},
+
 			hooks = {
 				before_save = function(name)
 					return {}
@@ -41,6 +45,7 @@ return {
 				after_load = function(name, user_data)
 				end,
 			},
+
 			plugins = {
 				close_windows = {
 					hooks = { 'before_save', 'before_load' },
@@ -52,10 +57,12 @@ return {
 						custom = false, -- or fun(win): boolean
 					},
 				},
+
 				delete_hidden_buffers = {
 					hooks = { 'before_load', vim.o.sessionoptions:match('buffer') and 'before_save' },
 					force = false, -- or fun(buf): boolean
 				},
+
 				nvim_tree = true,
 				tabby = true,
 				delete_buffers = false,

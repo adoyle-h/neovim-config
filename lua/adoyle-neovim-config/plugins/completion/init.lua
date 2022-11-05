@@ -177,9 +177,10 @@ local M = {
 		'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
 		'hrsh7th/cmp-buffer', -- buffer source for nvim-cmp
 		'hrsh7th/cmp-path', -- path source for nvim-cmp
+		'hrsh7th/cmp-nvim-lua',
 		'f3fora/cmp-spell',
 		'hrsh7th/cmp-cmdline',
-		'dmitmel/cmp-cmdline-history',
+		{ 'dmitmel/cmp-cmdline-history', disable = true },
 		'David-Kunz/cmp-npm',
 		'petertriho/cmp-git',
 		'ray-x/cmp-treesitter',
@@ -274,6 +275,7 @@ M.defaultConfig = function(config)
 				normal = {
 					{ name = 'dynamic', group_index = 1 },
 					{ name = 'path', group_index = 1 },
+					{ name = 'nvim_lua', group_index = 1 },
 					{ name = 'snippy', group_index = 1 },
 					{ name = 'nvim_lsp', group_index = 1 },
 					{ name = 'buffer', group_index = 1 },
@@ -290,6 +292,7 @@ M.defaultConfig = function(config)
 					{ name = 'path', group_index = 1 },
 					{ name = 'cmdline', group_index = 1 },
 					{ name = 'cmdline_history', group_index = 1 },
+					{ name = 'nvim_lua', group_index = 1 },
 				},
 			},
 

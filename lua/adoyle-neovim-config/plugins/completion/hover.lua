@@ -1,19 +1,21 @@
-local config = require('adoyle-neovim-config.config').config
-
-return {
+local M = {
 	'ray-x/lsp_signature.nvim',
 
-	config = function()
+	config = function(config)
 		require('lsp_signature').setup(config.lsp_signature)
 	end,
+}
 
-	defaultConfig = {
-		{ 'lsp_signature' },
+M.defaultConfig = function(config)
+	local util = require('adoyle-neovim-config.util')
+
+	return {
+		'lsp_signature',
 		{
 			verbose = false, -- show debug line number
 			debug = false, -- set to true to enable debug logging
 			-- default log_path is ~/.cache/nvim/lsp_signature.log
-			log_path = vim.fn.stdpath('cache') .. '/lsp_signature.log', -- log dir when debug is on
+			log_path = util.cachePath('lsp_signature.log'), -- log dir when debug is on
 
 			-- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
 			-- set to 0 if you DO NOT want any API comments be shown
@@ -60,5 +62,7 @@ return {
 			timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
 			toggle_key = nil, -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
 		},
-	},
-}
+	}
+end
+
+return M

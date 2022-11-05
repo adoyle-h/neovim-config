@@ -1,3 +1,5 @@
+local util = require('adoyle-neovim-config.util')
+
 local Auto = {
 	'rmagatti/auto-session',
 
@@ -11,7 +13,7 @@ local Auto = {
 		{
 			log_level = 'warn',
 			auto_session_enable_last_session = true,
-			auto_session_root_dir = vim.fn.stdpath('data') .. '/sessions/',
+			auto_session_root_dir = util.dataPath('sessions'),
 			auto_session_enabled = true,
 			auto_session_create_enabled = true,
 			auto_save_enabled = nil,

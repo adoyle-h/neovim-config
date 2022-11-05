@@ -1,5 +1,5 @@
 local M = {
-	'dashboard',
+	'alpha',
 
 	desc = 'Dashboard when nvim opened without arguments',
 
@@ -67,8 +67,11 @@ local function getSessions(conf)
 
 	local sessions = {}
 
+	local branch = vim.fn.system('git rev-parse --abbrev-ref HEAD 2>/dev/null')
+	local matched
+
 	local i = 1
-	for _, session in pairs(persisted.list()) do
+	for index, session in pairs(persisted.list()) do
 		local path = session.file_path
 		local isContained = path:find(pwd:gsub('/', '%%'), 1, true)
 
@@ -77,6 +80,7 @@ local function getSessions(conf)
 		local str
 		if session.branch then
 			str = printf('%s (branch: %s)', session.dir_path, session.branch)
+			if session.branch == branch then matched = index end
 		else
 			str = session.dir_path
 		end
@@ -102,6 +106,9 @@ local function getSessions(conf)
 	end
 
 	if i == 1 then return { type = 'padding', val = 0 } end
+
+	-- move matched session to first
+	if matched then table.insert(sessions, 1, table.remove(sessions, matched)) end
 
 	local longest = formatSessions(sessions)
 
@@ -169,7 +176,7 @@ function M.config(config)
 
 	vim.opt_local.laststatus = 0
 
-	local conf = config.dashboard
+	local conf = config.alpha
 
 	local layout = conf.layout
 	local index
@@ -244,6 +251,8 @@ local function getHeader()
 end
 
 M.defaultConfig = function()
+	local PM = require('adoyle-neovim-config.plugin-manager')
+
 	local dashboard = require('alpha.themes.dashboard')
 	local button = dashboard.button
 
@@ -258,9 +267,10 @@ M.defaultConfig = function()
 			button('<SPACE>k', '  List Keymaps', ':Telescope keymaps<CR>'),
 			button('<SPACE>s', '  List Sessions', ':ListSessions<CR>'),
 			button('<SPACE>p', 'גּ  Run Command', ':Telescope commands<CR>'),
-			button('<SPACE>P', '  List Plugin Status', ':PlugStatus<CR>'),
+			button('<SPACE>P', '  List Plugin Status', string.format(':%s<CR>', PM.P.cmds.status)),
 			button('<SPACE>v', '  List Vim Options', ':Telescope vim_options<CR>'),
-			button('<SPACE>n', '  List Notifications', ':Telescope notify<CR>'),
+			button('<SPACE>n', '  List Messages', ':Noice history<CR>'),
+			button('<SPACE>N', '  List Notifications', ':Telescope notify<CR>'),
 			button('<SPACE>h', 'ﲉ  Find Help', ':Telescope help_tags<CR>'),
 			button('q', '  Quit', ':qa<CR>'),
 		},
@@ -272,7 +282,7 @@ M.defaultConfig = function()
 	local marginTop = fn.max({ 1, fn.floor(fn.winheight(0) * marginTopPercent) })
 
 	return {
-		'dashboard',
+		'alpha',
 		{
 			sessionLimit = 9,
 			layout = {

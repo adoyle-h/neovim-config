@@ -1,3 +1,5 @@
+local util = require('adoyle-neovim-config.util')
+
 local M = {
 	'simnalamburt/vim-mundo',
 	desc = 'undo history tree',
@@ -8,7 +10,7 @@ local M = {
 M.defaultConfig = {
 	'undotree',
 	{
-		undodir = vim.fn.stdpath('data') .. '/undodir/',
+		undodir = util.dataPath('undo'),
 		undofile = true,
 		width = 60,
 		preview_height = 15,

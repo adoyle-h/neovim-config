@@ -1,7 +1,7 @@
 return {
 	'adoyle-h/vim-MarkdownTOC',
 	desc = 'Table of Content generator',
-	['for'] = 'markdown',
+	ft = 'markdown',
 	branch = 'adoyle',
 
 	defaultConfig = {

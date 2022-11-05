@@ -11,6 +11,9 @@ insert_final_newline = true
 [Dockerfile]
 indent_size = 4
 
+[.gitmodules]
+indent_style = tab
+
 [*.lua]
 indent_style = tab
 

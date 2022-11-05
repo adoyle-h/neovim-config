@@ -1,99 +1,97 @@
-local config = require('adoyle-neovim-config.config').config
-local P = require('adoyle-neovim-config.vim-plug')
-local Plug = P.Plug
-local Load = P.LoadPluginFile
+return function(Plug, Load, config)
+	------- Basic required plugins -------
+	Load 'vim-options'
+	Load 'plenary'
+	Load 'devicons' -- Devicons for nvim plugins
+	Plug 'MunifTanjim/nui.nvim'
+	Load 'notify'
+	Load 'notifier'
+	Load 'treesitter'
+	Load 'telescope'
 
-------- Basic required plugins -------
-Load 'plugins.vim-options'
-Load 'plugins.plenary'
-Load 'plugins.devicons' -- Devicons for nvim plugins
-Plug 'MunifTanjim/nui.nvim'
-Load 'plugins.notify'
-Load 'plugins.notifier'
-Load 'plugins.treesitter'
-Load 'plugins.telescope'
+	------------- UI plugins -------------
+	Load 'dressing'
+	Load 'noice'
+	Load('themes.' .. config.theme.use)
+	Load 'colors'
+	Load 'lualine'
+	Load 'bufferline'
+	Load 'indent-line'
+	Load 'search'
+	Load 'scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
+	Load 'scroll'
 
-------------- UI plugins -------------
-Load 'plugins.dressing'
-Load 'plugins.noice'
-Load('plugins.themes.' .. config.theme.use)
-Load 'plugins.colors'
-Load 'plugins.lualine'
-Load 'plugins.bufferline'
-Load 'plugins.indent-line'
-Load 'plugins.search'
-Load 'plugins.scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
-Load 'plugins.scroll'
+	---------- Enhanced plugins ----------
+	Load 'filetype'
+	Load 'lsp' -- it must put after telescope plugin
+	Load 'dap'
+	Load 'completion'
+	Load 'general'
+	Load 'comment'
+	Load 'aerial'
+	Load 'format'
+	Load 'git'
+	Load 'highlight-words'
+	Load 'increment'
+	Load 'markdown'
+	Load 'move'
+	Load 'neo-tree' -- neo-tree must put after move plugin
+	Load 'open-url'
+	Load 'session'
+	Load 'select'
+	Load 'table'
+	Load 'trailing'
+	Load 'undotree'
+	Load 'window'
+	Load 'abbreviation'
+	Load 'terminal'
+	Load 'alpha' -- It must put after session plugin
+	Load 'escape'
+	Load 'match'
+	Load 'test'
+	Load 'yank'
+	Load 'trouble' -- It must put after telescope and lsp plugin
+	Load 'icon-picker'
+	Load 'diff'
+	Load 'js'
+	Load 'crontab'
+	Load 'live-cmd'
 
----------- Enhanced plugins ----------
-Load 'plugins.filetype'
-Load 'plugins.lsp'
-Load 'plugins.dap'
-Load 'plugins.completion'
-Load 'plugins.general'
-Load 'plugins.comment'
-Load 'plugins.aerial'
-Load 'plugins.format'
-Load 'plugins.git'
-Load 'plugins.highlight-words'
-Load 'plugins.increment'
-Load 'plugins.markdown'
-Load 'plugins.move'
-Load 'plugins.neo-tree' -- neo-tree must put after move plugin
-Load 'plugins.open-url'
-Load 'plugins.session'
-Load 'plugins.select'
-Load 'plugins.table'
-Load 'plugins.trailing'
-Load 'plugins.undotree'
-Load 'plugins.window'
-Load 'plugins.abbreviation'
-Load 'plugins.terminal'
-Load 'plugins.dashboard' -- Put this plugin after session plugin
-Load 'plugins.escape'
-Load 'plugins.match'
-Load 'plugins.test'
-Load 'plugins.yank'
-Load 'plugins.trouble'
-Load 'plugins.icon-picker'
-Load 'plugins.diff'
-Load 'plugins.js'
-Load 'plugins.crontab'
-Load 'plugins.live-cmd'
-
-Plug {
-	'tyru/capture.vim',
-	on = 'Capture',
-	desc = [[
+	Plug {
+		'tyru/capture.vim',
+		on = 'Capture',
+		desc = [[
 		":Capture <Ex-Command>" to pipe Ex command output to new buffer'.
-	  ":Capture mes" print messages.
+	  ":Capture mess" to capture messages.
+	  ":Capture lua print('hello')" to capture lua print
 	  ":Capture echo globpath(&rtp, 'doc/*.txt')".
 	]],
-}
+	}
 
-Plug {
-	'lambdalisue/suda.vim',
-	desc = 'read or write files with sudo command. :SudaRead and :SudaWrite',
-}
+	Plug {
+		'lambdalisue/suda.vim',
+		desc = 'read or write files with sudo command. :SudaRead and :SudaWrite',
+	}
 
-Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h eunuch' }
-Plug { 'tpope/vim-repeat', desc = 'Enable repeating other supported plugins with the . command' }
-Plug { 'mechatroner/rainbow_csv', desc = 'For .csv file', ['for'] = 'csv' }
-Plug 'rohanorton/lua-gf.nvim'
+	Plug { 'adoyle-h/vim-eunuch', branch = 'adoyle', desc = 'UNIX commands. See :h eunuch' }
+	Plug { 'tpope/vim-repeat', desc = 'Enable repeating other supported plugins with the . command' }
+	Plug { 'mechatroner/rainbow_csv', desc = 'For .csv file', ft = 'csv' }
+	Plug 'rohanorton/lua-gf.nvim'
 
------- Default disabled plugins ------
--- User can enable them on demand
-Load 'plugins.profiling'
-Load 'plugins.zk'
-Load 'plugins.node'
-Load 'plugins.curl'
-Load 'plugins.funny'
-Load 'plugins.latex'
-Load 'plugins.calendar'
-Load 'plugins.todo'
-Load 'plugins.zen'
-Load 'plugins.mark'
-Load 'plugins.bookmark'
---------------------------------------
+	------ Default disabled plugins ------
+	-- User can enable them on demand
+	Load 'profiling'
+	Load 'zk'
+	Load 'node'
+	Load 'curl'
+	Load 'funny'
+	Load 'latex'
+	Load 'calendar'
+	Load 'todo'
+	Load 'zen'
+	Load 'mark'
+	Load 'bookmark'
+	--------------------------------------
 
-Plug 'ryanoasis/vim-devicons' -- Devicons for old vimscript plugins. It should be put at last!!
+	Plug 'ryanoasis/vim-devicons' -- Devicons for old vimscript plugins. It should be put at last!!
+end

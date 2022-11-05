@@ -1,45 +1,21 @@
-local M = require('adoyle-neovim-config.vim-plug.plug')
-
-describe('mergePlugConfig()', function()
-	local mergePlugConfig = M.mergePlugConfig
-
-	it('"a"', function()
-		local plugDefaultConfig = { defaultConfig = { 'a', { hello = 'world' } } }
-		local src = {}
-		mergePlugConfig(src, plugDefaultConfig)
-		assert.are.same({ a = { hello = 'world' } }, src)
-	end)
-
-	it('{"a"}', function()
-		local plugDefaultConfig = { defaultConfig = { { 'a' }, { hello = 'world' } } }
-		local src = {}
-		mergePlugConfig(src, plugDefaultConfig)
-		assert.are.same({ a = { hello = 'world' } }, src)
-	end)
-
-	it('{"a", "b"}', function()
-		local plugDefaultConfig = { defaultConfig = { { 'a', 'b' }, { hello = 'world' } } }
-		local src = {}
-		mergePlugConfig(src, plugDefaultConfig)
-		assert.are.same({ a = { b = { hello = 'world' } } }, src)
-	end)
-end)
+local usePlug = require('adoyle-neovim-config.plugin-manager.use-plug')
 
 describe('usePlug()', function()
-	local usePlug = M.usePlug
 	local plugs = {}
 	local plugMap = {}
 	local userPlugins = {}
 	local g = { count = 0, plugs = plugs, plugMap = plugMap, userPlugins = userPlugins }
+	local loadPlug = function()
+	end
 
-	usePlug(g, 'g/a')
-	usePlug(g, 'g/b', { desc = 'b' })
-	usePlug(g, { 'g/c', desc = 'c' })
-	usePlug(g, { desc = 'd' })
-	usePlug(g, { 'e', desc = 'e' })
-	usePlug(g, { 'g/f', requires = {} })
-	usePlug(g, { 'g/g', requires = { 'g/g1', { 'g/g2' } } })
-	usePlug(g, { 'g/h', requires = { 'g/h1', { 'g/h2', disable = true } } })
+	usePlug(g, loadPlug, 'g/a')
+	usePlug(g, loadPlug, 'g/b', { desc = 'b' })
+	usePlug(g, loadPlug, { 'g/c', desc = 'c' })
+	usePlug(g, loadPlug, { desc = 'd' })
+	usePlug(g, loadPlug, { 'e', desc = 'e' })
+	usePlug(g, loadPlug, { 'g/f', requires = {} })
+	usePlug(g, loadPlug, { 'g/g', requires = { 'g/g1', { 'g/g2' } } })
+	usePlug(g, loadPlug, { 'g/h', requires = { 'g/h1', { 'g/h2', disable = true } } })
 
 	it('plugMap', function()
 		assert.are.same({
@@ -78,7 +54,7 @@ describe('usePlug()', function()
 			id = 'g/h',
 			repo = 'g/h',
 			disable = true,
-			reason = 'its required plug "g/h2" is disabled',
+			reason = 'its required plug "g/h1" is disabled',
 			requires = {
 				{ id = 'g/h1', repo = 'g/h1', reason = 'uninstalled', disable = true, uninstalled = true },
 				{ id = 'g/h2', repo = 'g/h2', disable = true },

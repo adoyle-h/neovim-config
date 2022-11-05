@@ -1,6 +1,8 @@
 return {
 	'rcarriga/nvim-notify',
 
+	keymaps = { { 'n', '<space>N', ':Telescope notify<CR>', { silent = true } } },
+
 	config = function(config)
 		local notify = require('notify')
 		notify.setup(config.notify)

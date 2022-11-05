@@ -1,8 +1,16 @@
 -- BUG: When open telescope window in maximize window, window will not keep maximized, and nvim may throw error
 return {
 	'anuvyklack/windows.nvim',
+
 	requires = { 'anuvyklack/middleclass', 'anuvyklack/animation.nvim' },
+
 	desc = 'Auto scale width of window. And maximize window',
+
+	keymaps = { { 'n', '<C-w>z', ':WindowsMaximize<CR>', { silent = true } } },
+
+	config = function(config)
+		require('windows').setup(config.window.maximize)
+	end,
 
 	defaultConfig = {
 		{ 'window', 'maximize' },
@@ -40,10 +48,4 @@ return {
 			},
 		},
 	},
-
-	config = function(config)
-		require('windows').setup(config.window.maximize)
-	end,
-
-	keymaps = { { 'n', '<C-w>z', ':WindowsMaximize<CR>', { silent = true } } },
 }

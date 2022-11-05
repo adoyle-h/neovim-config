@@ -1,8 +1,11 @@
 -- User should not change this file. Edit require('adoyle-neovim-config').setup({config}) in your init.lua.
 return function(colors)
 	local symbol = require('adoyle-neovim-config.config.symbol')
+	local util = require('adoyle-neovim-config.util')
 
 	return {
+		leaderKey = ';', -- Set a map <leader> for more key combos
+
 		colors = colors, -- basic colors
 
 		symbolMap = symbol.symbolMap,
@@ -13,25 +16,28 @@ return function(colors)
 			use = 'onedarkpro', -- 'onedarkpro' or 'material',
 		},
 
+		impatient = { -- Speed up require lua modules to improve startup time.
+			enable = true,
+			src = 'https://github.com/lewis6991/impatient.nvim',
+			dist = util.dataPath('site/pack/user/start/impatient.nvim'),
+			pkgName = 'impatient',
+		},
+
 		-- Global lua variable. So you can easily call the framework, like ":lua a.util"
 		-- If set nil or false, do not create this variable.
 		global = 'a',
 
-		-- https://github.com/junegunn/vim-plug#global-options
 		pluginManager = {
-			-- All plugins are downloaded in this directory. Default: ~/.local/share/nvim/plugins
-			pluginDir = vim.fn.stdpath('data') .. '/plugins',
-			timeout = 30,
-			threads = 8,
-			retries = 2,
-			shallow = 1,
-			window = 'vertical topleft new',
-			pwindow = 'above 12new',
+			use = 'vim-plug', -- 'vim-plug' or 'packer'
+
+			['vim-plug'] = require('adoyle-neovim-config.config.vim-plug'),
+
+			packer = require('adoyle-neovim-config.config.packer'),
 		},
 
 		proxy = {
-			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/' (Do not missing the last '/')
-			github = '', -- emptry string or proxy url
+			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com/'
+			github = nil, -- string|nil  proxy url
 		},
 
 		ignore = {

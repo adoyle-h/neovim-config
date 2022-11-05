@@ -1,6 +1,5 @@
-local util = require('adoyle-neovim-config.util')
-
 return function()
+	local util = require('adoyle-neovim-config.util')
 	local tb = require('telescope.builtin')
 	local opts = { silent = true }
 
@@ -119,6 +118,7 @@ return function()
 		{ 'n', '<space>j', ':Telescope jumplist<cr>', opts },
 		{ 'n', '<space>v', ':Telescope vim_options<cr>', opts },
 		{ 'n', '<space>y', ':Telescope registers<cr>', opts },
+		{ 'n', '<space>l', ':Telescope lsp_document_symbols<cr>', opts },
 
 		{
 			'n',
@@ -127,19 +127,15 @@ return function()
 			{ silent = true, desc = 'Show recently opened files' },
 		},
 
-		-- {'n', '<space>b', ':Telescope buffers<cr>', opts}, -- Use :Neotree buffers instead.
-		-- { 'n', '<space>d', ':Telescope diagnostics<cr>', opts }, -- Use trouble.nvim instead.
+		{ 'n', '<space>b', ':Telescope buffers<cr>', opts }, -- Use neotree plugin will override it
+		{ 'n', '<space>d', ':Telescope diagnostics<cr>', opts }, -- Use trouble plugin will override it
 
-		-- Override lsp keymaps. Use rmagatti/goto-preview instead.
-		-- {'n', 'gi', ':Telescope lsp_implementations<cr>', opts},
-		-- {'n', 'gd', ':Telescope lsp_definitions jump_type=split<cr>', opts},
-		-- {'n', 'gr', ':Telescope lsp_references<cr>', opts},
-		-- {'n', 'gt', ':Telescope lsp_type_definitions<cr>', opts},
+		-- Override lsp keymaps. If plugins/lsp/preview enabled, these keymaps will be overrided.
+		{ 'n', 'gi', ':Telescope lsp_implementations<cr>', opts },
+		{ 'n', 'gd', ':Telescope lsp_definitions jump_type=split<cr>', opts },
+		{ 'n', 'gr', ':Telescope lsp_references<cr>', opts },
+		{ 'n', 'gt', ':Telescope lsp_type_definitions<cr>', opts },
 	}
-
-	if pcall(require, 'notify') then
-		table.insert(map, { 'n', '<space>n', ':Telescope notify<cr>', opts })
-	end
 
 	return map
 end

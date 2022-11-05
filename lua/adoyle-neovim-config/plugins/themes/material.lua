@@ -1,15 +1,17 @@
-local M = { 'marko-cerovac/material.nvim' }
+local M = {
+	'material',
+	requires = { 'marko-cerovac/material.nvim' },
 
-function M.config(config)
-	local conf = config.theme
-	vim.g.material_style = conf.style
-	require('material').setup(conf.material)
-	vim.cmd 'colorscheme material' -- this line must put after require('material').setup
-
-end
+	config = function(config)
+		local conf = config.material
+		vim.g.material_style = conf.style
+		require('material').setup(conf)
+		vim.cmd 'colorscheme material' -- this line must put after require('material').setup
+	end,
+}
 
 M.defaultConfig = {
-	{ 'theme', 'material' },
+	{ 'material' },
 	{
 		-- Options see https://github.com/marko-cerovac/material.nvim
 

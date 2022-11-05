@@ -1,11 +1,12 @@
+local util = require('adoyle-neovim-config.util')
+
 local M = { 'xolox/vim-misc', requires = { 'xolox/vim-session' }, desc = 'session manage' }
-local NVIM_CONF = vim.fn.stdpath('data')
 
 M.defaultConfig = {
 	'session',
 	{
-		directory = NVIM_CONF .. '/session',
-		lock_directory = NVIM_CONF .. '/session_lock',
+		directory = util.dataPath('session'),
+		lock_directory = util.dataPath('session_lock'),
 		autosave = 'yes',
 		autoload = 'no',
 	},
