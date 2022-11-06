@@ -74,7 +74,7 @@ return function(config)
 		['@property'] = { fg = '#5098A3' },
 
 		-- Identifiers
-		['@variable'] = { link = 'Normal' },
+		['@variable'] = { fg = c.white },
 		['@variable.builtin'] = { link = 'Special' }, -- like `this` or `self`.
 
 		['@constant'] = { link = 'Constant' },
@@ -85,7 +85,7 @@ return function(config)
 		['@symbol'] = { link = 'Identifier' }, -- For identifiers referring to symbols or atoms.
 
 		-- Text
-		['@text'] = { link = 'Normal' }, -- For strings considered text in a markup language.
+		['@text'] = { fg = c.white }, -- For strings considered text in a markup language.
 		['@text.strong'] = { link = 'Bold' },
 		['@text.emphasis'] = { italic = true },
 		['@text.underline'] = { link = 'Underlined' },

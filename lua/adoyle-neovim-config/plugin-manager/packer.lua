@@ -18,10 +18,12 @@ local function parseOpts(repo, opts)
 
 	if opts.requires then
 		local after = {}
+
 		for _, depPkg in pairs(opts.requires) do
 			if type(depPkg.repo) == 'string' then after[#after + 1] = util.getRepoName(depPkg.repo) end
 		end
-		plugOpts.after = after
+
+		if not vim.tbl_isempty(after) then plugOpts.after = after end
 	end
 
 	return plugOpts
