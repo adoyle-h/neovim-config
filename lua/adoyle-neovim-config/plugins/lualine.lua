@@ -111,8 +111,10 @@ local function setNoice(lualineConfig, c)
 
 		table.insert(lualineConfig.winbar.lualine_x, {
 			function()
-				local message = require('noice.message.manager').get({ event = 'msg_showmode' },
-					                { count = 1, sort = true })[1]
+				local message = require('noice.message.manager').get({ --
+					event = 'msg_showmode',
+				}, { count = 1, sort = true })[1]
+
 				local str = vim.trim(message:content()):gsub('%%', '%%%%')
 
 				if str:find('@') then
@@ -127,9 +129,10 @@ local function setNoice(lualineConfig, c)
 
 		table.insert(lualineConfig.winbar.lualine_x, {
 			function()
-				local message = require('noice.message.manager').get({ event = 'msg_show',
-                                                           kind = 'search_count' },
-					                { count = 1, sort = true })[1]
+				local message = require('noice.message.manager').get({ --
+					event = 'msg_show',
+					kind = 'search_count',
+				}, { count = 1, sort = true })[1]
 
 				return vim.trim(message:content()):gsub('%%', '%%%%'):gsub('%s*%[%d+/%d+%]$', '')
 			end,

@@ -193,7 +193,7 @@ Do [initialization](#initialization) and then press `nvim` to get started.
 
 ## Initialization
 
-- Use your current editor to edit config in file `init.lua`.
+- Use your current editor to edit config in file `init.lua`. You can refer to [my config](./init.lua).
   - `config.pluginManager.use` choose your favorite plugin manager. See [Plugin Manager](#plugin-manager) for details.
   - It maybe be slow to download plugins. Modify `config.proxy.github` option to use proxy. See [Proxy](#proxy) for details.
 - Open `nvim`. It will auto download dependent packages, like impatient.nvim, vim-plug or packer. And then auto download plugins.
