@@ -1,3 +1,10 @@
+local util = require('adoyle-neovim-config.util')
+
+util.ensurePkg {
+	url = 'https://github.com/adoyle-h/my-vim-snippets',
+	dist = util.configPath('snippets'),
+}
+
 local function confNullLS()
 	local has_null, nullLS = pcall(require, 'null-ls')
 	if not has_null then return {} end

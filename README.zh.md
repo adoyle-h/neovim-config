@@ -359,6 +359,8 @@ Debug 技巧。例如禁用所有插件。
 
 ### [命令](./doc/commands.md)
 
+### [代码片段](./doc/snippet.md)
+
 ### LSP
 
 本项目使用 [nvim-lspconfig][] 和 [null-ls][] 来配置 LSP，管理 LSP 与 Nvim 的连接。

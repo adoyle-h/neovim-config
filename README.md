@@ -359,6 +359,8 @@ Press `<space>k` to see all keymaps in nvim.
 
 ### [Commands](./doc/commands.md)
 
+### [Snippets](./doc/snippet.md)
+
 ### LSP
 
 Using [nvim-lspconfig][] and [null-ls][] to manage LSP. And using [mason.nvim][] to manege lsp, dap and null-ls packages.
