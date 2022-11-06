@@ -1,7 +1,7 @@
 local M = require('adoyle-neovim-config.plugin-manager.plug')
 
-describe('mergePlugConfig()', function()
-	local mergePlugConfig = M.mergePlugConfig
+describe('mergePlugDefaultConfi()', function()
+	local mergePlugConfig = M.mergePlugDefaultConfig
 
 	it('"a"', function()
 		local plugDefaultConfig = { defaultConfig = { 'a', { hello = 'world' } } }

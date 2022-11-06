@@ -12,9 +12,6 @@ describe('Plug()', function()
 			id = 'github/repo',
 			repo = 'github/repo',
 			desc = 'repo',
-			disable = true,
-			uninstalled = true,
-			reason = 'uninstalled',
 		}, PM.plugMap['github/repo'])
 	end)
 

@@ -18,13 +18,7 @@ describe('usePlug()', function()
 	usePlug(g, loadPlug, { 'g/h', requires = { 'g/h1', { 'g/h2', disable = true } } })
 
 	it('plugMap', function()
-		assert.are.same({
-			id = 'g/a',
-			repo = 'g/a',
-			disable = true,
-			uninstalled = true,
-			reason = 'uninstalled',
-		}, plugMap['g/a'])
+		assert.are.same({ id = 'g/a', repo = 'g/a' }, plugMap['g/a'])
 	end)
 
 	it('plugs', function()
@@ -40,25 +34,14 @@ describe('usePlug()', function()
 		assert.are.same('g/g2', plugs[8].repo)
 		assert.are.same('g/g', plugs[9].repo)
 
-		assert.are.same({
-			id = 'g/h1',
-			repo = 'g/h1',
-			reason = 'uninstalled',
-			disable = true,
-			uninstalled = true,
-		}, plugs[10])
+		assert.are.same({ id = 'g/h1', repo = 'g/h1' }, plugs[10])
 
 		assert.are.same({ id = 'g/h2', repo = 'g/h2', disable = true }, plugs[11])
 
 		assert.are.same({
 			id = 'g/h',
 			repo = 'g/h',
-			disable = true,
-			reason = 'its required plug "g/h1" is disabled',
-			requires = {
-				{ id = 'g/h1', repo = 'g/h1', reason = 'uninstalled', disable = true, uninstalled = true },
-				{ id = 'g/h2', repo = 'g/h2', disable = true },
-			},
+			requires = { { id = 'g/h1', repo = 'g/h1' }, { id = 'g/h2', repo = 'g/h2', disable = true } },
 		}, plugs[12])
 
 	end)
