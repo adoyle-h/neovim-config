@@ -1,6 +1,12 @@
-## 插件
+# 插件
 
-### 创建插件
+## 内置插件
+
+内置插件都放在目录 [./lua/adoyle-neovim-config/plugins](./lua/adoyle-neovim-config/plugins)。
+
+内置插件在文件 [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua) 中加载。
+
+## 创建插件
 
 举个例子，创建文件 `lua/my-plugin.lua`。
 
@@ -8,7 +14,10 @@
 
 ```lua
 return {
-  'repo/name', -- string | nil | omit. It must be first
+  -- string | nil | omit. The name of plugin. It must be first.
+  -- If the name has "/", such as "repo/name", the plugin manager (vim-plug/packer) will install the repo.
+  -- If the name has not "/", no repo installed. User can name this plugin with any characters.
+  'string',
 
   -- common options
   desc = 'Plugin Description', -- string | nil.
@@ -172,33 +181,32 @@ return {
 
 ```lua
 require('adoyle-neovim-config').setup {
-  config = {
-    plugins = {
-      require('my-plugin'),
-    },
+  plugins = {
+    require('my-plugin'),
   },
 }
 ```
 
-当 `plugins` 里的插件名与已有的插件匹配时，你定义的配置项会覆盖插件的默认配置。
-当没有匹配的已有插件，会作为新的插件加载。
+把你的插件放在 `plugins` 里。
 
-### 禁用默认插件
+当 `plugins` 里的插件名与内置插件匹配时，你定义的配置项会覆盖内置插件的默认配置。
+若没有匹配的，它则会作为新的插件加载。
+
+## 禁用默认插件
 
 ```lua
 require('adoyle-neovim-config').setup {
-  config = {
-    plugins = {
-      {'keymap', disable = true} -- It will disable all keymaps defined in ./lua/adoyle-neovim-config/keymap/
-      {'lukas-reineke/indent-blankline.nvim', disable = true} -- It will disable plugin ./lua/adoyle-neovim-config/plugins/indent-line.lua
-    },
+  plugins = {
+    {'keymap', disable = true} -- It will disable all keymaps defined in ./lua/adoyle-neovim-config/keymap/
+    {'lukas-reineke/indent-blankline.nvim', disable = true} -- It will disable plugin ./lua/adoyle-neovim-config/plugins/indent-line.lua
   },
+},
 }
 ```
 
-### 修改插件配置
+## 修改插件配置
 
-例如改变 dashboard 插件的布局，隐藏 nvim logo 与版本信息。
+例如改变 alpha 插件的布局，隐藏 nvim logo 与版本信息。
 
 ```lua
 require('adoyle-neovim-config').setup {
@@ -217,5 +225,34 @@ require('adoyle-neovim-config').setup {
       alpha = { layout = layout },
     }
   end
+}
+```
+
+## 重写 config 函数
+
+如果修改配置太麻烦，你可以干脆重写 config 函数。
+
+```lua
+require('adoyle-neovim-config').setup {
+  plugins = {
+    {
+      'alpha',
+      config = function()
+        local dashboard = require('alpha.themes.dashboard')
+        local button = dashboard.button
+
+        require('alpha').setup {
+          layout = {
+            { type = 'text', val = 'hello', opts = { position = 'center' } },
+            {
+              type = 'group',
+              val = { button('<leader>u', 'test', ':echo "test"<CR>') },
+              opts = { spacing = 0 },
+            },
+          },
+        }
+      end,
+    },
+  }
 }
 ```

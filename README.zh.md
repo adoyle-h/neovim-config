@@ -246,11 +246,9 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
-当 `plugins` 里的插件名与已有的插件匹配时，你定义的配置项会覆盖插件的默认配置。当没有匹配的已有插件，会作为新的插件加载。
+你可参考[我的 ./init.lua](./init.lua) 来编写你的配置。
 
-已有的插件见 [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
-
-你可参考 [./init.lua](./init.lua) 来编写你的配置。
+你可以覆盖插件的默认选项。详见 [插件 - ](./doc/plugin.zh)。
 
 ### 默认配置
 

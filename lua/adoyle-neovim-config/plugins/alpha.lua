@@ -14,6 +14,7 @@ local M = {
 	},
 }
 
+local PM = require('adoyle-neovim-config.plugin-manager')
 local printf = string.format
 
 local function getTitle(val)
@@ -59,11 +60,13 @@ local function formatSessions(sessions)
 end
 
 local function getSessions(conf)
+	if PM.isDisabled('olimorris/persisted.nvim') then return { type = 'padding', val = 0 } end
+
 	local pwd = vim.fn.getcwd()
 	local sessionLimit = conf.sessionLimit
 
 	local ok, persisted = pcall(require, 'persisted')
-	if not ok then return {} end
+	if not ok then return { type = 'padding', val = 0 } end
 
 	local sessions = {}
 
@@ -251,8 +254,6 @@ local function getHeader()
 end
 
 M.defaultConfig = function()
-	local PM = require('adoyle-neovim-config.plugin-manager')
-
 	local dashboard = require('alpha.themes.dashboard')
 	local button = dashboard.button
 
@@ -260,7 +261,6 @@ M.defaultConfig = function()
 		type = 'group',
 		val = {
 			button('e', '  New File', ':ene <BAR> <CR>'),
-			button('<leader>u', 'test', ':echo test<CR>'),
 			button('<SPACE>m', '  File Explorer', ':Neotree toggle<CR>'),
 			button('<SPACE>r', '  Recently Opened Files', ':Telescope oldfiles<CR>'),
 			button('<SPACE>f', '  Search File', ':Telescope find_files<CR>'),

@@ -1,11 +1,14 @@
+-- Set default options for vim/nvim. Use :help 'option' to see the documentation for the given option.
+-- :h nvim-defaults to view default options defined by nvim.
 local util = require('adoyle-neovim-config.util')
 
--- Set default options for vim/nvim. Use :help 'option' to see the documentation for the given option.
 local default = { 'vim' }
 
 local opt = vim.opt
 
 default.g = {
+	did_load_filetypes = 1, -- neither `$VIMRUNTIME/filetype.lua` nor `$VIMRUNTIME/filetype.vim` will run.
+
 	-- Set the default listing style:
 	-- = 0: thin listing (one file per line)
 	-- = 1: long listing (one file per line with time
@@ -13,14 +16,12 @@ default.g = {
 	-- = 2: wide listing (multiple files in columns)
 	-- = 3: tree style listing
 	netrw_liststyle = 3,
-
 	netrw_winsize = 30,
-
-	netrw_nogx = 1, -- disable netrw's gx mapping. I use open-browser.vim
 }
 
 default.opt = {
 	shell = vim.env.SHELL,
+	langmenu = vim.v.lang, -- :h 'langmenu'
 
 	-- Default nvim statusline (If statusline plugin disabled)
 	statusline = '%F%m%r%h%w [FORMAT=%{&ff}] [TYPE=%Y] [POS=%l,%v][%p%%] %{strftime(\"%d/%m/%y - %H:%M\")}',
@@ -31,7 +32,7 @@ default.opt = {
 	number = true, -- show line number
 	relativenumber = true, -- show relative line number
 	-- wrap = false, -- line wrapping
-	-- linebreak = true, -- set soft wrapping
+	linebreak = false, -- soft wrapping
 	textwidth = 0, -- Maximum width of text to wrap
 	diffopt = opt.diffopt + { 'vertical' },
 	compatible = false, -- not compatible Vi. Default "nocompatible" in nvim. DO NOT CHANGE THIS OPTION.
@@ -39,8 +40,7 @@ default.opt = {
 	hidden = false, -- current buffer can be put into background"
 	lazyredraw = true, -- don't update the display while executing macros
 	autoread = true, -- detect when a file is changed
-	whichwrap = 'b,s', -- 允许 backspace 和空格键跨越行边界
-	backspace = { 'indent', 'eol', 'start' }, -- 使 backspace 正常处理 indent, eol, start 等
+	backspace = { 'indent', 'eol', 'start' },
 	smartindent = true,
 	autoindent = true, -- Indent at the same level of the previous line
 	laststatus = 2, -- always show status line
@@ -92,21 +92,16 @@ default.opt = {
 	smarttab = true,
 	iskeyword = opt.iskeyword - { '.' },
 
-	ruler = true, -- 打开状态栏标尺
-	confirm = true, -- 在处理未保存或只读文件的时候，弹出确认
+	ruler = true, -- Show the line and column number of the cursor position
+	confirm = true, -- Raise a dialog asking unsaved changes to a buffer
 	ttimeout = true, -- prevent '<esc>' delay in terminal http://stackoverflow.com/a/33957679/2326199
-	timeoutlen = 99999, -- 一直等待组合键完成
+	timeoutlen = 99999, -- wait for a mapped sequence to complete
 	scrolljump = 1, -- Lines to scroll when cursor leaves screen
 
 	-- Folding
+	foldenable = true, -- auto fold code
 	foldcolumn = '0', -- To disable foldcolumn
-	-- manual    手工折叠
-	-- indent    使用缩进表示折叠
-	-- expr      使用表达式定义折叠
-	-- syntax    使用语法定义折叠
-	-- diff      对没有更改的文本进行折叠
-	-- marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-	foldmethod = 'indent',
+	foldmethod = 'indent', -- :h fdm
 	foldlevel = 99,
 
 	-- Mouse
@@ -129,7 +124,6 @@ default.opt = {
 	synmaxcol = 500, -- syntax coloring lines that are too long just slows down the performance
 	updatetime = 5000, -- auto save the swap every <updatetime> seconds
 	updatecount = 100, -- auto save the swap every <updatecount> characters
-	foldenable = true, -- auto fold code
 
 	fillchars = { -- :h 'fcs'
 		vert = '│', -- vertical separator for window border
@@ -148,7 +142,6 @@ default.opt = {
 	},
 
 	showbreak = '↪', -- :h 'showbreak'
-	langmenu = 'zh_CN.UTF-8', -- :h 'langmenu'
 
 	matchpairs = { -- Press % to jump from one to the other. :h 'matchpairs'
 		-- LuaFormatter off
@@ -168,7 +161,6 @@ default.opt = {
 	cursorline = true, -- highlight current line
 
 	fileencodings = { 'utf-8', 'gb2312', 'gbk', 'ucs-bom', 'default', 'latin1' },
-
 	fileformats = { 'unix', 'dos', 'mac' },
 
 	spell = false,
@@ -180,25 +172,12 @@ default.opt = {
 	-- clipboard = opt.clipboard + { 'unnamed' },
 }
 
-default.cmd = {
-	[[
-		syntax on " turn on that syntax highlighting. Default is on in neovim.
+default.cmd = {}
 
-		" command                       detection   plugin      indent ~
-		" :filetype on                  on          unchanged   unchanged
-		" :filetype off                 off         unchanged   unchanged
-		" :filetype plugin on           on          on          unchanged
-		" :filetype plugin off          unchanged   off         unchanged
-		" :filetype indent on           on          unchanged   on
-		" :filetype indent off          unchanged   unchanged   off
-		" :filetype plugin indent on    on          on          on
-		" :filetype plugin indent off   unchanged   off         off
-
-		filetype on  " 侦测文件类型
-		filetype plugin on " 载入文件类型插件
-		filetype indent on " 为特定文件类型载入相关缩进文件
-		filetype plugin indent on
-	]],
+-- ":syntax on" and ":filetype on" by default. See :h nvim-defaults.
+default.filetype = {
+	plugin = 'on', -- loads the file "ftplugin.vim" in 'runtimepath'
+	indent = 'off', -- loads the file "indent.vim" in 'runtimepath'. :h :filetype-indent-on
 }
 
 return {
@@ -210,10 +189,14 @@ return {
 	config = function(config)
 		local o = vim.opt
 		local g = vim.g
-		local cmd = vim.cmd
+		local cmd = vim.api.nvim_exec
+		local conf = config.vim
 
-		for key, value in pairs(config.vim.g) do g[key] = value end
-		for key, value in pairs(config.vim.opt) do o[key] = value end
-		for _, value in pairs(config.vim.cmd) do cmd(value) end
+		for key, value in pairs(conf.g) do g[key] = value end
+		for key, value in pairs(conf.opt) do o[key] = value end
+		for _, value in pairs(conf.cmd) do cmd(value, false) end
+
+		cmd('filetype plugin ' .. conf.filetype.plugin, false)
+		cmd('filetype indent ' .. conf.filetype.indent, false)
 	end,
 }

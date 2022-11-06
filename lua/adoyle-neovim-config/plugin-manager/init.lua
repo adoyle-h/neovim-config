@@ -183,4 +183,10 @@ function PM.clean()
 	PM.userPlugins = {}
 end
 
+function PM.isDisabled(id)
+	local plug = PM.plugMap[id]
+	if not plug then return true end
+	return plug.disable
+end
+
 return PM

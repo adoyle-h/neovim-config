@@ -218,7 +218,7 @@ require('adoyle-neovim-config').setup {}
 
 ### User Config
 
-You can set your config to override default configs.
+Set your config to override default configs.
 
 ```lua
 require('adoyle-neovim-config').setup {
@@ -247,11 +247,10 @@ require('adoyle-neovim-config').setup {
 }
 ```
 
-When repo name in `plugins` matches existed plugin, your defined options will override the default options of plugin. When no matches, it will be loaded as new plugins.
+You can refer to [my init.lua](./init.lua) to write your config.
 
-Existed plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
+You can override the default options of plugins. See [Plugin - Using Plugin](./doc/plugin.md#using-plugin).
 
-You can refer to [./init.lua](./init.lua) to write your config.
 
 ### Default Config
 

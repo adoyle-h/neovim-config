@@ -1,6 +1,12 @@
-## Plugin
+# Plugin
 
-### Create Plugin
+## Builtin Plugins
+
+Builtin plugins list in [./lua/adoyle-neovim-config/plugins](./lua/adoyle-neovim-config/plugins).
+
+Loaded builtin plugins list in [./lua/adoyle-neovim-config/plugins.lua](./lua/adoyle-neovim-config/plugins.lua)
+
+## Create New Plugin
 
 For example, create a file `lua/my-plugin.lua`.
 
@@ -8,7 +14,10 @@ For example, create a file `lua/my-plugin.lua`.
 
 ```lua
 return {
-  'repo/name', -- string | nil | omit. It must be first
+  -- string | nil | omit. The name of plugin. It must be first.
+  -- If the name has "/", such as "repo/name", the plugin manager (vim-plug/packer) will install the repo.
+  -- If the name has not "/", no repo installed. User can name this plugin with any characters.
+  'repo/name',
 
   -- common options
   desc = 'Plugin Description', -- string | nil.
@@ -166,40 +175,37 @@ For example,
 }
 ```
 
-
-### Using Plugin
+## Using Plugin
 
 Edit your `init.lua` file.
 
 ```lua
 require('adoyle-neovim-config').setup {
-  config = {
-    plugins = {
-      require('my-plugin'),
-    },
+  plugins = {
+    require('my-plugin'),
   },
 }
 ```
 
-When repo name in `plugins` matches existed plugin, your defined options will override the default options of plugin.
-When no matches, they will be loaded as new plugins.
+Put your plugins in `plugins`.
 
-### Disable Default Plugin
+Options of user plugin will override the default options of builtin plugin, when the plugin name is same.
+If not matched, this plugin will be loaded as new plugins.
+
+## Disable Default Plugin
 
 ```lua
 require('adoyle-neovim-config').setup {
-  config = {
-    plugins = {
-      {'keymap', disable = true} -- It will disable all keymaps defined in ./lua/adoyle-neovim-config/keymap/
-      {'lukas-reineke/indent-blankline.nvim', disable = true} -- It will disable plugin ./lua/adoyle-neovim-config/plugins/indent-line.lua
-    },
+  plugins = {
+    {'keymap', disable = true} -- It will disable all keymaps defined in ./lua/adoyle-neovim-config/keymap/
+    {'lukas-reineke/indent-blankline.nvim', disable = true} -- It will disable plugin ./lua/adoyle-neovim-config/plugins/indent-line.lua
   },
 }
 ```
 
-### Override plugin configs
+## Override plugin configs
 
-For example, change the layout of dashboard and hide nvim logo and version.
+For example, change the layout of alpha and hide nvim logo and version.
 
 ```lua
 require('adoyle-neovim-config').setup {
@@ -218,5 +224,34 @@ require('adoyle-neovim-config').setup {
       alpha = { layout = layout },
     }
   end
+}
+```
+
+## Overwrite the config function
+
+If plugin `defaultConfig` is too complex, you can even overwrite the config function.
+
+```lua
+require('adoyle-neovim-config').setup {
+  plugins = {
+    {
+      'alpha',
+      config = function()
+        local dashboard = require('alpha.themes.dashboard')
+        local button = dashboard.button
+
+        require('alpha').setup {
+          layout = {
+            { type = 'text', val = 'hello', opts = { position = 'center' } },
+            {
+              type = 'group',
+              val = { button('<leader>u', 'test', ':echo "test"<CR>') },
+              opts = { spacing = 0 },
+            },
+          },
+        }
+      end,
+    },
+  }
 }
 ```
