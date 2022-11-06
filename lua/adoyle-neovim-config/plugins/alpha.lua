@@ -260,6 +260,7 @@ M.defaultConfig = function()
 		type = 'group',
 		val = {
 			button('e', '  New File', ':ene <BAR> <CR>'),
+			button('<leader>u', 'test', ':echo test<CR>'),
 			button('<SPACE>m', '  File Explorer', ':Neotree toggle<CR>'),
 			button('<SPACE>r', '  Recently Opened Files', ':Telescope oldfiles<CR>'),
 			button('<SPACE>f', '  Search File', ':Telescope find_files<CR>'),

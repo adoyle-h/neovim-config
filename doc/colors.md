@@ -1,12 +1,22 @@
 # Colors and Highlights
 
-The color design:
+You can change the colors and highlights.
+
+## Color Design Principles
 
 - Subject color: blue
 - Second color: green
 - Search/Match color: orange
 
-You can change the colors and highlights.
+### Color Layers
+
+The priority from high to low:
+
+- [`config.colors`](lua/adoyle-neovim-config/config/colors.lua)
+- colors and highlights defined in each plugin
+- [`colors/highlights`](lua/adoyle-neovim-config/plugins/colors/highlights.lua)
+-  colors and highlights defined in [theme plugin](lua/adoyle-neovim-config/plugins/themes/init.lua)
+- syntax highlights by nvim-treesitter
 
 ## The background, frontground, cursorline colors
 
@@ -45,9 +55,17 @@ require('adoyle-neovim-config').setup {
 
 ## The syntax highlights
 
-The syntax highlights are defined by nvim-treesitter, whose [highlights config](../lua/adoyle-neovim-config/plugins/treesitter/highlights.lua).
+The syntax are parsed by nvim-treesitter. nvim-treesitter will set highlights for each syntax. See the [treesitter highlights](../lua/adoyle-neovim-config/plugins/treesitter/highlights.lua) and [colors/highlights](lua/adoyle-neovim-config/plugins/colors/highlights.lua).
 
 Use `:TSHighlightCapturesUnderCursor` to view the highlight group of word under cursor.
+
+### NOTE: these syntax highlights are disabled for treesitter
+
+The `markdown` syntax highlights are disabled for treesitter (See `config.treesitter.highlight.disable`).
+But its syntax parser is still working.
+Its syntax highlights are defined in [lua/adoyle-neovim-config/plugins/markdown/highlights.lua](lua/adoyle-neovim-config/plugins/markdown/highlights.lua) .
+
+The `help` syntax highlights are disabled for treesitter, while using nvim builtin highlights.
 
 ## Theme
 

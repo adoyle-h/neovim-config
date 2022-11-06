@@ -21,35 +21,35 @@ M.defaultConfig = {
 		MatchParen = { fg = c.match.fg, bg = c.black, underline = true },
 		DiagnosticVirtualTextError = { fg = c.red },
 
-		-- syntax
+		-- Syntax Highlights
 		Comment = { fg = c.comment }, -- Comments
 		Constant = { fg = '#AB9D1C' }, -- (preferred) any constant
 		String = { fg = c.green }, --   a string constant: "this is a string"
-		Character = { link = 'String' }, -- a character constant: 'c', '\n'
+		Character = { link = 'String' }, -- single character constant: 'c', '\n'
 		Number = { fg = c.orange }, -- a number constant: 234, 0xff
-		Boolean = { fg = '#DA5B5B', bold = true }, -- a boolean constant: TRUE, false
 		Float = { link = 'Number' }, -- a floating point constant: 2.3e10
-		Identifier = { fg = c.white }, -- (preferred) any variable name
+		Boolean = { fg = '#008200', bold = true }, -- a boolean constant: TRUE, false
+		Identifier = { fg = '#B63636' }, -- (preferred) any variable name
 		Function = { fg = '#5395F9' }, -- function name (also: methods for classes)
 		Statement = { fg = c.purple }, -- (preferred) any statement
 		Conditional = { link = 'Keyword' }, --  if, then, else, endif, switch, etc
-		Repeat = { link = 'Keyword' }, -- for, do, while, etc
-		Label = { fg = c.red }, -- case, default, etc
+		Repeat = { link = 'Keyword' }, -- keywords related to loops. e.g. for, do, while, etc
+		Label = { link = 'Keyword' }, -- case, default, etc.
 		Operator = { fg = c.cyan }, -- "sizeof", "+", "*", etc
 		Keyword = { fg = c.purple }, -- any other keyword
 		Exception = { link = 'Keyword' }, -- try, catch, throw
-		PreProc = { fg = c.yellow }, -- (preferred) generic Preprocessor
+		PreProc = { fg = c.blue }, -- (preferred) generic Preprocessor
 		Include = { fg = '#7B59E2' }, -- preprocessor #include
-		Define = { link = 'Keyword' }, -- preprocessor #define
-		Macro = { fg = c.blue }, -- same as Define
-		PreCondit = { fg = c.yellow }, -- preprocessor #if, #else, #endif, etc
+		Define = { fg = c.blue }, -- preprocessor #define
+		Macro = { link = 'Define' },
+		PreCondit = { link = 'Define' }, -- preprocessor #if, #else, #endif, etc
 		Type = { fg = '#C9853E' }, -- (preferred) int, long, char, etc
 		StorageClass = { fg = c.yellow }, -- static, register, volatile, etc
 		Structure = { fg = c.purple }, -- struct, union, enum, etc
 		Typedef = { fg = c.purple }, -- A typedef
-		Special = { fg = c.red }, -- (preferred) any special symbol
-		SpecialChar = { fg = c.orange }, -- special character in a constant
-		-- Tag = {}, -- you can use CTRL-] on this
+		Special = { fg = c.yellow }, -- (preferred) any special symbol.
+		SpecialChar = { fg = c.cyan }, -- special character in a constant
+		Tag = { fg = c.red }, -- Tags like html tag names. you can use CTRL-] on this
 		Delimiter = { fg = c.white }, -- character that needs attention
 		SpecialComment = { fg = c.comment }, -- special things inside a comment
 		-- Debug = {}, -- debugging statements
