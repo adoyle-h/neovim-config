@@ -1,4 +1,4 @@
-local util = require('adoyle-neovim-config.util')
+local util = require('one.util')
 
 util.ensurePkg {
 	url = 'https://github.com/adoyle-h/my-vim-snippets',
@@ -150,7 +150,7 @@ local function myPlugins(builtin, config)
 	}
 end
 
-require('adoyle-neovim-config').setup {
+require('one').setup {
 	config = {
 		proxy = {
 			-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com'. Otherwise, remove this option.
@@ -183,6 +183,6 @@ require('adoyle-neovim-config').setup {
 	-- onlyPlugins = { 'alpha', 'adoyle-h/alpha-nvim' },
 
 	-- Add your plugins or override plugin default options.
-	-- More examples at ./lua/adoyle-neovim-config/plugins.lua
+	-- More examples at ./lua/one/plugins.lua
 	plugins = myPlugins,
 }
