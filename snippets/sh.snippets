@@ -1,0 +1,188 @@
+priority 100
+
+snippet shebang "[shell] Add shebang" b
+  #!/usr/bin/env ${1:bash}
+
+  ${0}
+
+snippet shellcheck-disable "shellcheck disable=" b
+  # shellcheck disable=${1:SC1090}${0}
+
+snippet shellcheck-source "shellcheck source=" b
+  # shellcheck source=${0}
+
+snippet SCRIPT_DIR "[shell] Add SCRIPT_DIR variable" b
+  SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+  readonly SCRIPT_DIR
+
+snippet script_dir "[shell] Add SCRIPT_DIR variable (for command entry)" b
+  readlinkf() { # Modified from https://github.com/ko1nksm/readlinkf
+    [ "\${1:-}" ] || return 1
+
+    CDPATH='' # to avoid changing to an unexpected directory
+    local max_symlinks=40
+    local link
+    local target=\$1
+
+    [ -e "\${target%/}" ] || target=\${1%"\${1##*[!/]}"} # trim trailing slashes
+    [ -d "\${target:-/}" ] && target="\$target/"
+
+    cd -P . 2>/dev/null || return 1
+    while [ "\$max_symlinks" -ge 0 ] && max_symlinks=\$((max_symlinks - 1)); do
+      if [ ! "\$target" = "\${target%/*}" ]; then
+        case \$target in
+          /*) cd -P "\${target%/*}/" 2>/dev/null || break ;;
+          *) cd -P "./\${target%/*}" 2>/dev/null || break ;;
+        esac
+        target=\${target##*/}
+      fi
+
+      if [ ! -L "\$target" ]; then
+        target="\${PWD%/}\${target:+/}\${target}"
+        printf '%s\n' "\${target:-/}"
+        return 0
+      fi
+
+      link=\$(ls -dl -- "\$target" 2>/dev/null) || break
+      target=\${link#*" \$target -> "}
+    done
+    return 1
+  }
+
+  SCRIPT_PATH="\$(readlinkf "\$0")"
+  SCRIPT_DIR=\$(dirname "\$SCRIPT_PATH")
+  readonly SCRIPT_PATH SCRIPT_DIR
+
+snippet sh-vars "[shell] Add magic shell variables" b
+  SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
+  SCRIPT_BASENAME="$(basename "\$0")"
+  readonly SCRIPT_DIR SCRIPT_BASENAME
+  readonly SCRIPT_PATH="${SCRIPT_DIR}/$SCRIPT_BASENAME"
+  readonly ARGS="$@"
+  readonly ARG1="\${1:-}"
+
+snippet xtrace "Add xtrace snippets" b
+  if [[ -n "${XTRACE:-}" ]]; then
+    case ${XTRACE:-2} in
+      1 )
+        PS4='+[${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
+        ;;
+      2 )
+        PS4='+[$(basename ${BASH_SOURCE[0]}):${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
+        ;;
+      3 )
+        PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
+        ;;
+      * )
+        echo "Invalid PS4_LEVEL: \$1" >&2
+        return 3
+        ;;
+    esac
+
+    set -o xtrace
+  fi
+
+snippet xtrace_1 "Add xtrace short snippet" b
+  if [[ -n "${XTRACE:-}" ]]; then
+    PS4='+[${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
+    set -o xtrace
+  fi
+
+snippet bash "Add bash shabang and set variables" b
+  #!/usr/bin/env bash
+
+  set -o errexit
+  set -o nounset
+  set -o pipefail
+  set -o errtrace
+  (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+
+snippet bash_program "Add bash program template" b
+  #!/usr/bin/env bash
+  #
+  # Filename:
+  # Description:
+  # Author: ADoyle <adoyle.h@gmail.com>
+  # LICENSE: Apache License, Version 2.0
+  # First Created: 2017-07-26T07:13:55Z
+  # Last Modified: 2017-07-26T17:32:16Z
+  # Version: 0.1.0
+  # Bash Version: 4.x
+  # Source:
+  # Project:
+
+  set -o errexit
+  set -o nounset
+  set -o pipefail
+  set -o errtrace
+  (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+  #######################################################################
+  #                           initialization                            #
+  #######################################################################
+
+  usage() {
+  cat <<EOF
+  Usage: \$0 [Options] <required> [optional]
+
+  Options:
+      -h --help               Show help
+
+  Parameters:
+      <required>
+      <optional>
+  EOF
+  }
+
+
+  declare -A dispatch_cmd_opts
+  declare -a dispatch_cmd_args
+
+  opt_parse() {
+    while [ $# -gt 0 ];do
+      case \$1 in
+        -i)
+          dispatch_cmd_opts[input]=\$2
+          shift
+          ;;
+        --input)
+          dispatch_cmd_opts[input]=\$2
+          shift
+          ;;
+        -h)
+          dispatch_cmd_opts[help]=true
+          ;;
+        --help)
+          dispatch_cmd_opts[help]=true
+          ;;
+        *)
+          dispatch_cmd_args+=("\$1")
+          ;;
+      esac
+      shift
+    done
+
+    # declare -p dispatch_cmd_opts
+  }
+
+  #######################################################################
+  #                           private methods                           #
+  #######################################################################
+
+
+  #######################################################################
+  #                           public methods                            #
+  #######################################################################
+
+  ${2:main}() {
+    opt_parse "$@"
+    local arg0=${dispatch_cmd_args[0]:-}
+
+    if [[ ${dispatch_cmd_opts[help]:-} == true ]] || [[ -z "$arg0" ]]; then
+      usage
+      exit 0
+    fi
+  }
+
+  $2 "\$@"
