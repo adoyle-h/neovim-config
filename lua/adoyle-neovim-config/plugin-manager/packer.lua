@@ -16,15 +16,14 @@ local function parseOpts(repo, opts)
 
 	for _, v in pairs(fields) do plugOpts[v] = opts[v] end
 
-	if opts.requires then
-		local after = {}
-
-		for _, depPkg in pairs(opts.requires) do
-			if type(depPkg.repo) == 'string' then after[#after + 1] = util.getRepoName(depPkg.repo) end
-		end
-
-		if not vim.tbl_isempty(after) then plugOpts.after = after end
+	local after = {}
+	for _, depPkg in pairs(opts.requires or {}) do
+		if depPkg.repo then after[#after + 1] = util.getRepoName(depPkg.repo) end
 	end
+	for _, depPkg in pairs(opts.deps or {}) do
+		if depPkg.repo then after[#after + 1] = util.getRepoName(depPkg.repo) end
+	end
+	if not vim.tbl_isempty(after) then plugOpts.after = after end
 
 	return plugOpts
 end
@@ -117,7 +116,7 @@ function P.getPluginFolderPath(folderName)
 	-- https://github.com/wbthomason/packer.nvim/discussions/887
 	local folderPath = util.pathJoin(root, plugin_package, 'start', folderName)
 
-	if util.exist(folderPath) then
+	if util.existDir(folderPath) then
 		return folderPath
 	else
 		return util.pathJoin(root, plugin_package, 'opt', folderName)

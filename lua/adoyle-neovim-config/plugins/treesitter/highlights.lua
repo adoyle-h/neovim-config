@@ -42,7 +42,7 @@ return function(config)
 		-- Functions
 		['@function'] = { link = 'Function' },
 		['@function.call'] = { link = 'Function' },
-		['@function.builtin'] = { fg = '#124FF2' }, -- For builtin functions: `table.insert` in Lua.
+		['@function.builtin'] = { fg = '#3D84FF' }, -- For builtin functions: `pairs`, `pcall`, `table.insert` in Lua.
 		['@function.macro'] = { link = 'Macro' }, -- For macro defined functions (calls and definitions)
 		['@method'] = { link = 'Function' },
 		['@method.call'] = { link = 'Function' },
@@ -52,7 +52,7 @@ return function(config)
 
 		-- Keywords
 		['@keyword'] = { link = 'Keyword' },
-		['@keyword.function'] = { fg = '#3D84FF' },
+		['@keyword.function'] = { fg = '#124FF2' },
 		['@keyword.operator'] = { fg = c.purple, italic = true }, -- e.g. `and`, `as`, `or`.
 		['@keyword.return'] = { fg = '#96C726' },
 
@@ -117,5 +117,8 @@ return function(config)
 		['@literal'] = { fg = c.white }, -- Literal text.
 		['@uri'] = { fg = c.blue }, -- Any URI like a link or email.
 		['@math'] = { fg = c.white }, -- For LaTex-like math environments.
+
+		-- Parser: help
+		['helpCommand'] = { fg = c.yellow },
 	}
 end

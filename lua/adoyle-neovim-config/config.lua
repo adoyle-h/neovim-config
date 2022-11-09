@@ -1,7 +1,7 @@
 local util = require('adoyle-neovim-config.util')
 
 -- @class ConfigManager
--- @field config {table} The config for ConfigManager
+-- @field config {Config} The config for ConfigManager
 local CM = { --
 	config = {},
 }
@@ -12,6 +12,7 @@ local function makeProxyGithub(prefix)
 	end
 end
 
+-- @param conf {table} user config
 function CM.setup(conf)
 	local defaultConfigFn = require('adoyle-neovim-config.config.default')
 	local defaultColors = require('adoyle-neovim-config.config.colors')

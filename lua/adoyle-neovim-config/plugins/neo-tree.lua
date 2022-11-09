@@ -1,5 +1,4 @@
 local config = require('adoyle-neovim-config.config').config
-local colors = config.colors
 local symbols = config.symbolMap
 local util = require('adoyle-neovim-config.util')
 
@@ -80,7 +79,7 @@ M.defaultConfig = function()
 
 			window = {
 				position = 'left',
-				width = 34,
+				width = 35,
 
 				mapping_options = { noremap = true, nowait = true },
 				mappings = {
@@ -221,15 +220,27 @@ M.defaultConfig = function()
 			},
 
 			source_selector = {
-				winbar = false, -- toggle to show selector on winbar
+				winbar = true, -- toggle to show selector on winbar
 				statusline = false, -- toggle to show selector on statusline
 				show_scrolled_off_parent_node = false, -- boolean
 				tab_labels = {
-					filesystem = '  Files ', -- string | nil
-					buffers = ' ﬘ Buffers ', -- string | nil
-					git_status = '  Git ', -- string | nil
-					diagnostics = ' 裂Diagnostics ', -- string | nil
+					filesystem = '  File', -- string | nil
+					buffers = '﬘ Buf',
+					git_status = ' Git',
+					diagnostics = '裂Diag',
+					zk = '﬷ ZK',
 				},
+				content_layout = 'start', -- string
+				tabs_layout = 'equal', -- string
+				truncation_character = '…', -- string
+				padding = 0, -- int | { left: int, right: int }
+				separator = nil,
+				separator_active = nil, -- set separators around the active tab. nil falls back to `source_selector.separator`
+				highlight_tab = 'NeoTreeTabInactive',
+				highlight_tab_active = 'NeoTreeTabActive',
+				highlight_background = 'NeoTreeTabInactive',
+				highlight_separator = 'NeoTreeTabSeparatorInactive',
+				highlight_separator_active = 'NeoTreeTabSeparatorActive',
 			},
 
 			diagnostics = {
@@ -270,11 +281,21 @@ M.defaultConfig = function()
 	return conf
 end
 
-M.highlights = {
-	NeoTreeGitUntracked = { fg = colors.green },
-	NeoTreeFileIcon = { fg = colors.white },
-	NeoTreeGitUnstaged = { fg = colors.yellow },
-}
+M.highlights = function(config)
+	local c = config.colors
+	local bg = c.grey1
+	local activeBG = '#240845'
+
+	return {
+		NeoTreeGitUntracked = { fg = c.green },
+		NeoTreeFileIcon = { fg = c.white },
+		NeoTreeGitUnstaged = { fg = c.yellow },
+		NeoTreeTabActive = { fg = c.purple, bg = activeBG, bold = true },
+		NeoTreeTabInactive = { fg = c.grey4, bg = bg, bold = true },
+		NeoTreeTabSeparatorActive = { fg = c.black, bg = activeBG },
+		NeoTreeTabSeparatorInactive = { fg = c.black, bg = bg },
+	}
+end
 
 M.keymaps = {
 	{ 'n', '<space>b', ':Neotree toggle show buffers<CR>', { silent = true } },

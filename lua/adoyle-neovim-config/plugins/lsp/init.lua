@@ -1,7 +1,9 @@
 return {
 	'lsp',
 
-	requires = {
+	requires = { require('adoyle-neovim-config.plugins.lsp.main') },
+
+	deps = {
 		require('adoyle-neovim-config.plugins.lsp.mason'),
 		require('adoyle-neovim-config.plugins.lsp.mason-installer'),
 		'williamboman/mason-lspconfig.nvim',
@@ -10,7 +12,6 @@ return {
 		require('adoyle-neovim-config.plugins.lsp.nlsp'),
 		require('adoyle-neovim-config.plugins.lsp.fidget'),
 		require('adoyle-neovim-config.plugins.lsp.format'),
-		require('adoyle-neovim-config.plugins.lsp.main'),
 
 		{
 			'adoyle-h/lsp-toggle.nvim',

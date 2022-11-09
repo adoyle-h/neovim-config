@@ -1,7 +1,8 @@
 return {
 	'node',
 	disable = true,
-	requires = {
+
+	deps = {
 		{
 			'nvim-telescope/telescope-node-modules.nvim',
 			config = function()

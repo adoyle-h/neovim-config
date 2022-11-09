@@ -69,6 +69,8 @@ M.defaultConfig = function(config)
 	return {
 		'persisted',
 		{
+			-- Do not enable "globals". Because if you change a option value (such as 'fdm') in runtime,
+			-- it will store/restore forever.
 			session_options = { 'curdir', 'folds', 'tabpages', 'winpos' }, -- :h ssop
 			save_dir = util.dataPath('sessions'), -- directory where session files are saved.
 			command = 'VimLeavePre', -- the autocommand for which the session is saved

@@ -2,7 +2,7 @@ return {
 	'general.keymap',
 	desc = 'Setting all general keymaps',
 
-	requires = {
+	deps = {
 		require('adoyle-neovim-config.keymap.general'),
 		require('adoyle-neovim-config.keymap.tab'),
 		require('adoyle-neovim-config.keymap.window'),

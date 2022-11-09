@@ -1,20 +1,21 @@
-local config = require('adoyle-neovim-config.config').config
-local colors = config.colors
 local util = require('adoyle-neovim-config.util')
 
 local M = { 'neovim/nvim-lspconfig' }
 
-M.highlights = {
-	LspWindowBorder = { fg = colors.cyan },
-	LspInfoTitle = { fg = colors.lightGreen }, -- Client name
-	LspInfoList = { fg = colors.lightGreen }, -- Server name list
-	LspInfoFiletype = { fg = colors.purple }, -- `filetypes` area
-	LspInfoTip = { link = 'Comment' }, -- Tip
-	LspInfoBorder = { fg = colors.blue }, -- Window border
-}
+M.highlights = function(config)
+	local c = config.colors
+	return {
+		LspWindowBorder = { fg = c.cyan },
+		LspInfoTitle = { fg = c.lightGreen }, -- Client name
+		LspInfoList = { fg = c.lightGreen }, -- Server name list
+		LspInfoFiletype = { fg = c.purple }, -- `filetypes` area
+		LspInfoTip = { link = 'Comment' }, -- Tip
+		LspInfoBorder = { fg = c.blue }, -- Window border
+	}
+end
 
 M.defaultConfig = {
-	{ 'lsp' },
+	'lsp',
 	{
 		log = { level = 'ERROR' }, -- 'TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'OFF'
 
@@ -88,20 +89,20 @@ M.defaultConfig = {
 	},
 }
 
-local function setDefaultBorder()
-	local border = config.lsp.diagnostic.float.border
+local function setDefaultBorder(conf)
+	local border = conf.diagnostic.float.border
 	require('lspconfig.ui.windows').default_options.border = border -- This line maybe not work
 	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
 	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help,
 		{ border = border })
 end
 
-function M.config()
+function M.config(config)
 	local conf = config.lsp
 
 	vim.lsp.set_log_level(conf.log.level)
 	vim.diagnostic.config(conf.diagnostic)
-	setDefaultBorder()
+	setDefaultBorder(conf)
 
 	local masonLspconfig = require('mason-lspconfig')
 	masonLspconfig.setup(conf.masonLspconfig)
@@ -134,7 +135,7 @@ function M.config()
 	end
 end
 
-M.signs = function()
+M.signs = function(config)
 	local symbolMap = config.symbolMap
 	local map = {
 		Error = symbolMap.ERROR,

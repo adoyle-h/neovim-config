@@ -4,7 +4,7 @@ return {
 	desc = 'Markdown Plugins',
 	highlights = require('adoyle-neovim-config.plugins.markdown.highlights'),
 
-	requires = {
+	deps = {
 		{ 'sotte/presenting.vim', ft = 'markdown', desc = 'presentable slides in vim' },
 		require('adoyle-neovim-config.plugins.markdown.main'),
 		require('adoyle-neovim-config.plugins.markdown.toc'),

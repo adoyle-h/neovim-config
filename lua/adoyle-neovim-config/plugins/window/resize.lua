@@ -4,7 +4,7 @@ return {
 
 	defaultConfig = {
 		{ 'window', 'resize' },
-		{ gui_enable = 1, vert = 5, horiz = 3, trigger = '<C-W><C-W>' },
+		{ gui_enable = 1, vert = 5, horiz = 3, trigger = '<C-W>r' },
 	},
 
 	config = function(config)

@@ -22,7 +22,8 @@ All-in-one neovim configuration implemented with Lua. It is high flexible to be 
   - Outline: [aerial](lua/adoyle-neovim-config/plugins/aerial.lua) (default) or [majutsushi/tagbar](lua/adoyle-neovim-config/plugins/tagbar.lua)
   - File Explorer: [neo-tree](lua/adoyle-neovim-config/plugins/neo-tree.lua) (default) or [nerdtree](lua/adoyle-neovim-config/plugins/nerdtree.lua) or [nvim-tree](lua/adoyle-neovim-config/plugins/nvim-tree.lua)
   - Statusline: [lualine](lua/adoyle-neovim-config/plugins/lualine.lua) (default) or [airline](lua/adoyle-neovim-config/plugins/airline.lua)
-  - Bufferline: [bufferline](lua/adoyle-neovim-config/plugins/bufferline.lua)
+  - Tabline: [tabby](lua/adoyle-neovim-config/plugins/tabby.lua)
+  - Bufferline: [barbar](lua/adoyle-neovim-config/plugins/barbar.lua) or [bufferline](lua/adoyle-neovim-config/plugins/bufferline.lua) (If use bufferline, you should disable tabline plugin)
   - Scrollbar: [nvim-scrollbar](lua/adoyle-neovim-config/plugins/scrollbar.lua)
   - Smooth-Scroll: [neoscroll.nvim](lua/adoyle-neovim-config/plugins/scroll.lua)
   - Session: [persisted](lua/adoyle-neovim-config/plugins/session/persisted.lua) (default) or [possession](lua/adoyle-neovim-config/plugins/session/possession.lua) or [xolox/vim-session](lua/adoyle-neovim-config/plugins/session/vim-session.lua) or [rmagatti/auto-session](lua/adoyle-neovim-config/plugins/session/auto-session.lua)
@@ -204,9 +205,11 @@ Do [initialization](#initialization) and then press `nvim` to get started.
   - If `config.pluginManager.use = packer`
     - Run `:PackerSync` in nvim, to install all plugins. Repeat it util all plugins installed successfully.
     - All plugines installed in `~/.local/share/nvim/pack/packer`. **DO NOT MODIFY** the `config.pluginManager.packer.package_root` option, unless you completely know what you are doing. If the option modified and get any error, please don't ask me anything.
-- Run `:TSInstall all` in nvim, to install treesitter parsers.
-- Press `<M-m>` to open Mason window. Choose to install LSP/DAP/Formatter/Linter.
-<!-- - Run `:MasonToolsInstall` in nvim, to install tools defined in `config['mason-installer'].ensureInstalled`. -->
+- It will auto download treesitter parsers, which defined in `config.treesitter.ensure_installed` and `config.treesitter.ignore_install`.
+  - If failed, restart nvim or run `:TSInstall all` to install them.
+- It will auto download LSP/DAP/Formatter/Linter, which defined in `config['mason-installer'].ensureInstalled`.
+  - If failed, restart nvim or run `:MasonToolsInstall` to install them.
+  - Or press `<M-m>` to open Mason window to choose LSP/DAP/Formatter/Linter.
 
 ## Configuration
 

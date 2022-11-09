@@ -1,10 +1,11 @@
 local colors = { -- basic colors
-	white = '#ACAFB4',
 	black = '#101012',
 	grey1 = '#18191B',
 	grey2 = '#242629',
 	grey3 = '#34373B',
+	grey4 = '#484D52',
 	grey = '#6C6F7F',
+	white = '#ACAFB4',
 	green = '#75C44E',
 	orange = '#D75F00',
 	blue = '#689AFD',
@@ -15,7 +16,7 @@ local colors = { -- basic colors
 
 	lightYellow = '#FFFFED',
 	lightGreen = '#C4D697',
-	lightGrey = '#818387',
+	lightPurple = '#B197D6',
 
 	darkGreen = '#13230c',
 	darkBlue = '#181928',

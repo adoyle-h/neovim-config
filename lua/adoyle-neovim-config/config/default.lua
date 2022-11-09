@@ -3,6 +3,7 @@ return function(colors)
 	local symbol = require('adoyle-neovim-config.config.symbol')
 	local util = require('adoyle-neovim-config.util')
 
+	-- @type Config {table}
 	return {
 		leaderKey = ';', -- Set a map <leader> for more key combos
 

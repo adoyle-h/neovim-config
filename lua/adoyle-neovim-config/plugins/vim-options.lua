@@ -55,7 +55,6 @@ default.opt = {
 	conceallevel = 2,
 	concealcursor = '',
 	termguicolors = true, -- Require true color
-	background = 'dark', -- Dark theme. DO NOT CHANGE THIS OPTION.
 
 	showcmd = true, -- Show (partial) command in the last line of the screen
 	list = false, -- Do not show listchars

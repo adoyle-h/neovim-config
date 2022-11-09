@@ -42,6 +42,8 @@ local function someFixes()
 	vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'grey' }) -- THe initial float window is too ugly
 end
 
+-- @type PlugOpts see ../../doc/types.md
+
 -- @param [opts] {table}
 -- @param [opts.config] {table}
 -- @param [opts.configFn] {function(config):table}
@@ -49,7 +51,9 @@ end
 --   It's useful for debug. Defaults to nil.
 --   If set empty table, all builtin and user-defined plugins are disabled.
 --   If set non-empty table, only these plugins are not disabled.
--- @param [opts.plugins] {table|function(config)}
+-- @param [opts.plugins] {PlugOpts[]|function(builtin: function(path: string):PlugOpts, config: Config):PlugOpts[]}
+-- If passed a function, the first parameter is used to get the builtin PlugOpts.
+-- The second parameter is the config of framework.
 F.setup = function(opts)
 	someFixes()
 

@@ -7,7 +7,7 @@ Press `<space>k` to see all keymaps in nvim.
 
 - Prefixed `<leader>` to functions.
 - Prefixed `<space>` to open/toggle window, and change mode.
-- Prefixed `<M->` for shortcuts/toggle.
+- Prefixed `<M->` for shortcuts/toggle. Some keymaps can hold on.
 - Prefixed `g` for goto/jump/search/lsp.
 - Prefixed `[` or `]` for jump.
 - Prefixed `<C-t>` for tabs.
@@ -18,8 +18,6 @@ Press `<space>k` to see all keymaps in nvim.
 
 - `<space>o` = Toggle outline
   - `?` in outline = Show outline keymaps
-- `gO` = Open table of contents (:h treesitter and :h gO. Currently works in help and :Man buffers.)
-- `<space>u` = Toggle undo tree
 - `<space>P` = Show plugin status
 - `<leader>e` = Refresh current buffer
 - `<leader>w` = Save current buffer to disk
@@ -31,6 +29,23 @@ Press `<space>k` to see all keymaps in nvim.
 - `<M-I>` = Decrement word under cursor
 - `<leader>so` = Toggle scrolloff
 - `<leader>sp` = Toggle spell-checking
+
+## Edit and Write
+
+- `u` = Undo
+- `U` = Redo
+- `u` in visual selection = Characters to upper case
+- `U` in visual selection = Characters to lower case
+- `<space>u` = Toggle undo tree
+- `<space><space>` = Insert a space at right position of cursor
+- `[<space>` = Insert a space at left position of cursor
+- `]<space>` = Insert a space at right position of cursor
+- `~` = Character to upper case or lower case
+- `<M-s>` = Spell suggestion
+- `<space>z` = Toggle zen mode for writing
+- `J` = Join lines into one
+- `K` = Split current line on cursor
+- `<M-CR>` in insert mode = Move cursor to next line
 
 ## Indent
 
@@ -65,9 +80,14 @@ Press `<space>k` to see all keymaps in nvim.
 - `fw` = Jump to the start of word (forward)
 - `fb` = Jump to the start of word (back forward)
 - `fe` = Jump to the end of word
-- `fl` = Jump to line
+- `fl` = Jump to line (skip whitespace)
+- `fL` = Jump to line (include whitespace)
 - `fc` or `f1` = Jump to char prefixed which user type (1 char)
 - `f2` = Jump to chars prefixed which user type (2 chars)
+- `f` + single character = Jump to this character
+  - Support character:
+  - `',', '.', '/', '\\', '?', ';', ':', '\'', '"', '(', ')', '[', ']', '{', '}'`
+  - `'~','!', '@', '#', '$', '%', '^', '&', '*', '-', '_', '+', '='`
 - `g[` = Jump to previous cursor position
 - `g]` = Jump to next cursor position
 - `<C-]>` = Jump to the definition of the keyword under the cursor. see `:h CTRL-]`
@@ -79,6 +99,7 @@ Press `<space>k` to see all keymaps in nvim.
 - `cj` = Move cursor to next node (treesitter)
 - `ck` = Move cursor to previous node (treesitter)
 - `cl` = Move cursor to child node (treesitter)
+- Emacs shortcuts like `<C-e>`, `<C-a>`, `<C-u>`, `<C-k>`, `<M-b>`, `<M-f>`...
 
 ## Select
 
@@ -88,8 +109,8 @@ Press `<space>k` to see all keymaps in nvim.
 - `va%` = Text-objects for matched pairs
 - `vat` = Text-objects for XML tag node
 - `vin` = Text-objects for treesitter node
-- `vv` = Smart select the next closest text-objects
-- `vV` = Reverse selection of `vv`
+- `<M-v>` = Smart select the next closest text-objects
+- `<M-V>` = Reverse selection of `<M-v>`
 
 ## Swap
 
@@ -180,7 +201,6 @@ Press `<space>k` to see all keymaps in nvim.
 - `<space>r` = Show recently opened files
 - `<space>N` = Find notifications
 - `<space>n` = List messages
-- `<space>t` = List tabs
 - `<space>T` = List todo comments
 - `<space>l` = List lsp symbols in current buffer
 
@@ -198,21 +218,6 @@ Press `<space>k` to see all keymaps in nvim.
 - `<C-y>` = Copy name of current selection
 - `<M-y>` = Copy path of current selection
 
-## Edit and Write
-
-- `u` = Undo
-- `U` = Redo
-- `u` in visual selection = Characters to upper case
-- `U` in visual selection = Characters to lower case
-- `<space><space>` = Insert a space at right position of cursor
-- `[<space>` = Insert a space at left position of cursor
-- `]<space>` = Insert a space at right position of cursor
-- `~` = Character to upper case or lower case
-- `<M-s>` = Spell suggestion
-- `<space>z` = Toggle zen mode for writing
-- `J` = Join lines into one
-- `K` = Split current line on cursor
-
 ## Word Case
 
 - `crm` = MixedCase
@@ -224,12 +229,9 @@ Press `<space>k` to see all keymaps in nvim.
 - `cr.` = dot.case
 - `cr<space>` = space case
 
-## Insert Mode
-
-- Emacs shortcuts like `<C-e>`, `<C-a>`, `<C-u>`, `<C-k>`, `<M-b>`, `<M-f>`...
-- `<M-CR>` = Move cursor to next line
-
 ## Buffer Line
+
+If bufferline plugin enabled:
 
 - `<M-[>` = Select previous buffer
 - `<M-]>` = Select next buffer
@@ -237,6 +239,7 @@ Press `<space>k` to see all keymaps in nvim.
 - `<leader>2` = Select 2nd buffer
 - `<leader>3` = Select 3rd buffer
 - `<leader>4` = Select 4th buffer
+- ...
 - `<leader>9` = Select 9th buffer
 - `<leader>0` = Select last buffer
 
@@ -244,10 +247,10 @@ Press `<space>k` to see all keymaps in nvim.
 
 - `<C-t>n` = Open new tab
 - `<C-t>x` = Close tab
-- `<M-[>` = Select previous tab
-- `<M-]>` = Select next tab
-- `<M-{>` = Move current tab to previous
-- `<M-}>` = Move current tab to next
+- `<M-[>` or `<C-t>k` = Select previous tab
+- `<M-]>` or `<C-t>j` = Select next tab
+- `<M-{>` or `<C-t>h` = Move current tab to previous
+- `<M-}>` or `<C-t>l` = Move current tab to next
 - `<leader>1` = Select the 1st tab
 - `<leader>2` = Select the 2nd tab
 - `<leader>3` = Select the 3rd tab
@@ -255,19 +258,25 @@ Press `<space>k` to see all keymaps in nvim.
 - `<leader>9` = Select the 9th tab
 - `<leader>0` = Select the last tab
 
+If bufferline plugin enabled, some keymaps will be overrided. See [Buffer Line](#buffer-line).
+
 ## Window
 
-- `-` = Choose window
+- `-` = Choose window in current tab
+- `<C-w><C-w>` = Choose window or tab via telescope picker
+- `<M-w>` = Focus to next window
+- `<M-W>` = Focus to previous window
+- `<C-w>p` = Focus to last accessed window.
 - `<C-w>q` = Close current window
 - `<C-w>|` = Open split window
 - `<C-w>\` or `<C-w>n` = Open vsplit window
-- `<C-w><C-w>` = Enter window resize mode
+- `<C-w>r` = Enter window resize mode
 - `<C-w>h` = Focus to left window
 - `<C-w>j` = Focus to bottom window
 - `<C-w>k` = Focus to upper window
 - `<C-w>l` = Focus to right window
-- `<C-w>o` = Focus to next window
-- `<C-w>O` = Focus to previous window
+- `<C-w>t` = Focus to top-left window.
+- `<C-w>b` = Focus to bottom-right window.
 - `<C-w>H` = Adjust window border to left (5 spaces)
 - `<C-w>J` = Increment window height (3 spaces)
 - `<C-w>K` = Decrement window height (3 spaces)

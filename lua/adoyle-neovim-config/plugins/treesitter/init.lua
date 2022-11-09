@@ -3,8 +3,9 @@
 local M = {
 	'treesitter',
 
-	requires = {
-		'nvim-treesitter/nvim-treesitter',
+	requires = { 'nvim-treesitter/nvim-treesitter' },
+
+	deps = {
 		require('adoyle-neovim-config.plugins.treesitter.context'),
 		require('adoyle-neovim-config.plugins.treesitter.rainbow'),
 		require('adoyle-neovim-config.plugins.treesitter.pairs'),
@@ -88,7 +89,7 @@ function M.config(config)
 	end
 
 	vim.opt.foldmethod = 'expr'
-	vim.opt.foldexpr = vim.fn['nvim_treesitter#foldexpr']()
+	vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 	require('nvim-treesitter.configs').setup(config.treesitter)
 end

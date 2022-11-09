@@ -14,7 +14,7 @@ local M = {
 M.defaultConfig = {
 	'indentLine',
 	{
-		line = '⎜', -- '┊', '', '⎸', '│', '⎜', '⎜', '⎜'
+		line = '▏', -- '┊', '', '⎜', '⎸', '│', '⎜', '⎜', '⎜'
 		excludeFileType = {
 			'alpha', -- goolord/alpha-nvim, see plugins/alpha.lua
 		},

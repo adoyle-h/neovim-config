@@ -15,7 +15,6 @@ return function(Plug, Load, config)
 	Load('themes.' .. config.theme.use)
 	Load 'colors'
 	Load 'lualine'
-	Load 'bufferline'
 	Load 'indent-line'
 	Load 'search'
 	Load 'scrollbar' -- scrollbar must put after search, it relies on nvim-hlslens
@@ -26,7 +25,9 @@ return function(Plug, Load, config)
 	Load 'lsp' -- it must put after telescope plugin
 	Load 'dap'
 	Load 'completion'
-	Load 'general'
+	Load 'general.commands'
+	Load 'general.keymaps'
+	Load 'tabby'
 	Load 'comment'
 	Load 'aerial'
 	Load 'format'

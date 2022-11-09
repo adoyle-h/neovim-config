@@ -1,15 +1,14 @@
 local M = { 'select', desc = 'The fast cursor selection with text-objects' }
 local PM = require('adoyle-neovim-config.plugin-manager')
 
-M.requires = {
+M.deps = {
 	{
 		'gcmt/wildfire.vim',
 		desc = 'Select the text-objects',
 
 		keymaps = {
-			{ '', 'vv', '<Plug>(wildfire-fuel)', desc = 'Smart select the next closest text object.' },
-			{ '', 'vV', '<Plug>(wildfire-water)', desc = 'Smart select the previous closest text object.' },
-			{ 'n', '<M-v>', '<Plug>(wildfire-quick-select)' },
+			{ '', '<M-v>', '<Plug>(wildfire-fuel)', desc = 'Smart select the next closest text object.' },
+			{ '', '<M-V>', '<Plug>(wildfire-water)', desc = 'Smart select the previous closest text object.' },
 		},
 
 		config = function(config)

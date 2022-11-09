@@ -1,5 +1,4 @@
 local _config = require('adoyle-neovim-config.config').config
-local colors = _config.colors
 local kindSymbolMap = _config.kindSymbolMap
 local api = vim.api
 
@@ -123,11 +122,19 @@ local function configMapping(cmp, config)
 	local mapping = cmp.mapping
 
 	local selectPageUp = mapping(function()
-		cmp.select_prev_item({ behavior = behavior, count = config.completion.pageScrollLines })
+		if cmp.visible() then
+			cmp.select_prev_item({ behavior = behavior, count = config.completion.pageScrollLines })
+		else
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Left>', true, false, true), 't', false)
+		end
 	end, { 'i', 'c', 's' })
 
 	local selectPageDown = mapping(function()
-		cmp.select_next_item({ behavior = behavior, count = config.completion.pageScrollLines })
+		if cmp.visible() then
+			cmp.select_next_item({ behavior = behavior, count = config.completion.pageScrollLines })
+		else
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Right>', true, false, true), 't', false)
+		end
 	end, { 'i', 'c', 's' })
 
 	local confirm = mapping(function(fallback)
@@ -171,9 +178,9 @@ end
 local M = {
 	'completion',
 
-	requires = {
-		-- 'hrsh7th/nvim-cmp',
-		{ 'adoyle-h/nvim-cmp', branch = 'a' }, -- TODO: https://github.com/hrsh7th/nvim-cmp/pull/1262
+	requires = { 'hrsh7th/nvim-cmp' },
+
+	deps = {
 		'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
 		'hrsh7th/cmp-buffer', -- buffer source for nvim-cmp
 		'hrsh7th/cmp-path', -- path source for nvim-cmp
@@ -192,11 +199,14 @@ local M = {
 		require('adoyle-neovim-config.plugins.completion.snippet'),
 	},
 
-	highlights = {
-		MenuSelectLine = { bg = '#012867' },
-		CmpFloatBorder = { fg = colors.blue, bg = colors.black },
-		PmenuThumb = { bg = '#004CC8' }, -- cmp scrollbar thumb
-	},
+	highlights = function(config)
+		local c = config.colors
+		return {
+			MenuSelectLine = { bg = '#012867' },
+			CmpFloatBorder = { fg = c.blue, bg = c.black },
+			PmenuThumb = { bg = '#004CC8' }, -- cmp scrollbar thumb
+		}
+	end,
 }
 
 function M.config(config)
@@ -207,21 +217,22 @@ function M.config(config)
 	local function addNormalSrc(src, group_index)
 		normalSources[#normalSources + 1] = { name = src, group_index = group_index or 1 }
 	end
+	local snippet = {}
 
 	if pcall(require, 'cmp_tabnine') then addNormalSrc('tabnine') end
 	if pcall(require, 'cmp_copilot') then addNormalSrc('copilot') end
 	if pcall(require, 'cmp_treesitter') then addNormalSrc('treesitter', 2) end
+	if pcall(require, 'snippy') then
+		snippet.expand = function(args)
+			require('snippy').expand_snippet(args.body)
+		end
+	end
 
-	local opts = {
+	cmp.setup {
 		mapping = conf.mapping,
 		formatting = configFormating(conf),
 		sources = normalSources,
-
-		snippet = {
-			expand = function(args)
-				require('snippy').expand_snippet(args.body)
-			end,
-		},
+		snippet = snippet,
 
 		window = {
 			-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/window.lua
@@ -234,8 +245,6 @@ function M.config(config)
 			}),
 		},
 	}
-
-	cmp.setup(opts)
 
 	for _, cmd_type in pairs({ '/', '?' }) do
 		cmp.setup.cmdline(cmd_type, {

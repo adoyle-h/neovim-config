@@ -24,10 +24,9 @@ local executePlugOptions = Plug.executePlugOptions
 -- @useage Plug({repo, opts...})
 --
 -- @param repo {string}
---   repo='<github-user>/<repo-name>' such as 'nvim-lua/plenary.nvim', or
+--   repo='<github-user>/<repo-name>' such as , or
 --   repo='name' without '/'
--- @param opts {table} Its fields are compatible with https://github.com/junegunn/vim-plug#plug-options
---
+-- @param [opts] {PlugOpts}
 -- @example See examples at ./lua/adoyle-neovim-config/plugins.lua
 function PM.Plug(repo, opts)
 	local ok, reason = xpcall(usePlug, debug.traceback, PM, PM.P.loadPlug, repo, opts)
@@ -56,22 +55,6 @@ function PM.isPlugDisabled(id)
 	end
 end
 
-local function addPending(pendings, plug)
-	if plug.disable then
-		if plug.uninstalled then
-			notify(string.format('Plug "%s" has not installed. Try "%s" to install it.', plug.id,
-				PM.P.cmds.install), 'warn')
-		elseif plug.reason then
-			notify(
-				string.format('Plug "%s" has been loaded but not setup. Reason: %s', plug.id, plug.reason),
-				'warn')
-		end
-	else
-		Plug.mergePlugDefaultConfig(CM.config, plug)
-		pendings[#pendings + 1] = plug
-	end
-end
-
 local function getPlugFolderName(repo)
 	local s = vim.fn.split(repo, '/')
 	local name = s[#s]
@@ -82,27 +65,70 @@ end
 local function isPlugDownloaded(repo)
 	local folderPath = PM.P.getPluginFolderPath(getPlugFolderName(repo))
 
-	return util.exist(folderPath)
+	return util.existDir(folderPath)
 end
 
+local function disablePlug(plug, reason)
+	plug.disable = true
+	plug.reason = plug.reason or reason
+
+	local reason2 = string.format('Its parent plugin "%s" is disabled', plug.id)
+	for _, depPlug in pairs(plug.requires or {}) do disablePlug(depPlug, reason2) end
+	for _, depPlug in pairs(plug.deps or {}) do disablePlug(depPlug, reason2) end
+end
+
+-- @param isNew {boolean}  Passed by P. It means whether the plugin-manager repo installed just now.
 function PM.run(isNew)
 	local config = CM.config
 	local pendings = {}
 
+	-- After plugin-manager do cmds.install. Check downloaded folder for each plugin.
 	for _, plug in pairs(PM.plugs) do
-		if type(plug.repo) == 'string' then
-			if not isPlugDownloaded(plug.repo) then
-				if plug.disable ~= true then
+		if plug.disable ~= true then
+			-- plug.disable is false or nil
+			if plug.repo then
+				if isPlugDownloaded(plug.repo) then
+					pendings[#pendings + 1] = plug
+				else
 					plug.disable = true
 					plug.reason = 'uninstalled'
 					plug.uninstalled = true
 				end
+			else
+				pendings[#pendings + 1] = plug
 			end
 		end
+	end
 
-		local ok, msg = xpcall(addPending, debug.traceback, pendings, plug)
-		if not ok then
-			notify(string.format('[Plug: %s] Failed to addPending. Reason: %s', plug.id, msg), 'error')
+	for _, plug in pairs(pendings) do
+		for _, depPlug in pairs(plug.requires or {}) do
+			if depPlug.disable then
+				local reason = string.format('Its required plugin "%s" is disabled', depPlug.id)
+				disablePlug(plug, reason)
+			end
+		end
+	end
+
+	pendings = {}
+	for _, plug in pairs(PM.plugs) do
+		if plug.disable then
+			if plug.uninstalled then
+				notify(string.format('Plug "%s" has not installed. Try "%s" to install it.', plug.id,
+					PM.P.cmds.install), { level = 'warn', defer = true })
+			elseif plug.reason then
+				notify(
+					string.format('Plug "%s" has been loaded but not setup. Reason: %s', plug.id, plug.reason),
+					{ level = 'warn', defer = true })
+			else
+				-- Some plugins are disabled by default or by user. So they have no reason and do not need to notify.
+			end
+		else
+			local ok, msg = xpcall(Plug.mergePlugDefaultConfig, debug.traceback, CM.config, plug)
+			if not ok then
+				notify(string.format('[Plug: %s] Failed to mergePlugDefaultConfig. Reason: %s', plug.id, msg),
+					{ level = 'error', defer = true })
+			end
+			pendings[#pendings + 1] = plug
 		end
 	end
 
@@ -115,13 +141,38 @@ function PM.run(isNew)
 		local ok, msg = xpcall(executePlugOptions, debug.traceback, plug, config)
 		if not ok then
 			notify(string.format('[Plug: %s] Failed to executePlugOptions. Reason: %s', plug.id, msg),
-				'error')
+				{ level = 'error', defer = true })
 		end
 	end
 end
 
 function PM.setP(P)
 	PM.P = P
+end
+
+local function setupUserPlugins(optPlugins)
+	local userPlugins = PM.userPlugins
+	local userPluginList = {}
+
+	local builtin = function(path)
+		return require('adoyle-neovim-config.plugins.' .. path)
+	end
+
+	if type(optPlugins) == 'function' then --
+		optPlugins = optPlugins(builtin, CM.config)
+	end
+
+	for i, p in pairs(optPlugins or {}) do
+		local ok, plugOpts = xpcall(normalizeOpts, debug.traceback, p)
+		if not ok then
+			notify(string.format('Invalid user plugin at opts.plugins[%s]. Reason: %s', i, plugOpts), 'error')
+		end
+
+		userPlugins[plugOpts.id] = plugOpts
+		userPluginList[#userPluginList + 1] = plugOpts -- For keeping plugins order
+	end
+
+	return userPluginList
 end
 
 function PM.setup(opts)
@@ -134,18 +185,7 @@ function PM.setup(opts)
 
 	if PM.onlyPlugins and vim.tbl_isempty(PM.onlyPlugins) then return end
 
-	local userPlugins = PM.userPlugins
-	local userPluginList = {}
-
-	for i, p in pairs(opts.plugins or {}) do
-		local ok, plugOpts = pcall(normalizeOpts, p)
-		if not ok then
-			notify(string.format('Invalid user plugin at index %s. Reason: %s', i, plugOpts), 'error')
-		end
-
-		userPlugins[plugOpts.id] = plugOpts
-		userPluginList[#userPluginList + 1] = plugOpts -- For keeping plugins order
-	end
+	local userPluginList = setupUserPlugins(opts.plugins)
 
 	local P
 	if use == 'vim-plug' then
@@ -165,6 +205,7 @@ function PM.setup(opts)
 
 		loadPlugs = function()
 			require('adoyle-neovim-config.plugins')(PM.Plug, PM.LoadBuiltinPlug, config)
+			local userPlugins = PM.userPlugins
 
 			for _, p in pairs(userPluginList) do
 				if userPlugins[p.id] then

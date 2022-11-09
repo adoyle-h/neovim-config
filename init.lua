@@ -132,7 +132,8 @@ local function masonInstallerConfig()
 	}
 end
 
-local function myPlugins()
+---@diagnostic disable-next-line: unused-local
+local function myPlugins(builtin, config)
 	return {
 		{ 'profiling', disable = true },
 		{ 'zk', disable = false },
@@ -156,7 +157,7 @@ require('adoyle-neovim-config').setup {
 			github = 'https://ghproxy.com',
 		},
 
-		pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
+		-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
 	},
 
 	---@diagnostic disable-next-line: unused-local
@@ -183,5 +184,5 @@ require('adoyle-neovim-config').setup {
 
 	-- Add your plugins or override plugin default options.
 	-- More examples at ./lua/adoyle-neovim-config/plugins.lua
-	plugins = myPlugins(),
+	plugins = myPlugins,
 }

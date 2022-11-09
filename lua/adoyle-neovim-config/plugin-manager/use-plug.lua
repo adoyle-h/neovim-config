@@ -3,6 +3,7 @@ local util = require('adoyle-neovim-config.util')
 
 local normalizeOpts = N.normalizeOpts
 
+-- NOTE: The plugin loaded order: "requires" plugins, "deps" plugins, current plugin.
 local function usePlug(pm, loadPlug, repo, opts)
 	local plugMap, plugs, userPlugins = pm.plugMap, pm.plugs, pm.userPlugins
 
@@ -30,6 +31,18 @@ local function usePlug(pm, loadPlug, repo, opts)
 		for index, dep in pairs(opts.requires or {}) do
 			local depPlug = usePlug(pm, loadPlug, dep)
 			opts.requires[index] = depPlug
+
+			if depPlug.isDisabled then
+				opts.disable = true
+				opts.reason = string.format('Its required plugin "%s" is disabled', depPlug.id)
+			end
+		end
+	end
+
+	if not opts.disable then
+		for index, dep in pairs(opts.deps or {}) do
+			local depPlug = usePlug(pm, loadPlug, dep)
+			opts.deps[index] = depPlug
 		end
 	end
 
@@ -44,7 +57,7 @@ local function usePlug(pm, loadPlug, repo, opts)
 	-- Run setup before plugin is loaded.
 	if opts.setup then opts.setup() end
 
-	if type(repo) == 'string' then loadPlug(repo, opts) end
+	if repo then loadPlug(repo, opts) end
 
 	return opts
 end

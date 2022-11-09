@@ -2,7 +2,7 @@ local M = {
 	'git',
 	desc = 'Git Plugins',
 
-	requires = {
+	deps = {
 		require('adoyle-neovim-config.plugins.git.sign'),
 		require 'adoyle-neovim-config.plugins.git.lazygit',
 		{ 'sindrets/diffview.nvim', desc = 'Git Diff' },

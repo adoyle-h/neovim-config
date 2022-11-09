@@ -22,7 +22,8 @@ Click [./README.md](./README.md) to read English documents.
   - 大纲: [aerial](lua/adoyle-neovim-config/plugins/aerial.lua) (默认) 或 [majutsushi/tagbar](lua/adoyle-neovim-config/plugins/tagbar.lua)
   - 文件浏览器: [neo-tree](lua/adoyle-neovim-config/plugins/neo-tree.lua) (默认) 或 [nerdtree](lua/adoyle-neovim-config/plugins/nerdtree.lua) 或 [nvim-tree](lua/adoyle-neovim-config/plugins/nvim-tree.lua)
   - 状态栏: [lualine](lua/adoyle-neovim-config/plugins/lualine.lua) (默认) 或 [airline](lua/adoyle-neovim-config/plugins/airline.lua)
-  - Buffer 栏: [bufferline](lua/adoyle-neovim-config/plugins/bufferline.lua)
+  - Tab 栏: [tabby](lua/adoyle-neovim-config/plugins/tabby.lua)
+  - Buffer 栏: [barbar](lua/adoyle-neovim-config/plugins/barbar.lua) 或 [bufferline](lua/adoyle-neovim-config/plugins/bufferline.lua) (如果使用 Buffer 栏，你要禁用 Tab 栏插件)
   - 滚动条: [nvim-scrollbar](lua/adoyle-neovim-config/plugins/scrollbar.lua)
   - 平滑滚动: [neoscroll.nvim](lua/adoyle-neovim-config/plugins/scroll.lua)
   - 会话: [persisted](lua/adoyle-neovim-config/plugins/session/persisted.lua) (默认) 或 [possession](lua/adoyle-neovim-config/plugins/session/possession.lua) 或 [xolox/vim-session](lua/adoyle-neovim-config/plugins/session/vim-session.lua) 或 [rmagatti/auto-session](lua/adoyle-neovim-config/plugins/session/auto-session.lua)
@@ -203,9 +204,11 @@ git clone --depth 1 https://github.com/adoyle-h/neovim-config.git "$NVIM_HOME"
   - 当 `config.pluginManager.use = packer`
     - 在 nvim 执行 `:PackerSync` 安装所有插件，重复直到全部安装成功。
     - 插件默认安装在 `~/.local/share/nvim/pack/packer`。**不要修改** `config.pluginManager.packer.package_root`，除非你十分明白自己在做什么。如果你修改后出了错，请不要来询问我。
-- 在 nvim 执行 `:TSInstall all`，安装所有 Treesitter Parser。
-- 按 `<M-m>` 打开 Mason 窗口，选择要安装的 LSP/DAP/Formatter/Linter。
-<!-- - 在 nvim 执行 `:MasonToolsInstall`，安装 `config['mason-installer'].ensureInstalled` 设定好的工具。 -->
+- nvim 启动后会自动下载 treesitter parsers。它们定义在 `config.treesitter.ensure_installed` 和 `config.treesitter.ignore_install`。
+  - 如果安装失败，重启 nvim 或执行 `:TSInstall all` 来重装。
+- nvim 启动后会自动下载 LSP/DAP/Formatter/Linter，它们定义在 `config['mason-installer'].ensureInstalled`.
+  - 如果安装失败，重启 nvim 或执行 `:MasonToolsInstall` 来重装。
+  - 也可以按 `<M-m>` 打开 Mason 窗口，选择要安装的 LSP/DAP/Formatter/Linter。
 
 ## 配置
 

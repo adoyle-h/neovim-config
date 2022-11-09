@@ -30,10 +30,12 @@ M.keymaps = function()
 		{ '!', '<C-d>', '<Delete>', opts }, -- delete-char
 		{ '!', '<C-a>', readline.beginning_of_line, opts },
 		{ '!', '<C-e>', readline.end_of_line, opts },
+		{ '!', '<M-left>', readline.backward_word, opts },
+		{ '!', '<M-right>', readline.forward_word, opts },
 		{ '!', '<M-f>', readline.forward_word, opts },
+		{ '!', '<M-b>', readline.backward_word, opts },
 		{ '!', '<C-f>', '<Right>', opts }, -- forward-char
 		{ '!', '<C-b>', '<Left>', opts }, -- backward-char
-		{ '!', '<M-b>', readline.backward_word, opts },
 		{ '!', '<M-BS>', readline.backward_kill_word, opts },
 		{ '!', '<C-h>', '<BS>', opts }, -- backward-delete-char
 	}

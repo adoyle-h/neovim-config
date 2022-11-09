@@ -1,4 +1,4 @@
-local M = { 'keymap.tab', disable = true }
+local M = { 'keymap.tab' }
 
 M.config = function()
 	vim.g.lasttab = 1
@@ -11,30 +11,35 @@ M.config = function()
 	})
 end
 
-local opts = { noremap = true }
+M.keymaps = function()
+	local modes = { 'n', 'c', 'v' }
+	local opts = { noremap = true, silent = true }
 
-M.keymaps = {
+	return {
+		{ modes, '<C-t>-', ':execute "tabn ".g:lasttab<CR>', opts },
+		{ modes, '<M-]>', ':tabnext<CR>', opts },
+		{ modes, '<M-[>', ':tabprev<CR>', opts },
+		{ modes, '<C-t>j', ':tabnext<CR>', opts },
+		{ modes, '<C-t>k', ':tabprev<CR>', opts },
+		{ modes, '<M-{>', ':tabmove -<CR>', opts },
+		{ modes, '<M-}>', ':tabmove +<CR>', opts },
+		{ modes, '<C-t>h', ':tabmove -<CR>', opts },
+		{ modes, '<C-t>l', ':tabmove +<CR>', opts },
+		{ modes, '<C-t>n', ':tabnew<CR>', opts },
+		{ modes, '<C-t>x', ':tabclose<CR>', opts },
 
-	{ 'n', '<C-T>t-', ':execute "tabn ".g:lasttab<CR>', opts },
-	{ 'n', '<C-T>k', ':tabprev<CR>', opts },
-	{ 'n', '<C-T>j', ':tabnext<CR>', opts },
-	{ 'n', '<C-T>h', ':tabmove -<CR>', opts },
-	{ 'n', '<C-T>l', ':tabmove +<CR>', opts },
-	{ 'n', '<C-T>n', ':tabnew<CR>', opts },
-	{ 'n', '<C-T>x', ':tabclose<CR>', opts },
-
-	-- switch tab in normal mode
-	{ 'n', '<leader>1', '1gt', opts },
-	{ 'n', '<leader>2', '2gt', opts },
-	{ 'n', '<leader>3', '3gt', opts },
-	{ 'n', '<leader>4', '4gt', opts },
-	{ 'n', '<leader>5', '5gt', opts },
-	{ 'n', '<leader>6', '6gt', opts },
-	{ 'n', '<leader>7', '7gt', opts },
-	{ 'n', '<leader>8', '8gt', opts },
-	{ 'n', '<leader>9', '9gt', opts },
-	{ 'n', '<leader>0', ':tablast<CR>', opts },
-
-}
+		-- switch tab in normal mode
+		{ 'n', '<leader>1', '1gt', opts },
+		{ 'n', '<leader>2', '2gt', opts },
+		{ 'n', '<leader>3', '3gt', opts },
+		{ 'n', '<leader>4', '4gt', opts },
+		{ 'n', '<leader>5', '5gt', opts },
+		{ 'n', '<leader>6', '6gt', opts },
+		{ 'n', '<leader>7', '7gt', opts },
+		{ 'n', '<leader>8', '8gt', opts },
+		{ 'n', '<leader>9', '9gt', opts },
+		{ 'n', '<leader>0', ':tablast<CR>', opts },
+	}
+end
 
 return M

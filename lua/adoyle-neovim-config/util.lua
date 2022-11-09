@@ -71,6 +71,14 @@ function util.configPath(path)
 	return CONFIG_DIR .. PATH_SEPARATOR .. util.pathJoin(path)
 end
 
+function util.existDir(path)
+	return fn.isdirectory(path) == 1
+end
+
+function util.existFile(path)
+	return fn.empty(fn.glob(path)) == 0
+end
+
 function util.getFolderName(repo)
 	local s = vim.fn.split(repo, '/')
 	local name = s[#s]
@@ -83,7 +91,7 @@ function util.ensurePkg(params)
 	local url = util.proxyGithub(params.url)
 	local dist = params.dist
 
-	if fn.empty(fn.glob(dist)) > 0 then
+	if not util.existDir(dist) then
 		local cmd = string.format('git clone --depth 1 --single-branch "%s" "%s" 2>&1 >/dev/null', url,
 			dist)
 		notify(string.format('Not found %s\nTo run: %s', dist, cmd))
@@ -104,7 +112,7 @@ function util.ensureFile(params)
 	local url = util.proxyGithub(params.url)
 	local dist = params.dist
 
-	if fn.empty(fn.glob(dist)) > 0 then
+	if not util.existFile(dist) then
 		local cmd = string.format('curl --create-dirs -sSLo "%s" "%s" 2>&1 >/dev/null', dist, url)
 		notify(string.format('Not found %s\nTo run: %s', dist, cmd))
 
@@ -148,10 +156,6 @@ function util.merge(v1, v2)
 	else
 		return v2
 	end
-end
-
-function util.exist(path)
-	return fn.empty(fn.glob(path)) == 0
 end
 
 function util.getVisualSelection(return_raw)
@@ -351,11 +355,30 @@ function util.floatWindow()
 	return win, buf
 end
 
+-- @param str {string} Github/Gitlab repo name
+-- @return {string}
 function util.getRepoName(str)
 	local list = vim.split(str, '/')
 	local name = list[#list]
 	list = vim.split(name, '.git')
 	return list[1]
+end
+
+local getDigraph = vim.fn.digraph_get
+function util.superNum(number)
+	if number <= 9 then
+		return getDigraph(number .. 'S')
+	else
+		return util.superNum(math.floor(number / 10)) .. getDigraph((number % 10) .. 'S')
+	end
+end
+
+function util.subNum(number)
+	if number <= 9 then
+		return getDigraph(number .. 's')
+	else
+		return util.subNum(math.floor(number / 10)) .. getDigraph((number % 10) .. 's')
+	end
 end
 
 return util

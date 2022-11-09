@@ -1,12 +1,15 @@
 return {
 	'cmp-snippet',
 
-	requires = {
+	requires = { --
+		'dcampos/nvim-snippy',
+		'dcampos/cmp-snippy',
+	},
+
+	deps = { --
 		'justinj/vim-react-snippets',
 		'rafamadriz/friendly-snippets',
 		'honza/vim-snippets',
-		'dcampos/nvim-snippy',
-		'dcampos/cmp-snippy',
 	},
 
 	config = function(config)
@@ -14,7 +17,7 @@ return {
 	end,
 
 	defaultConfig = {
-		{ 'snippy' },
+		'snippy',
 		{
 			-- :h snippy
 			scopes = {

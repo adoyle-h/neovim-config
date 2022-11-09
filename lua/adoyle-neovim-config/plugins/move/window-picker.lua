@@ -2,8 +2,11 @@ local config = require('adoyle-neovim-config.config').config
 local colors = config.colors
 
 return {
-	's1n7ax/nvim-window-picker',
-	tag = 'v1.*',
+	-- 's1n7ax/nvim-window-picker',
+	-- tag = 'v1.*',
+	-- TODO: Wait https://github.com/s1n7ax/nvim-window-picker/pulls?q=is%3Aopen+is%3Apr+author%3Aadoyle-h
+	'adoyle-h/nvim-window-picker',
+	branch = 'a',
 
 	config = function()
 		require'window-picker'.setup(config['window-picker'])
@@ -23,6 +26,19 @@ return {
 			-- when you go to window selection mode, status bar will show one of
 			-- following letters on them so you can use that letter to select the window
 			selection_chars = 'FJDKSLA;CMRUEIWOQP',
+
+			-- You can change the display string in status bar.
+			-- It supports '%' printf style. Such as `return char .. ': %f'` to display
+			-- buffer filepath. See :h 'stl' for details.
+			selection_display = function(char)
+				return string.format('[%s] %s', char, '%f')
+			end,
+
+			-- whether you want to use winbar instead of the statusline
+			-- "always" means to always use winbar,
+			-- "never" means to never use winbar
+			-- "smart" means to use winbar if cmdheight=0 and statusline if cmdheight > 0
+			use_winbar = 'never', -- "always" | "never" | "smart"
 
 			-- if you want to manually filter out the windows, pass in a function that
 			-- takes two parameters. you should return window ids that should be

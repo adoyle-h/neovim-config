@@ -2,7 +2,7 @@ return {
 	'format',
 	desc = 'Format Settings',
 
-	requires = {
+	deps = {
 		require('adoyle-neovim-config.plugins.align'),
 
 		{ 'editorconfig/editorconfig-vim', desc = '.editorconfig support' },

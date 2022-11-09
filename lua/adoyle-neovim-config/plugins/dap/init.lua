@@ -1,8 +1,9 @@
 local M = {
 	'dap',
 
-	requires = {
-		'mfussenegger/nvim-dap',
+	requires = { 'mfussenegger/nvim-dap' },
+
+	deps = {
 		require('adoyle-neovim-config.plugins.dap.ui'),
 		{
 			'nvim-telescope/telescope-dap.nvim',

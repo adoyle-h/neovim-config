@@ -1,26 +1,27 @@
 local M = { 'akinsho/bufferline.nvim', tag = 'v3.*', requires = { 'tiagovla/scope.nvim' } }
 
-local opts = { silent = true }
+M.keymaps = function()
+	local modes = { 'n', 'c', 'v' }
+	local opts = { noremap = true, silent = true }
 
-M.keymaps = {
-	{ 'n', '<M-[>', ':BufferLineCyclePrev<CR>', opts },
-	{ 'n', '<M-]>', ':BufferLineCycleNext<CR>', opts },
-	-- BUG: https://github.com/akinsho/bufferline.nvim/pull/588#issuecomment-1304598656
-	{ 'n', '<M-{>', ':BufferLineMovePrev<CR>', opts },
-	{ 'n', '<M-}>', ':BufferLineMoveNext<CR>', opts },
-	{ 'n', '<C-t>n', ':tabnew<CR>', opts },
-	{ 'n', '<C-t>x', ':tabclose<CR>', opts },
-	{ 'n', '<leader>1', ':BufferLineGoToBuffer 1<CR>', opts },
-	{ 'n', '<leader>2', ':BufferLineGoToBuffer 2<CR>', opts },
-	{ 'n', '<leader>3', ':BufferLineGoToBuffer 3<CR>', opts },
-	{ 'n', '<leader>4', ':BufferLineGoToBuffer 4<CR>', opts },
-	{ 'n', '<leader>5', ':BufferLineGoToBuffer 5<CR>', opts },
-	{ 'n', '<leader>6', ':BufferLineGoToBuffer 6<CR>', opts },
-	{ 'n', '<leader>7', ':BufferLineGoToBuffer 7<CR>', opts },
-	{ 'n', '<leader>8', ':BufferLineGoToBuffer 8<CR>', opts },
-	{ 'n', '<leader>9', ':BufferLineGoToBuffer 9<CR>', opts },
-	{ 'n', '<leader>0', ':BufferLineGoToBuffer -1<CR>', opts },
-}
+	return {
+		{ modes, '<M-[>', ':BufferLineCyclePrev<CR>', opts },
+		{ modes, '<M-]>', ':BufferLineCycleNext<CR>', opts },
+		-- BUG: https://github.com/akinsho/bufferline.nvim/pull/588#issuecomment-1304598656
+		{ modes, '<M-{>', ':BufferLineMovePrev<CR>', opts },
+		{ modes, '<M-}>', ':BufferLineMoveNext<CR>', opts },
+		{ modes, '<leader>1', ':BufferLineGoToBuffer 1<CR>', opts },
+		{ modes, '<leader>2', ':BufferLineGoToBuffer 2<CR>', opts },
+		{ modes, '<leader>3', ':BufferLineGoToBuffer 3<CR>', opts },
+		{ modes, '<leader>4', ':BufferLineGoToBuffer 4<CR>', opts },
+		{ modes, '<leader>5', ':BufferLineGoToBuffer 5<CR>', opts },
+		{ modes, '<leader>6', ':BufferLineGoToBuffer 6<CR>', opts },
+		{ modes, '<leader>7', ':BufferLineGoToBuffer 7<CR>', opts },
+		{ modes, '<leader>8', ':BufferLineGoToBuffer 8<CR>', opts },
+		{ modes, '<leader>9', ':BufferLineGoToBuffer 9<CR>', opts },
+		{ modes, '<leader>0', ':BufferLineGoToBuffer -1<CR>', opts },
+	}
+end
 
 function M.config(config)
 	local conf = config.bufferline
@@ -47,7 +48,7 @@ M.defaultConfig = function(config)
 		'bufferline',
 		{
 			options = {
-				mode = 'tabs', -- 'tabs' or 'buffers'
+				mode = 'buffers', -- 'tabs' or 'buffers'
 				numbers = 'ordinal',
 				diagnostics = false, -- false | 'nvim_lsp' | 'coc',
 
@@ -58,7 +59,7 @@ M.defaultConfig = function(config)
 
 				show_buffer_icons = false, -- disable filetype icons for buffers
 				show_buffer_close_icons = true,
-				show_tab_indicators = false,
+				show_tab_indicators = true,
 				show_duplicate_prefix = true,
 				show_close_icon = false,
 				buffer_close_icon = '',
@@ -68,7 +69,6 @@ M.defaultConfig = function(config)
 				right_trunc_marker = '',
 				color_icons = true,
 				separator_style = { '', '' }, -- 'slant' | 'thick' | 'thin' | { 'any', 'any' },
-				sort_by = 'tabs',
 				max_name_length = 20,
 				truncate_names = true,
 

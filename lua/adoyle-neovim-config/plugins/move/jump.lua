@@ -30,8 +30,13 @@ return {
 		local hop = require('hop')
 		local HintPosition = require('hop.hint').HintPosition
 		local HintDirection = require('hop.hint').HintDirection
+		local function genChar(char)
+			return function()
+				hop.hint_patterns({}, char)
+			end
+		end
 
-		return {
+		local keymaps = {
 			{
 				'',
 				'fw',
@@ -62,7 +67,22 @@ return {
 			{ '', 'fc', hop.hint_char1, { desc = 'cursor jumps to char which user type' } },
 			{ '', 'f1', hop.hint_char1, { desc = 'cursor jumps to char which user type' } },
 			{ '', 'f2', hop.hint_char2, { desc = 'cursor jumps to chars prefixed which user type' } },
-			{ '', 'fl', hop.hint_lines_skip_whitespace, { desc = 'cursor jumps to line' } },
+			{ '', 'fl', hop.hint_lines, { desc = 'cursor jumps to line (skip whitespace)' } },
+			{
+				'',
+				'fL',
+				hop.hint_lines_skip_whitespace,
+				{ desc = 'cursor jumps to line (include whitespace)' },
+			},
 		}
+
+		for _, i in pairs {
+			-- LuaFormatter off
+			',', '.', '/', '\\', '?', ';', ':', '\'', '"', '(', ')', '[', ']', '{', '}',
+			'~','!', '@', '#', '$', '%', '^', '&', '*', '-', '_', '+', '=',
+			-- LuaFormatter on
+		} do keymaps[#keymaps + 1] = { '', 'f' .. i, genChar(i), { desc = 'cursor jumps to ' .. i } } end
+
+		return keymaps
 	end,
 }
