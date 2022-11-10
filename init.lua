@@ -125,6 +125,11 @@ local function masonInstallerConfig()
 	}
 end
 
+local highlights = function(config)
+	local c = config.colors
+	return { CmpGhostText = { fg = c.grey4, bg = c.darkBlue } }
+end
+
 ---@diagnostic disable-next-line: unused-local
 local function myPlugins(builtin, config)
 	return {
@@ -141,6 +146,7 @@ local function myPlugins(builtin, config)
 		{ 'noice', disable = false },
 		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
+		{ highlights = highlights },
 	}
 end
 
@@ -152,6 +158,12 @@ require('one').setup {
 		},
 
 		-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
+
+		completion = {
+			experimental = {
+				ghost_text = { hl_group = 'CmpGhostText' }, -- this feature conflict with copilot.vim's preview.
+			},
+		},
 	},
 
 	---@diagnostic disable-next-line: unused-local
