@@ -136,8 +136,9 @@ local function myPlugins(builtin, config)
 		{ 'calendar', disable = false },
 		{ 'todo', disable = false },
 		{ 'zen', disable = false },
+		{ 'karb94/neoscroll.nvim', disable = false },
 		{ 'onedarkpro', disable = false },
-		{ 'noice', disable = true },
+		{ 'noice', disable = false },
 		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
 	}

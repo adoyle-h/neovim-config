@@ -19,3 +19,19 @@ snippet Plug "ADoyle-Nvim-Config Plugin"
 
     defaultConfig = { { '$1' }, {} },
   }
+
+snippet one-hl "Insert highlights definition"
+	highlights = function(config)
+		local c = config.colors
+		return {}
+	end,
+
+snippet one-config "Insert config definition"
+	config = function(config)
+		require('$1').setup(config.$1)
+	end,
+
+  defaultConfig = {
+    '$1',
+    {}
+  },
