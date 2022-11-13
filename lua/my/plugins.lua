@@ -1,0 +1,32 @@
+local my = {}
+
+my.highlights = function(config)
+	local c = config.colors
+	return { CmpGhostText = { fg = c.grey4, bg = c.darkBlue } }
+end
+
+---@diagnostic disable-next-line: unused-local
+return function(load, config)
+	return {
+		load('profiling'),
+		load('zk'),
+		load('node'),
+		load('curl'),
+		load('latex'),
+		load('calendar'),
+		load('todo'),
+		load('zen'),
+		load('mark'),
+		load('bookmark'),
+		load('funny', { disable = true }),
+		load('noice', { disable = true }),
+
+		-- for debug these plugins
+		{ 'karb94/neoscroll.nvim', disable = false },
+		{ 'onedarkpro', disable = false },
+		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
+		{ 'dmitmel/cmp-cmdline-history', disable = true },
+
+		my,
+	}
+end
