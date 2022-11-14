@@ -4,6 +4,11 @@ My neovim config based on [one.nvim](https://github.com/adoyle-h/one.nvim) for p
 
 Not accept any PR.
 
+## Usages
+
+- `nvim` use the `init.lua` config.
+- `nvim -u packer.lua` use the `packer.lua` config.
+
 ## Copyright and License
 
 Copyright 2016-2022 ADoyle (adoyle.h@gmail.com) All Rights Reserved. The project is licensed under the **BSD 3-clause License**.

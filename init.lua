@@ -5,6 +5,8 @@ require('one').setup {
 			github = 'https://ghproxy.com',
 		},
 
+		global = 'a',
+
 		-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
 
 		completion = {
