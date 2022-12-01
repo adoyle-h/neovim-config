@@ -26,6 +26,7 @@ return function(load, config)
 		{ 'onedarkpro', disable = false },
 		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
+		{ 'treesitter', disable = false },
 
 		my,
 	}

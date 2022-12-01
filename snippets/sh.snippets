@@ -1,15 +1,19 @@
 priority 100
 
-snippet shebang "[shell] Add shebang" b
-  #!/usr/bin/env ${1:bash}
+snippet shellcheck-sh "Specify the shell for a script"
+  # shellcheck shell=${1:sh}
 
-  ${0}
+snippet shellcheck-bash "Specify the shell for a script"
+  # shellcheck shell=${1:bash}
 
 snippet shellcheck-disable "shellcheck disable=" b
   # shellcheck disable=${1:SC1090}${0}
 
 snippet shellcheck-source "shellcheck source=" b
   # shellcheck source=${0}
+
+snippet shellcheck-path "shellcheck source-path=" b
+  # shellcheck source-path=SCRIPTDIR
 
 snippet SCRIPT_DIR "[shell] Add SCRIPT_DIR variable" b
   SCRIPT_DIR="$(cd -P -- "$(dirname -- "\$0")" && pwd -P)"
@@ -61,34 +65,7 @@ snippet sh-vars "[shell] Add magic shell variables" b
   readonly ARGS="$@"
   readonly ARG1="\${1:-}"
 
-snippet xtrace "Add xtrace snippets" b
-  if [[ -n "${XTRACE:-}" ]]; then
-    case ${XTRACE:-2} in
-      1 )
-        PS4='+[${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
-        ;;
-      2 )
-        PS4='+[$(basename ${BASH_SOURCE[0]}):${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
-        ;;
-      3 )
-        PS4='+[${BASH_SOURCE[0]}:${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
-        ;;
-      * )
-        echo "Invalid PS4_LEVEL: \$1" >&2
-        return 3
-        ;;
-    esac
-
-    set -o xtrace
-  fi
-
-snippet xtrace_1 "Add xtrace short snippet" b
-  if [[ -n "${XTRACE:-}" ]]; then
-    PS4='+[${LINENO}|${FUNCNAME[0]:+${FUNCNAME[0]}}()|$?${XTRACE_PIPE:+|${PIPESTATUS[*]}}]: '
-    set -o xtrace
-  fi
-
-snippet bash "Add bash shabang and set variables" b
+snippet bash "Add bash shabang and set options" b
   #!/usr/bin/env bash
 
   set -o errexit
@@ -97,6 +74,12 @@ snippet bash "Add bash shabang and set variables" b
   set -o errtrace
   (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
+snippet bash-opts "Add bash options" b
+  set -o errexit
+  set -o nounset
+  set -o pipefail
+  set -o errtrace
+  (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 snippet bash_program "Add bash program template" b
   #!/usr/bin/env bash
@@ -186,3 +169,47 @@ snippet bash_program "Add bash program template" b
   }
 
   $2 "\$@"
+
+snippet l.parse_params "[lobash] parse_params" b
+  declare -A opts=()
+  declare -a args=()
+  l.parse_params opts args "$@"
+  $0
+
+snippet one:usage "one.bash:usage (3)" b
+  # one.bash:usage
+  if (( \$# == 0 )) || [[ \$1 == -h ]] || [[ \$1 == --help ]]; then
+    cat <<EOF
+  Usage: \$ONE_SUB \$(basename "\$0")
+  Desc: $0
+  Arguments:
+  Options:
+  EOF
+    exit 0
+  fi
+
+snippet one:usage2 "one.bash:usage (2)" b
+  # one.bash:usage
+  if [[ \${1:-} == -h ]] || [[ \${1:-} == --help ]]; then
+    cat <<EOF
+  Usage: \$ONE_SUB \$(basename "\$0")
+  Desc: $0
+  Arguments:
+  Options:
+  EOF
+    exit 0
+  fi
+
+snippet one:completion "one.bash:completion" b
+  # one.bash:completion
+  if [[ "\${1:-}" == --complete ]]; then
+    if (( COMP_CWORD < 3 )); then
+      result=\$(compgen -f -- "\$2")
+      if [[ -d \$result ]]; then
+        compgen -f -- "\$result/"
+      else
+        echo "\${result[@]}"
+      fi
+    fi
+    exit 0
+  fi

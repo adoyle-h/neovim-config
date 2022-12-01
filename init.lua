@@ -7,6 +7,11 @@ require('one').setup {
 
 		global = 'a',
 
+		translate = {
+			targetLang = 'zh-CN', -- 'en', 'zh-CN', 'zh-TW'. See the completion list when typing `:Translate `.
+			default = { command = 'translate_shell' },
+		},
+
 		-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
 
 		completion = {
