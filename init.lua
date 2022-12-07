@@ -5,14 +5,28 @@ require('one').setup {
 			github = 'https://ghproxy.com',
 		},
 
+		lsp = {
+			format = {
+				-- _ = { on_save = true },
+
+				lua = {
+					exclude = { -- exclude is a table of LSP servers that should not format the buffer.
+						'sumneko_lua',
+					},
+				},
+			},
+		},
+
+		-- theme = { use = false },
+
+		-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
+
 		global = 'a',
 
 		translate = {
 			targetLang = 'zh-CN', -- 'en', 'zh-CN', 'zh-TW'. See the completion list when typing `:Translate `.
 			default = { command = 'translate_shell' },
 		},
-
-		-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
 
 		completion = {
 			experimental = {
