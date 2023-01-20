@@ -16,6 +16,15 @@ return function()
 			codeActions.eslint_d,
 			codeActions.shellcheck,
 
+			-- Using `with` to change builtin configuration
+			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#configuration
+			diagnostics.editorconfig_checker.with {
+				generator_opts = {
+					command = 'editorconfig-checker', -- Fix: https://github.com/mason-org/mason-registry/issues/331
+				},
+				disabled_filetypes = { 'gitcommit' },
+			},
+
 			diagnostics.eslint_d,
 			-- diagnostics.shellcheck, -- It is duplicated with bashls
 

@@ -5,6 +5,8 @@ require('one').setup {
 			github = 'https://ghproxy.com',
 		},
 
+		-- headlines = { markdown = { quote_string = false } },
+
 		lsp = {
 			format = {
 				-- _ = { on_save = true },
