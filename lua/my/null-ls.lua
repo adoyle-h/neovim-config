@@ -19,9 +19,9 @@ return function()
 			-- Using `with` to change builtin configuration
 			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#configuration
 			diagnostics.editorconfig_checker.with {
-				generator_opts = {
-					command = 'editorconfig-checker', -- Fix: https://github.com/mason-org/mason-registry/issues/331
-				},
+				-- Fix: https://github.com/editorconfig-checker/editorconfig-checker/issues/232
+				-- and  https://github.com/williamboman/mason.nvim/issues/870
+				command = 'editorconfig-checker', -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/ef3d4a438f96865e3ae018e33ed30156a955ed00/doc/BUILTIN_CONFIG.md#using-local-executables
 				disabled_filetypes = { 'gitcommit' },
 			},
 
