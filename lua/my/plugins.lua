@@ -35,6 +35,38 @@ return function(load, config)
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
 		{ 'treesitter', disable = false },
 
+		{
+			'Vonr/align.nvim',
+			keymaps = {
+				{
+					'x',
+					'aa',
+					function()
+						require'align'.align_to_string(false, true, true)
+					end,
+					{ desc = 'Aligns to a string (to left) with previews', noremap = true, silent = true },
+				},
+
+				{
+					'x',
+					'as',
+					function()
+						require'align'.align_to_string(false, false, true)
+					end,
+					{ desc = 'Aligns to a string (to right) with previews', noremap = true, silent = true },
+				},
+
+				{
+					'x',
+					'ar',
+					function()
+						require'align'.align_to_string(true, true, true)
+					end,
+					{ desc = 'Aligns to a Lua pattern (to left) with previews', noremap = true, silent = true },
+				},
+			},
+		},
+
 		my,
 	}
 end
