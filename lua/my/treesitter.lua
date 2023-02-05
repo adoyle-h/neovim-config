@@ -12,7 +12,7 @@ return {
 		'latex', 'llvm', 'lua', 'make', 'markdown', 'markdown_inline', 'perl', 'pioasm', 'proto',
 		'python', 'racket', 'regex', 'rst', 'rust', 'scheme', 'scss', 'solidity', 'sparql', 'sql',
 		'svelte', 'swift', 'teal', 'toml', 'tsx', 'twig', 'typescript', 'verilog', 'vim', 'vue',
-		'wgsl', 'yaml',
+		'wgsl', 'yaml', 'zig',
 		-- LuaFormatter on
 	},
 
@@ -23,7 +23,7 @@ return {
 		'lalrpop', 'ledger', 'm68k', 'menhir', 'meson', 'nickel', 'ninja', 'nix', 'ocaml',
 		'ocaml_interface', 'ocamllex', 'pascal', 'php', 'phpdoc', 'prisma', 'pug', 'ql', 'qmljs',
 		'r', 'rasi', 'rego', 'rnoweb', 'ruby', 'slint', 'supercollider', 'surface', 'sxhkdrc',
-		'tiger', 'tlaplus', 'todotxt', 'turtle', 'v', 'vala', 'yang', 'zig'
+		'tiger', 'tlaplus', 'todotxt', 'turtle', 'v', 'vala', 'yang',
 		-- LuaFormatter on
 	},
 }

@@ -44,6 +44,7 @@ return function()
 
 			-- formatting.shfmt, -- not good
 			formatting.lua_format,
+			formatting.zigfmt,
 		},
 	}
 end
