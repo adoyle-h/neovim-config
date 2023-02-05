@@ -200,6 +200,41 @@ snippet one:usage2 "one.bash:usage (2)" b
     exit 0
   fi
 
+snippet one:usage3 "one.bash:usage with actions" b
+  usage() {
+    local cmd; cmd=\$(basename "\$0");
+    cat <<EOF
+  Usage:  one \$cmd <ACTION> [--help]
+          one \$cmd [-h|--help]
+          one \$cmd <-h|--help> <ACTION>
+
+  Desc:   description
+
+  ACTION:
+    action          description
+  EOF
+    exit 0
+  }
+
+  usage_action() {
+    local cmd; cmd=\$(basename "\$0");
+    cat <<EOF
+  Usage: one \$cmd action
+  Desc:  description
+  EOF
+    exit 0
+  }
+  usage_a() { usage_action; }
+
+  # one.bash:usage
+  if (( \$# == 0 )) then
+    usage;
+  elif [[ \$1 == -h ]] || [[ \$1 == --help ]]; then
+    if (( \$# > 1 )); then "usage_\$2"; else usage; fi
+  elif [[ \${*: -1} == --help ]] ; then
+    if (( \$# > 1 )); then "usage_\$1"; else usage; fi
+  fi
+
 snippet one:completion "one.bash:completion" b
   # one.bash:completion
   if [[ "\${1:-}" == --complete ]]; then
