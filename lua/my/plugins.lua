@@ -1,16 +1,10 @@
 local my = {}
 
-my.highlights = function(config)
-	local c = config.colors
-	return { CmpGhostText = { fg = c.grey4, bg = c.darkBlue } }
-end
+my.highlights = require('my.highlights')
 
-my.filetypes = {
-	markdown = function()
-		vim.keymap.set('n', 'gh', ':Telescope heading<cr>',
-			{ silent = true, desc = 'Jump to heading', buffer = true })
-	end,
-}
+my.filetypes = require('my.filetypes')
+
+my.commands = require('my.commands')
 
 ---@diagnostic disable-next-line: unused-local
 return function(load, config)
