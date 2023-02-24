@@ -21,7 +21,7 @@ require('one').setup {
 
 		-- theme = { use = false },
 
-		-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer'
+		pluginManager = { use = 'lazy' }, -- 'vim-plug' or 'packer' or 'lazy'
 
 		global = 'a',
 
