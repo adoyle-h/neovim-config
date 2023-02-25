@@ -19,9 +19,11 @@ require('one').setup {
 			},
 		},
 
-		-- theme = { use = false },
+		-- theme = { use = 'tokyonight' },
+		-- theme = { use = 'catppuccin' },
+		-- theme = { use = 'nightfox' },
 
-		pluginManager = { use = 'lazy' }, -- 'vim-plug' or 'packer' or 'lazy'
+		-- pluginManager = { use = 'vim-plug' }, -- 'vim-plug' or 'packer' or 'lazy'
 
 		global = 'a',
 

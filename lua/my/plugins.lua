@@ -28,6 +28,7 @@ return function(load, config)
 		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
 		{ 'treesitter', disable = false },
+		{ 'iamcco/markdown-preview.nvim', disable = false },
 
 		{
 			'Vonr/align.nvim',
