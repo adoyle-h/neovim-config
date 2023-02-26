@@ -9,7 +9,7 @@ my.commands = require('my.commands')
 ---@diagnostic disable-next-line: unused-local
 return function(load, config)
 	return {
-		load('profiling'),
+		-- load('profiling'),
 		load('zk'),
 		load('node'),
 		load('curl'),
@@ -37,7 +37,7 @@ return function(load, config)
 					'x',
 					'aa',
 					function()
-						require'align'.align_to_string(false, true, true)
+						require('align').align_to_string(false, true, true)
 					end,
 					{ desc = 'Aligns to a string (to left) with previews', noremap = true, silent = true },
 				},
@@ -46,7 +46,7 @@ return function(load, config)
 					'x',
 					'as',
 					function()
-						require'align'.align_to_string(false, false, true)
+						require('align').align_to_string(false, false, true)
 					end,
 					{ desc = 'Aligns to a string (to right) with previews', noremap = true, silent = true },
 				},
@@ -55,7 +55,7 @@ return function(load, config)
 					'x',
 					'ar',
 					function()
-						require'align'.align_to_string(true, true, true)
+						require('align').align_to_string(true, true, true)
 					end,
 					{ desc = 'Aligns to a Lua pattern (to left) with previews', noremap = true, silent = true },
 				},
