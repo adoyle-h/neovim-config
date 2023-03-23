@@ -18,14 +18,12 @@ return function(load, config)
 		load('todo'),
 		load('zen'),
 		load('mark'),
-		load('bookmark'),
 		load('funny', { disable = true }),
-		load('noice', { disable = true }),
+		{ 'noice', disable = false },
 
 		-- for debug these plugins
-		{ 'karb94/neoscroll.nvim', disable = false },
 		{ 'onedarkpro', disable = false },
-		{ 'nvim-treesitter/nvim-treesitter-context', disable = true },
+		{ 'nvim-treesitter/nvim-treesitter-context', disable = false },
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
 		{ 'treesitter', disable = false },
 		{ 'iamcco/markdown-preview.nvim', disable = false },
