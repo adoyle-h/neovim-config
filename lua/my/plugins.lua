@@ -23,7 +23,6 @@ return function(load, config)
 
 		-- for debug these plugins
 		{ 'onedarkpro', disable = false },
-		{ 'nvim-treesitter/nvim-treesitter-context', disable = false },
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
 		{ 'treesitter', disable = false },
 		{ 'iamcco/markdown-preview.nvim', disable = false },
