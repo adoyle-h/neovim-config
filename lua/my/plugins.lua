@@ -17,9 +17,8 @@ return function(load, config)
 		load('calendar'),
 		load('todo'),
 		load('zen'),
-		load('mark'),
 		load('funny', { disable = true }),
-		{ 'noice', disable = false },
+		{ 'noice', disable = true },
 
 		-- for debug these plugins
 		{ 'onedarkpro', disable = false },
