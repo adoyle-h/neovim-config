@@ -6,7 +6,7 @@ return {
 		-- LuaFormatter off
 		'bash', 'beancount', 'bibtex', 'blueprint', 'c', 'clojure', 'cmake', 'comment', 'commonlisp',
 		'cpp', 'css', 'cuda', 'dart', 'diff', 'dockerfile', 'dot', 'eex', 'elixir', 'elm', 'elvish',
-		'erlang', 'fennel', 'fish', 'git_rebase', 'gitattributes', 'gitignore', 'glsl', 'go',
+		'embedded_template', 'erlang', 'fennel', 'fish', 'git_rebase', 'gitattributes', 'gitignore', 'glsl', 'go',
 		'godot_resource', 'gomod', 'gowork', 'graphql', 'glimmer', 'haskell', 'hcl', 'help', 'hjson', 'hlsl',
 		'html', 'http', 'java', 'javascript', 'jsdoc', 'json', 'json5', 'jsonnet', 'julia', 'kotlin',
 		'latex', 'llvm', 'lua', 'make', 'markdown', 'markdown_inline', 'perl', 'pioasm', 'proto',
@@ -18,7 +18,7 @@ return {
 
 	ignore_install = { -- List of parsers to ignore installing (for "all")
 		-- LuaFormatter off
-		'agda', 'astro', 'c_sharp', 'cooklang', 'd', 'devicetree', 'embedded_template', 'jsonc',
+		'agda', 'astro', 'c_sharp', 'cooklang', 'd', 'devicetree', 'jsonc',
 		'foam', 'fortran', 'fusion', 'gdscript', 'gleam', 'hack', 'heex', 'hocon',
 		'lalrpop', 'ledger', 'm68k', 'menhir', 'meson', 'nickel', 'ninja', 'nix', 'ocaml',
 		'ocaml_interface', 'ocamllex', 'pascal', 'php', 'phpdoc', 'prisma', 'pug', 'ql', 'qmljs',

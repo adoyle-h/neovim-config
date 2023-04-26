@@ -1,24 +1,24 @@
-local my = {}
-
-my.highlights = require('my.highlights')
-
-my.filetypes = require('my.filetypes')
-
-my.commands = require('my.commands')
-
 ---@diagnostic disable-next-line: unused-local
 return function(load, config)
 	return {
+		{
+			highlights = require('my.highlights'),
+			filetypes = require('my.filetypes'),
+			commands = require('my.commands'),
+		},
+
 		-- load('profiling'),
-		load('zk'),
+		-- load('zk'),
 		load('node'),
 		load('curl'),
 		load('latex'),
 		load('calendar'),
 		load('todo'),
 		load('zen'),
+		-- load('codeium'),
+		-- { 'cmp-codeium', disable = false },
 		load('funny', { disable = true }),
-		{ 'noice', disable = true },
+		-- { 'noice', disable = false },
 
 		-- for debug these plugins
 		{ 'onedarkpro', disable = false },
@@ -57,7 +57,5 @@ return function(load, config)
 				},
 			},
 		},
-
-		my,
 	}
 end
