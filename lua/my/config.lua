@@ -6,6 +6,8 @@ M.config = {
 		github = 'https://ghproxy.com',
 	},
 
+	-- colors = require('one.colors.srgb'),
+
 	-- headlines = { markdown = { quote_string = false } },
 
 	vim = {

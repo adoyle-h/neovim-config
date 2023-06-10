@@ -68,17 +68,11 @@ snippet sh-vars "[shell] Add magic shell variables" b
 snippet bash "Add bash shabang and set options" b
   #!/usr/bin/env bash
 
-  set -o errexit
-  set -o nounset
-  set -o pipefail
-  set -o errtrace
+  set -o errexit -o nounset -o pipefail -o errtrace
   (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 snippet bash-opts "Add bash options" b
-  set -o errexit
-  set -o nounset
-  set -o pipefail
-  set -o errtrace
+  set -o errexit -o nounset -o pipefail -o errtrace
   (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
 snippet bash_program "Add bash program template" b
@@ -95,10 +89,7 @@ snippet bash_program "Add bash program template" b
   # Source:
   # Project:
 
-  set -o errexit
-  set -o nounset
-  set -o pipefail
-  set -o errtrace
+  set -o errexit -o nounset -o pipefail -o errtrace
   (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
 
   #######################################################################

@@ -5,6 +5,8 @@ return function(load, config)
 			highlights = require('my.highlights'),
 			filetypes = require('my.filetypes'),
 			commands = require('my.commands'),
+			telescopes = require('my.telescopes'),
+			autocmds = require('my.autocmds'),
 		},
 
 		-- load('profiling'),
