@@ -1,4 +1,5 @@
+/init.lua
 .DS_Store
 .netrwhist
 lazy-lock.json
-!**/*/.gitkeep
+!**/.gitkeep

@@ -63,3 +63,6 @@ require('one').setup {
 	-- If set non-empty table, only these plugins are not disabled.
 	-- onlyPlugins = { 'one', 'pl', 'alpha', 'adoyle-h/alpha-nvim', 'session', 'olimorris/persisted.nvim' },
 }
+
+vim.api.nvim_set_hl(0, 'StatusLine', { bg = '#282867' })
+vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#232323' })

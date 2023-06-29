@@ -7,6 +7,9 @@ Not accept any PR.
 ## Usages
 
 - `nvim` use the `init.lua` config.
+  - `ln -s ./full.lua init.lua` for full features.
+  - `ln -s ./lite.lua init.lua` for offline environment.
+  - `ln -s ./reproduce.lua init.lua` for minimal reproduce issue.
 - `nvim -u packer.lua` use the `packer.lua` config.
 
 ## Copyright and License
