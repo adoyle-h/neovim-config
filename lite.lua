@@ -23,26 +23,32 @@ require('one').setup {
 	---@diagnostic disable-next-line: unused-local
 	configFn = require('my.config').configFn,
 
-	onlyPlugins = {
-		'vim',
-		'one',
-		'colors',
-		'general.keymap',
-		'general.commands',
-		'filetype',
+	onlyPlugins = { 'vim', 'one', 'colors', 'general.keymap', 'general.commands', 'filetype' },
+
+	-- Add your plugins or override plugin default options.
+	plugins = {
 
 		{
-			'prichrd/netrw.nvim',
+			disable = false,
 			config = function()
-				require'netrw'.setup {
-					-- Put your configuration here, or leave the object empty to take the default
-					-- configuration.
+				require('netrw').setup {
+					-- Put your configuration here, or leave the object empty to take the default configuration.
 					icons = {
 						symlink = '→', -- Symlink icon (directory and file)
 						directory = '', -- Directory icon
 						file = '', -- File icon
+						['.gitattributes'] = { icon = '', color = '#FA4F28', name = 'GitAttributes' },
+						['.gitconfig'] = { icon = '', color = '#FA4F28', name = 'GitConfig' },
+						['.gitignore'] = { icon = '', color = '#FA4F28', name = 'GitIgnore' },
+						['.gitlab-ci.yml'] = { icon = '', color = '#FC6D26', name = 'GitlabCI' },
+						['.gitmodules'] = { icon = '', color = '#FA4F28', name = 'GitModules' },
+						['.lua-format'] = { icon = '', color = '#28A2D4', name = 'LuaFormatter' },
+						['.editorconfig'] = { icon = '', color = '#BEC0C4', name = 'EditorConfig' },
+						['.eslintrc.yml'] = { icon = '', color = '#8080F2', name = 'EslintRC' },
+						['.prettierignore'] = { icon = '', color = '#C794C8', name = 'PrettierIgnore' },
+						['svg'] = { icon = '', color = '#BEC0C4', name = 'Svg' },
 					},
-					use_devicons = true, -- Uses nvim-web-devicons if true, otherwise use the file icon specified above
+					use_devicons = false, -- Uses nvim-web-devicons if true, otherwise use the file icon specified above
 					mappings = {}, -- Custom key mappings
 				}
 			end,
@@ -50,6 +56,7 @@ require('one').setup {
 		},
 
 		{
+			disable = false,
 			highlights = require('my.highlights'),
 			filetypes = require('my.filetypes'),
 			commands = require('my.commands'),
@@ -70,10 +77,8 @@ require('one').setup {
 				{ 'i', 'jk', '<Esc>', { noremap = true, silent = true, desc = 'Exit from input mode' } },
 			},
 		},
-	},
 
-	-- Add your plugins or override plugin default options.
-	plugins = {},
+	},
 
 	-- @param [opts.onlyPlugins] {string[]|nil}
 	-- It's useful for debug. Defaults to nil.
