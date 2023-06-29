@@ -29,6 +29,13 @@ return function(load, config)
 		{ 'iamcco/markdown-preview.nvim', disable = false },
 
 		{
+			'xiyaowong/telescope-emoji.nvim',
+			config = function()
+				require('telescope').load_extension('emoji')
+			end,
+		},
+
+		{
 			'Vonr/align.nvim',
 			keymaps = {
 				{

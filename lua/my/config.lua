@@ -6,6 +6,8 @@ M.config = {
 		github = 'https://ghproxy.com',
 	},
 
+	-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer' or 'lazy' or 'local'
+
 	-- colors = require('one.colors.srgb'),
 
 	-- headlines = { markdown = { quote_string = false } },
