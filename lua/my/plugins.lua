@@ -17,6 +17,7 @@ return function(load, config)
 		load('calendar'),
 		load('todo'),
 		load('zen'),
+		load('hex'),
 		-- load('codeium'),
 		-- { 'cmp-codeium', disable = false },
 		load('funny', { disable = true }),
