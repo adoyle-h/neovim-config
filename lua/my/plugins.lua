@@ -23,10 +23,12 @@ return function(load, config)
 		load('funny', { disable = true }),
 		-- { 'noice', disable = false },
 
+		-- { 'adoyle-h/one.nvim', branch = 'master' },
+
 		-- for debug these plugins
-		{ 'onedarkpro', disable = false },
-		{ 'dmitmel/cmp-cmdline-history', disable = true },
-		{ 'treesitter', disable = false },
+		{ 'onedarkpro',                   disable = false },
+		{ 'dmitmel/cmp-cmdline-history',  disable = true },
+		{ 'treesitter',                   disable = false },
 		{ 'iamcco/markdown-preview.nvim', disable = false },
 
 		{
@@ -38,12 +40,13 @@ return function(load, config)
 
 		{
 			'Vonr/align.nvim',
+			branch = 'v2',
 			keymaps = {
 				{
 					'x',
 					'aa',
 					function()
-						require('align').align_to_string(false, true, true)
+						require('align').align_to_string({ preview = true, regex = false })
 					end,
 					{ desc = 'Aligns to a string (to left) with previews', noremap = true, silent = true },
 				},
@@ -52,7 +55,7 @@ return function(load, config)
 					'x',
 					'as',
 					function()
-						require('align').align_to_string(false, false, true)
+						require('align').align_to_string({ preview = true, regex = false, reverse = true })
 					end,
 					{ desc = 'Aligns to a string (to right) with previews', noremap = true, silent = true },
 				},
@@ -61,7 +64,7 @@ return function(load, config)
 					'x',
 					'ar',
 					function()
-						require('align').align_to_string(true, true, true)
+						require('align').align_to_string({ preview = true, regex = true, reverse = true })
 					end,
 					{ desc = 'Aligns to a Lua pattern (to left) with previews', noremap = true, silent = true },
 				},

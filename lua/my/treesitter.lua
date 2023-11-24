@@ -7,7 +7,7 @@ return {
 		'bash', 'beancount', 'bibtex', 'blueprint', 'c', 'clojure', 'cmake', 'comment', 'commonlisp',
 		'cpp', 'css', 'cuda', 'dart', 'diff', 'dockerfile', 'dot', 'eex', 'elixir', 'elm', 'elvish',
 		'embedded_template', 'erlang', 'fennel', 'fish', 'git_rebase', 'gitattributes', 'gitignore', 'glsl', 'go',
-		'godot_resource', 'gomod', 'gowork', 'graphql', 'glimmer', 'haskell', 'hcl', 'help', 'hjson', 'hlsl',
+		'godot_resource', 'gomod', 'gowork', 'graphql', 'glimmer', 'haskell', 'hcl', 'vimdoc', 'hjson', 'hlsl',
 		'html', 'http', 'java', 'javascript', 'jsdoc', 'json', 'json5', 'jsonnet', 'julia', 'kotlin',
 		'latex', 'llvm', 'lua', 'make', 'markdown', 'markdown_inline', 'perl', 'pioasm', 'proto',
 		'python', 'racket', 'regex', 'rst', 'rust', 'scheme', 'scss', 'solidity', 'sparql', 'sql',
