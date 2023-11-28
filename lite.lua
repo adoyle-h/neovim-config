@@ -1,7 +1,5 @@
 require('one').setup {
 	config = {
-		impatient = { enable = false },
-
 		-- headlines = { markdown = { quote_string = false } },
 
 		vim = {
@@ -36,7 +34,7 @@ require('one').setup {
 					icons = {
 						symlink = '→', -- Symlink icon (directory and file)
 						directory = '', -- Directory icon
-						file = '', -- File icon
+						file = '󰈙', -- File icon
 						['.gitattributes'] = { icon = '', color = '#FA4F28', name = 'GitAttributes' },
 						['.gitconfig'] = { icon = '', color = '#FA4F28', name = 'GitConfig' },
 						['.gitignore'] = { icon = '', color = '#FA4F28', name = 'GitIgnore' },
