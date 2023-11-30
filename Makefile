@@ -6,8 +6,6 @@ init-full: $(PACK_DIR) $(PACK_DIR)/one.nvim
 
 .PHONY: init-lite
 init-lite: $(PACK_DIR) $(PACK_DIR)/one.nvim
-	@[[ ! -d "$(PACK_DIR)"/netrw.nvim ]] && git clone https://github.com/prichrd/netrw.nvim.git "$(PACK_DIR)"/netrw.nvim || true
-	@[[ ! -d "$(PACK_DIR)"/Penlight ]] && git clone https://github.com/lunarmodules/Penlight.git "$(PACK_DIR)"/Penlight || true
 	ln -fs ./lite.lua init.lua
 
 $(PACK_DIR):
