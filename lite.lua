@@ -27,7 +27,7 @@ require('one').setup {
 		{
 			id = '1',
 			highlights = require('my.highlights'),
-			filetypes = require('my.filetypes'),
+			filetypes = require('my.filetypes').callbacks,
 			commands = require('my.commands'),
 			telescopes = require('my.telescopes'),
 			autocmds = require('my.autocmds'),
@@ -50,7 +50,7 @@ require('one').setup {
 		{
 			id = '2',
 			highlights = { --
-				StatusLine = { fg= '#7B85D6', bg = '#282867' },
+				StatusLine = { fg = '#7B85D6', bg = '#282867' },
 				StatusLineNC = { bg = '#232323' },
 			},
 			keymaps = { { '', '<Space>m', ':Lexplore<CR>', { silent = true } } },

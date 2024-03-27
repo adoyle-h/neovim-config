@@ -72,6 +72,7 @@ M.configFn = function()
 		treesitter = require('my.treesitter'),
 		nullLS = require('my.null-ls')(),
 		['mason-installer'] = require('my.mason'),
+		filetype = require('my.filetypes').ft,
 	}
 end
 

@@ -3,7 +3,7 @@ return function(load, config)
 	return {
 		{
 			highlights = require('my.highlights'),
-			filetypes = require('my.filetypes'),
+			filetypes = require('my.filetypes').callbacks,
 			commands = require('my.commands'),
 			telescopes = require('my.telescopes'),
 			autocmds = require('my.autocmds'),
@@ -12,7 +12,7 @@ return function(load, config)
 		-- load('profiling'),
 		-- load('zk'),
 		load('node'),
-		load('curl'),
+		-- load('curl'),
 		load('latex'),
 		load('calendar'),
 		load('todo'),
@@ -26,9 +26,9 @@ return function(load, config)
 		-- { 'adoyle-h/one.nvim', branch = 'master' },
 
 		-- for debug these plugins
-		{ 'onedarkpro',                   disable = false },
-		{ 'dmitmel/cmp-cmdline-history',  disable = true },
-		{ 'treesitter',                   disable = false },
+		{ 'onedarkpro', disable = false },
+		{ 'dmitmel/cmp-cmdline-history', disable = true },
+		{ 'treesitter', disable = false },
 		{ 'iamcco/markdown-preview.nvim', disable = false },
 
 		{
