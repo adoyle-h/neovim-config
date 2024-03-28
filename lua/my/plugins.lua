@@ -29,7 +29,6 @@ return function(load, config)
 		{ 'onedarkpro', disable = false },
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
 		{ 'treesitter', disable = false },
-		{ 'iamcco/markdown-preview.nvim', disable = false },
 
 		{
 			'xiyaowong/telescope-emoji.nvim',
