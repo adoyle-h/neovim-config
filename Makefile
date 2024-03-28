@@ -8,6 +8,10 @@ init-full: $(PACK_DIR) $(PACK_DIR)/one.nvim
 init-lite: $(PACK_DIR) $(PACK_DIR)/one.nvim
 	ln -fs ./lite.lua init.lua
 
+.PHONY: init-reproduce
+init-lite: $(PACK_DIR) $(PACK_DIR)/one.nvim
+	ln -fs ./reproduce.lua init.lua
+
 $(PACK_DIR):
 	@mkdir -p "$(PACK_DIR)"
 
