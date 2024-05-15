@@ -21,7 +21,8 @@ return function(load, config)
 		-- load('codeium'),
 		-- { 'cmp-codeium', disable = false },
 		load('funny', { disable = true }),
-		-- { 'noice', disable = false },
+		{ 'noice', disable = false },
+		{ 'session', disable = false },
 
 		-- { 'adoyle-h/one.nvim', branch = 'master' },
 

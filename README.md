@@ -11,7 +11,7 @@ Not accept any PR.
 3. Choose one:
   - `make init-full` `init.lua` config for full features.
   - `make init-lite` for offline environment.
-  - `make init-reproduce` for minimal reproduce issue.
+  - `make init-repro` for minimal reproduce issue.
 
 ## Copyright and License
 

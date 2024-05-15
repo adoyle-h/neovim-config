@@ -19,6 +19,8 @@ M.config = {
 	},
 
 	lsp = {
+		-- log = { level = 'debug' },
+
 		format = {
 			-- _ = { on_save = true },
 
@@ -30,6 +32,7 @@ M.config = {
 		},
 
 		setup = {
+			-- clangd = { cmd = { 'clangd', '--enable-config', '--log=verbose' } },
 			gopls = {
 				settings = {
 					gopls = {
