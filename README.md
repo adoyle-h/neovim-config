@@ -9,7 +9,7 @@ Not accept any PR.
 1. `git clone https://github.com/adoyle-h/neovim-config.git`
 2. `cd neovim-config`
 3. Choose one:
-  - `make init-full` `init.lua` config for full features.
+  - `make init-full` for full features.
   - `make init-lite` for offline environment.
   - `make init-repro` for minimal reproduce issue.
 

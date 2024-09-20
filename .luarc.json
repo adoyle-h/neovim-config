@@ -9,5 +9,6 @@
     "describe",
     "before_each",
     "after_each"
-  ]
+  ],
+    "workspace.checkThirdParty": false
 }
