@@ -1,15 +1,17 @@
-return function()
-	local has_null, nullLS = pcall(require, 'null-ls')
-	if not has_null then return {} end
-	-- local has_noneLS, noneLS = pcall(require, 'none-ls')
-	-- if not has_noneLS then return {} end
+local M = {}
+
+M.config = function()
+	local has_nullLS, nullLS = pcall(require, 'null-ls')
+	if not has_nullLS then return {} end
+
+	-- none-ls: https://github.com/nvimtools/none-ls-extras.nvim
+	local has_noneLS, noneLS = pcall(require, 'none-ls')
+	if not has_noneLS then return {} end
 
 	local builtins = nullLS.builtins
 	local codeActions = builtins.code_actions
 	local diagnostics = builtins.diagnostics
 	local formatting = builtins.formatting
-	-- local codeActions = noneLS.code_actions
-	-- local diagnostics = noneLS.diagnostics
 
 	return {
 		-- Available null-ls sources list
@@ -22,25 +24,24 @@ return function()
 			-- See https://github.com/mantoni/eslint_d.js#what-if-eslint-or-a-plugin-is-updated
 			-- The eslint_d filepath is ~/.local/share/nvim/mason/bin/eslint_d
 
-			codeActions.eslint_d.with {
+			noneLS.codeActions.eslint_d.with {
 				prefer_local = 'node_modules/.bin',
 			},
 
 			-- require('none-ls.diagnostics.eslint_d'),
-			diagnostics.eslint_d.with {
+			noneLS.diagnostics.eslint_d.with {
 				prefer_local = 'node_modules/.bin',
 			},
 
 			-- Formatters run in the order in which you register them.
 			-- require('none-ls.formatting.eslint_d').with {
-			formatting.eslint_d.with {
+			noneLS.formatting.eslint_d.with {
 				prefer_local = 'node_modules/.bin',
 			},
 
 			-- https://github.com/gbprod/none-ls-shellcheck.nvim
-			-- require('none-ls-shellcheck.code_actions'),
-			codeActions.shellcheck,
-			-- require("none-ls-shellcheck.diagnostics"), -- It is duplicated with bashls, so no need to use it
+			require('none-ls-shellcheck.code_actions'),
+			-- require('none-ls-shellcheck.diagnostics'), -- It is duplicated with bashls, so no need to use it
 
 			-- Using `with` to change builtin configuration
 			-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#configuration
@@ -53,3 +54,9 @@ return function()
 		},
 	}
 end
+
+M.plugins = {
+	deps = { 'gbprod/none-ls-shellcheck.nvim' },
+}
+
+return M

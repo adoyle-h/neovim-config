@@ -9,6 +9,8 @@ return function(load, config)
 			autocmds = require('my.autocmds'),
 		},
 
+		require('my.null-ls').plugins,
+
 		-- load('profiling'),
 		-- load('zk'),
 		load('node'),

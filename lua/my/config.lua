@@ -73,7 +73,7 @@ M.configFn = function()
 	-- This user config will override default config. Below config is an example just for my personal usage.
 	return {
 		treesitter = require('my.treesitter'),
-		nullLS = require('my.null-ls')(),
+		nullLS = require('my.null-ls').config(),
 		['mason-installer'] = require('my.mason'),
 		filetype = require('my.filetypes').ft,
 	}
