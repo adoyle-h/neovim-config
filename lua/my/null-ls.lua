@@ -19,6 +19,8 @@ M.config = function()
 		-- How to config null-ls sources:
 		-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
 		sources = {
+			builtins.completion.spell,
+
 			-- eslint_d is a daemon so that it will cache eslint and eslint-plugins.
 			-- You may need to run "eslint_d restart" or kill eslint_d process to update cache while in trouble.
 			-- See https://github.com/mantoni/eslint_d.js#what-if-eslint-or-a-plugin-is-updated

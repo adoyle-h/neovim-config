@@ -1,5 +1,7 @@
 local M = {}
 
+-- This user config will override default config. Below config is an example just for my personal usage.
+
 M.config = {
 	proxy = {
 		-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com'. Otherwise, remove this option.
@@ -70,10 +72,10 @@ M.config = {
 }
 
 M.configFn = function()
-	-- This user config will override default config. Below config is an example just for my personal usage.
 	return {
 		treesitter = require('my.treesitter'),
-		nullLS = require('my.null-ls').config(),
+		noneLS = require('my.null-ls').config(),
+		statusline = require('my.lualine').config(),
 		['mason-installer'] = require('my.mason'),
 		filetype = require('my.filetypes').ft,
 	}
