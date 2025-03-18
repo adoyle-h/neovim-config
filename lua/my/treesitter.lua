@@ -8,7 +8,7 @@ return {
 		'cpp', 'css', 'cuda', 'dart', 'diff', 'dockerfile', 'dot', 'eex', 'elixir', 'elm', 'elvish',
 		'embedded_template', 'erlang', 'fennel', 'fish', 'git_rebase', 'gitattributes', 'gitignore', 'glsl', 'go',
 		'godot_resource', 'gomod', 'gowork', 'graphql', 'glimmer', 'haskell', 'hcl', 'vimdoc', 'hjson', 'hlsl',
-		'html', 'http', 'java', 'javascript', 'jsdoc', 'json', 'json5', 'jsonnet', 'julia', 'kotlin',
+		'html', 'http', 'java', 'javascript', 'just', 'jsdoc', 'json', 'json5', 'jsonnet', 'julia', 'kotlin',
 		'latex', 'llvm', 'lua', 'make', 'markdown', 'markdown_inline', 'perl', 'pioasm', 'proto',
 		'python', 'racket', 'regex', 'rust', 'scheme', 'scss', 'solidity', 'sparql', 'sql',
 		'svelte', 'swift', 'teal', 'toml', 'tsx', 'twig', 'typescript', 'verilog', 'vim', 'vue',

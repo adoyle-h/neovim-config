@@ -5,7 +5,7 @@ local M = {}
 M.config = {
 	proxy = {
 		-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com'. Otherwise, remove this option.
-		github = 'https://mirror.ghproxy.com',
+		github = 'https://gh-proxy.com',
 	},
 
 	-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer' or 'lazy' or 'local'
