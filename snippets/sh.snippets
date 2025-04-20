@@ -16,11 +16,11 @@ snippet shellcheck-path "shellcheck source-path=" b
   # shellcheck source-path=SCRIPTDIR
 
 snippet SCRIPT_DIR "[shell] Add SCRIPT_DIR variable" b
-  SCRIPT_DIR="$(realpath "\$0")"
+  SCRIPT_DIR="$(dirname "$(realpath "\$0")")"
   readonly SCRIPT_DIR
 
 snippet sh-vars "[shell] Add magic shell variables" b
-  SCRIPT_DIR="$(realpath "\$0")"
+  SCRIPT_DIR="$(dirname "$(realpath "\$0")")"
   SCRIPT_BASENAME="$(basename "\$0")"
   readonly SCRIPT_DIR SCRIPT_BASENAME
   readonly SCRIPT_PATH="${SCRIPT_DIR}/$SCRIPT_BASENAME"
