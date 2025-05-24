@@ -15,7 +15,7 @@ Not accept any PR.
 
 ## Copyright and License
 
-Copyright 2016-2024 ADoyle (adoyle.h@gmail.com) All Rights Reserved.
+Copyright 2016-2025 ADoyle (adoyle.h@gmail.com) All Rights Reserved.
 The project is licensed under the **BSD 3-clause License**.
 
 See the [LICENSE][] file for the specific language governing permissions and limitations under the License.

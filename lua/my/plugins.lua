@@ -32,6 +32,7 @@ return function(load, config)
 		{ 'onedarkpro', disable = false },
 		{ 'dmitmel/cmp-cmdline-history', disable = true },
 		{ 'treesitter', disable = false },
+		{ 'ai', disable = false },
 
 		{
 			'xiyaowong/telescope-emoji.nvim',

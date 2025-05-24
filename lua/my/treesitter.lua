@@ -4,7 +4,7 @@ return {
 	-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 	ensure_installed = { -- A list of parser names, or "all",
 		-- LuaFormatter off
-		'bash', 'beancount', 'bibtex', 'blueprint', 'c', 'clojure', 'cmake', 'comment', 'commonlisp',
+		'bash', 'beancount', 'bibtex', 'c', 'clojure', 'cmake', 'comment', 'commonlisp',
 		'cpp', 'css', 'cuda', 'dart', 'diff', 'dockerfile', 'dot', 'eex', 'elixir', 'elm', 'elvish',
 		'embedded_template', 'erlang', 'fennel', 'fish', 'git_rebase', 'gitattributes', 'gitignore', 'glsl', 'go',
 		'godot_resource', 'gomod', 'gowork', 'graphql', 'glimmer', 'haskell', 'hcl', 'vimdoc', 'hjson', 'hlsl',

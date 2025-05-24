@@ -69,9 +69,27 @@ M.config = {
 		-- 	-- { filter = { event = 'msg_show', kind = '', find = '^<' }, opts = { skip = true } },
 		-- },
 	},
+
+	avante = {
+		provider = 'openai',
+		openai = {
+			endpoint = 'https://api.vveai.com/v1',
+			model = 'gpt-4o-mini', -- your desired model (or use gpt-4o, etc.)
+			timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+			temperature = 0,
+			max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+			--reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+		},
+	},
 }
 
+function setEnvForAvante()
+	vim.fn.setenv('OPENAI_API_KEY', vim.fn.getenv('AVANTE_OPENAI_API_KEY'))
+end
+
 M.configFn = function()
+	setEnvForAvante()
+
 	return {
 		treesitter = require('my.treesitter'),
 		noneLS = require('my.null-ls').config(),

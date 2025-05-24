@@ -1,7 +1,7 @@
 return {
 	-- a list of all tools you want to ensure are installed upon start;
 	-- Package Index: https://github.com/williamboman/mason.nvim/blob/main/PACKAGES.md
-	ensureInstalled = {
+	ensure_installed = {
 		-- { 'golangci-lint', version = '1.47.0' }, -- you can pin a tool to a particular version
 		-- { 'bash-language-server', auto_update = true }, -- you can turn off/on auto_update per tool
 		'actionlint', -- github action
