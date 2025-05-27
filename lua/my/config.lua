@@ -81,6 +81,10 @@ M.config = {
 			--reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
 		},
 	},
+
+	smartcolumn = {
+		colorcolumn = { 81, 101 },
+	},
 }
 
 function setEnvForAvante()
