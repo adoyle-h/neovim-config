@@ -9,6 +9,8 @@ return function(load, config)
 			autocmds = require('my.autocmds'),
 		},
 
+		{ 'adoyle-h/one.nvim', branch = 'develop' },
+
 		require('my.null-ls').plugins,
 
 		-- load('profiling'),
