@@ -1,3 +1,5 @@
+vim.opt.rtp:prepend('~/.local/share/nvim/plugins/one.nvim')
+
 require('one').setup {
 	config = require('my.config').config,
 
