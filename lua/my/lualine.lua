@@ -30,6 +30,11 @@ local function my_sections(funcs)
 end
 
 M.config = function()
+	local ok = pcall(require, 'lualine')
+	if not ok then
+		return
+	end
+
 	local progress = require('lualine.components.progress')
 	return {
 		lualine = {

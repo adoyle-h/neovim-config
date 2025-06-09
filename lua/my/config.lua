@@ -72,13 +72,23 @@ M.config = {
 
 	avante = {
 		provider = 'openai',
-		openai = {
-			endpoint = 'https://api.vveai.com/v1',
-			model = 'gpt-4o-mini', -- your desired model (or use gpt-4o, etc.)
-			timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-			temperature = 0,
-			max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-			--reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+		providers = {
+			openai = {
+				endpoint = 'https://api.vveai.com/v1',
+				model = 'gpt-4o-mini', -- your desired model (or use gpt-4o, etc.)
+				extra_request_body = {
+					timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+					temperature = 0,
+					max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+					--reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+				},
+			},
+		},
+
+		-- https://github.com/yetone/avante.nvim#web-search-engines
+		web_search_engine = {
+			provider = 'brave', -- tavily, serpapi, searchapi, google, kagi, brave, or searxng
+			proxy = nil, -- proxy support, e.g., http://127.0.0.1:7890
 		},
 	},
 
@@ -87,8 +97,9 @@ M.config = {
 	},
 }
 
-function setEnvForAvante()
+local function setEnvForAvante()
 	vim.fn.setenv('OPENAI_API_KEY', vim.fn.getenv('AVANTE_OPENAI_API_KEY'))
+	vim.fn.setenv('BRAVE_API_KEY', vim.fn.getenv('AVANTE_BRAVE_API_KEY'))
 end
 
 M.configFn = function()
