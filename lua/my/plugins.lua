@@ -10,6 +10,7 @@ return function(load, config)
 		},
 
 		{ 'adoyle-h/one.nvim', branch = 'develop' },
+		{ 'yetone/avante.nvim', build = 'with-proxy build' },
 
 		require('my.null-ls').plugins,
 
