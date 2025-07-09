@@ -10,16 +10,15 @@ return function(load, config)
 		},
 
 		{ 'adoyle-h/one.nvim', branch = 'develop' },
-		{ 'yetone/avante.nvim', build = 'with-proxy build', disable = false },
 
 		require('my.null-ls').plugins,
+		require('my.ai').plugins,
 
 		-- load('profiling'),
 		-- load('zk'),
 		load('node'),
 		-- load('curl'),
 		load('latex'),
-		load('calendar'),
 		load('todo'),
 		load('zen'),
 		load('hex'),

@@ -70,32 +70,12 @@ M.config = {
 		-- },
 	},
 
-	avante = {
-		provider = 'openai',
-		providers = {
-			openai = {
-				endpoint = 'https://api.vveai.com/v1',
-				model = 'gpt-4o-mini', -- your desired model (or use gpt-4o, etc.)
-				extra_request_body = {
-					timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-					temperature = 0,
-					max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-					--reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
-				},
-			},
-		},
-
-		-- https://github.com/yetone/avante.nvim#web-search-engines
-		web_search_engine = {
-			provider = 'brave', -- tavily, serpapi, searchapi, google, kagi, brave, or searxng
-			proxy = nil, -- proxy support, e.g., http://127.0.0.1:7890
-		},
-	},
-
 	smartcolumn = {
 		colorcolumn = { 81, 101 },
 	},
 }
+
+M.config = vim.tbl_extend('force', M.config, require('my.ai').config)
 
 local function setEnvForAvante()
 	vim.fn.setenv('OPENAI_API_KEY', vim.fn.getenv('AVANTE_OPENAI_API_KEY'))
