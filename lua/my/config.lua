@@ -75,20 +75,20 @@ M.config = {
 	},
 }
 
-M.config = vim.tbl_extend('force', M.config, require('my.ai').config)
+M.config = vim.tbl_deep_extend('force', M.config, require('my.ai').config)
 
 local function setEnvForAvante()
 	vim.fn.setenv('OPENAI_API_KEY', vim.fn.getenv('AVANTE_OPENAI_API_KEY'))
 	vim.fn.setenv('BRAVE_API_KEY', vim.fn.getenv('AVANTE_BRAVE_API_KEY'))
 end
 
-M.configFn = function()
+M.configFn = function(config)
 	setEnvForAvante()
 
 	return {
 		treesitter = require('my.treesitter'),
-		noneLS = require('my.null-ls').config(),
-		statusline = require('my.lualine').config(),
+		noneLS = require('my.null-ls').config(config),
+		statusline = require('my.lualine').config(config),
 		['mason-installer'] = require('my.mason'),
 		filetype = require('my.filetypes').ft,
 	}

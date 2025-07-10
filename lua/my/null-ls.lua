@@ -1,6 +1,6 @@
 local M = {}
 
-M.config = function()
+M.config = function(config)
 	local has_nullLS, nullLS = pcall(require, 'null-ls')
 	if not has_nullLS then return {} end
 

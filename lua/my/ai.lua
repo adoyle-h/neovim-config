@@ -72,9 +72,29 @@ M.config = {
 				})
 			end,
 
-			ollama = function()
+			['gpt-4o-mini'] = function()
+				return require('codecompanion.adapters').extend('vapi', {
+					schema = {
+						model = {
+							default = 'gpt-4o-mini',
+						},
+					},
+				})
+			end,
+
+			['gpt-4o'] = function()
+				return require('codecompanion.adapters').extend('vapi', {
+					schema = {
+						model = {
+							default = 'gpt-4o',
+						},
+					},
+				})
+			end,
+
+			['mistral:7b'] = function()
 				return require('codecompanion.adapters').extend('ollama', {
-					name = 'ollama', -- Give this adapter a different name to differentiate it from the default ollama adapter
+					-- name = 'ollama', -- Give this adapter a different name to differentiate it from the default ollama adapter
 					schema = {
 						model = {
 							default = 'mistral:7b',
