@@ -11,7 +11,7 @@ return {
 		'html', 'http', 'java', 'javascript', 'just', 'jsdoc', 'json', 'json5', 'jsonnet', 'julia', 'kotlin',
 		'latex', 'llvm', 'lua', 'make', 'markdown', 'markdown_inline', 'perl', 'pioasm', 'proto',
 		'python', 'racket', 'regex', 'rust', 'scheme', 'scss', 'solidity', 'sparql', 'sql',
-		'svelte', 'swift', 'teal', 'toml', 'tsx', 'twig', 'typescript', 'verilog', 'vim', 'vue',
+		'svelte', 'swift', 'teal', 'toml', 'tsx', 'twig', 'typescript', 'typst', 'verilog', 'vim', 'vue',
 		'wgsl', 'yaml', 'zig',
 		-- LuaFormatter on
 	},
