@@ -1,0 +1,1 @@
+# cmd: [ 'clangd', '--enable-config', '--log=verbose' ]

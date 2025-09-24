@@ -1,0 +1,3 @@
+gopls:
+  env:
+    GOFLAGS: '-tags=linux,darwin,test,unittest' # I don't care windows

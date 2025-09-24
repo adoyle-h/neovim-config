@@ -4,8 +4,9 @@ local M = {}
 
 M.config = {
 	proxy = {
-		-- If you are in China Mainland, it is suggested to set 'https://ghproxy.com'. Otherwise, remove this option.
-		github = 'https://gh-proxy.com',
+		-- If you are in China Mainland, it is suggested to set github proxy. Otherwise, remove this option.
+		-- See https://ghproxy.link/
+		github = 'https://ghfast.top/',
 	},
 
 	-- pluginManager = { use = 'packer' }, -- 'vim-plug' or 'packer' or 'lazy' or 'local'
@@ -23,25 +24,11 @@ M.config = {
 	lsp = {
 		-- log = { level = 'debug' },
 
-		format = {
-			-- _ = { on_save = true },
-
-			lua = {
-				exclude = { -- exclude is a table of LSP servers that should not format the buffer.
-					'sumneko_lua',
-				},
-			},
-		},
-
 		setup = {
-			-- clangd = { cmd = { 'clangd', '--enable-config', '--log=verbose' } },
-			gopls = {
-				settings = {
-					gopls = {
-						env = { --
-							GOFLAGS = '-tags=linux,darwin,test,unittest', -- I don't care windows
-						},
-					},
+			ts_ls = {
+				handlers = {
+					['textDocument/publishDiagnostics'] = function() end,
+					['textDocument/diagnostic'] = function() end,
 				},
 			},
 		},

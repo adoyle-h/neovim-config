@@ -90,73 +90,75 @@ M.config = {
 		},
 
 		adapters = {
-			-- openai = function()
-			-- 	return require('codecompanion.adapters').extend('openai', {
-			-- 		schema = {
-			-- 			model = {
-			-- 				default = 'gpt-4.1',
-			-- 			},
-			-- 		},
-			-- 	})
-			-- end,
+			http = {
+				-- openai = function()
+				-- 	return require('codecompanion.adapters').extend('openai', {
+				-- 		schema = {
+				-- 			model = {
+				-- 				default = 'gpt-4.1',
+				-- 			},
+				-- 		},
+				-- 	})
+				-- end,
 
-			['vapi'] = function()
-				return require('codecompanion.adapters').extend('openai_compatible', {
-					env = {
-						url = 'https://api.vveai.com',
-						api_key = os.getenv('AVANTE_OPENAI_API_KEY'),
-						chat_url = '/v1/chat/completions',
-					},
-				})
-			end,
-
-			['gpt-4o-mini'] = function()
-				return require('codecompanion.adapters').extend('vapi', {
-					name = 'gpt-4o-mini',
-					formatted_name = 'gpt-4o-mini',
-					schema = {
-						model = {
-							default = 'gpt-4o-mini',
+				['vapi'] = function()
+					return require('codecompanion.adapters').extend('openai_compatible', {
+						env = {
+							url = 'https://api.vveai.com',
+							api_key = os.getenv('AVANTE_OPENAI_API_KEY'),
+							chat_url = '/v1/chat/completions',
 						},
-					},
-				})
-			end,
+					})
+				end,
 
-			['gpt-4o'] = function()
-				return require('codecompanion.adapters').extend('vapi', {
-					name = 'gpt-4o',
-					schema = {
-						model = {
-							default = 'gpt-4o',
+				['gpt-4o-mini'] = function()
+					return require('codecompanion.adapters').extend('vapi', {
+						name = 'gpt-4o-mini',
+						formatted_name = 'gpt-4o-mini',
+						schema = {
+							model = {
+								default = 'gpt-4o-mini',
+							},
 						},
-					},
-				})
-			end,
+					})
+				end,
 
-			['mistral:7b'] = function()
-				return require('codecompanion.adapters').extend('ollama', {
-					-- name = 'ollama', -- Give this adapter a different name to differentiate it from the default ollama adapter
-					name = 'mistral:7b',
-					schema = {
-						model = {
-							default = 'mistral:7b',
+				['gpt-4o'] = function()
+					return require('codecompanion.adapters').extend('vapi', {
+						name = 'gpt-4o',
+						schema = {
+							model = {
+								default = 'gpt-4o',
+							},
 						},
-					},
-				})
-			end,
-		},
+					})
+				end,
 
-		prompt_library = {
-			['简易对话'] = {
-				strategy = 'chat',
-				description = '一次性问答',
-				prompts = {
-					{
-						role = 'system',
-						content = [[
+				['mistral:7b'] = function()
+					return require('codecompanion.adapters').extend('ollama', {
+						-- name = 'ollama', -- Give this adapter a different name to differentiate it from the default ollama adapter
+						name = 'mistral:7b',
+						schema = {
+							model = {
+								default = 'mistral:7b',
+							},
+						},
+					})
+				end,
+
+				prompt_library = {
+					['简易对话'] = {
+						strategy = 'chat',
+						description = '一次性问答',
+						prompts = {
+							{
+								role = 'system',
+								content = [[
 You are a highly capable, honest, and helpful AI assistant.
 Your goals are to provide concise, clear, accurate, relevant responses in Chinese with Markdown formatting.
 					]],
+							},
+						},
 					},
 				},
 			},
