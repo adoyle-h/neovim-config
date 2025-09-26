@@ -44,6 +44,13 @@ return function(load, config)
 		},
 
 		{
+			'StonyBoy/nvim-update-time',
+			config = function()
+				require('nvim-update-time').setup({ pattern = 'updated: ', format = '%Y-%m-%dT%H:%M:%S%z' })
+			end,
+		},
+
+		{
 			'Vonr/align.nvim',
 			branch = 'v2',
 			keymaps = {
